@@ -1,0 +1,16 @@
+name: "utils"
+
+services:
+  cli:
+    image: "patrikjak/php84-cli"
+    container_name: "utils-cli"
+    environment:
+      XDEBUG_MODE: develop,debug,coverage
+    networks:
+      - shared
+    volumes:
+      - ".:/var/www"
+
+networks:
+  shared:
+    driver: bridge
