@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\View;
 
 use Closure;
@@ -8,6 +10,7 @@ use Illuminate\Config\Repository as Config;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\View\Component;
+use Patrikjak\Auth\Models\User;
 
 class Navigation extends Component
 {
@@ -20,12 +23,15 @@ class Navigation extends Component
 
     public function render(): View
     {
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
         return view('pjstarter::components.navigation', [
             'appName' => $this->config->get('pjstarter.app_name'),
             'appNameInitials' => $this->getAppNameInitials(),
             'homeUrl' => $this->getAppHome(),
-            'userName' => $this->authManager->user()->name,
-            'userEmail' => $this->authManager->user()->email,
+            'userName' => $user->name,
+            'userEmail' => $user->email,
             'userNameInitials' => $this->getUserNameInitials(),
             'items' => $this->getItems(),
             'userItems' => $this->getUserItems(),
@@ -39,7 +45,10 @@ class Navigation extends Component
 
     private function getUserNameInitials(): string
     {
-        $name = $this->authManager->user()->name;
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
+        $name = $user->name;
 
         $nameParts = explode(' ', $name);
 
@@ -101,7 +110,7 @@ class Navigation extends Component
     }
 
     /**
-     * @param array<array<string, string>> $configItems
+     * @param array<NavigationItem|Closure> $configItems
      * @return array<NavigationItem>
      */
     private function getItemsFromConfig(array $configItems): array
@@ -115,23 +124,22 @@ class Navigation extends Component
                 continue;
             }
 
-            if ($item instanceof Closure) {
-                $returnValue = $item($this->authManager->user());
+            $returnValue = $item($this->authManager->user());
 
-                if ($returnValue instanceof NavigationItem) {
-                    $items[] = $returnValue;
-                }
+            if ($returnValue instanceof NavigationItem) {
+                $items[] = $returnValue;
             }
         }
 
         return $items;
     }
 
-    private function setItemClasses($items): void
+    /**
+     * @param array<NavigationItem> $items
+     */
+    private function setItemClasses(array $items): void
     {
         foreach ($items as $item) {
-            assert($item instanceof NavigationItem);
-
             $currentClasses = $item->classes;
             $newClasses = ['item'];
 

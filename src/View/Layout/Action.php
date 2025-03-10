@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\View\Layout;
 
 use Illuminate\Contracts\View\View;
