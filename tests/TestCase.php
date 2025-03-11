@@ -44,6 +44,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->artisan('migrate');
         $this->artisan('migrate:fresh');
 
         $this->app->setLocale('test');
