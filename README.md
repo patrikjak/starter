@@ -66,4 +66,4 @@ All post-update-cmd can look like this:
 }
 ```
 
-Ajdust it to your needs. Be aware that --force flag will overwrite existing files.
+Adjust it to your needs. Be aware that --force flag will overwrite existing files.
