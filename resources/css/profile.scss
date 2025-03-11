@@ -1,0 +1,20 @@
+@use "variables" as *;
+
+.profile {
+    .user-info {
+        svg {
+            width: 1.25rem;
+
+            path {
+                fill: $primary;
+            }
+        }
+    }
+
+    p {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        margin: .5rem 0;
+    }
+}

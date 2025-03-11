@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "362030c429c7312088bc4b2a95f15e34",
+    "content-hash": "57a64cf23b526f5ba90e953f6cf37f35",
     "packages": [
         {
             "name": "brick/math",
@@ -2714,22 +2714,22 @@
         },
         {
             "name": "patrikjak/auth",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/auth.git",
-                "reference": "a6d104822b30719784b06a8c4eb06782b2d45c51"
+                "reference": "15a4e6a79b2045e0f802af7e75afe6bf16db54a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/auth/zipball/a6d104822b30719784b06a8c4eb06782b2d45c51",
-                "reference": "a6d104822b30719784b06a8c4eb06782b2d45c51",
+                "url": "https://api.github.com/repos/patrikjak/auth/zipball/15a4e6a79b2045e0f802af7e75afe6bf16db54a4",
+                "reference": "15a4e6a79b2045e0f802af7e75afe6bf16db54a4",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "^12.0",
+                "laravel/framework": "^12.1.1",
                 "laravel/socialite": "^5.16",
-                "patrikjak/utils": "^2.2",
+                "patrikjak/utils": "^2.3.0",
                 "php": "^8.4"
             },
             "require-dev": {
@@ -2765,22 +2765,22 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/auth/issues",
-                "source": "https://github.com/patrikjak/auth/tree/v1.2.0"
+                "source": "https://github.com/patrikjak/auth/tree/v1.3.0"
             },
-            "time": "2025-03-04T21:30:45+00:00"
+            "time": "2025-03-08T14:34:56+00:00"
         },
         {
             "name": "patrikjak/utils",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/utils.git",
-                "reference": "5b869e4df84b1375a17eec4c20473e6bfce4c962"
+                "reference": "908fa450252a2da8acba945c0d31f8695262fb49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/utils/zipball/5b869e4df84b1375a17eec4c20473e6bfce4c962",
-                "reference": "5b869e4df84b1375a17eec4c20473e6bfce4c962",
+                "url": "https://api.github.com/repos/patrikjak/utils/zipball/908fa450252a2da8acba945c0d31f8695262fb49",
+                "reference": "908fa450252a2da8acba945c0d31f8695262fb49",
                 "shasum": ""
             },
             "require": {
@@ -2819,9 +2819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/utils/issues",
-                "source": "https://github.com/patrikjak/utils/tree/v2.2.1"
+                "source": "https://github.com/patrikjak/utils/tree/v2.3.0"
             },
-            "time": "2025-03-06T18:57:06+00:00"
+            "time": "2025-03-08T14:09:48+00:00"
         },
         {
             "name": "phpoption/phpoption",
