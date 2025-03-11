@@ -6,6 +6,7 @@ namespace Patrikjak\Starter;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Patrikjak\Starter\Console\Commands\InstallCommand;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -14,12 +15,14 @@ class StarterServiceProvider extends ServiceProvider
         $this->registerComponents();
 
         $this->publishAssets();
+        $this->publishViews();
+        $this->publishConfig();
+        $this->publishTranslations();
 
         $this->loadRoutes();
         $this->loadViews();
         $this->loadTranslations();
-
-        $this->publishConfig();
+        $this->loadCommands();
     }
 
     public function register(): void
@@ -42,6 +45,20 @@ class StarterServiceProvider extends ServiceProvider
         ], 'pjstarter-assets');
     }
 
+    private function publishViews(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/pjstarter'),
+        ], 'pjstarter-views');
+    }
+
+    public function publishTranslations(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../lang' => lang_path('vendor/pjstarter'),
+        ], 'pjstarter-translations');
+    }
+
     private function loadRoutes(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
@@ -55,6 +72,13 @@ class StarterServiceProvider extends ServiceProvider
     private function loadTranslations(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'pjstarter');
+    }
+
+    private function loadCommands(): void
+    {
+        $this->commands([
+            InstallCommand::class,
+        ]);
     }
 
     private function registerComponents(): void
