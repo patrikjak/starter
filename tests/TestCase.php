@@ -6,6 +6,7 @@ namespace Patrikjak\Starter\Tests;
 
 use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Patrikjak\Auth\Models\User;
 use Patrikjak\Auth\Tests\Traits\TestingData;
@@ -20,6 +21,7 @@ abstract class TestCase extends BaseTestCase
     use MatchesSnapshots {
         assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
     }
+    use RefreshDatabase;
 
     public function assertMatchesHtmlSnapshot(string $actual): void
     {
@@ -44,8 +46,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->artisan('migrate');
-        $this->artisan('migrate:fresh');
+//        $this->artisan('migrate:fresh');
 
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
@@ -63,10 +64,10 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    protected function defineDatabaseMigrations(): void
+    /*protected function defineDatabaseMigrations(): void
     {
         $this->loadMigrationsFrom(base_path('vendor/patrikjak/auth/database/migrations'));
-    }
+    }*/
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
