@@ -20,7 +20,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Patrikjak\\Starter\\": "src/"
+            "Patrikjak\\Starter\\": "src/",
+            "Patrikjak\\Starter\\Tests\\": "tests/"
         }
     },
     "authors": [

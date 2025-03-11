@@ -17,8 +17,6 @@ if ($dashboardEnabled) {
 if ($profileEnabled) {
     Route::middleware(['web', 'auth'])->group(static function (): void {
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-        Route::get('/change-password', static function (): View {
-            return view('pjstarter::pages.profile.change-password');
-        })->name('change-password');
+        Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
     });
 }

@@ -1,9 +1,9 @@
-name: "utils"
+name: "starter"
 
 services:
   cli:
     image: "patrikjak/php84-cli"
-    container_name: "utils-cli"
+    container_name: "starter-cli"
     environment:
       XDEBUG_MODE: develop,debug,coverage
     networks:

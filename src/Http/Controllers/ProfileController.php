@@ -15,4 +15,9 @@ class ProfileController
             'user' => $authManager->user(),
         ]);
     }
+
+    public function changePassword(): View
+    {
+        return view('pjstarter::pages.profile.change-password');
+    }
 }
