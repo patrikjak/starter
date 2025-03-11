@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Unit\View\Layout;
 
 use Illuminate\Support\Facades\Blade;
