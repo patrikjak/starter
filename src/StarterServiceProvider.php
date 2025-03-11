@@ -45,18 +45,18 @@ class StarterServiceProvider extends ServiceProvider
         ], 'pjstarter-assets');
     }
 
-    private function publishViews(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/pjstarter'),
-        ], 'pjstarter-views');
-    }
-
     public function publishTranslations(): void
     {
         $this->publishes([
             __DIR__ . '/../lang' => lang_path('vendor/pjstarter'),
         ], 'pjstarter-translations');
+    }
+
+    private function publishViews(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/pjstarter'),
+        ], 'pjstarter-views');
     }
 
     private function loadRoutes(): void
