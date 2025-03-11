@@ -50,7 +50,7 @@ class AppTest extends TestCase
     }
 
     #[DefineEnvironment('usesDifferentAppName')]
-    public function testLayoutWithDifferentName()
+    public function testLayoutWithDifferentName(): void
     {
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
