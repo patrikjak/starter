@@ -46,8 +46,6 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-//        $this->artisan('migrate:fresh');
-
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
     }
