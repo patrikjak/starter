@@ -62,10 +62,10 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    /*protected function defineDatabaseMigrations(): void
+    protected function defineDatabaseMigrations(): void
     {
         $this->loadMigrationsFrom(base_path('vendor/patrikjak/auth/database/migrations'));
-    }*/
+    }
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint

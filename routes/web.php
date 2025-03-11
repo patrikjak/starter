@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\ProfileController;
