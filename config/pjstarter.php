@@ -19,6 +19,7 @@ return [
     'features' => [
         'dashboard' => true,
         'profile' => true,
+        'metadata' => true,
     ],
 
     /*

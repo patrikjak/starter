@@ -44,7 +44,8 @@ If you don't publish config file, you will miss all features of this package. I 
     "post-update-cmd": [
         "@php artisan vendor:publish --tag=pjstarter-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjstarter-config --ansi --force",
-        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force"
+        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force",
+        "@php artisan vendor:publish --tag=pjstarter-migrations --ansi --force"
     ]
 }
 ```
@@ -61,9 +62,27 @@ All post-update-cmd can look like this:
         "@php artisan vendor:publish --tag=pjauth-migrations --ansi",
         "@php artisan vendor:publish --tag=pjstarter-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjstarter-config --ansi --force",
-        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force"
+        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force",
+        "@php artisan vendor:publish --tag=pjstarter-migrations --ansi --force"
     ]
 }
 ```
 
 Adjust it to your needs. Be aware that --force flag will overwrite existing files.
+
+## Features
+
+### Metadata
+
+To enable metadata feature you need to set `metadata` to `true` in `config/pjstarter.php` file.
+
+```php
+return [
+    'features' => [
+        ...
+        'metadata' => true,
+    ],
+];
+```
+
+Migrations for metadata are included with enabled metadata feature.

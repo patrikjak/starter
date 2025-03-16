@@ -7,9 +7,15 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
+use Patrikjak\Starter\Repositories\Contracts\PageRepository as PageRepositoryContract;
+use Patrikjak\Starter\Repositories\PageRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
+    public array $bindings = [
+        PageRepositoryContract::class => PageRepository::class,
+    ];
+
     public function boot(): void
     {
         $this->registerComponents();
@@ -18,6 +24,7 @@ class StarterServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishConfig();
         $this->publishTranslations();
+        $this->publishMigrations();
 
         $this->loadRoutes();
         $this->loadViews();
@@ -57,6 +64,15 @@ class StarterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/pjstarter'),
         ], 'pjstarter-views');
+    }
+
+    private function publishMigrations(): void
+    {
+        if (config('pjstarter.features.metadata')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
     }
 
     private function loadRoutes(): void

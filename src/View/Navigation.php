@@ -75,6 +75,13 @@ class Navigation extends Component
             );
         }
 
+        if ($this->config->get('pjstarter.features.metadata')) {
+            $items[] = new NavigationItem(
+                __('pjstarter::pages.meta_data.title'),
+                route('metadata.index'),
+            );
+        }
+
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items')));
         $this->setItemClasses($items);
 
@@ -100,7 +107,7 @@ class Navigation extends Component
         $items = [];
 
         if ($this->config->get('pjstarter.features.profile')) {
-            $items[] = new NavigationItem(__('pjstarter::general.profile'), route('profile'));
+            $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('profile'));
         }
 
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.user_items')));

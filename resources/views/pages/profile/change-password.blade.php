@@ -1,16 +1,16 @@
 @use('Patrikjak\Utils\Common\Enums\Icon')
 @use('Illuminate\Support\Facades\Vite')
 
-<x-pjstarter::layout.app :title="__('pjstarter::general.password_change')">
+<x-pjstarter::layout.app :title="__('pjstarter::pages.profile.password_change')">
 
     <div class="profile">
         <div class="card w-2/5">
-            <p class="title">@lang('pjstarter::general.set_new_password')</p>
+            <p class="title">@lang('pjstarter::pages.profile.set_new_password')</p>
             
             <x-pjutils::form
                 method="PATCH"
                 :action="route('api.change-password')"
-                :action-label="__('pjstarter::general.change_password')"
+                :action-label="__('pjstarter::pages.profile.change_password')"
             >
                 <x-pjutils::form.hidden name="validate_current_password" value="0" />
 
