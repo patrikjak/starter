@@ -10,12 +10,16 @@ return [
         'member_since' => 'Členom od',
     ],
 
-    'meta_data' => [
+    'metadata' => [
         'title' => 'Metadata',
         'pages' => [
             'title' => 'Stránky',
             'name' => 'Názov stránky',
             'slug' => 'Slug',
+            'create' => 'Vytvoriť stránku',
+            'page_creation' => 'Vytvorenie stránky',
+            'edit' => 'Upraviť stránku',
+            'page_editing' => 'Upravenie stránky',
         ],
     ],
 ];

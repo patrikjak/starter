@@ -27,5 +27,7 @@ if ($metaDataEnabled) {
     Route::middleware(['web', 'auth'])->group(static function (): void {
         Route::get('/metadata', [MetadataController::class, 'index'])->name('metadata.index');
         Route::get('/pages', [PagesController::class, 'index'])->name('metadata.pages.index');
+        Route::get('/pages/create', [PagesController::class, 'create'])->name('metadata.pages.create');
+        Route::get('/pages/{page}/edit', [PagesController::class, 'edit'])->name('metadata.pages.edit');
     });
 }

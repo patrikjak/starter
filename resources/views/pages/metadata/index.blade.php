@@ -1,8 +1,8 @@
-<x-pjstarter::layout.app :title="__('pjstarter::pages.meta_data.title')">
+<x-pjstarter::layout.app :title="__('pjstarter::pages.metadata.title')">
 
     <x-slot:actions>
         <x-pjstarter::layout.action>
-            <a href="{{ route('metadata.pages.index') }}">@lang('pjstarter::pages.meta_data.pages.title')</a>
+            <a href="{{ route('metadata.pages.index') }}">@lang('pjstarter::pages.metadata.pages.title')</a>
         </x-pjstarter::layout.action>
     </x-slot:actions>
 

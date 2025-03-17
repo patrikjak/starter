@@ -1,7 +1,8 @@
 <?php
 
-namespace Patrikjak\Starter\Models;
+namespace Patrikjak\Starter\Models\Metadata;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,5 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Page extends Model
 {
+    use HasUuids;
+
     public $timestamps = false;
 }

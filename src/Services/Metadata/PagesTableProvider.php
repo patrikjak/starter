@@ -2,8 +2,10 @@
 
 namespace Patrikjak\Starter\Services\Metadata;
 
-use Patrikjak\Starter\Models\Page;
+use Patrikjak\Starter\Models\Metadata\Page;
 use Patrikjak\Starter\Repositories\Contracts\PageRepository;
+use Patrikjak\Utils\Common\Enums\Type;
+use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -26,8 +28,8 @@ class PagesTableProvider extends BasePaginatedTableProvider
     public function getHeader(): ?array
     {
         return [
-            'name' => __('pjstarter::pages.meta_data.pages.name'),
-            'slug' => __('pjstarter::pages.meta_data.pages.slug'),
+            'name' => __('pjstarter::pages.metadata.pages.name'),
+            'slug' => __('pjstarter::pages.metadata.pages.slug'),
         ];
     }
 
@@ -50,12 +52,23 @@ class PagesTableProvider extends BasePaginatedTableProvider
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getActions(): array
+    {
+        return [
+            new Item(__('pjstarter::general.edit'), 'edit'),
+            new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER),
+        ];
+    }
+
     protected function getPaginator(): TablePaginator
     {
         return PaginatorFactory::createFromLengthAwarePaginator($this->pageRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            '',
+            route('api.metadata.pages.table-parts'),
         ));
     }
 }

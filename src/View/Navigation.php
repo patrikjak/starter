@@ -77,7 +77,7 @@ class Navigation extends Component
 
         if ($this->config->get('pjstarter.features.metadata')) {
             $items[] = new NavigationItem(
-                __('pjstarter::pages.meta_data.title'),
+                __('pjstarter::pages.metadata.title'),
                 route('metadata.index'),
             );
         }

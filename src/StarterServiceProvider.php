@@ -78,6 +78,7 @@ class StarterServiceProvider extends ServiceProvider
     private function loadRoutes(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 
     private function loadViews(): void
