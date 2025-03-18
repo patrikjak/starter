@@ -2,8 +2,8 @@
 
 namespace Patrikjak\Starter\Services\Metadata;
 
-use Patrikjak\Starter\Models\Metadata\Page;
-use Patrikjak\Starter\Repositories\Contracts\PageRepository;
+use Patrikjak\Starter\Models\PageSlugs\PageSlug;
+use Patrikjak\Starter\Repositories\Contracts\PageSlugRepository;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -11,15 +11,15 @@ use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
 use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
-class PagesTableProvider extends BasePaginatedTableProvider
+class PageSlugsTableProvider extends BasePaginatedTableProvider
 {
-    public function __construct(private readonly PageRepository $pageRepository)
+    public function __construct(private readonly PageSlugRepository $pageRepository)
     {
     }
 
     public function getTableId(): string
     {
-        return 'pages-table';
+        return 'page-slugs-table';
     }
 
     /**
@@ -38,7 +38,7 @@ class PagesTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        return $this->getPageData()->map(static function (Page $page) {
+        return $this->getPageData()->map(static function (PageSlug $page) {
             return [
                 'id' => $page->id,
                 'name' => CellFactory::simple($page->name),
@@ -68,7 +68,7 @@ class PagesTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->pageRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.metadata.pages.table-parts'),
+            route('api.page-slugs.table-parts'),
         ));
     }
 }

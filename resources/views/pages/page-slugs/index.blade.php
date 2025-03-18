@@ -3,10 +3,10 @@
 @push('scripts')
     @if(file_exists(base_path('vendor/patrikjak/starter/public/hot')))
         {{ Vite::useHotFile('/var/www/vendor/patrikjak/starter/public/hot') }}
-        <script src="{{ Vite::asset('resources/js/metadata/pages.ts') }}" defer type="module"></script>
+        <script src="{{ Vite::asset('resources/js/page-slugs/index.ts') }}" defer type="module"></script>
     @else
         {{-- TODO: pages script --}}
-        <link rel="stylesheet" href="{{ asset('vendor/pjstarter/assets/profile.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/pjstarter/assets/page-slugs.css') }}">
     @endif
 @endpush
 
@@ -14,7 +14,7 @@
 
     <x-slot:actions>
         <x-pjstarter::layout.action>
-            <a href="{{ route('metadata.pages.create') }}">@lang('pjstarter::pages.metadata.pages.create')</a>
+            <a href="{{ route('page-slugs.create') }}">@lang('pjstarter::pages.metadata.pages.create')</a>
         </x-pjstarter::layout.action>
     </x-slot:actions>
 

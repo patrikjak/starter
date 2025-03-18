@@ -2,7 +2,7 @@
 
 namespace Patrikjak\Starter\Dto\Metadata;
 
-class CreatePage
+class CreatePageSlug
 {
     public function __construct(public readonly string $name, public readonly string $slug)
     {

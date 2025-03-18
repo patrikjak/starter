@@ -3,10 +3,10 @@
 namespace Patrikjak\Starter\Http\Requests\Metadata;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Patrikjak\Starter\Dto\Metadata\CreatePage;
+use Patrikjak\Starter\Dto\Metadata\CreatePageSlug;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
-class StorePageRequest extends FormRequest
+class StorePageSlugRequest extends FormRequest
 {
     /**
      * @return array<string, array<string>>
@@ -15,7 +15,7 @@ class StorePageRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:191'],
-            'slug' => ['required', 'max:191', 'unique:pages,slug', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'],
+            'slug' => ['required', 'max:191', 'unique:page_slugs,slug', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'],
         ];
     }
 
@@ -39,9 +39,9 @@ class StorePageRequest extends FormRequest
         ];
     }
 
-    public function getPage(): CreatePage
+    public function getPage(): CreatePageSlug
     {
-        return new CreatePage($this->input('name'), $this->input('slug'));
+        return new CreatePageSlug($this->input('name'), $this->input('slug'));
     }
 
     protected function prepareForValidation(): void

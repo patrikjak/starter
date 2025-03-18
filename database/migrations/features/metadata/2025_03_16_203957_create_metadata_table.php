@@ -9,11 +9,11 @@ return new class extends Migration {
     {
         Schema::create('metadata', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('sluggable_id')->constrained('page_slugs')->cascadeOnDelete();
             $table->string('title');
-            $table->string('description');
-            $table->string('keywords');
-            $table->uuid('page_id');
-            $table->string('page_type');
+            $table->string('description')->nullable();
+            $table->string('keywords')->nullable();
+            $table->timestamps();
         });
     }
 

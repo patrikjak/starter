@@ -2,7 +2,7 @@
 
     <x-slot:actions>
         <x-pjstarter::layout.action>
-            <a href="{{ route('metadata.pages.index') }}">@lang('pjstarter::pages.metadata.pages.title')</a>
+            <a href="{{ route('page-slugs.index') }}">@lang('pjstarter::pages.metadata.pages.title')</a>
         </x-pjstarter::layout.action>
     </x-slot:actions>
 

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Http\Controllers;
+namespace Patrikjak\Starter\Http\Controllers\Profile;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\View\View;

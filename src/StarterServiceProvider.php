@@ -7,13 +7,13 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
-use Patrikjak\Starter\Repositories\Contracts\PageRepository as PageRepositoryContract;
-use Patrikjak\Starter\Repositories\PageRepository;
+use Patrikjak\Starter\Repositories\Contracts\PageSlugRepository as PageRepositoryContract;
+use Patrikjak\Starter\Repositories\PageSlugRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
     public array $bindings = [
-        PageRepositoryContract::class => PageRepository::class,
+        PageRepositoryContract::class => PageSlugRepository::class,
     ];
 
     public function boot(): void
