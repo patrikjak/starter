@@ -4,7 +4,7 @@ namespace Patrikjak\Starter\Observers\PageSlugs;
 
 use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;
 use Patrikjak\Starter\Models\PageSlugs\Sluggable;
-use Patrikjak\Starter\Repositories\Contracts\PageSlugRepository;
+use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository;
 
 class PageSlugObserver
 {
@@ -12,7 +12,7 @@ class PageSlugObserver
     {
     }
 
-    public function saved(Sluggable $sluggable): void
+    public function created(Sluggable $sluggable): void
     {
         $this->pageSlugRepository->create(new CreatePageSlug(
             $sluggable->getSlug(),

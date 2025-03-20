@@ -31,6 +31,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
             'name' => __('pjstarter::pages.static_pages.name'),
             'url' => __('pjstarter::pages.static_pages.url'),
             'created_at' => __('pjstarter::general.created_at'),
+            'updated_at' => __('pjstarter::general.updated_at'),
         ];
     }
 
@@ -45,6 +46,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
                 'name' => CellFactory::simple($page->name),
                 'url' => CellFactory::simple(sprintf('%s/%s', config('app.url'), $page->slug->slug)),
                 'created_at' => CellFactory::simple($page->created_at->format('d.m.Y H:i')),
+                'updated_at' => CellFactory::simple($page->updated_at->format('d.m.Y H:i')),
             ];
         })->toArray();
     }

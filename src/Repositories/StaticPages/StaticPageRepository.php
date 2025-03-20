@@ -13,7 +13,7 @@ class StaticPageRepository implements StaticPageRepositoryContract
 
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return StaticPage::with('slug')->paginate($pageSize, page: $page)->withPath($refreshUrl);
+        return $this->getAllPaginatedByModel(StaticPage::class, $pageSize, $page, $refreshUrl);
     }
 
     public function create(string $name): void

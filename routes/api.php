@@ -8,18 +8,7 @@ Route::middleware(['web', 'auth'])
     ->name('api.')
     ->group(static function(): void {
         $staticPagesEnabled = config('pjstarter.features.static_pages');
-
-        Route::name('metadata.')->prefix('metadata')->group(static function (): void {
-
-        });
-        
-        Route::prefix('page-slugs')->name('page-slugs.')->group(static function (): void {
-            Route::post('/', [PageSlugsController::class, 'store'])->name('store');
-            Route::put('/{page}', [PageSlugsController::class, 'update'])->name('update');
-            Route::delete('/{page}', [PageSlugsController::class, 'destroy'])->name('destroy');
-
-            Route::get('/table-parts', [PageSlugsController::class, 'tableParts'])->name('table-parts');
-        });
+        $metadataEnabled = config('pjstarter.features.metadata');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')->name('static-pages.')->group(static function (): void {
@@ -28,6 +17,16 @@ Route::middleware(['web', 'auth'])
                 Route::delete('/{page}', [StaticPagesController::class, 'destroy'])->name('destroy');
 
                 Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])->name('table-parts');
+            });
+
+            Route::prefix('page-slugs')->name('page-slugs.')->group(static function (): void {
+                Route::put('/{pageSlug}', [PageSlugsController::class, 'update'])->name('update');
+            });
+        }
+
+        if ($metadataEnabled) {
+            Route::name('metadata.')->prefix('metadata')->group(static function (): void {
+
             });
         }
     });

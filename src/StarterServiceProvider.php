@@ -7,9 +7,9 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
-use Patrikjak\Starter\Repositories\Contracts\PageSlugRepository as PageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository as PageRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
-use Patrikjak\Starter\Repositories\PageSlugRepository;
+use Patrikjak\Starter\Repositories\PageSlugs\PageSlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
 
 class StarterServiceProvider extends ServiceProvider
