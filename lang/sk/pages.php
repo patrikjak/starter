@@ -10,6 +10,16 @@ return [
         'member_since' => 'Členom od',
     ],
 
+    'static_pages' => [
+        'title' => 'Statické stránky',
+        'name' => 'Názov stránky',
+        'url' => 'URL',
+        'slug' => 'Slug',
+        'new_page' => 'Nová stránka',
+        'edit_page' => 'Úprava stránky',
+        'create_new_page' => 'Vytvoriť novú stránku',
+    ],
+
     'metadata' => [
         'title' => 'Metadata',
         'pages' => [

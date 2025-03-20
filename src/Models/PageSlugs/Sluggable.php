@@ -10,7 +10,5 @@ interface Sluggable
 
     public function getSluggableId(): string;
 
-    public function getSluggableType(): string;
-
     public function slug(): MorphOne;
 }

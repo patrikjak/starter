@@ -3,7 +3,7 @@
 namespace Patrikjak\Starter\Http\Requests\Metadata;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Patrikjak\Starter\Dto\Metadata\CreatePageSlug;
+use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
 class StorePageSlugRequest extends FormRequest

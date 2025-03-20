@@ -7,18 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('metadata', function (Blueprint $table) {
+        Schema::create('static_pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('sluggable_id')->constrained('page_slugs')->cascadeOnDelete();
-            $table->string('title');
-            $table->string('description')->nullable();
-            $table->string('keywords')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('metadata');
+        Schema::dropIfExists('static_pages');
     }
 };

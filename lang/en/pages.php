@@ -10,6 +10,16 @@ return [
         'member_since' => 'Member since',
     ],
 
+    'static_pages' => [
+        'title' => 'Static pages',
+        'name' => 'Page name',
+        'url' => 'URL',
+        'slug' => 'Slug',
+        'new_page' => 'New page',
+        'edit_page' => 'Edit page',
+        'create_new_page' => 'Create a new page',
+    ],
+
     'metadata' => [
         'title' => 'Metadata',
         'pages' => [
