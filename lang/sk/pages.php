@@ -13,11 +13,15 @@ return [
     'static_pages' => [
         'title' => 'Statické stránky',
         'name' => 'Názov stránky',
+        'prefix' => 'Prefix',
         'url' => 'URL',
         'slug' => 'Slug',
         'new_page' => 'Nová stránka',
         'edit_page' => 'Úprava stránky',
         'create_new_page' => 'Vytvoriť novú stránku',
+        'placeholders' => [
+            'prefix' => 'Pre koreňovú stránku nechajte prázdne',
+        ],
     ],
 
     'metadata' => [

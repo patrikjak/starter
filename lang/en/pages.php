@@ -13,11 +13,15 @@ return [
     'static_pages' => [
         'title' => 'Static pages',
         'name' => 'Page name',
+        'prefix' => 'Prefix',
         'url' => 'URL',
         'slug' => 'Slug',
         'new_page' => 'New page',
         'edit_page' => 'Edit page',
         'create_new_page' => 'Create a new page',
+        'placeholders' => [
+            'prefix' => 'Leave empty for the root page',
+        ],
     ],
 
     'metadata' => [

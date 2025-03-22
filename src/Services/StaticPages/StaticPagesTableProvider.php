@@ -49,7 +49,12 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
             return [
                 'id' => $page->id,
                 'name' => CellFactory::simple($page->name),
-                'url' => CellFactory::simple(sprintf('%s/%s', config('app.url'), $page->slug->slug)),
+                'url' => CellFactory::simple(sprintf(
+                    '%s/%s%s',
+                    config('app.url'),
+                    $page->slug->prefix === null ? '' : sprintf('%s/', $page->slug->prefix),
+                    $page->slug->slug,
+                )),
                 'created_at' => CellFactory::simple($page->created_at->format('d.m.Y H:i')),
                 'updated_at' => CellFactory::simple($page->updated_at->format('d.m.Y H:i')),
             ];

@@ -48,6 +48,11 @@ class StaticPage extends Model implements Sluggable
         return $this->slug;
     }
 
+    public function getPrefix(): ?string
+    {
+        return null;
+    }
+
     /**
      * @return array<string, string>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

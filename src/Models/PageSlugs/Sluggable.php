@@ -12,6 +12,8 @@ interface Sluggable
 
     public function getSluggableId(): string;
 
+    public function getPrefix(): ?string;
+
     public function slug(): MorphOne;
 
     public function getSlug(): PageSlug;

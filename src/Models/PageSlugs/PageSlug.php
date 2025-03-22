@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $id
+ * @property ?string $prefix
  * @property string $slug
  * @property string $sluggable_id
  * @property string $sluggable_type

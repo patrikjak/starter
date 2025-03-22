@@ -28,6 +28,12 @@
                     :redirect="route('static-pages.index')"
                 >
                     <x-pjutils::form.input
+                        name="prefix"
+                        :label="__('pjstarter::pages.static_pages.prefix')"
+                        :value="$staticPage->slug->prefix"
+                    />
+
+                    <x-pjutils::form.input
                         name="slug"
                         :label="__('pjstarter::pages.static_pages.slug')"
                         :value="$staticPage->slug->slug"

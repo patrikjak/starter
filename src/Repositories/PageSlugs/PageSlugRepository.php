@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Repositories\PageSlugs;
 
 use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;
+use Patrikjak\Starter\Dto\PageSlugs\UpdatePageSlug;
 use Patrikjak\Starter\Models\PageSlugs\PageSlug;
 use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository as PageRepositoryContract;
 
@@ -19,6 +20,7 @@ class PageSlugRepository implements PageRepositoryContract
     {
         $pageSlug = new PageSlug();
 
+        $pageSlug->prefix = $createPageSlug->prefix;
         $pageSlug->slug = $createPageSlug->slug;
         $pageSlug->sluggable_id = $createPageSlug->sluggableId;
         $pageSlug->sluggable_type = $createPageSlug->sluggableType;
@@ -26,11 +28,12 @@ class PageSlugRepository implements PageRepositoryContract
         $pageSlug->save();
     }
 
-    public function update(string $id, string $slug): void
+    public function update(string $id, UpdatePageSlug $updatePageSlug): void
     {
         $pageSlug = PageSlug::findOrFail($id);
 
-        $pageSlug->slug = $slug;
+        $pageSlug->prefix = $updatePageSlug->prefix;
+        $pageSlug->slug = $updatePageSlug->slug;
 
         $pageSlug->save();
     }

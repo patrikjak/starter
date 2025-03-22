@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('page_slugs', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('prefix')->nullable();
             $table->string('slug')->unique()->index();
             $table->uuid('sluggable_id');
             $table->string('sluggable_type');

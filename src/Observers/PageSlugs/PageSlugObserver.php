@@ -23,6 +23,7 @@ class PageSlugObserver
             $sluggable->getNewSlug(),
             $sluggable->getSluggableId(),
             $sluggable->getMorphClass(),
+            $sluggable->getPrefix(),
         ));
     }
     
