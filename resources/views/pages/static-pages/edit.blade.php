@@ -19,7 +19,7 @@
             </div>
 
             <div class="card">
-                <p class="title">@lang('pjstarter::pages.static_pages.slug')</p>
+                <p class="title">@lang('pjstarter::pages.static_pages.url')</p>
 
                 <x-pjutils::form
                     :action="route('api.page-slugs.update', ['pageSlug' => $staticPage->slug->id])"
