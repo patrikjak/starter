@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.scss',
                 'resources/css/profile.scss',
                 'resources/js/main.ts',
-                'resources/js/static-pages/index.ts',
+                'resources/js/static-pages/static-pages-index.ts',
             ],
             refresh: false,
         }),

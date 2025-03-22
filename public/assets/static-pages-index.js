@@ -1,0 +1,1 @@
+import{d as a,e as s,f as i}from"./table.js";const e=document.querySelector(".pj-table-wrapper#static-pages-table");e&&(a(e,"edit",t=>{window.location.href=`/static-pages/${t}/edit`}),a(e,"delete",t=>{s.delete(`/api/static-pages/${t}`).then(p=>{i(e)})}));

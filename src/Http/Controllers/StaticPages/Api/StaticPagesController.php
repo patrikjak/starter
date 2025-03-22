@@ -20,16 +20,16 @@ class StaticPagesController
     }
 
     public function update(
-        StaticPage $pageSlug,
+        StaticPage $staticPage,
         StoreStaticPageRequest $request,
         StaticPageRepository $staticPageRepository,
     ): void {
-        $staticPageRepository->update($pageSlug->id, $request->getName());
+        $staticPageRepository->update($staticPage->id, $request->getName());
     }
 
-    public function destroy(StaticPage $pageSlug, StaticPageRepository $pageSlugRepository): void
+    public function destroy(StaticPage $staticPage, StaticPageRepository $pageSlugRepository): void
     {
-        $pageSlugRepository->delete($pageSlug->id);
+        $pageSlugRepository->delete($staticPage->id);
     }
 
     public function tableParts(TableParametersRequest $request, StaticPagesTableProvider $tableProvider): JsonResponse

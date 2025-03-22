@@ -2,6 +2,7 @@
 
 namespace Patrikjak\Starter\Services\StaticPages;
 
+use Illuminate\Contracts\Auth\Access\Gate;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Utils\Common\Enums\Type;
@@ -13,8 +14,10 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
 class StaticPagesTableProvider extends BasePaginatedTableProvider
 {
-    public function __construct(private readonly StaticPageRepository $staticPageRepository)
-    {
+    public function __construct(
+        private readonly StaticPageRepository $staticPageRepository,
+        private readonly Gate $gate,
+    ) {
     }
 
     public function getTableId(): string
@@ -61,6 +64,10 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
+        if ($this->gate->denies('update', StaticPage::class)) {
+            return [];
+        }
+
         return [
             new Item(__('pjstarter::general.edit'), 'edit'),
             new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER),

@@ -8,6 +8,11 @@ use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository as Pag
 
 class PageSlugRepository implements PageRepositoryContract
 {
+    public function getBySlug(string $slug): ?PageSlug
+    {
+        return PageSlug::where('slug', '=', '')->first();
+    }
+
     public function create(CreatePageSlug $createPageSlug): void
     {
         $pageSlug = new PageSlug();

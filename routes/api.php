@@ -2,6 +2,7 @@
 
 use Patrikjak\Starter\Http\Controllers\PageSlugs\Api\PageSlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
+use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
 Route::middleware(['web', 'auth'])
     ->prefix('api')
@@ -11,12 +12,16 @@ Route::middleware(['web', 'auth'])
         $metadataEnabled = config('pjstarter.features.metadata');
 
         if ($staticPagesEnabled) {
-            Route::prefix('static-pages')->name('static-pages.')->group(static function (): void {
-                Route::post('/', [StaticPagesController::class, 'store'])->name('store');
-                Route::put('/{page}', [StaticPagesController::class, 'update'])->name('update');
-                Route::delete('/{page}', [StaticPagesController::class, 'destroy'])->name('destroy');
+            Route::prefix('static-pages')
+                ->name('static-pages.')
+                ->group(static function (): void {
+                    Route::middleware(StaticPagePolicy::can('update'))->group(static function () {
+                        Route::post('/', [StaticPagesController::class, 'store'])->name('store');
+                        Route::put('/{staticPage}', [StaticPagesController::class, 'update'])->name('update');
+                        Route::delete('/{staticPage}', [StaticPagesController::class, 'destroy'])->name('destroy');
+                    });
 
-                Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])->name('table-parts');
+                    Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])->name('table-parts');
             });
 
             Route::prefix('page-slugs')->name('page-slugs.')->group(static function (): void {

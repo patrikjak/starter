@@ -5,7 +5,7 @@
             <div class="card">
                 <p class="title">@lang('pjstarter::pages.static_pages.edit_page')</p>
                 <x-pjutils::form
-                    :action="route('api.static-pages.update', ['page' => $staticPage->id])"
+                    :action="route('api.static-pages.update', ['staticPage' => $staticPage->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
                     :redirect="route('static-pages.index')"

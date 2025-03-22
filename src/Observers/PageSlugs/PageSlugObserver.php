@@ -15,7 +15,7 @@ class PageSlugObserver
     public function created(Sluggable $sluggable): void
     {
         $this->pageSlugRepository->create(new CreatePageSlug(
-            $sluggable->getSlug(),
+            $sluggable->getNewSlug(),
             $sluggable->getSluggableId(),
             $sluggable->getMorphClass(),
         ));
@@ -23,6 +23,6 @@ class PageSlugObserver
     
     public function deleted(Sluggable $sluggable): void
     {
-
+        $this->pageSlugRepository->delete($sluggable->getSlug()->id);
     }
 }
