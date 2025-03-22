@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Services\StaticPages;
 
 use Illuminate\Contracts\Auth\Access\Gate;

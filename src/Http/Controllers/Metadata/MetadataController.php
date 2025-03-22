@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Http\Controllers\Metadata;
 
 use Illuminate\Contracts\View\View;

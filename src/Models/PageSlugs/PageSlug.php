@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Models\PageSlugs;
 
 use Carbon\CarbonInterface;
@@ -18,6 +20,10 @@ class PageSlug extends Model
 {
     use HasUuids;
 
+    /**
+     * @return array<string, string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
     protected function casts(): array
     {
         return [

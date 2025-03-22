@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Models\StaticPages;
 
 use Carbon\CarbonInterface;
@@ -25,15 +27,11 @@ class StaticPage extends Model implements Sluggable
     use HasUuids;
     use PageSlugRelationship;
 
+    /**
+     * @var list<string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
     protected $with = ['slug'];
-
-    protected function casts(): array
-    {
-        return [
-            'created_at' => 'immutable_datetime',
-            'updated_at' => 'immutable_datetime',
-        ];
-    }
 
     public function getNewSlug(): string
     {
@@ -48,5 +46,17 @@ class StaticPage extends Model implements Sluggable
     public function getSlug(): PageSlug
     {
         return $this->slug;
+    }
+
+    /**
+     * @return array<string, string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'immutable_datetime',
+            'updated_at' => 'immutable_datetime',
+        ];
     }
 }

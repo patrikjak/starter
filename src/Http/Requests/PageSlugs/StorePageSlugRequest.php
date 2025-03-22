@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Http\Requests\PageSlugs;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,7 +21,7 @@ class StorePageSlugRequest extends FormRequest
     }
     
     /**
-     * @return array<string, array<string>>
+     * @return array<string, array<string>|EmptySlugExistsRule>
      */
     public function rules(): array
     {
@@ -32,6 +34,9 @@ class StorePageSlugRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
@@ -42,6 +47,9 @@ class StorePageSlugRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function attributes(): array
     {
         return [

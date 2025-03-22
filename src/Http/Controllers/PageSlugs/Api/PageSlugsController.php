@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Http\Controllers\PageSlugs\Api;
 
 use Patrikjak\Starter\Http\Requests\PageSlugs\StorePageSlugRequest;

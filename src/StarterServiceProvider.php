@@ -14,6 +14,9 @@ use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array<string, string>
+     */
     public array $bindings = [
         PageRepositoryContract::class => PageSlugRepository::class,
         StaticPageRepositoryContract::class => StaticPageRepository::class,

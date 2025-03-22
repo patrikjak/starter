@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Repositories\Contracts\PageSlugs;
 
 use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;

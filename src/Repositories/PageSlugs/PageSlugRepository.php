@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Repositories\PageSlugs;
 
 use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;
@@ -27,7 +29,6 @@ class PageSlugRepository implements PageRepositoryContract
     public function update(string $id, string $slug): void
     {
         $pageSlug = PageSlug::findOrFail($id);
-        assert($pageSlug instanceof PageSlug);
 
         $pageSlug->slug = $slug;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Http\Requests\StaticPages;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -7,6 +9,9 @@ use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
 class StoreStaticPageRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<string>>
+     */
     public function rules(): array
     {
         return [
@@ -14,6 +19,9 @@ class StoreStaticPageRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
@@ -23,6 +31,9 @@ class StoreStaticPageRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function attributes(): array
     {
         return [

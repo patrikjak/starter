@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Repositories\StaticPages;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -28,7 +30,6 @@ class StaticPageRepository implements StaticPageRepositoryContract
     public function update(string $id, string $name): void
     {
         $staticPage = StaticPage::findOrFail($id);
-        assert($staticPage instanceof StaticPage);
 
         $staticPage->name = $name;
 

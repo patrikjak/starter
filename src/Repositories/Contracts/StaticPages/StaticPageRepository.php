@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Repositories\Contracts\StaticPages;
 
 use Patrikjak\Starter\Repositories\Contracts\SupportsPagination;

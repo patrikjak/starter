@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Policies\StaticPages;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 
 class StaticPagePolicy
