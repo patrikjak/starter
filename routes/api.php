@@ -1,6 +1,6 @@
 <?php
 
-use Patrikjak\Starter\Http\Controllers\PageSlugs\Api\PageSlugsController;
+use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
@@ -24,8 +24,8 @@ Route::middleware(['web', 'auth'])
                     Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])->name('table-parts');
             });
 
-            Route::prefix('page-slugs')->name('page-slugs.')->group(static function (): void {
-                Route::put('/{pageSlug}', [PageSlugsController::class, 'update'])->name('update');
+            Route::prefix('slugs')->name('slugs.')->group(static function (): void {
+                Route::put('/{slug}', [SlugsController::class, 'update'])->name('update');
             });
         }
 

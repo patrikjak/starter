@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Observers\PageSlugs;
+namespace Patrikjak\Starter\Observers\Slugs;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Patrikjak\Starter\Dto\PageSlugs\CreatePageSlug;
-use Patrikjak\Starter\Models\PageSlugs\Sluggable;
-use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository;
+use Patrikjak\Starter\Dto\Slugs\CreateSlug;
+use Patrikjak\Starter\Models\Slugs\Sluggable;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 
-class PageSlugObserver
+class SlugObserver
 {
-    public function __construct(private readonly PageSlugRepository $pageSlugRepository)
+    public function __construct(private readonly SlugRepository $slugRepository)
     {
     }
 
@@ -22,11 +22,11 @@ class PageSlugObserver
 
         $newSlug = $sluggable->getNewSlug();
 
-        if ($this->pageSlugRepository->existsSameSlug($newSlug, $sluggable->getPrefix()) !== null) {
+        if ($this->slugRepository->existsSameSlug($newSlug, $sluggable->getPrefix()) !== null) {
             $newSlug .= sprintf('-%s', Str::random(5));
         }
 
-        $this->pageSlugRepository->create(new CreatePageSlug(
+        $this->slugRepository->create(new CreateSlug(
             $newSlug,
             $sluggable->getSluggableId(),
             $sluggable->getMorphClass(),
@@ -36,6 +36,6 @@ class PageSlugObserver
     
     public function deleted(Sluggable $sluggable): void
     {
-        $this->pageSlugRepository->delete($sluggable->getSlug()->id);
+        $this->slugRepository->delete($sluggable->getSlug()->id);
     }
 }

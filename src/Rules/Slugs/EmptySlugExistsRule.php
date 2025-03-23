@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Rules\PageSlugs;
+namespace Patrikjak\Starter\Rules\Slugs;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
 class EmptySlugExistsRule implements ValidationRule
@@ -17,11 +17,11 @@ class EmptySlugExistsRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $pageSlugRepository = app(PageSlugRepository::class);
+        $slugRepository = app(SlugRepository::class);
 
-        $emptyPageSlug = $pageSlugRepository->existsSameSlug('', $this->prefix);
+        $emptySlug = $slugRepository->existsSameSlug('', $this->prefix);
 
-        if ($emptyPageSlug === null) {
+        if ($emptySlug === null) {
             return;
         }
 

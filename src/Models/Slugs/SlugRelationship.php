@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Models\PageSlugs;
+namespace Patrikjak\Starter\Models\Slugs;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait PageSlugRelationship
+trait SlugRelationship
 {
     public function slug(): MorphOne
     {
-        return $this->morphOne(PageSlug::class, 'sluggable');
+        return $this->morphOne(Slug::class, 'sluggable');
     }
 }

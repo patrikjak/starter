@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('page_slugs', function (Blueprint $table) {
+        Schema::create('slugs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('prefix')->nullable();
             $table->string('slug')->index();
@@ -19,6 +19,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('page_slugs');
+        Schema::dropIfExists('slugs');
     }
 };

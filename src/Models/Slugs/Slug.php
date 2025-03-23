@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Models\PageSlugs;
+namespace Patrikjak\Starter\Models\Slugs;
 
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
  */
-class PageSlug extends Model
+class Slug extends Model
 {
     use HasUuids;
 

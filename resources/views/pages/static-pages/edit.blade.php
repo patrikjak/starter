@@ -27,7 +27,7 @@
                 <p class="title">@lang('pjstarter::pages.static_pages.url')</p>
 
                 <x-pjutils::form
-                    :action="route('api.page-slugs.update', ['pageSlug' => $staticPage->slug->id])"
+                    :action="route('api.slugs.update', ['slug' => $staticPage->slug->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
                     :redirect="route('static-pages.index')"

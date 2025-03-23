@@ -40,7 +40,10 @@ if ($staticPagesEnabled) {
 }
 
 if ($metaDataEnabled) {
-    Route::middleware(['web', 'auth'])->group(static function (): void {
-        Route::get('/metadata', [MetadataController::class, 'index'])->name('metadata.index');
+    Route::middleware(['web', 'auth'])
+        ->prefix('metadata')
+        ->name('metadata.')
+        ->group(static function (): void {
+            Route::get('/', [MetadataController::class, 'index'])->name('index');
     });
 }

@@ -7,9 +7,9 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
-use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository as PageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
-use Patrikjak\Starter\Repositories\PageSlugs\PageSlugRepository;
+use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
 
 class StarterServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class StarterServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
-        PageRepositoryContract::class => PageSlugRepository::class,
+        SlugRepositoryContract::class => SlugRepository::class,
         StaticPageRepositoryContract::class => StaticPageRepository::class,
     ];
 
@@ -86,11 +86,10 @@ class StarterServiceProvider extends ServiceProvider
             ], 'pjstarter-migrations');
         }
 
-        if (config('pjstarter.features.metadata') || config('pjstarter.features.static_pages')) {
+        if (config('pjstarter.features.static_pages')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/features/page-slugs' => database_path('migrations'),
+                __DIR__ . '/../database/migrations/features/slugs' => database_path('migrations'),
             ], 'pjstarter-migrations');
-
         }
     }
 

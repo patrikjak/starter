@@ -2,23 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Http\Requests\PageSlugs;
+namespace Patrikjak\Starter\Http\Requests\Slugs;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Unique;
-use Patrikjak\Starter\Dto\PageSlugs\UpdatePageSlug;
-use Patrikjak\Starter\Models\PageSlugs\PageSlug;
-use Patrikjak\Starter\Rules\PageSlugs\EmptySlugExistsRule;
+use Patrikjak\Starter\Dto\Slugs\UpdateSlug;
+use Patrikjak\Starter\Models\Slugs\Slug;
+use Patrikjak\Starter\Rules\Slugs\EmptySlugExistsRule;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
-class UpdatePageSlugRequest extends FormRequest
+class UpdateSlugRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $sluggableType = $this->route('pageSlug');
-        assert($sluggableType instanceof PageSlug);
+        $sluggableType = $this->route('slug');
+        assert($sluggableType instanceof Slug);
 
         return $this->user()->can('update', $sluggableType->sluggable_type);
     }
@@ -37,15 +37,15 @@ class UpdatePageSlugRequest extends FormRequest
             ];
         }
 
-        $currentSlug = $this->route('pageSlug');
-        assert($currentSlug instanceof PageSlug);
+        $currentSlug = $this->route('slug');
+        assert($currentSlug instanceof Slug);
 
         return [
             'prefix' => $prefixRules,
             'slug' => [
                 'required',
                 'max:191',
-                Rule::unique('page_slugs', 'slug')->ignore($currentSlug->id)->where(
+                Rule::unique('slugs', 'slug')->ignore($currentSlug->id)->where(
                     fn ($query) => $query->where('prefix', $this->getInputPrefix())
                 ),
                 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
@@ -78,9 +78,9 @@ class UpdatePageSlugRequest extends FormRequest
         ];
     }
 
-    public function getUpdatePageSlug(): UpdatePageSlug
+    public function getUpdateSlug(): UpdateSlug
     {
-        return new UpdatePageSlug(Str::slug($this->input('slug')), $this->input('prefix'));
+        return new UpdateSlug(Str::slug($this->input('slug')), $this->input('prefix'));
     }
 
     protected function prepareForValidation(): void

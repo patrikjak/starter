@@ -10,23 +10,23 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Models\Common\Visitable;
-use Patrikjak\Starter\Models\PageSlugs\PageSlug;
-use Patrikjak\Starter\Models\PageSlugs\PageSlugRelationship;
-use Patrikjak\Starter\Models\PageSlugs\Sluggable;
-use Patrikjak\Starter\Observers\PageSlugs\PageSlugObserver;
+use Patrikjak\Starter\Models\Slugs\Slug;
+use Patrikjak\Starter\Models\Slugs\SlugRelationship;
+use Patrikjak\Starter\Models\Slugs\Sluggable;
+use Patrikjak\Starter\Observers\Slugs\SlugObserver;
 
 /**
  * @property string $id
  * @property string $name
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
- * @property PageSlug $slug
+ * @property Slug $slug
  */
-#[ObservedBy(PageSlugObserver::class)]
+#[ObservedBy(SlugObserver::class)]
 class StaticPage extends Model implements Sluggable, Visitable
 {
     use HasUuids;
-    use PageSlugRelationship;
+    use SlugRelationship;
 
     /**
      * @var list<string>
@@ -44,7 +44,7 @@ class StaticPage extends Model implements Sluggable, Visitable
         return $this->id;
     }
 
-    public function getSlug(): PageSlug
+    public function getSlug(): Slug
     {
         return $this->slug;
     }
