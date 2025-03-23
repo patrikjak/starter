@@ -1,4 +1,9 @@
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.static_pages.edit_page'), $staticPage->name)">
+<x-pjstarter::layout.app :title="sprintf(
+    '%s - %s%s',
+    __('pjstarter::pages.static_pages.edit_page'),
+    $staticPage->slug->prefix === null ? '' : sprintf('%s/', $staticPage->slug->prefix),
+    $staticPage->name,
+)">
 
     <div class="page-create">
         <div class="grid-2-items">

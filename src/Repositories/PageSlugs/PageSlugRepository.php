@@ -11,9 +11,11 @@ use Patrikjak\Starter\Repositories\Contracts\PageSlugs\PageSlugRepository as Pag
 
 class PageSlugRepository implements PageRepositoryContract
 {
-    public function getBySlug(string $slug): ?PageSlug
+    public function existsSameSlug(string $slug, ?string $prefix = null): ?PageSlug
     {
-        return PageSlug::where('slug', '=', '')->first();
+        return PageSlug::where('slug', '=', $slug)
+            ->where('prefix', '=', $prefix)
+            ->first();
     }
 
     public function create(CreatePageSlug $createPageSlug): void

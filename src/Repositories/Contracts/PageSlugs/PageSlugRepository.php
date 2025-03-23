@@ -10,7 +10,7 @@ use Patrikjak\Starter\Models\PageSlugs\PageSlug;
 
 interface PageSlugRepository
 {
-    public function getBySlug(string $slug): ?PageSlug;
+    public function existsSameSlug(string $slug, ?string $prefix = null): ?PageSlug;
 
     public function create(CreatePageSlug $createPageSlug): void;
 

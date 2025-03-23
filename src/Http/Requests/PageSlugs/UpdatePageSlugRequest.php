@@ -30,10 +30,10 @@ class UpdatePageSlugRequest extends FormRequest
     {
         $prefixRules = ['nullable', 'regex:/^[a-z0-9\/]+(?:-[a-z0-9\/]+)*$/'];
 
-        if ($this->input('slug') === '') {
+        if ($this->getInputSlug() === null || $this->getInputSlug() === '') {
             return [
                 'prefix' => $prefixRules,
-                'slug' => [new EmptySlugExistsRule()],
+                'slug' => [new EmptySlugExistsRule()->setPrefix($this->getInputPrefix())],
             ];
         }
 
@@ -45,7 +45,9 @@ class UpdatePageSlugRequest extends FormRequest
             'slug' => [
                 'required',
                 'max:191',
-                Rule::unique('page_slugs', 'slug')->ignore($currentSlug->id),
+                Rule::unique('page_slugs', 'slug')->ignore($currentSlug->id)->where(
+                    fn ($query) => $query->where('prefix', $this->getInputPrefix())
+                ),
                 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
             ],
         ];
@@ -83,15 +85,31 @@ class UpdatePageSlugRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $this->merge([
+            'prefix' => $this->getInputPrefix(),
+            'slug' => $this->getInputSlug(),
+        ]);
+    }
+
+    private function getInputPrefix(): ?string
+    {
         $prefix = $this->input('prefix');
 
-        if ($prefix !== null) {
-            $prefix = trim($this->input('prefix'), "/ \t\n\r\0\x0B");
+        if ($prefix === null) {
+            return null;
         }
 
-        $this->merge([
-            'prefix' => $prefix,
-            'slug' => trim($this->input('slug', ''), "/ \t\n\r\0\x0B"),
-        ]);
+        return trim($prefix, "/ \t\n\r\0\x0B");
+    }
+
+    private function getInputSlug(): ?string
+    {
+        $slug = $this->input('slug');
+
+        if ($slug === null) {
+            return null;
+        }
+
+        return trim($slug, "/ \t\n\r\0\x0B");
     }
 }

@@ -9,7 +9,7 @@
                 :action-label="__('pjstarter::general.create')"
                 :redirect="route('static-pages.index')"
             >
-                <x-pjutils::form.input name="name" :label="__('pjstarter::pages.static_pages.name')" />
+                <x-pjutils::form.input name="name" :label="__('pjstarter::pages.static_pages.name')" autofocus />
             </x-pjutils::form>
         </div>
     </div>

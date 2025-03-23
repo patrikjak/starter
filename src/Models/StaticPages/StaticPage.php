@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Patrikjak\Starter\Models\Common\Visitable;
 use Patrikjak\Starter\Models\PageSlugs\PageSlug;
 use Patrikjak\Starter\Models\PageSlugs\PageSlugRelationship;
 use Patrikjak\Starter\Models\PageSlugs\Sluggable;
@@ -22,7 +23,7 @@ use Patrikjak\Starter\Observers\PageSlugs\PageSlugObserver;
  * @property PageSlug $slug
  */
 #[ObservedBy(PageSlugObserver::class)]
-class StaticPage extends Model implements Sluggable
+class StaticPage extends Model implements Sluggable, Visitable
 {
     use HasUuids;
     use PageSlugRelationship;
@@ -51,6 +52,16 @@ class StaticPage extends Model implements Sluggable
     public function getPrefix(): ?string
     {
         return null;
+    }
+
+    public function getUrl(): string
+    {
+        return sprintf(
+            '%s%s%s',
+            config('app.url'),
+            $this->slug->prefix === null ? '' : sprintf('/%s', $this->slug->prefix),
+            $this->slug->slug === '' ? '' : sprintf('/%s', $this->slug->slug),
+        );
     }
 
     /**
