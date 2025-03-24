@@ -98,6 +98,11 @@ class StaticPage extends Model implements Sluggable, Visitable, Metadatable
         return __('pjstarter::pages.static_pages.metadatable_type');
     }
 
+    public function getPageName(): string
+    {
+        return $this->name;
+    }
+
     /**
      * @return array<string, string>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

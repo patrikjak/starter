@@ -31,10 +31,6 @@ class Metadata extends Model
         return $this->morphTo();
     }
 
-    public function getFormattedTitle(bool $cutLong = false): string
-    {
-    }
-
     /**
      * @return array<string, string>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

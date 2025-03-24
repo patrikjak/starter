@@ -19,4 +19,6 @@ interface Metadatable
     public function getMetadata(): ?Metadata;
 
     public function getMetadatableTypeLabel(): string;
+
+    public function getPageName(): string;
 }

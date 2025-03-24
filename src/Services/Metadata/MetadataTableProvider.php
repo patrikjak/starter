@@ -59,7 +59,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
                 'canonical_url' => $canonicalUrl,
                 'structured_data' => CellFactory::simple($this->getCroppedData($metadata->structured_data)),
                 'page_name' => CellFactory::double(
-                    $metadata->metadatable->name,
+                    $metadata->metadatable->getPageName(),
                     $metadata->metadatable->getMetadatableTypeLabel(),
                 ),
             ];
