@@ -5,9 +5,11 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Models\Metadata;
 
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Patrikjak\Starter\Observers\Metadata\MetadataObserver;
 
 /**
  * @property string $id
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property CarbonInterface $updated_at
  * @property Metadatable $metadatable
  */
+#[ObservedBy(MetadataObserver::class)]
 class Metadata extends Model
 {
     use HasUuids;

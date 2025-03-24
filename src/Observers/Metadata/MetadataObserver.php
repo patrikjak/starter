@@ -4,10 +4,16 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Observers\Metadata;
 
-class MetadataObserver
+use Illuminate\Foundation\Console\Kernel;
+
+final readonly class MetadataObserver
 {
+    public function __construct(private Kernel $kernel)
+    {
+    }
+
     public function updated(): void
     {
-        // TODO: delete cache
+        $this->kernel->call('view:clear');
     }
 }
