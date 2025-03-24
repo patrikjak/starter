@@ -80,9 +80,7 @@ class Navigation extends Component
                 __('pjstarter::pages.static_pages.title'),
                 route('static-pages.index'),
             );
-        }
 
-        if ($this->config->get('pjstarter.features.metadata')) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('metadata.index'),

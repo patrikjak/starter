@@ -20,7 +20,6 @@ return [
         'dashboard' => true,
         'profile' => true,
         'static_pages' => true,
-        'metadata' => true,
     ],
 
     /*
@@ -31,5 +30,7 @@ return [
         'items' => [],
         'user_items' => [],
     ],
+
+    'meta_title_format' => '{title} | {appName}',
 
 ];

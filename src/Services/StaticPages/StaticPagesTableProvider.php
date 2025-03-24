@@ -49,7 +49,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
             return [
                 'id' => $page->id,
                 'name' => CellFactory::simple($page->name),
-                'url' => CellFactory::simple($page->getUrl()),
+                'url' => CellFactory::link($page->getUrl(), $page->getUrl()),
                 'created_at' => CellFactory::simple($page->created_at->format('d.m.Y H:i')),
                 'updated_at' => CellFactory::simple($page->updated_at->format('d.m.Y H:i')),
             ];

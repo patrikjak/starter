@@ -1,5 +1,6 @@
 <?php
 
+use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -30,8 +31,10 @@ Route::middleware(['web', 'auth'])
         }
 
         if ($metadataEnabled) {
-            Route::name('metadata.')->prefix('metadata')->group(static function (): void {
+            Route::prefix('metadata')->name('metadata.')->group(static function (): void {
+                Route::put('/{metadata}', [MetadataController::class, 'update'])->name('update');
 
+                Route::get('/table-parts', [MetadataController::class, 'tableParts'])->name('table-parts');
             });
         }
     });

@@ -45,5 +45,7 @@ if ($metaDataEnabled) {
         ->name('metadata.')
         ->group(static function (): void {
             Route::get('/', [MetadataController::class, 'index'])->name('index');
+            Route::get('/{metadata}', [MetadataController::class, 'show'])->name('show');
+            Route::get('/{metadata}/edit', [MetadataController::class, 'edit'])->name('edit');
     });
 }

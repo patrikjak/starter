@@ -7,8 +7,10 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
+use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
 use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
 
@@ -20,6 +22,7 @@ class StarterServiceProvider extends ServiceProvider
     public array $bindings = [
         SlugRepositoryContract::class => SlugRepository::class,
         StaticPageRepositoryContract::class => StaticPageRepository::class,
+        MetadataRepositoryContract::class => MetadataRepository::class,
     ];
 
     public function boot(): void
@@ -74,12 +77,6 @@ class StarterServiceProvider extends ServiceProvider
 
     private function publishMigrations(): void
     {
-        /*if (config('pjstarter.features.metadata')) {
-            $this->publishes([
-                __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
-            ], 'pjstarter-migrations');
-        }*/
-
         if (config('pjstarter.features.static_pages')) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/features/static-pages' => database_path('migrations'),
@@ -89,6 +86,10 @@ class StarterServiceProvider extends ServiceProvider
         if (config('pjstarter.features.static_pages')) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/features/slugs' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
             ], 'pjstarter-migrations');
         }
     }

@@ -22,10 +22,19 @@ return [
         'placeholders' => [
             'prefix' => 'Leave empty for the root page',
         ],
+        'metadatable_type' => 'Static page',
     ],
 
     'metadata' => [
         'title' => 'SEO settings',
+        'meta_title' => 'Meta title',
+        'meta_description' => 'Meta description',
+        'meta_keywords' => 'Meta keywords',
+        'canonical_url' => 'Canonical URL',
+        'structured_data' => 'Structured data',
+        'page_name' => 'Page name',
+        'empty' => 'Empty',
+        'edit' => 'Edit SEO settings',
     ],
 
 ];

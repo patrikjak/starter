@@ -20,6 +20,42 @@
     }
 }
 
+.strong {
+    font-weight: 600;
+}
+
+.font-primary {
+    color: $primary;
+}
+
+.font-s {
+    font-size: .75rem;
+}
+
+.font-m {
+    font-size: .875rem;
+}
+
+.font-l {
+    font-size: 1.25rem;
+}
+
+.font-xl {
+    font-size: 1.5rem;
+}
+
+.font-2xl {
+    font-size: 2rem;
+}
+
+.font-3xl {
+    font-size: 3rem;
+}
+
+.italic {
+    font-style: italic;
+}
+
 .grid-2-items {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

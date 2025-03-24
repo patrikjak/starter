@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/profile.scss',
                 'resources/js/main.ts',
                 'resources/js/static-pages/static-pages-index.ts',
+                'resources/js/metadata/metadata-index.ts',
             ],
             refresh: false,
         }),

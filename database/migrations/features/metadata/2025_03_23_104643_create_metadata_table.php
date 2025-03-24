@@ -12,7 +12,10 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('keywords')->nullable();
-            $table->foreignUuid('sluggable_id')->constrained('page_slugs')->cascadeOnDelete();
+            $table->string('canonical_url')->nullable();
+            $table->json('structured_data')->nullable();
+            $table->uuid('metadatable_id');
+            $table->string('metadatable_type');
             $table->timestamps();
         });
     }

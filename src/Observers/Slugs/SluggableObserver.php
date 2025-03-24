@@ -10,9 +10,9 @@ use Patrikjak\Starter\Dto\Slugs\CreateSlug;
 use Patrikjak\Starter\Models\Slugs\Sluggable;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 
-class SlugObserver
+final readonly class SluggableObserver
 {
-    public function __construct(private readonly SlugRepository $slugRepository)
+    public function __construct(private SlugRepository $slugRepository)
     {
     }
 

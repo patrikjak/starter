@@ -22,9 +22,18 @@ return [
         'placeholders' => [
             'prefix' => 'Pre koreňovú stránku nechajte prázdne',
         ],
+        'metadatable_type' => 'Statická stránka',
     ],
 
     'metadata' => [
         'title' => 'SEO nastavenia',
+        'meta_title' => 'Meta názov',
+        'meta_description' => 'Meta popis',
+        'meta_keywords' => 'Meta kľúčové slová',
+        'canonical_url' => 'Kanonická URL',
+        'structured_data' => 'Štruktúrované dáta',
+        'page_name' => 'Názov stránky',
+        'empty' => 'Nevyplnené',
+        'edit' => 'Upraviť SEO nastavenia',
     ],
 ];

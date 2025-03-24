@@ -57,6 +57,7 @@ All post-update-cmd can look like this:
     "post-update-cmd": [
         "@php artisan vendor:publish --tag=pjutils-config --ansi --force",
         "@php artisan vendor:publish --tag=pjutils-assets --ansi --force",
+        "@php artisan vendor:publish --tag=pjutils-translations --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-config --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-migrations --ansi",
