@@ -4,7 +4,7 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.profile.password_change')">
 
     <div class="profile">
-        <div class="card w-2/5">
+        <div class="card w-1/2 mx-auto">
             <p class="title">@lang('pjstarter::pages.profile.set_new_password')</p>
             
             <x-pjutils::form

@@ -19,7 +19,7 @@
     </x-slot:actions>
 
     <div class="profile">
-        <div class="card user-info w-2/5">
+        <div class="card user-info w-1/2 mx-auto">
             <p class="title">{{ $user->name }}</p>
             <p>{!! Icon::getCustomAsHtml('email') !!} {{ $user->email }}</p>
             <p>{!! Icon::getCustomAsHtml('clock') !!} @lang('pjstarter::pages.profile.member_since') {{ $user->created_at->format('d.m.Y') }}</p>
