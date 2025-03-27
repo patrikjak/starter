@@ -2771,16 +2771,16 @@
         },
         {
             "name": "patrikjak/utils",
-            "version": "2.5.0",
+            "version": "2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/utils.git",
-                "reference": "99d87fb7b4ad4b63fd83aa2b019c5e1783af2f2b"
+                "reference": "d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/utils/zipball/99d87fb7b4ad4b63fd83aa2b019c5e1783af2f2b",
-                "reference": "99d87fb7b4ad4b63fd83aa2b019c5e1783af2f2b",
+                "url": "https://api.github.com/repos/patrikjak/utils/zipball/d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8",
+                "reference": "d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8",
                 "shasum": ""
             },
             "require": {
@@ -2819,9 +2819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/utils/issues",
-                "source": "https://github.com/patrikjak/utils/tree/v2.5.0"
+                "source": "https://github.com/patrikjak/utils/tree/v2.5.1"
             },
-            "time": "2025-03-23T17:40:49+00:00"
+            "time": "2025-03-27T19:30:08+00:00"
         },
         {
             "name": "phpoption/phpoption",

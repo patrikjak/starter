@@ -29,6 +29,14 @@ class Metadata extends Model
 {
     use HasUuids;
 
+    public const array COLUMNS_MASK = [
+        'sp.name' => 'static_page_name',
+        'title' => 'meta_title',
+        'description' => 'meta_description',
+        'keywords' => 'meta_keywords',
+        'canonical_url' => 'canonical_url',
+    ];
+
     public function metadatable(): MorphTo
     {
         return $this->morphTo();

@@ -9,12 +9,34 @@ use Patrikjak\Starter\Dto\Metadata\CreateMetadata;
 use Patrikjak\Starter\Dto\Metadata\UpdateMetadata;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
+use Patrikjak\Utils\Common\Dto\Filter\FilterCriteria;
+use Patrikjak\Utils\Common\Dto\Sort\SortCriteria;
+use Patrikjak\Utils\Common\Services\QueryBuilder\FilterService;
+use Patrikjak\Utils\Common\Services\QueryBuilder\SortService;
 
 readonly class MetadataRepository implements MetadataRepositoryContract
 {
-    public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
+    public function __construct(private SortService $sortService, private FilterService $filterService)
     {
-        return Metadata::with('metadatable')->paginate($pageSize, page: $page)->withPath($refreshUrl);
+    }
+
+    public function getAllPaginated(
+        int $pageSize,
+        int $page,
+        string $refreshUrl,
+        ?SortCriteria $sortCriteria,
+        ?FilterCriteria $filterCriteria,
+    ): LengthAwarePaginator {
+        $columnsMask = Metadata::COLUMNS_MASK;
+
+        $query = Metadata::with('metadatable')
+            ->join('static_pages AS sp', 'metadata.metadatable_id', '=', 'sp.id')
+            ->select('metadata.*', 'sp.name AS static_page_name', 'sp.id AS static_page_id');
+
+        $this->sortService->applySort($query, $sortCriteria, $columnsMask);
+        $this->filterService->applyFilter($query, $filterCriteria, $columnsMask);
+
+        return $query->paginate($pageSize, page: $page)->withPath($refreshUrl);
     }
 
     public function create(CreateMetadata $createMetadata): void

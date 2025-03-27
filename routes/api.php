@@ -10,7 +10,6 @@ Route::middleware(['web', 'auth'])
     ->name('api.')
     ->group(static function(): void {
         $staticPagesEnabled = config('pjstarter.features.static_pages');
-        $metadataEnabled = config('pjstarter.features.metadata');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')
@@ -30,7 +29,7 @@ Route::middleware(['web', 'auth'])
             });
         }
 
-        if ($metadataEnabled) {
+        if ($staticPagesEnabled) {
             Route::prefix('metadata')->name('metadata.')->group(static function (): void {
                 Route::put('/{metadata}', [MetadataController::class, 'update'])->name('update');
 

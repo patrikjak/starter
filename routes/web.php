@@ -10,7 +10,6 @@ use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
 $staticPagesEnabled = config('pjstarter.features.static_pages');
-$metaDataEnabled = config('pjstarter.features.metadata');
 
 if ($dashboardEnabled) {
     Route::middleware(['web', 'auth'])->group(static function (): void {
@@ -39,7 +38,7 @@ if ($staticPagesEnabled) {
     });
 }
 
-if ($metaDataEnabled) {
+if ($staticPagesEnabled) {
     Route::middleware(['web', 'auth'])
         ->prefix('metadata')
         ->name('metadata.')
