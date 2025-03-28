@@ -13,6 +13,11 @@ class SlugRepository implements PageRepositoryContract
 {
     public function existsSameSlug(string $slug, ?string $prefix = null): ?Slug
     {
+        return $this->getBySlug($slug, $prefix);
+    }
+
+    public function getBySlug(string $slug, ?string $prefix = null): ?Slug
+    {
         return Slug::where('slug', '=', $slug)
             ->where('prefix', '=', $prefix)
             ->first();

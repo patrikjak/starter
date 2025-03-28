@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
@@ -48,3 +49,7 @@ if ($staticPagesEnabled) {
             Route::get('/{metadata}/edit', [MetadataController::class, 'edit'])->name('edit');
     });
 }
+
+Route::get('bengoro', function (\Patrikjak\Starter\Services\Slugs\SlugsService $slugsService, Request $request) {
+    dd($slugsService->getSluggableFromUrl($request->url()));
+});

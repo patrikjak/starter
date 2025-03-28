@@ -7,6 +7,7 @@ namespace Patrikjak\Starter\Models\Slugs;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property string $id
@@ -16,10 +17,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $sluggable_type
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
+ * @property-read Sluggable $sluggable
  */
 class Slug extends Model
 {
     use HasUuids;
+
+    public function sluggable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
     /**
      * @return array<string, string>
