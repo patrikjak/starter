@@ -10,7 +10,7 @@ use Patrikjak\Starter\Models\Slugs\Slug;
 
 interface SlugRepository
 {
-    public function existsSameSlug(string $slug, ?string $prefix = null): ?Slug;
+    public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug;
 
     public function getBySlug(string $slug, ?string $prefix = null): ?Slug;
 

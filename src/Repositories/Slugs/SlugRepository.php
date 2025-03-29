@@ -11,9 +11,16 @@ use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as PageReposit
 
 class SlugRepository implements PageRepositoryContract
 {
-    public function existsSameSlug(string $slug, ?string $prefix = null): ?Slug
+    public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug
     {
-        return $this->getBySlug($slug, $prefix);
+        $query = Slug::where('slug', '=', $slug)
+            ->where('prefix', '=', $prefix);
+
+        if ($ignoredId !== null) {
+            $query->where('id', '!=', $ignoredId);
+        }
+
+        return $query->first();
     }
 
     public function getBySlug(string $slug, ?string $prefix = null): ?Slug

@@ -64,4 +64,17 @@ class UpdateMetadataRequest extends FormRequest
             $this->input('structured_data'),
         );
     }
+
+    protected function prepareForValidation(): void
+    {
+        $canonicalUrl = $this->input('canonical_url');
+
+        if ($canonicalUrl === null) {
+            return;
+        }
+
+        $this->merge([
+            'canonical_url' => rtrim($canonicalUrl, '/'),
+        ]);
+    }
 }

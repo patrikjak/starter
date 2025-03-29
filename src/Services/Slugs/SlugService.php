@@ -6,7 +6,7 @@ use Patrikjak\Starter\Models\Slugs\Slug;
 use Patrikjak\Starter\Models\Slugs\Sluggable;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 
-readonly class SlugsService
+readonly class SlugService
 {
     public function __construct(private SlugRepository $slugRepository)
     {
@@ -18,7 +18,7 @@ readonly class SlugsService
         $parts = explode('/', $path);
 
         if (count($parts) < 1) {
-            return null;
+            return $this->slugRepository->getBySlug('');
         }
 
         $slug = array_pop($parts);
@@ -28,7 +28,8 @@ readonly class SlugsService
             $prefix = implode('/', $parts);
         }
 
-        return $this->slugRepository->getBySlug($slug, $prefix);
+        return $this->slugRepository->getBySlug($slug, $prefix)
+            ?? $this->slugRepository->getBySlug('', $slug);
     }
 
     public function getSluggableFromUrl(string $url): Sluggable

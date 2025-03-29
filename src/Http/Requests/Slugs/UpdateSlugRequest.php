@@ -30,15 +30,18 @@ class UpdateSlugRequest extends FormRequest
     {
         $prefixRules = ['nullable', 'regex:/^[a-z0-9\/]+(?:-[a-z0-9\/]+)*$/'];
 
+        $currentSlug = $this->route('slug');
+        assert($currentSlug instanceof Slug);
+
         if ($this->getInputSlug() === null || $this->getInputSlug() === '') {
             return [
                 'prefix' => $prefixRules,
-                'slug' => [new EmptySlugExistsRule()->setPrefix($this->getInputPrefix())],
+                'slug' => [new EmptySlugExistsRule()
+                    ->setPrefix($this->getInputPrefix())
+                    ->setIgnoredId($currentSlug->id)
+                ],
             ];
         }
-
-        $currentSlug = $this->route('slug');
-        assert($currentSlug instanceof Slug);
 
         return [
             'prefix' => $prefixRules,

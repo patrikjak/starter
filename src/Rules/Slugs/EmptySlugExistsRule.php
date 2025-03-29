@@ -15,11 +15,13 @@ class EmptySlugExistsRule implements ValidationRule
 
     protected ?string $prefix = null;
 
+    protected ?string $ignoredId = null;
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $slugRepository = app(SlugRepository::class);
 
-        $emptySlug = $slugRepository->existsSameSlug('', $this->prefix);
+        $emptySlug = $slugRepository->existsSameSlug('', $this->prefix, $this->ignoredId);
 
         if ($emptySlug === null) {
             return;
@@ -31,6 +33,13 @@ class EmptySlugExistsRule implements ValidationRule
     public function setPrefix(?string $prefix): static
     {
         $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    public function setIgnoredId(?string $ignoredId): static
+    {
+        $this->ignoredId = $ignoredId;
 
         return $this;
     }
