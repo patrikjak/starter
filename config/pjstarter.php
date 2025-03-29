@@ -19,7 +19,7 @@ return [
     'features' => [
         'dashboard' => true,
         'profile' => true,
-        'static_pages' => true,
+        'static_pages' => false,
     ],
 
     /*
