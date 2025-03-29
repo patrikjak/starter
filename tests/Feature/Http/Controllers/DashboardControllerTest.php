@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Integration\Http\Controllers;
+namespace Patrikjak\Starter\Tests\Feature\Http\Controllers;
 
 use Patrikjak\Starter\Tests\TestCase;
 

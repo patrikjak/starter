@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Unit\View\Layout;
+namespace Patrikjak\Starter\Tests\Feature\View\Layout;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
@@ -66,11 +66,7 @@ class AppTest extends TestCase
         $this->actingAs($this->createUser());
     }
 
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     * @param Application $app
-     */
-    protected function usesDifferentAppName($app): void
+    protected function usesDifferentAppName(Application $app): void
     {
         $app['config']->set('pjstarter.app_name', 'Different App Name');
     }

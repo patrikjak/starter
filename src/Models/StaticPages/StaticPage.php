@@ -7,8 +7,10 @@ namespace Patrikjak\Starter\Models\StaticPages;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Patrikjak\Starter\Database\Factories\StaticPages\StaticPageFactory;
 use Patrikjak\Starter\Models\Common\Visitable;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Metadata\Metadatable;
@@ -34,6 +36,7 @@ class StaticPage extends Model implements Sluggable, Visitable, Metadatable
     use HasUuids;
     use SlugRelationship;
     use MetadataRelationship;
+    use HasFactory;
 
     /**
      * @var list<string>
@@ -113,5 +116,10 @@ class StaticPage extends Model implements Sluggable, Visitable, Metadatable
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
+    }
+
+    protected static function newFactory(): StaticPageFactory
+    {
+        return StaticPageFactory::new();
     }
 }

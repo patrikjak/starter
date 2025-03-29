@@ -1,2 +1,7 @@
 parameters:
-    ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/Feature/Http/Controllers/StaticPagesControllerTest.php

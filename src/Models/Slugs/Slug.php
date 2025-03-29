@@ -6,8 +6,10 @@ namespace Patrikjak\Starter\Models\Slugs;
 
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Patrikjak\Starter\Database\Factories\StaticPages\SlugFactory;
 
 /**
  * @property string $id
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Slug extends Model
 {
     use HasUuids;
+    use HasFactory;
 
     public function sluggable(): MorphTo
     {
@@ -38,5 +41,10 @@ class Slug extends Model
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
+    }
+
+    protected static function newFactory(): SlugFactory
+    {
+        return SlugFactory::new();
     }
 }

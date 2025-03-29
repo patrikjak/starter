@@ -2,17 +2,20 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Unit\View;
+namespace Patrikjak\Starter\Tests\Feature\View;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Models\User;
 use Patrikjak\Starter\Tests\TestCase;
+use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\View\NavigationItem;
 
 class NavigationTest extends TestCase
 {
+    use ConfigSetter;
+
     #[DefineEnvironment('usesNavigationItems')]
     public function testNavigation(): void
     {
@@ -25,11 +28,31 @@ class NavigationTest extends TestCase
         ));
     }
 
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     * @param Application $app
-     */
-    protected function usesNavigationItems($app): void
+    #[DefineEnvironment('enableStaticPages')]
+    public function testNavigationWithEnabledStaticPages(): void
+    {
+        $this->actingAs($this->createUser());
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    #[DefineEnvironment('disableProfile')]
+    public function testNavigationWithDisabledProfile(): void
+    {
+        $this->actingAs($this->createUser());
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    protected function usesNavigationItems(Application $app): void
     {
         $app['config']->set('pjstarter.navigation', [
             'home' => static function (): string {
