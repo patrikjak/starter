@@ -12,7 +12,8 @@ composer require patrikjak/starter
 
 ## Documentation
 
-- [Web header Components](docs/metadata-header.md)
+- [Web header Components](docs/metadata-header.md) - Documentation for the web header component
+- [Configuration](docs/config.md) - Documentation for all available configuration options
 
 ## Setup
 
@@ -74,20 +75,3 @@ All post-update-cmd can look like this:
 ```
 
 Adjust it to your needs. Be aware that --force flag will overwrite existing files.
-
-## Features
-
-### Metadata
-
-To enable metadata feature you need to set `metadata` to `true` in `config/pjstarter.php` file.
-
-```php
-return [
-    'features' => [
-        ...
-        'metadata' => true,
-    ],
-];
-```
-
-Migrations for metadata are included with enabled metadata feature.
