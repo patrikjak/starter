@@ -1,6 +1,6 @@
 # Starter
 
-[//]: # ([![codecov]&#40;https://codecov.io/gh/patrikjak/starter/graph/badge.svg?token=kaq2yLG9xq&#41;]&#40;https://codecov.io/gh/patrikjak/starter&#41;)
+[![codecov](https://codecov.io/gh/patrikjak/starter/graph/badge.svg?token=kaq2yLG9xq)](https://codecov.io/gh/patrikjak/starter)
 
 ## Installation
 
@@ -9,6 +9,10 @@ Install the package via Composer:
 ```bash
 composer require patrikjak/starter
 ```
+
+## Documentation
+
+- [Web header Components](docs/metadata-header.md)
 
 ## Setup
 
