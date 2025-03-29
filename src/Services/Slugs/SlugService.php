@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Services\Slugs;
 
 use Patrikjak\Starter\Models\Slugs\Slug;
@@ -17,14 +19,10 @@ readonly class SlugService
         $path = trim(str_replace(config('app.url'), '', $url), '/');
         $parts = explode('/', $path);
 
-        if (count($parts) < 1) {
-            return $this->slugRepository->getBySlug('');
-        }
-
         $slug = array_pop($parts);
         $prefix = null;
 
-        if ($parts !== null && count($parts) > 0) {
+        if (count($parts) > 0) {
             $prefix = implode('/', $parts);
         }
 

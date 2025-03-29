@@ -79,30 +79,9 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         ];
     }
 
-    protected function getPaginator(): TablePaginator
-    {
-        return PaginatorFactory::createFromLengthAwarePaginator($this->metadataRepository->getAllPaginated(
-            $this->getPageSize(),
-            $this->getCurrentPage(),
-            route('api.metadata.table-parts'),
-            $this->getSortCriteria(),
-            $this->getFilterCriteria(),
-        ));
-    }
-
-    private function getCroppedData(?string $string): string
-    {
-        if ($string !== null) {
-            if (strlen($string) < 50) {
-                return $string;
-            }
-
-            return sprintf('%s...', substr($string, 0, 50));
-        }
-
-        return '';
-    }
-
+    /**
+     * @inheritDoc
+     */
     public function getSortableColumns(): array
     {
         $columnsMask = Metadata::COLUMNS_MASK;
@@ -112,6 +91,9 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getFilterableColumns(): array
     {
         $columnsMask = Metadata::COLUMNS_MASK;
@@ -143,5 +125,29 @@ class MetadataTableProvider extends BasePaginatedTableProvider
                 FilterableFactory::text(),
             ),
         ];
+    }
+
+    protected function getPaginator(): TablePaginator
+    {
+        return PaginatorFactory::createFromLengthAwarePaginator($this->metadataRepository->getAllPaginated(
+            $this->getPageSize(),
+            $this->getCurrentPage(),
+            route('api.metadata.table-parts'),
+            $this->getSortCriteria(),
+            $this->getFilterCriteria(),
+        ));
+    }
+
+    private function getCroppedData(?string $string): string
+    {
+        if ($string !== null) {
+            if (strlen($string) < 50) {
+                return $string;
+            }
+
+            return sprintf('%s...', substr($string, 0, 50));
+        }
+
+        return '';
     }
 }

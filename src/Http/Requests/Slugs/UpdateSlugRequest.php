@@ -38,7 +38,7 @@ class UpdateSlugRequest extends FormRequest
                 'prefix' => $prefixRules,
                 'slug' => [new EmptySlugExistsRule()
                     ->setPrefix($this->getInputPrefix())
-                    ->setIgnoredId($currentSlug->id)
+                    ->setIgnoredId($currentSlug->id),
                 ],
             ];
         }

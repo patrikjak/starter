@@ -20,15 +20,10 @@ class Header extends Component
     public function render(): View
     {
         $sluggable = $this->slugService->getSluggableFromUrl($this->request->url());
-        $metadata = $sluggable instanceof Metadatable ? $sluggable->metadata : null;
+        $metadata = $sluggable instanceof Metadatable ? $sluggable->getMetadata() : null;
 
         return view('pjstarter::layout.header', [
             'metadata' => $metadata,
         ]);
-    }
-
-    private function loadMetadata(?Metadata $metadata): void
-    {
-
     }
 }
