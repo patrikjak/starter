@@ -1,6 +1,6 @@
 # Starter
 
-[//]: # ([![codecov]&#40;https://codecov.io/gh/patrikjak/starter/graph/badge.svg?token=kaq2yLG9xq&#41;]&#40;https://codecov.io/gh/patrikjak/starter&#41;)
+[![codecov](https://codecov.io/gh/patrikjak/starter/graph/badge.svg?token=kaq2yLG9xq)](https://codecov.io/gh/patrikjak/starter)
 
 ## Installation
 
@@ -9,6 +9,11 @@ Install the package via Composer:
 ```bash
 composer require patrikjak/starter
 ```
+
+## Documentation
+
+- [Web header Components](docs/metadata-header.md) - Documentation for the web header component
+- [Configuration](docs/config.md) - Documentation for all available configuration options
 
 ## Setup
 
@@ -44,7 +49,8 @@ If you don't publish config file, you will miss all features of this package. I 
     "post-update-cmd": [
         "@php artisan vendor:publish --tag=pjstarter-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjstarter-config --ansi --force",
-        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force"
+        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force",
+        "@php artisan vendor:publish --tag=pjstarter-migrations --ansi --force"
     ]
 }
 ```
@@ -56,12 +62,14 @@ All post-update-cmd can look like this:
     "post-update-cmd": [
         "@php artisan vendor:publish --tag=pjutils-config --ansi --force",
         "@php artisan vendor:publish --tag=pjutils-assets --ansi --force",
+        "@php artisan vendor:publish --tag=pjutils-translations --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-config --ansi --force",
         "@php artisan vendor:publish --tag=pjauth-migrations --ansi",
         "@php artisan vendor:publish --tag=pjstarter-assets --ansi --force",
         "@php artisan vendor:publish --tag=pjstarter-config --ansi --force",
-        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force"
+        "@php artisan vendor:publish --tag=pjstarter-views --ansi --force",
+        "@php artisan vendor:publish --tag=pjstarter-migrations --ansi --force"
     ]
 }
 ```

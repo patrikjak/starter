@@ -3,11 +3,14 @@
 return [
 
     'dashboard' => 'Prehľad',
-    'profile' => 'Profil',
-    'change_password' => 'Zmeniť heslo',
-    'password_change' => 'Zmena hesla',
-    'set_new_password' => 'Nastaviť nové heslo',
-    'member_since' => 'Členom od',
     'logout' => 'Odhlásiť sa',
+    'edit' => 'Upraviť',
+    'delete' => 'Vymazať',
+    'save' => 'Uložiť',
+    'created_at' => 'Vytvorené',
+    'updated_at' => 'Aktualizované',
+    'cancel' => 'Zrušiť',
+    'add' => 'Pridať',
+    'create' => 'Vytvoriť',
 
 ];
