@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.static_pages.edit_page - About us  - App</title>
+    <title> pjstarter::pages.metadata.title - About us (pjstarter::pages.static_pages.metadatable_type)  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -43,15 +43,15 @@
 
     <div class="user">
         <div class="initials">
-            SA
+            AD
         </div>
 
         <div class="info">
             <div class="name">
-                Super Admin
+                Admin
             </div>
             <div class="email">
-                super@example.com
+                admin@example.com
             </div>
         </div>
 
@@ -76,54 +76,52 @@
 </div>
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.static_pages.edit_page - About us</h1>
+                <h1>pjstarter::pages.metadata.title - About us (pjstarter::pages.static_pages.metadatable_type)</h1>
 
+                                    <div class="actions">
+                        <div class="action">
+    <a href="http://localhost/metadata/68828772-5b02-4a62-b800-8a8a07d5b0bd/edit">pjstarter::general.edit</a>
+</div>
+                    </div>
                             </div>
 
             <div class="body">
-                <div class="page-create">
-        <div class="grid-2-items">
-            <div class="card">
-                <p class="title">pjstarter::pages.static_pages.edit_page</p>
-                <form method="POST" action="http://localhost/api/static-pages/594f620b-47a4-4d77-87de-38289b56ba8c" data-redirect="http://localhost/static-pages">
-    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
-            <input type="hidden" name="_method" value="PUT">    
-    <div class="pj-classic">
-            <label for="name">pjstarter::pages.static_pages.name</label>
-    
-            <input type="text" id="name" name="name" value="About us">
-    
-    </div>
-
-            <button class="pj-btn" type="submit">
-        pjstarter::general.edit
-            </button>
-    </form>            </div>
-
-            <div class="card">
-                <p class="title">pjstarter::pages.static_pages.url</p>
-
-                <form method="POST" action="http://localhost/api/slugs/7f03daf7-955d-4d58-9d65-30e589d3cd89" data-redirect="http://localhost/static-pages">
-    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
-            <input type="hidden" name="_method" value="PUT">    
-    <div class="pj-classic">
-            <label for="prefix">pjstarter::pages.static_pages.prefix</label>
-    
-            <input type="text" id="prefix" name="prefix">
-    
-    </div>
-                    <div class="pj-classic">
-            <label for="slug">pjstarter::pages.static_pages.slug</label>
-    
-            <input type="text" id="slug" name="slug" value="about-us">
-    
-    </div>
-
-            <button class="pj-btn" type="submit">
-        pjstarter::general.edit
-            </button>
-    </form>            </div>
+                <div class="card w-4/5 mx-auto">
+        <div class="data">
+            <p class="font-primary strong">pjstarter::pages.metadata.meta_title</p>
+            <p>About us | App</p>
         </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::pages.metadata.meta_description</p>
+                            <p>About us page</p>
+                    </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::pages.metadata.meta_keywords</p>
+                            <p>about us, app</p>
+                    </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::pages.metadata.canonical_url</p>
+                            <p>https://app.com/about-us</p>
+                    </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::pages.metadata.structured_data</p>
+                            <p class="italic font-m">pjstarter::pages.metadata.empty</p>
+                    </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::general.created_at</p>
+                            <p>30.03.2025 00:00</p>
+                    </div>
+
+        <div class="data mt-3%">
+            <p class="font-primary strong">pjstarter::general.updated_at</p>
+                            <p>30.03.2025 00:00</p>
+                    </div>
+
     </div>
             </div>
         </div>

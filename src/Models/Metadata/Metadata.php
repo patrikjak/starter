@@ -7,8 +7,10 @@ namespace Patrikjak\Starter\Models\Metadata;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Patrikjak\Starter\Database\Factories\Metadata\MetadataFactory;
 use Patrikjak\Starter\Observers\Metadata\MetadataObserver;
 
 /**
@@ -28,6 +30,7 @@ use Patrikjak\Starter\Observers\Metadata\MetadataObserver;
 class Metadata extends Model
 {
     use HasUuids;
+    use HasFactory;
 
     public const array COLUMNS_MASK = [
         'sp.name' => 'static_page_name',
@@ -52,5 +55,10 @@ class Metadata extends Model
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
+    }
+
+    protected static function newFactory(): MetadataFactory
+    {
+        return MetadataFactory::new();
     }
 }

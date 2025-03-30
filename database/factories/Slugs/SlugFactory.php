@@ -1,8 +1,9 @@
 <?php
 
-namespace Patrikjak\Starter\Database\Factories\StaticPages;
+namespace Patrikjak\Starter\Database\Factories\Slugs;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Patrikjak\Starter\Database\Factories\StaticPages\StaticPageFactory;
 use Patrikjak\Starter\Models\Slugs\Slug;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 

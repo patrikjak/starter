@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Patrikjak\Starter\Database\Factories\StaticPages\SlugFactory;
+use Patrikjak\Starter\Database\Factories\Slugs\SlugFactory;
 
 /**
  * @property string $id

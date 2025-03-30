@@ -7,9 +7,12 @@ namespace Patrikjak\Starter\Http\Requests\Metadata;
 use Illuminate\Foundation\Http\FormRequest;
 use Patrikjak\Starter\Dto\Metadata\UpdateMetadata;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
+use Patrikjak\Utils\Common\Http\Requests\Traits\ValidationException;
 
 class UpdateMetadataRequest extends FormRequest
 {
+    use ValidationException;
+
     /**
      * @return array<string, array<string>>
      */
