@@ -19,6 +19,7 @@ return [
     'features' => [
         'dashboard' => true,
         'profile' => true,
+        'static_pages' => false,
     ],
 
     /*
@@ -29,5 +30,10 @@ return [
         'items' => [],
         'user_items' => [],
     ],
+
+    /**
+     * Title format for the meta title tag
+     */
+    'meta_title_format' => '{title} | {appName}',
 
 ];

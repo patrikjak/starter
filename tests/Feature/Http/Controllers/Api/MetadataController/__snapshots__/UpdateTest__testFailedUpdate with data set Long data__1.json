@@ -1,0 +1,20 @@
+{
+    "errors": {
+        "title": [
+            "pjutils::validation.max.string"
+        ],
+        "description": [
+            "pjutils::validation.max.string"
+        ],
+        "keywords": [
+            "pjutils::validation.max.string"
+        ],
+        "canonical_url": [
+            "pjstarter::validation.url",
+            "pjutils::validation.max.string"
+        ],
+        "structured_data": [
+            "pjstarter::validation.json"
+        ]
+    }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.profile.title  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+                <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/profile.css">
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <a href="http://localhost/dashboard" class="item">
+                <span class="text">pjstarter::general.dashboard</span>
+            </a>
+            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/profile" class="item active">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.profile.title</h1>
+
+                                    <div class="actions">
+                        <div class="action">
+    <a href="http://localhost/change-password">pjstarter::pages.profile.change_password</a>
+</div>
+                    </div>
+                            </div>
+
+            <div class="body">
+                <div class="profile">
+        <div class="card user-info w-1/2 mx-auto">
+            <p class="title">Admin</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg> admin@example.com</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"></path></svg> pjstarter::pages.profile.member_since 30.03.2025</p>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

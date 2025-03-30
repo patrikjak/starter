@@ -1,0 +1,8 @@
+{
+    "message": "pjutils::validation.max.string",
+    "errors": {
+        "name": [
+            "pjutils::validation.max.string"
+        ]
+    }
+}

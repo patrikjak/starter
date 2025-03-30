@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.metadata.title  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+                    <script src="http://localhost/vendor/pjstarter/assets/metadata-index.js" type="module"></script>
+    </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <a href="http://localhost/dashboard" class="item">
+                <span class="text">pjstarter::general.dashboard</span>
+            </a>
+                    <a href="http://localhost/static-pages" class="item">
+                <span class="text">pjstarter::pages.static_pages.title</span>
+            </a>
+                    <a href="http://localhost/metadata" class="item active">
+                <span class="text">pjstarter::pages.metadata.title</span>
+            </a>
+            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/profile" class="item">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.metadata.title</h1>
+
+                            </div>
+
+            <div class="body">
+                <div class="pj-table-wrapper" id="metadata-table" data-html-parts-url="http://localhost/api/metadata/table-parts">
+            <div class="table-options">
+    <div class="controllers">
+                    <div class="controller sorter-wrapper">
+    <div class="clickable">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg>        <span>pjutils::table.sort</span>
+    </div>
+
+    <div class="options">
+        <span class="title">pjutils::table.sort_by</span>
+
+                    <div class="option" data-column="meta_title">
+                <span>pjstarter::pages.metadata.meta_title</span>
+            </div>
+            </div>
+</div>        
+                    <div class="controller filter-options-wrapper">
+    <div class="clickable">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>        <span>pjutils::table.filter</span>
+    </div>
+
+    <div class="options">
+        <span class="title">pjutils::table.filter_by</span>
+
+                    <div class="option" data-column="static_page_name" data-type="text">
+                <span>pjstarter::pages.metadata.page_name</span>
+            </div>
+                    <div class="option" data-column="meta_title" data-type="text">
+                <span>pjstarter::pages.metadata.meta_title</span>
+            </div>
+                    <div class="option" data-column="meta_description" data-type="text">
+                <span>pjstarter::pages.metadata.meta_description</span>
+            </div>
+                    <div class="option" data-column="meta_keywords" data-type="text">
+                <span>pjstarter::pages.metadata.meta_keywords</span>
+            </div>
+                    <div class="option" data-column="canonical_url" data-type="text">
+                <span>pjstarter::pages.metadata.canonical_url</span>
+            </div>
+            </div>
+</div>            </div>
+
+    
+    </div>    
+    <table class="pj-table">
+
+        <thead>
+    <tr>
+        
+        
+                    <th>pjstarter::pages.metadata.page_name</th>
+                    <th>pjstarter::pages.metadata.meta_title</th>
+                    <th>pjstarter::pages.metadata.meta_description</th>
+                    <th>pjstarter::pages.metadata.meta_keywords</th>
+                    <th>pjstarter::pages.metadata.canonical_url</th>
+                    <th>pjstarter::pages.metadata.structured_data</th>
+        
+                    <th class="actions"></th>
+            </tr>
+</thead>        <tbody>
+            <tr id="68828772-5b02-4a62-b800-8a8a07d5b0bd">
+    
+    
+            <td class="double page_name">
+    <span class="main">About us</span>
+    <br>
+    <span class="addition">pjstarter::pages.static_pages.metadatable_type</span>
+</td>            <td class="link title">
+    <a href="http://localhost/metadata/68828772-5b02-4a62-b800-8a8a07d5b0bd">About us | App</a>
+</td>            <td class="simple description">
+    
+    About us page
+
+    </td>            <td class="simple keywords">
+    
+    about us, app
+
+    </td>            <td class="link canonical_url">
+    <a href="https://app.com/about-us">https://app.com/about-us</a>
+</td>            <td class="simple structured_data">
+    
+    
+
+    </td>    
+            <td class="actions">
+    <div class="hellip">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</td>    </tr>    </tbody>
+                    <div class="table-actions">
+            <div class="action edit neutral">
+    
+    <div class="label">
+        <p>pjstarter::general.edit</p>
+    </div>
+</div>    </div>            </table>
+
+    
+            <div class="pagination">
+    <div class="page-size" data-href="http://localhost/api/metadata/table-parts">
+    <div class="pj-dropdown">
+    
+    <div class="dropdown-wrapper">
+        <div class="items">
+            <div class="chosen" data-value="10">
+    <span class="label">10</span>
+
+    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>
+</div>
+            <div class="all-items">
+                                    <div class="pj-dropdown-item" data-value="10">
+    10
+</div>                                    <div class="pj-dropdown-item" data-value="20">
+    20
+</div>                                    <div class="pj-dropdown-item" data-value="50">
+    50
+</div>                                    <div class="pj-dropdown-item" data-value="100">
+    100
+</div>                            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="links">
+                    <a href="" class="link arrow disabled">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <path d="M14 16L10 12L14 8" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+                    <a href="http://localhost/api/metadata/table-parts?page=1" class="link active">
+                    <span class="page-number">1</span>
+            </a>
+
+                    <a href="" class="link arrow disabled">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <rect width="24" height="24" fill="white"></rect>
+                        <path d="M10 8L14 12L10 16" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+            </div>
+</div>    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -7,9 +7,24 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
+use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
+use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
+use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array<string, string>
+     */
+    public array $bindings = [
+        SlugRepositoryContract::class => SlugRepository::class,
+        StaticPageRepositoryContract::class => StaticPageRepository::class,
+        MetadataRepositoryContract::class => MetadataRepository::class,
+    ];
+
     public function boot(): void
     {
         $this->registerComponents();
@@ -18,6 +33,7 @@ class StarterServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishConfig();
         $this->publishTranslations();
+        $this->publishMigrations();
 
         $this->loadRoutes();
         $this->loadViews();
@@ -59,9 +75,29 @@ class StarterServiceProvider extends ServiceProvider
         ], 'pjstarter-views');
     }
 
+    private function publishMigrations(): void
+    {
+        if (config('pjstarter.features.static_pages')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/static-pages' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
+
+        if (config('pjstarter.features.static_pages')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/slugs' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
+    }
+
     private function loadRoutes(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 
     private function loadViews(): void
