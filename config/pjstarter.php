@@ -31,6 +31,9 @@ return [
         'user_items' => [],
     ],
 
+    /**
+     * Title format for the meta title tag
+     */
     'meta_title_format' => '{title} | {appName}',
 
 ];
