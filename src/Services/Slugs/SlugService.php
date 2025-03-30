@@ -30,8 +30,8 @@ readonly class SlugService
             ?? $this->slugRepository->getBySlug('', $slug);
     }
 
-    public function getSluggableFromUrl(string $url): Sluggable
+    public function getSluggableFromUrl(string $url): ?Sluggable
     {
-        return $this->getSlugFromUrl($url)->sluggable;
+        return $this->getSlugFromUrl($url)?->sluggable;
     }
 }

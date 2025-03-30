@@ -47,3 +47,9 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: tests/Feature/Http/Controllers/StaticPagesController/IndexTest.php
+
+		-
+			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/Unit/Services/Slugs/SlugServiceTest.php
