@@ -22,5 +22,7 @@ class DestroyTest extends TestCase
             ->assertOk();
 
         $this->assertDatabaseMissing('static_pages', ['name' => 'page']);
+        $this->assertDatabaseMissing('slugs', ['slug' => 'page']);
+        $this->assertDatabaseMissing('metadata', ['metadatable_id' => $staticPage->id]);
     }
 }

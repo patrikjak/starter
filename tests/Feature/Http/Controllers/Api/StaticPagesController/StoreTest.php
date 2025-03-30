@@ -22,6 +22,7 @@ class StoreTest extends TestCase
 
         $this->assertDatabaseHas('static_pages', ['name' => 'About us']);
         $this->assertDatabaseHas('slugs', ['slug' => 'about-us']);
+        $this->assertDatabaseHas('metadata', ['title' => 'About us']);
     }
 
     #[DefineEnvironment('enableStaticPages')]
@@ -35,6 +36,7 @@ class StoreTest extends TestCase
 
         $this->assertDatabaseCount('static_pages', 0);
         $this->assertDatabaseCount('slugs', 0);
+        $this->assertDatabaseCount('metadata', 0);
         $this->assertMatchesJsonSnapshot($response->getContent());
     }
 
@@ -49,6 +51,7 @@ class StoreTest extends TestCase
 
         $this->assertDatabaseCount('static_pages', 1);
         $this->assertDatabaseCount('slugs', 1);
+        $this->assertDatabaseCount('metadata', 1);
         $this->assertMatchesJsonSnapshot($response->getContent());
     }
 
