@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\SlugsController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
@@ -45,6 +47,9 @@ class UpdateTest extends TestCase
         $this->assertDatabaseHas('slugs', $data);
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     #[DefineEnvironment('enableStaticPages')]
     #[DataProvider('updateIncorrectDataProvider')]
     public function testUnsuccessfulUpdateDueValidation(array $data): void
@@ -108,6 +113,9 @@ class UpdateTest extends TestCase
         $this->assertMatchesJsonSnapshot($response->getContent());
     }
 
+    /**
+     * @return iterable<array<int, array<string, string>>>
+     */
     public static function updateIncorrectDataProvider(): iterable
     {
         yield 'Slug is too long' => [
@@ -127,6 +135,9 @@ class UpdateTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<array<int, array<string, string|null>>>
+     */
     public static function updateCorrectDataProvider(): iterable
     {
         yield 'Filled both values' => [

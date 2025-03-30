@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\MetadataController;
 
 use Illuminate\Foundation\Console\Kernel;
@@ -11,6 +13,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class UpdateTest extends TestCase
 {
+    /**
+     * @param array<string, string> $data
+     */
     #[DefineEnvironment('enableStaticPages')]
     #[DataProvider('correctMetadataDataProvider')]
     public function testSuccessfulUpdate(array $data): void
@@ -33,7 +38,7 @@ class UpdateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $this->mock(Kernel::class, function (MockInterface $mock) {
+        $this->mock(Kernel::class, static function (MockInterface $mock): void {
             $mock->shouldReceive('call')->once()->with('view:clear');
         });
 
@@ -51,6 +56,9 @@ class UpdateTest extends TestCase
         $response->assertOk();
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     #[DefineEnvironment('enableStaticPages')]
     #[DataProvider('incorrectMetadataDataProvider')]
     public function testFailedUpdate(array $data): void
@@ -71,7 +79,7 @@ class UpdateTest extends TestCase
     }
 
     /**
-     * @return iterable<array<string, string>>
+     * @return iterable<array<int, array<string, string|null>>>
      */
     public static function correctMetadataDataProvider(): iterable
     {
@@ -93,7 +101,7 @@ class UpdateTest extends TestCase
     }
 
     /**
-     * @return iterable<array<string, string>>
+     * @return iterable<array<int, array<string, string|null>>>
      */
     public static function incorrectMetadataDataProvider(): iterable
     {

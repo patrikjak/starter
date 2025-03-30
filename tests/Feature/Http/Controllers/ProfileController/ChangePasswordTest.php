@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ProfileController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
@@ -24,7 +26,7 @@ class ChangePasswordTest extends TestCase
     }
 
     #[DefineEnvironment('disableProfile')]
-    public function testChangePasswordCannotBeRenderedWithoutEnabledFeature()
+    public function testChangePasswordCannotBeRenderedWithoutEnabledFeature(): void
     {
         $this->actingAs($this->createUser());
 

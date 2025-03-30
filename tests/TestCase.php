@@ -13,7 +13,6 @@ use Patrikjak\Auth\Tests\Traits\TestingData;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\UserCreator;
 use Spatie\Snapshots\MatchesSnapshots;
-
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
