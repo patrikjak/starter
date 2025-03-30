@@ -14,6 +14,8 @@ use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\UserCreator;
 use Spatie\Snapshots\MatchesSnapshots;
 
+use function Orchestra\Testbench\package_path;
+
 abstract class TestCase extends BaseTestCase
 {
     use MatchesSnapshots;
@@ -42,6 +44,16 @@ abstract class TestCase extends BaseTestCase
         );
 
         $this->baseAssertMatchesHtmlSnapshot($actual);
+    }
+
+    public function copyIconsToTestSkeleton(): void
+    {
+        exec(sprintf('cp -r %s %s', package_path('resources/views/icons'), resource_path('views/icons')));
+    }
+
+    public function deleteIconsFromTestSkeleton(): void
+    {
+        exec('rm -rf ' . resource_path('views/icons'));
     }
 
     protected function setUp(): void

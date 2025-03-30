@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Feature\Http\Controllers;
+namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\DashboardController;
 
 use Patrikjak\Starter\Tests\TestCase;
 
-class DashboardControllerTest extends TestCase
+class IndexTest extends TestCase
 {
     public function testDashboardCanBeRendered(): void
     {

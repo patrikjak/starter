@@ -22,7 +22,7 @@ class StoreTest extends TestCase
 
         $this->assertDatabaseHas('static_pages', ['name' => 'About us']);
         $this->assertDatabaseHas('slugs', ['slug' => 'about-us']);
-        $this->assertDatabaseHas('metadata', ['title' => 'About us']);
+        $this->assertDatabaseHas('metadata', ['title' => 'About us | App']);
     }
 
     #[DefineEnvironment('enableStaticPages')]

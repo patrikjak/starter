@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Feature\Http\Controllers;
+namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\StaticPagesController;
 
 use Carbon\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
