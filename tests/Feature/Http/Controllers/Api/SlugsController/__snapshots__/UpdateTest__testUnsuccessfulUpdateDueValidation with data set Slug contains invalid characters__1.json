@@ -1,0 +1,7 @@
+{
+    "errors": {
+        "slug": [
+            "pjstarter::validation.slug"
+        ]
+    }
+}

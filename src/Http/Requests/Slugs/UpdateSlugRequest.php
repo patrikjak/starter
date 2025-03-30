@@ -12,9 +12,12 @@ use Patrikjak\Starter\Dto\Slugs\UpdateSlug;
 use Patrikjak\Starter\Models\Slugs\Slug;
 use Patrikjak\Starter\Rules\Slugs\EmptySlugExistsRule;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
+use Patrikjak\Utils\Common\Http\Requests\Traits\ValidationException;
 
 class UpdateSlugRequest extends FormRequest
 {
+    use ValidationException;
+
     public function authorize(): bool
     {
         $sluggableType = $this->route('slug');
