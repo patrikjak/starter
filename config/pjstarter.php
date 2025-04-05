@@ -21,6 +21,7 @@ return [
         'profile' => true,
         'static_pages' => false,
         'articles' => false,
+        'users' => false,
     ],
 
     /*

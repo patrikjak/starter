@@ -10,9 +10,13 @@ use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
 use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
 use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Users\RoleRepository;
+use Patrikjak\Starter\Repositories\Users\UserRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,8 @@ class StarterServiceProvider extends ServiceProvider
         SlugRepositoryContract::class => SlugRepository::class,
         StaticPageRepositoryContract::class => StaticPageRepository::class,
         MetadataRepositoryContract::class => MetadataRepository::class,
+        UserRepositoryContract::class => UserRepository::class,
+        RoleRepositoryContract::class => RoleRepository::class
     ];
 
     public function boot(): void

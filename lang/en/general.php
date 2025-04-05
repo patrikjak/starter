@@ -12,5 +12,6 @@ return [
     'cancel' => 'Cancel',
     'add' => 'Add',
     'create' => 'Create',
+    'id' => 'ID',
 
 ];

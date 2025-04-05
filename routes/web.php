@@ -8,12 +8,15 @@ use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Profile\ProfileController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\RolesController;
+use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
 $staticPagesEnabled = config('pjstarter.features.static_pages');
 $articlesEnabled = config('pjstarter.features.articles');
+$usersEnabled = config('pjstarter.features.users');
 
 if ($dashboardEnabled) {
     Route::middleware(['web', 'auth'])->group(static function (): void {
@@ -72,5 +75,18 @@ if ($staticPagesEnabled || $articlesEnabled) {
             Route::get('/', [MetadataController::class, 'index'])->name('index');
             Route::get('/{metadata}', [MetadataController::class, 'show'])->name('show');
             Route::get('/{metadata}/edit', [MetadataController::class, 'edit'])->name('edit');
+    });
+}
+
+if ($usersEnabled) {
+    Route::middleware(['web', 'auth'])
+        ->prefix('users')
+        ->name('users.')
+        ->group(static function (): void {
+            Route::get('/', [UsersController::class, 'index'])->name('index');
+            
+            Route::prefix('roles')->name('roles.')->group(static function (): void {
+                Route::get('/', [RolesController::class, 'index'])->name('index');
+            });
     });
 }

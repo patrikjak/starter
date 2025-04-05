@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
+use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
 Route::middleware(['web', 'auth'])
@@ -10,6 +13,7 @@ Route::middleware(['web', 'auth'])
     ->name('api.')
     ->group(static function(): void {
         $staticPagesEnabled = config('pjstarter.features.static_pages');
+        $usersEnabled = config('pjstarter.features.users');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')
@@ -34,6 +38,16 @@ Route::middleware(['web', 'auth'])
                 Route::put('/{metadata}', [MetadataController::class, 'update'])->name('update');
 
                 Route::get('/table-parts', [MetadataController::class, 'tableParts'])->name('table-parts');
+            });
+        }
+
+        if ($usersEnabled) {
+            Route::prefix('users')->name('users.')->group(static function (): void {
+                Route::get('/table-parts', [UsersController::class, 'tableParts'])->name('table-parts');
+                
+                Route::prefix('roles')->name('roles.')->group(static function (): void {
+                    Route::get('/table-parts', [RolesController::class, 'tableParts'])->name('table-parts');
+                });
             });
         }
     });

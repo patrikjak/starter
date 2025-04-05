@@ -49,4 +49,16 @@ return [
         'title' => 'Autori',
     ],
 
+    'users' => [
+        'title' => 'Používatelia',
+        'name' => 'Meno',
+        'email' => 'Email',
+        'role' => 'Rola',
+
+        'roles' => [
+            'title' => 'Roly',
+            'name' => 'Názov',
+        ],
+    ],
+
 ];

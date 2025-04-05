@@ -117,6 +117,16 @@ class Navigation extends Component
             );
         }
 
+        if ($this->config->get('pjstarter.features.users')) {
+            $items[] = new NavigationItem(
+                __('pjstarter::pages.users.title'),
+                route('users.index'),
+                subItems: [
+                    new NavigationItem(__('pjstarter::pages.users.roles.title'), route('users.roles.index')),
+                ],
+            );
+        }
+
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items')));
         $this->setItemClasses($items);
 

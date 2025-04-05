@@ -12,5 +12,6 @@ return [
     'cancel' => 'Zrušiť',
     'add' => 'Pridať',
     'create' => 'Vytvoriť',
+    'id' => 'ID',
 
 ];
