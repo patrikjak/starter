@@ -8,9 +8,15 @@ use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Navigation extends Component
 {
@@ -18,6 +24,7 @@ class Navigation extends Component
         private readonly AuthManager $authManager,
         private readonly Config $config,
         private readonly UrlGenerator $urlGenerator,
+        private readonly Request $request,
     ) {
     }
 
@@ -159,11 +166,92 @@ class Navigation extends Component
                 $newClasses[] = $item->classes;
             }
 
-            if ($this->urlGenerator->current() === $item->getUrl()) {
+            $parentHasSubItems = $this->parentHasSubItems($item);
+            $shouldHighlight = $this->shouldHighlightItem($item, $parentHasSubItems);
+
+            if ($shouldHighlight) {
                 $newClasses[] = 'active';
+
+                if ($parentHasSubItems) {
+                    $this->removeActiveClassFromParents($item);
+                }
             }
 
             $item->classes = implode(' ', $newClasses);
+
+            if (count($item->subItems) > 0) {
+                $this->setItemClasses($item->subItems);
+            }
         }
+    }
+
+    private function shouldHighlightItem(NavigationItem $item, bool $parentHasSubItems = false): bool
+    {
+        $matchingRoute = $this->getMatchingRoute($item->getUrl());
+
+        $currentPrefix = $this->request->route()->getPrefix();
+        $matchingPagePrefix = $matchingRoute?->getPrefix();
+
+        $currentUrlNotExistsInSubItems = !in_array(
+            $this->urlGenerator->current(),
+            $this->getItemUrls($item->subItems),
+            true,
+        );
+
+        $currentRouteIsItemUrl = $this->urlGenerator->current() === $item->getUrl();
+        $matchingRoutesPrefixes = $currentPrefix === $matchingPagePrefix && $currentPrefix !== '';
+
+        return $currentRouteIsItemUrl
+            || ($matchingRoutesPrefixes && $currentUrlNotExistsInSubItems && !$parentHasSubItems);
+    }
+
+    private function getMatchingRoute(string $url): ?RoutingRoute
+    {
+        try {
+            return Route::getRoutes()->match(Request::create($url));
+        } catch (NotFoundHttpException | MethodNotAllowedHttpException) {
+            return null;
+        }
+    }
+
+    /**
+     * @param array<NavigationItem> $items
+     */
+    private function getItemUrls(array $items): array
+    {
+        $urls = [];
+
+        foreach ($items as $item) {
+            $urls[] = $item->getUrl();
+        }
+
+        return $urls;
+    }
+
+    private function parentHasSubItems(?NavigationItem $item, bool $hasParent = false): bool
+    {
+        if ($item->getParent() === null) {
+            return $hasParent;
+        }
+
+        $parent = $item->getParent();
+
+        $this->parentHasSubItems($parent, true);
+
+        return true;
+    }
+
+    private function removeActiveClassFromParents(?NavigationItem $item, bool $skipCurrentItem = true): void
+    {
+        if ($item === null) {
+            return;
+        }
+
+        if (!$skipCurrentItem) {
+            $item->classes = str_replace('active', '', $item->classes);
+            $item->classes = trim($item->classes);
+        }
+
+        $this->removeActiveClassFromParents($item->getParent(), false);
     }
 }

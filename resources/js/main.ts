@@ -43,3 +43,25 @@ logoutFormItem.addEventListener('click', (event: MouseEvent): void => {
     event.preventDefault();
     logoutFormItem.closest('form').submit();
 });
+
+const navigationItemArrows: NodeListOf<HTMLElement> = document.querySelectorAll('.navigation .item .arrow-wrapper');
+
+navigationItemArrows.forEach((arrowWrapper: HTMLElement): void => {
+    arrowWrapper.addEventListener('click', (event: MouseEvent): void => {
+        event.preventDefault();
+
+        const arrow: HTMLElement = arrowWrapper.querySelector('.arrow');
+        const itemWrapper: HTMLElement = arrow.closest('.item-wrapper');
+        const subItems: HTMLElement = itemWrapper.querySelector('.sub-items');
+
+        itemWrapper.classList.toggle('active');
+
+        if (itemWrapper.classList.contains('active')) {
+            arrow.classList.remove('down');
+            arrow.classList.add('up');
+        } else {
+            arrow.classList.remove('up');
+            arrow.classList.add('down');
+        }
+    });
+});

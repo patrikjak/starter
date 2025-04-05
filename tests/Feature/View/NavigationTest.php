@@ -8,9 +8,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Patrikjak\Starter\Tests\TestCase;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
-use Patrikjak\Starter\View\NavigationItem;
 
 class NavigationTest extends TestCase
 {

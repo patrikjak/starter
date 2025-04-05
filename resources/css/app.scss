@@ -99,13 +99,23 @@ a {
         .item {
             display: flex;
             margin: .5rem;
-            padding: .5rem .75rem;
+            padding: .5rem 1rem .5rem .75rem;
             border-radius: .5rem;
             align-items: center;
             color: $primary;
+            justify-content: space-between;
 
             .text {
                 transition: .3s;
+            }
+
+            .arrow-wrapper {
+                width: 1.25rem;
+
+                .arrow {
+                    border-color: $primary;
+                    transition: .3s;
+                }
             }
 
             &:hover {
@@ -114,6 +124,10 @@ a {
 
                 .text {
                     transform: translateX(.5rem);
+                }
+
+                .arrow-wrapper .arrow {
+                    border-color: $primary-hover;
                 }
             }
 
@@ -124,8 +138,22 @@ a {
                 .text {
                     transform: translateX(.5rem);
                 }
+
+                .arrow-wrapper .arrow {
+                    border-color: $white;
+                }
             }
         }
+    }
+
+    .sub-items {
+        margin-left: 1.5rem;
+        border-left: solid 1px $primary;
+        display: none;
+    }
+
+    .item-wrapper.active > .sub-items {
+        display: block;
     }
 
     .user {
@@ -146,12 +174,12 @@ a {
             justify-content: center;
             background-color: $primary;
             color: $white;
-            border-radius: .25rem;
             cursor: default;
             user-select: none;
             font-size: 1.25rem;
             width: 2.5rem;
             height: 2.5rem;
+            border-radius: 100%;
         }
 
         .info {
