@@ -52,7 +52,6 @@ navigationItemArrows.forEach((arrowWrapper: HTMLElement): void => {
 
         const arrow: HTMLElement = arrowWrapper.querySelector('.arrow');
         const itemWrapper: HTMLElement = arrow.closest('.item-wrapper');
-        const subItems: HTMLElement = itemWrapper.querySelector('.sub-items');
 
         itemWrapper.classList.toggle('active');
 
