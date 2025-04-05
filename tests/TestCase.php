@@ -77,7 +77,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(base_path('vendor/patrikjak/auth/database/migrations'));
+        $this->loadMigrationsFrom(package_path('vendor/patrikjak/auth/database/migrations'));
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/static-pages');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');

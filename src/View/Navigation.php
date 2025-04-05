@@ -189,7 +189,7 @@ class Navigation extends Component
     {
         $matchingRoute = $this->getMatchingRoute($item->getUrl());
 
-        $currentPrefix = $this->request->route()->getPrefix();
+        $currentPrefix = $this->request->route()?->getPrefix();
         $matchingPagePrefix = $matchingRoute?->getPrefix();
 
         $currentUrlNotExistsInSubItems = !in_array(
