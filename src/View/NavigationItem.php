@@ -21,16 +21,7 @@ class NavigationItem extends Component
 
     public function hasActiveSubItem(): bool
     {
-        return array_any(
-            $this->item->subItems,
-            function ($subItem) {
-                if (!$subItem instanceof NavigationItemDto) {
-                    return false;
-                }
-
-                return $this->isActive($subItem);
-            }
-        );
+        return array_any($this->item->subItems, fn ($subItem) => $this->isActive($subItem));
     }
 
     private function isActive(NavigationItemDto $item): bool
@@ -40,10 +31,7 @@ class NavigationItem extends Component
         }
 
         if (count($item->subItems) > 0) {
-            if (array_any(
-                $item->subItems,
-                fn ($subItem) => $subItem instanceof NavigationItemDto && $this->isActive($subItem),
-            )) {
+            if (array_any($item->subItems, fn ($subItem) => $this->isActive($subItem))) {
                 return true;
             }
         }

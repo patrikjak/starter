@@ -216,6 +216,7 @@ class Navigation extends Component
 
     /**
      * @param array<NavigationItem> $items
+     * @return array<string>
      */
     private function getItemUrls(array $items): array
     {

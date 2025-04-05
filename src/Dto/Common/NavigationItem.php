@@ -20,10 +20,6 @@ class NavigationItem
         public array $subItems = [],
     ) {
         foreach ($this->subItems as $subItem) {
-            if (!$subItem instanceof self) {
-                continue;
-            }
-
             $subItem->setParent($this);
         }
     }
