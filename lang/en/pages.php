@@ -37,4 +37,16 @@ return [
         'edit' => 'Edit SEO settings',
     ],
 
+    'articles' => [
+        'title' => 'Articles',
+
+        'categories' => [
+            'title' => 'Categories',
+        ],
+    ],
+
+    'authors' => [
+        'title' => 'Authors',
+    ],
+
 ];

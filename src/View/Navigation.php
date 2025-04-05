@@ -75,6 +75,9 @@ class Navigation extends Component
     {
         $items = [];
 
+        $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
+        $articlesFeature = $this->config->get('pjstarter.features.articles');
+
         if ($this->config->get('pjstarter.features.dashboard')) {
             $items[] = new NavigationItem(
                 __('pjstarter::general.dashboard'),
@@ -82,12 +85,32 @@ class Navigation extends Component
             );
         }
 
-        if ($this->config->get('pjstarter.features.static_pages')) {
+        if ($staticPagesFeature) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
                 route('static-pages.index'),
             );
+        }
 
+        if ($articlesFeature) {
+            $items[] = new NavigationItem(
+                __('pjstarter::pages.articles.title'),
+                route('articles.index'),
+                subItems: [
+                    new NavigationItem(
+                        __('pjstarter::pages.articles.categories.title'),
+                        route('articles.categories.index'),
+                    ),
+                ],
+            );
+
+            $items[] = new NavigationItem(
+                __('pjstarter::pages.authors.title'),
+                route('authors.index'),
+            );
+        }
+
+        if ($staticPagesFeature || $articlesFeature) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('metadata.index'),

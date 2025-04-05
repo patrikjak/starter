@@ -36,4 +36,17 @@ return [
         'empty' => 'Nevyplnené',
         'edit' => 'Upraviť SEO nastavenia',
     ],
+
+    'articles' => [
+        'title' => 'Články',
+
+        'categories' => [
+            'title' => 'Kategórie',
+        ],
+    ],
+
+    'authors' => [
+        'title' => 'Autori',
+    ],
+
 ];

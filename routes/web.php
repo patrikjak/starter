@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Patrikjak\Starter\Http\Controllers\Articles\ArticlesController;
+use Patrikjak\Starter\Http\Controllers\Articles\Categories\CategoriesController;
+use Patrikjak\Starter\Http\Controllers\Authors\AuthorsController;
 use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Profile\ProfileController;
@@ -10,6 +13,7 @@ use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
 $staticPagesEnabled = config('pjstarter.features.static_pages');
+$articlesEnabled = config('pjstarter.features.articles');
 
 if ($dashboardEnabled) {
     Route::middleware(['web', 'auth'])->group(static function (): void {
@@ -38,7 +42,29 @@ if ($staticPagesEnabled) {
     });
 }
 
-if ($staticPagesEnabled) {
+if ($articlesEnabled) {
+    Route::middleware(['web', 'auth'])
+        ->prefix('articles')
+        ->name('articles.')
+        ->group(static function (): void {
+            Route::get('/', [ArticlesController::class, 'index'])->name('index');
+
+            Route::prefix('categories')->name('categories.')->group(static function (): void {
+                Route::get('/', [CategoriesController::class, 'categories'])->name('index');
+            });
+    });
+}
+
+if ($articlesEnabled) {
+    Route::middleware(['web', 'auth'])
+        ->prefix('authors')
+        ->name('authors.')
+        ->group(static function (): void {
+            Route::get('/', [AuthorsController::class, 'index'])->name('index');
+    });
+}
+
+if ($staticPagesEnabled || $articlesEnabled) {
     Route::middleware(['web', 'auth'])
         ->prefix('metadata')
         ->name('metadata.')
