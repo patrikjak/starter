@@ -62,6 +62,10 @@ return [
 
         'permissions' => [
             'title' => 'Oprávnenia',
+            'name' => 'Názov',
+            'description' => 'Popis oprávnenia',
+            'protected' => 'Chránené',
+            'unprotected' => 'Nechránené',
         ],
     ],
 

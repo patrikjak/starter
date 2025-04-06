@@ -38,4 +38,8 @@ return [
      */
     'meta_title_format' => '{title} | {appName}',
 
+    'models' => [
+        'permission' => \Patrikjak\Starter\Models\Users\Permission::class,
+    ],
+
 ];

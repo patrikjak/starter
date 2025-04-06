@@ -3,9 +3,12 @@
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Support\Collection;
+use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\NewPermission;
-use Patrikjak\Starter\Models\Users\Permission;
+use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
+use Patrikjak\Starter\Factories\ModelFactory;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
+use Patrikjak\Starter\Dto\Users\Permission;
 
 readonly class PermissionSynchronizer
 {
@@ -13,71 +16,146 @@ readonly class PermissionSynchronizer
     {
     }
 
+    /**
+     * @throws ModelIsNotInstanceOfBaseModelException
+     */
     public function synchronize(): void
     {
-        $features = Permission::getFeatures();
-        $featurePermissions = Permission::getFeaturePermissions();
-        $permissionsDescriptions = Permission::getFeaturePermissionsDescriptions();
+        $permissionModel = ModelFactory::getPermissionModel();
 
-        $newPermissions = [];
-        $savedPermissions = $this->permissionRepository->getAll()
-            ->mapWithKeys(static fn (Permission $permission) => [$permission->name => $permission->description]);
+        $newPermissions = Collection::make($permissionModel::getPermissions())
+            ->keyBy(fn (FeaturePermissions $featurePermissions) => $featurePermissions->feature)
+            ->map(fn (FeaturePermissions $featurePermissions) =>
+                new Collection($featurePermissions->permissions)->keyBy(
+                    fn (Permission $permission) => $permission->action
+                )
+            )
+            ->toArray();
+
+        $currentPermissions = $this->getCurrentPermissions();
+
+        [$new, $redundant, $changed] = $this->getPermissionsDiff($newPermissions, $currentPermissions);
+
+        foreach ($new as $feature => $permissions) {
+            $this->savePermission(new FeaturePermissions($feature, $permissions));
+        }
+
+        foreach ($redundant as $featurePermissions) {
+            $this->removePermissions($featurePermissions);
+        }
+
+        foreach ($changed as $feature => $permissions) {
+            $this->editPermissions(new FeaturePermissions($feature, $permissions));
+        }
+    }
+
+    /**
+     * @param array<FeaturePermissions> $newFeatures
+     * @param array<FeaturePermissions> $currentPermissions
+     * @return array<string, array<string, Permission>|FeaturePermissions>
+     */
+    private function getPermissionsDiff(array $newFeatures, array $currentPermissions): array
+    {
+        $toAdd = [];
+        $toUpdate = [];
+
+        foreach ($newFeatures as $feature => $featurePermissions) {
+            foreach ($featurePermissions as $action => $permission) {
+                $currentPermission = $currentPermissions[$feature]->permissions[$action] ?? null;
+
+                if ($currentPermission === null) {
+                    $toAdd[$feature][$action] = $permission;
+                    continue;
+                }
+
+                if ($this->permissionIsChanged($permission, $currentPermission)) {
+                    $toUpdate[$feature][$action] = $permission;
+                }
+
+                unset($currentPermissions[$feature]->permissions[$action]);
+            }
+        }
+
+        foreach ($currentPermissions as $feature => $featurePermission) {
+            if ($featurePermission->permissions === []) {
+                unset($currentPermissions[$feature]);
+            }
+        }
+
+        return [$toAdd, $currentPermissions, $toUpdate];
+    }
+
+    private function permissionIsChanged(Permission $newPermission, Permission $currentPermission): bool
+    {
+        return $newPermission->descriptions !== $currentPermission->descriptions
+            || $newPermission->protected !== $currentPermission->protected;
+    }
+
+    /**
+     * @return array<string, FeaturePermissions>
+     */
+    private function getCurrentPermissions(): array
+    {
+        $featuresToReturn = [];
+        $currentFeatures = [];
+        $features = $this->permissionRepository->getAll();
 
         foreach ($features as $feature) {
-            if (!array_key_exists($feature, $featurePermissions)) {
-                continue;
-            }
+            $explodedName = explode('-', $feature->name);
+            $action = $explodedName[0];
+            $featureName = $explodedName[1];
 
-            foreach ($featurePermissions[$feature] as $availablePermission) {
-                $permission = sprintf('%s-%s', $feature, $availablePermission);
-                $description = $permissionsDescriptions[$feature][$availablePermission] ?? [];
-
-                $newPermissions[$permission] = $description;
-            }
+            $currentFeatures[$featureName][$action] = new Permission(
+                $action,
+                $feature->allDescriptions(),
+                $feature->protected,
+            );
         }
 
-        $this->addNew(array_diff_key($newPermissions, $savedPermissions->toArray()));
-        $this->update($this->getPermissionsToUpdate($savedPermissions, $permissionsDescriptions));
-        $this->removeOld(array_diff_key($savedPermissions->toArray(), $newPermissions));
+        foreach ($currentFeatures as $featureName => $features) {
+            $featuresToReturn[$featureName] = new FeaturePermissions($featureName, $features);
+        }
+
+        return $featuresToReturn;
     }
 
-    private function addNew(array $permissions): void
+    private function savePermission(FeaturePermissions $featurePermissions): void
     {
-        foreach ($permissions as $name => $description) {
-            $this->permissionRepository->save(new NewPermission($name, $description));
+        foreach ($featurePermissions->permissions as $permission) {
+            $name = $this->getPermissionName($featurePermissions->feature, $permission->action);
+
+            $this->permissionRepository->save(new NewPermission(
+                $name,
+                $permission->descriptions,
+                $permission->protected,
+            ));
         }
     }
 
-    private function removeOld(array $permissions): void
+    private function editPermissions(FeaturePermissions $featurePermissions): void
     {
-        foreach ($permissions as $name => $description) {
+        foreach ($featurePermissions->permissions as $permission) {
+            $name = $this->getPermissionName($featurePermissions->feature, $permission->action);
+
+            $this->permissionRepository->updateByName(new NewPermission(
+                $name,
+                $permission->descriptions,
+                $permission->protected,
+            ));
+        }
+    }
+
+    private function removePermissions(FeaturePermissions $featurePermissions): void
+    {
+        foreach ($featurePermissions->permissions as $permission) {
+            $name = $this->getPermissionName($featurePermissions->feature, $permission->action);
+
             $this->permissionRepository->deleteByName($name);
         }
     }
 
-    private function getPermissionsToUpdate(Collection $savedPermissions, array $descriptions): array
+    private function getPermissionName(string $feature, string $action): string
     {
-        $toUpdate = [];
-
-        foreach ($savedPermissions as $name => $description) {
-            $explodedPermission = explode('-', $name);
-            $feature = $explodedPermission[0];
-            $action = $explodedPermission[1];
-
-            $newDescription = $descriptions[$feature][$action];
-
-            if ($newDescription !== $description) {
-                $toUpdate[$name] = $newDescription;
-            }
-        }
-
-        return $toUpdate;
-    }
-
-    private function update(array $permissions): void
-    {
-        foreach ($permissions as $name => $description) {
-            $this->permissionRepository->updateByName($name, $description);
-        }
+        return sprintf('%s-%s', $action, $feature);
     }
 }

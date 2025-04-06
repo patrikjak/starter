@@ -13,5 +13,7 @@ return [
     'add' => 'Add',
     'create' => 'Create',
     'id' => 'ID',
+    'yes' => 'Yes',
+    'no' => 'No',
 
 ];

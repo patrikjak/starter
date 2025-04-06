@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Console\Commands;
 
 use Illuminate\Console\Command;
+use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Services\Users\PermissionSynchronizer;
 
 class SyncPermissionsCommand extends Command
@@ -21,6 +22,9 @@ class SyncPermissionsCommand extends Command
      */
     protected $description = 'Sync permissions with the database';
 
+    /**
+     * @throws ModelIsNotInstanceOfBaseModelException
+     */
     public function handle(PermissionSynchronizer $permissionSynchronizer): void
     {
         $permissionSynchronizer->synchronize();

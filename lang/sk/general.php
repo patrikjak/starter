@@ -13,5 +13,7 @@ return [
     'add' => 'Pridať',
     'create' => 'Vytvoriť',
     'id' => 'ID',
+    'yes' => 'Áno',
+    'no' => 'Nie',
 
 ];

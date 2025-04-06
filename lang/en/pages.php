@@ -62,6 +62,10 @@ return [
 
         'permissions' => [
             'title' => 'Permissions',
+            'name' => 'Name',
+            'description' => 'Description of the permission',
+            'protected' => 'Protected',
+            'unprotected' => 'Unprotected',
         ],
     ],
 

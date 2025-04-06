@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -47,6 +48,10 @@ Route::middleware(['web', 'auth'])
                 
                 Route::prefix('roles')->name('roles.')->group(static function (): void {
                     Route::get('/table-parts', [RolesController::class, 'tableParts'])->name('table-parts');
+                });
+                
+                Route::prefix('permissions')->name('permissions.')->group(static function (): void {
+                    Route::get('/table-parts', [PermissionsController::class, 'tableParts'])->name('table-parts');
                 });
             });
         }

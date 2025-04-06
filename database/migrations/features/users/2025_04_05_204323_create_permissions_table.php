@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id()->primary();
             $table->string('name')->unique();
             $table->text('description')->nullable();
+            $table->boolean('protected')->default(false);
             $table->timestamps();
         });
     }
