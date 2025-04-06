@@ -7,14 +7,17 @@ namespace Patrikjak\Starter;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
+use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
 use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
 use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Users\PermissionRepository;
 use Patrikjak\Starter\Repositories\Users\RoleRepository;
 use Patrikjak\Starter\Repositories\Users\UserRepository;
 
@@ -28,7 +31,8 @@ class StarterServiceProvider extends ServiceProvider
         StaticPageRepositoryContract::class => StaticPageRepository::class,
         MetadataRepositoryContract::class => MetadataRepository::class,
         UserRepositoryContract::class => UserRepository::class,
-        RoleRepositoryContract::class => RoleRepository::class
+        RoleRepositoryContract::class => RoleRepository::class,
+        PermissionRepositoryContract::class => PermissionRepository::class,
     ];
 
     public function boot(): void
@@ -98,6 +102,12 @@ class StarterServiceProvider extends ServiceProvider
                 __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
             ], 'pjstarter-migrations');
         }
+
+        if (config('pjstarter.features.users')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/users' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
     }
 
     private function loadRoutes(): void
@@ -120,6 +130,7 @@ class StarterServiceProvider extends ServiceProvider
     {
         $this->commands([
             InstallCommand::class,
+            SyncPermissionsCommand::class,
         ]);
     }
 

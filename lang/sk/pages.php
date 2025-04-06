@@ -56,8 +56,12 @@ return [
         'role' => 'Rola',
 
         'roles' => [
-            'title' => 'Roly',
+            'title' => 'Používateľské role',
             'name' => 'Názov',
+        ],
+
+        'permissions' => [
+            'title' => 'Oprávnenia',
         ],
     ],
 

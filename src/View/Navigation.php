@@ -13,6 +13,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
+use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Models\User;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -75,6 +76,9 @@ class Navigation extends Component
     {
         $items = [];
 
+        $currentUser = $this->authManager->user();
+        assert($currentUser instanceof User);
+
         $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
         $articlesFeature = $this->config->get('pjstarter.features.articles');
 
@@ -118,12 +122,21 @@ class Navigation extends Component
         }
 
         if ($this->config->get('pjstarter.features.users')) {
+            $usersSubItems = [
+                new NavigationItem(__('pjstarter::pages.users.roles.title'), route('users.roles.index')),
+            ];
+
+            if ($currentUser->hasRole(RoleType::SUPERADMIN)) {
+                $usersSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.users.permissions.title'),
+                    route('users.permissions.index'),
+                );
+            }
+
             $items[] = new NavigationItem(
                 __('pjstarter::pages.users.title'),
                 route('users.index'),
-                subItems: [
-                    new NavigationItem(__('pjstarter::pages.users.roles.title'), route('users.roles.index')),
-                ],
+                subItems: $usersSubItems,
             );
         }
 

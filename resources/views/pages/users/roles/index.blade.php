@@ -1,6 +1,6 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.users.roles.title')">
 
-    <div class="roles">
+    <div class="users-role">
         <x-pjutils.table::table :table="$rolesTable" />
     </div>
 

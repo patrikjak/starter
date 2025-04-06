@@ -59,6 +59,10 @@ return [
             'title' => 'Roles',
             'name' => 'Name',
         ],
+
+        'permissions' => [
+            'title' => 'Permissions',
+        ],
     ],
 
 ];

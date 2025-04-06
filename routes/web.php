@@ -8,6 +8,7 @@ use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Profile\ProfileController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -87,6 +88,10 @@ if ($usersEnabled) {
             
             Route::prefix('roles')->name('roles.')->group(static function (): void {
                 Route::get('/', [RolesController::class, 'index'])->name('index');
+            });
+            
+            Route::prefix('permissions')->name('permissions.')->group(static function (): void {
+                Route::get('/', [PermissionsController::class, 'index'])->name('index');
             });
     });
 }

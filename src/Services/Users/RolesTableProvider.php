@@ -49,6 +49,16 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         })->toArray();
     }
 
+    public function getColumns(): array
+    {
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
+        return $user->hasRole(RoleType::SUPERADMIN)
+            ? ['id', 'name']
+            : ['name'];
+    }
+
     protected function getPaginator(): TablePaginator
     {
         $tablePartsRoute = route('api.users.roles.table-parts');
