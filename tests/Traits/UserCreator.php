@@ -4,51 +4,29 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests\Traits;
 
-use Patrikjak\Auth\Models\Role;
 use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Models\User;
 use Patrikjak\Auth\Tests\Traits\UserCreator as AuthUserCreator;
+use Patrikjak\Starter\Models\Users\User;
 
 trait UserCreator
 {
     use AuthUserCreator {
-        createUser as protected createUserFromAuth;
+        AuthUserCreator::createUser as protected createUserFromAuth;
     }
 
-    public function createAdminUser(): User
+    public function createAdminUser(string $name = 'Admin', string $email = 'admin@example.com'): User
     {
-        $this->createRole(RoleType::ADMIN);
-
-        $user = new User();
-
-        $user->name = 'Admin';
-        $user->email = 'admin@example.com';
-        $user->password = bcrypt('password');
-        $user->role_id = RoleType::ADMIN->value;
-
-        $user->save();
-
-        return $user;
+        return User::factory()->withName($name)
+            ->withEmail($email)
+            ->withRole(RoleType::ADMIN)
+            ->create();
     }
 
-    public function createSuperAdminUser(): User
+    public function createSuperAdminUser(string $name = 'Super Admin', string $email = 'super@example.com'): User
     {
-        $this->createRole(RoleType::SUPERADMIN);
-
-        $user = new User();
-
-        $user->name = 'Super Admin';
-        $user->email = 'super@example.com';
-        $user->password = bcrypt('password');
-        $user->role_id = RoleType::SUPERADMIN->value;
-
-        $user->save();
-
-        return $user;
-    }
-
-    private function createRole(RoleType $roleType): void
-    {
-        Role::create(['id' => $roleType->value, 'name' => $roleType->name]);
+        return User::factory()->withName($name)
+            ->withEmail($email)
+            ->withRole(RoleType::SUPERADMIN)
+            ->create();
     }
 }

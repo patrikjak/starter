@@ -4,10 +4,18 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ProfileController;
 
+use Carbon\Carbon;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(Carbon::create(2025, 4, 5));
+    }
+
     public function testProfileNoAuthenticated(): void
     {
         $this->get(route('profile'))->assertRedirect(route('login'));

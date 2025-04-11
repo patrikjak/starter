@@ -8,8 +8,8 @@ use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Patrikjak\Auth\Models\User;
 use Patrikjak\Auth\Tests\Traits\TestingData;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\UserCreator;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     use TestingData;
     use ConfigSetter;
     use MatchesSnapshots {
-        assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
+        MatchesSnapshots::assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
     }
     use RefreshDatabase;
 
