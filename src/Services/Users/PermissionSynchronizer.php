@@ -3,17 +3,23 @@
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Support\Collection;
+use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Factories\ModelFactory;
+use Patrikjak\Starter\Models\Users\Permission as PermissionModel;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
 use Patrikjak\Starter\Dto\Users\Permission;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
 readonly class PermissionSynchronizer
 {
-    public function __construct(private PermissionRepository $permissionRepository)
-    {
+    public function __construct(
+        private PermissionRepository $permissionRepository,
+        private RoleRepository $roleRepository,
+    ) {
     }
 
     /**
@@ -46,6 +52,40 @@ readonly class PermissionSynchronizer
 
         foreach ($changed as $feature => $permissions) {
             $this->editPermissions(new FeaturePermissions($feature, $permissions));
+        }
+
+        $this->insertDefaultPermissions($new);
+    }
+
+    public function insertDefaultPermissions(array $featurePermissions): void
+    {
+        $roles = $this->roleRepository->getAll();
+
+        $permissions = $this->permissionRepository->getAll();
+        $permissionIds = $permissions->mapWithKeys(
+            static fn (PermissionModel $permission ) => [$permission->name => $permission->id]
+        )->toArray();
+
+        $rolePermissions = [
+            RoleType::SUPERADMIN->name => [],
+            RoleType::ADMIN->name => [],
+            RoleType::USER->name => [],
+        ];
+
+        foreach ($featurePermissions as $feature => $permissions) {
+            foreach ($permissions as $action => $permission) {
+                assert($permission instanceof Permission);
+
+                foreach ($permission->defaultRoles as $role) {
+                    $rolePermissions[$role->name][] = $permissionIds[$this->getPermissionName($feature, $action)];
+                }
+            }
+        }
+
+        foreach ($roles as $role) {
+            assert($role instanceof Role);
+
+            $this->roleRepository->attachPermissions($role, $rolePermissions[$role->name]);
         }
     }
 

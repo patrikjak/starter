@@ -8,6 +8,7 @@ class Permission
         public string $action,
         public array $descriptions,
         public bool $protected = false,
+        public array $defaultRoles = [],
     ) {
     }
 }

@@ -3,6 +3,7 @@
 namespace Patrikjak\Starter\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Patrikjak\Starter\Casts\TranslatableCast;
 
 /**
@@ -25,5 +26,10 @@ class Permission extends Model
     public function allDescriptions(): array
     {
         return json_decode($this->getRawOriginal('description'), true) ?? [];
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->id('permission_id')->index();
+            $table->unsignedBigInteger('permission_id');
             $table->unsignedTinyInteger('role_id');
 
             $table->foreign('permission_id')

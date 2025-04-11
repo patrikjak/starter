@@ -2,6 +2,7 @@
 
 namespace Patrikjak\Starter\Models\Users;
 
+use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
 
@@ -17,6 +18,7 @@ trait PermissionsData
                         'en' => 'View static pages',
                         'sk' => 'Zobraziť statické stránky',
                     ],
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
                     'create',
@@ -25,6 +27,7 @@ trait PermissionsData
                         'sk' => 'Vytvoriť statické stránky',
                     ],
                     true,
+                    [RoleType::SUPERADMIN],
                 ),
                 new Permission(
                     'edit',
@@ -33,6 +36,7 @@ trait PermissionsData
                         'sk' => 'Upraviť statické stránky',
                     ],
                     true,
+                    [RoleType::SUPERADMIN],
                 ),
                 new Permission(
                     'delete',
@@ -41,6 +45,7 @@ trait PermissionsData
                         'sk' => 'Zmazať statické stránky',
                     ],
                     true,
+                    [RoleType::SUPERADMIN],
                 ),
             ]),
             new FeaturePermissions('metadata', [
@@ -50,6 +55,7 @@ trait PermissionsData
                         'en' => 'View metadata',
                         'sk' => 'Zobraziť SEO nastavenia',
                     ],
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
                     'create',
@@ -57,6 +63,7 @@ trait PermissionsData
                         'en' => 'Create metadata',
                         'sk' => 'Vytvoriť SEO nastavenia',
                     ],
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
                     'edit',
@@ -64,6 +71,7 @@ trait PermissionsData
                         'en' => 'Edit metadata',
                         'sk' => 'Upraviť SEO nastavenia',
                     ],
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
                     'delete',
@@ -71,6 +79,7 @@ trait PermissionsData
                         'en' => 'Delete metadata',
                         'sk' => 'Zmazať SEO nastavenia',
                     ],
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
             new FeaturePermissions('users', [
@@ -81,6 +90,7 @@ trait PermissionsData
                         'sk' => 'Zobraziť používateľov'
                     ],
                     true,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
             new FeaturePermissions('roles', [
@@ -91,6 +101,7 @@ trait PermissionsData
                         'sk' => 'Zobraziť používateľské role',
                     ],
                     true,
+                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
             new FeaturePermissions('permissions', [
@@ -101,6 +112,7 @@ trait PermissionsData
                         'sk' => 'Zobraziť používateľské oprávnenia',
                     ],
                     true,
+                    [RoleType::SUPERADMIN],
                 ),
             ]),
         ];
