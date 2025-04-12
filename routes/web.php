@@ -11,6 +11,7 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
+use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Policies\BasePolicy;
 
@@ -79,9 +80,16 @@ if ($staticPagesEnabled || $articlesEnabled) {
         ->prefix('metadata')
         ->name('metadata.')
         ->group(static function (): void {
-            Route::get('/', [MetadataController::class, 'index'])->name('index');
-            Route::get('/{metadata}', [MetadataController::class, 'show'])->name('show');
-            Route::get('/{metadata}/edit', [MetadataController::class, 'edit'])->name('edit');
+            Route::get('/', [MetadataController::class, 'index'])
+                ->name('index')
+                ->can(BasePolicy::VIEW_ANY, Metadata::class);
+
+            Route::get('/{metadata}', [MetadataController::class, 'show'])->name('show')
+                ->can(BasePolicy::VIEW, Metadata::class);
+
+            Route::get('/{metadata}/edit', [MetadataController::class, 'edit'])
+                ->name('edit')
+                ->can(BasePolicy::EDIT, Metadata::class);
     });
 }
 

@@ -1,3 +1,6 @@
+@use('Patrikjak\Starter\Policies\BasePolicy')
+@use('Patrikjak\Starter\Models\Metadata\Metadata')
+
 <x-pjstarter::layout.app
     :title="sprintf(
         '%s - %s (%s)',
@@ -7,11 +10,13 @@
     )"
 >
 
-    <x-slot:actions>
-        <x-pjstarter::layout.action>
-            <a href="{{ route('metadata.edit', ['metadata' => $metadata->id]) }}">@lang('pjstarter::general.edit')</a>
-        </x-pjstarter::layout.action>
-    </x-slot:actions>
+    @can(BasePolicy::EDIT, Metadata::class)
+        <x-slot:actions>
+            <x-pjstarter::layout.action>
+                <a href="{{ route('metadata.edit', ['metadata' => $metadata->id]) }}">@lang('pjstarter::general.edit')</a>
+            </x-pjstarter::layout.action>
+        </x-slot:actions>
+    @endcan
 
     <div class="card w-4/5 mx-auto">
         <div class="data">

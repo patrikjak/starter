@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Unique;
 use Patrikjak\Starter\Dto\Slugs\UpdateSlug;
 use Patrikjak\Starter\Models\Slugs\Slug;
+use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Rules\Slugs\EmptySlugExistsRule;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 use Patrikjak\Utils\Common\Http\Requests\Traits\ValidationException;
@@ -23,7 +24,7 @@ class UpdateSlugRequest extends FormRequest
         $sluggableType = $this->route('slug');
         assert($sluggableType instanceof Slug);
 
-        return $this->user()->can('update', $sluggableType->sluggable_type);
+        return $this->user()->can(BasePolicy::EDIT, $sluggableType->sluggable_type);
     }
     
     /**

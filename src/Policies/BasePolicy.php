@@ -9,6 +9,8 @@ abstract class BasePolicy
 {
     public const string VIEW_ANY = 'viewAny';
 
+    public const string VIEW = 'view';
+
     public const string CREATE = 'create';
 
     public const string EDIT = 'edit';
@@ -27,6 +29,11 @@ abstract class BasePolicy
     public function viewAny(User $user): bool
     {
         return $this->hasPermission($user, self::VIEW_ANY);
+    }
+
+    public function view(User $user): bool
+    {
+        return $this->hasPermission($user, self::VIEW);
     }
 
     public function create(User $user): bool

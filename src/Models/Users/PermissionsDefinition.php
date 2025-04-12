@@ -6,6 +6,7 @@ use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
 trait PermissionsDefinition
@@ -50,36 +51,28 @@ trait PermissionsDefinition
                     [RoleType::SUPERADMIN],
                 ),
             ]),
-            new FeaturePermissions('metadata', [
+            new FeaturePermissions(MetadataPolicy::FEATURE_NAME, [
                 new Permission(
-                    'view',
+                    BasePolicy::VIEW_ANY,
                     [
-                        'en' => 'View metadata',
+                        'en' => 'View SEO settings',
                         'sk' => 'Zobraziť SEO nastavenia',
                     ],
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
-                    'create',
+                    BasePolicy::VIEW,
                     [
-                        'en' => 'Create metadata',
-                        'sk' => 'Vytvoriť SEO nastavenia',
+                        'en' => 'View detail of SEO setting',
+                        'sk' => 'Zobraziť detail SEO nastavenia',
                     ],
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
-                    'edit',
+                    BasePolicy::EDIT,
                     [
-                        'en' => 'Edit metadata',
+                        'en' => 'Edit SEO settings',
                         'sk' => 'Upraviť SEO nastavenia',
-                    ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
-                ),
-                new Permission(
-                    'delete',
-                    [
-                        'en' => 'Delete metadata',
-                        'sk' => 'Zmazať SEO nastavenia',
                     ],
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),

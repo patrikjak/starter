@@ -3,6 +3,7 @@
 namespace Patrikjak\Starter\Models\Users;
 
 use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
 trait AvailablePermissions
@@ -20,5 +21,10 @@ trait AvailablePermissions
     public function canDeleteStaticPage(): bool
     {
         return $this->hasPermission(StaticPagePolicy::FEATURE_NAME, BasePolicy::DELETE);
+    }
+
+    public function canViewAnyMetadata(): bool
+    {
+        return $this->hasPermission(MetadataPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 }

@@ -7,6 +7,7 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
+use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Policies\BasePolicy;
 
@@ -45,9 +46,13 @@ Route::middleware(['web', 'auth'])
 
         if ($staticPagesEnabled) {
             Route::prefix('metadata')->name('metadata.')->group(static function (): void {
-                Route::put('/{metadata}', [MetadataController::class, 'update'])->name('update');
+                Route::put('/{metadata}', [MetadataController::class, 'update'])
+                    ->name('update')
+                    ->can(BasePolicy::EDIT, Metadata::class);
 
-                Route::get('/table-parts', [MetadataController::class, 'tableParts'])->name('table-parts');
+                Route::get('/table-parts', [MetadataController::class, 'tableParts'])
+                    ->name('table-parts')
+                    ->can(BasePolicy::VIEW_ANY, Metadata::class);
             });
         }
 

@@ -114,7 +114,7 @@ class Navigation extends Component
             );
         }
 
-        if ($staticPagesFeature || $articlesFeature) {
+        if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('metadata.index'),
