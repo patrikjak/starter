@@ -7,6 +7,8 @@ use Patrikjak\Auth\Models\Role as BaseRole;
 
 class Role extends BaseRole
 {
+    protected $with = ['permissions'];
+
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);

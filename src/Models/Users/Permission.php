@@ -13,7 +13,7 @@ use Patrikjak\Starter\Casts\TranslatableCast;
  */
 class Permission extends Model
 {
-    use PermissionsData;
+    use PermissionsDefinition;
 
     protected function casts(): array
     {

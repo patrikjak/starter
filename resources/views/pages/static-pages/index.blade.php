@@ -1,5 +1,6 @@
 @use('Illuminate\Support\Facades\Vite')
 @use('Patrikjak\Starter\Models\StaticPages\StaticPage')
+@use('Patrikjak\Starter\Policies\BasePolicy')
 
 @push('scripts')
     @if(file_exists(base_path('vendor/patrikjak/starter/public/hot')))
@@ -12,7 +13,7 @@
 
 <x-pjstarter::layout.app :title="__('pjstarter::pages.static_pages.title')">
 
-    @can('create', StaticPage::class)
+    @can(BasePolicy::CREATE, StaticPage::class)
         <x-slot:actions>
             <x-pjstarter::layout.action>
                 <a href="{{ route('static-pages.create') }}">@lang('pjstarter::general.create')</a>

@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\StaticPages;
 
+use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
@@ -18,6 +20,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
 {
     public function __construct(
         private readonly StaticPageRepository $staticPageRepository,
+        private readonly AuthManager $authManager,
         private readonly Gate $gate,
     ) {
     }
@@ -66,14 +69,20 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if ($this->gate->denies('update', StaticPage::class)) {
-            return [];
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
+        $actions = [];
+
+        if ($user->canEditStaticPage()) {
+            $actions[] = new Item(__('pjstarter::general.edit'), 'edit');
         }
 
-        return [
-            new Item(__('pjstarter::general.edit'), 'edit'),
-            new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER),
-        ];
+        if ($user->canDeleteStaticPage()) {
+            $actions[] = new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER);
+        }
+
+        return $actions;
     }
 
     protected function getPaginator(): TablePaginator

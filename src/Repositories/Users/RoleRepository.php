@@ -3,9 +3,9 @@
 namespace Patrikjak\Starter\Repositories\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Patrikjak\Auth\Models\Role;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Repositories\RoleRepository as BaseRoleRepository;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
 
 class RoleRepository extends BaseRoleRepository implements RoleRepositoryContract

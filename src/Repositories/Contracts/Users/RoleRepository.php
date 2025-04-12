@@ -3,8 +3,8 @@
 namespace Patrikjak\Starter\Repositories\Contracts\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Patrikjak\Auth\Models\Role;
 use Patrikjak\Auth\Repositories\Interfaces\RoleRepository as BaseRoleRepository;
+use Patrikjak\Starter\Models\Users\Role;
 
 interface RoleRepository extends BaseRoleRepository
 {

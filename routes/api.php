@@ -7,7 +7,8 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
-use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
+use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Policies\BasePolicy;
 
 Route::middleware(['web', 'auth'])
     ->prefix('api')
@@ -20,13 +21,21 @@ Route::middleware(['web', 'auth'])
             Route::prefix('static-pages')
                 ->name('static-pages.')
                 ->group(static function (): void {
-                    Route::middleware(StaticPagePolicy::can('update'))->group(static function () {
-                        Route::post('/', [StaticPagesController::class, 'store'])->name('store');
-                        Route::put('/{staticPage}', [StaticPagesController::class, 'update'])->name('update');
-                        Route::delete('/{staticPage}', [StaticPagesController::class, 'destroy'])->name('destroy');
-                    });
+                    Route::post('/', [StaticPagesController::class, 'store'])
+                        ->name('store')
+                        ->can(BasePolicy::CREATE, StaticPage::class);
 
-                    Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])->name('table-parts');
+                    Route::put('/{staticPage}', [StaticPagesController::class, 'update'])
+                        ->name('update')
+                        ->can(BasePolicy::EDIT, StaticPage::class);
+
+                    Route::delete('/{staticPage}', [StaticPagesController::class, 'destroy'])
+                        ->name('destroy')
+                        ->can(BasePolicy::DELETE, StaticPage::class);
+
+                    Route::get('/table-parts', [StaticPagesController::class, 'tableParts'])
+                        ->name('table-parts')
+                        ->can(BasePolicy::VIEW_ANY, StaticPage::class);
             });
 
             Route::prefix('slugs')->name('slugs.')->group(static function (): void {

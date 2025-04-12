@@ -14,8 +14,8 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Models\User;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Patrikjak\Starter\Models\Users\User;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -89,7 +89,7 @@ class Navigation extends Component
             );
         }
 
-        if ($staticPagesFeature) {
+        if ($staticPagesFeature && $currentUser->canViewAnyStaticPage()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
                 route('static-pages.index'),

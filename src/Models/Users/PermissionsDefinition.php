@@ -5,15 +5,17 @@ namespace Patrikjak\Starter\Models\Users;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
+use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 
-trait PermissionsData
+trait PermissionsDefinition
 {
     public static function getPermissions(): array
     {
         return [
-            new FeaturePermissions('static_pages', [
+            new FeaturePermissions(StaticPagePolicy::FEATURE_NAME, [
                 new Permission(
-                    'view',
+                    BasePolicy::VIEW_ANY,
                     [
                         'en' => 'View static pages',
                         'sk' => 'Zobraziť statické stránky',
@@ -21,7 +23,7 @@ trait PermissionsData
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
-                    'create',
+                    BasePolicy::CREATE,
                     [
                         'en' => 'Create static pages',
                         'sk' => 'Vytvoriť statické stránky',
@@ -30,7 +32,7 @@ trait PermissionsData
                     [RoleType::SUPERADMIN],
                 ),
                 new Permission(
-                    'edit',
+                    BasePolicy::EDIT,
                     [
                         'en' => 'Edit static pages',
                         'sk' => 'Upraviť statické stránky',
@@ -39,7 +41,7 @@ trait PermissionsData
                     [RoleType::SUPERADMIN],
                 ),
                 new Permission(
-                    'delete',
+                    BasePolicy::DELETE,
                     [
                         'en' => 'Delete static pages',
                         'sk' => 'Zmazať statické stránky',

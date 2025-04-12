@@ -11,7 +11,8 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
-use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
+use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Policies\BasePolicy;
 
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
@@ -37,12 +38,17 @@ if ($staticPagesEnabled) {
         ->prefix('static-pages')
         ->name('static-pages.')
         ->group(static function (): void {
-            Route::get('/', [StaticPagesController::class, 'index'])->name('index');
+            Route::get('/', [StaticPagesController::class, 'index'])
+                ->name('index')
+                ->can(BasePolicy::VIEW_ANY, StaticPage::class);
+            
+            Route::get('/create', [StaticPagesController::class, 'create'])
+                ->name('create')
+                ->can(BasePolicy::CREATE, StaticPage::class);
 
-            Route::middleware(StaticPagePolicy::can('create'))->group(static function (): void {
-                Route::get('/create', [StaticPagesController::class, 'create'])->name('create');
-                Route::get('/{staticPage}/edit', [StaticPagesController::class, 'edit'])->name('edit');
-            });
+            Route::get('/{staticPage}/edit', [StaticPagesController::class, 'edit'])
+                ->name('edit')
+                ->can(BasePolicy::EDIT, StaticPage::class);
     });
 }
 
