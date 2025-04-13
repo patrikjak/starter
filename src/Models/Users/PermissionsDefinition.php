@@ -8,6 +8,9 @@ use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
+use Patrikjak\Starter\Policies\Users\PermissionPolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
+use Patrikjak\Starter\Policies\Users\UserPolicy;
 
 trait PermissionsDefinition
 {
@@ -77,9 +80,9 @@ trait PermissionsDefinition
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
-            new FeaturePermissions('users', [
+            new FeaturePermissions(UserPolicy::FEATURE_NAME, [
                 new Permission(
-                    'view',
+                    BasePolicy::VIEW_ANY,
                     [
                         'en' => 'View users',
                         'sk' => 'Zobraziť používateľov'
@@ -88,9 +91,9 @@ trait PermissionsDefinition
                     [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
-            new FeaturePermissions('roles', [
+            new FeaturePermissions(RolePolicy::FEATURE_NAME, [
                 new Permission(
-                    'view',
+                    BasePolicy::VIEW_ANY,
                     [
                         'en' => 'View user roles',
                         'sk' => 'Zobraziť používateľské role',
@@ -99,9 +102,9 @@ trait PermissionsDefinition
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
-            new FeaturePermissions('permissions', [
+            new FeaturePermissions(PermissionPolicy::FEATURE_NAME, [
                 new Permission(
-                    'view',
+                    BasePolicy::VIEW_ANY,
                     [
                         'en' => 'View user permissions',
                         'sk' => 'Zobraziť používateľské oprávnenia',

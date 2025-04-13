@@ -13,6 +13,9 @@ use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Models\Users\Permission;
+use Patrikjak\Starter\Models\Users\Role;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
 
 $dashboardEnabled = config('pjstarter.features.dashboard');
@@ -98,14 +101,20 @@ if ($usersEnabled) {
         ->prefix('users')
         ->name('users.')
         ->group(static function (): void {
-            Route::get('/', [UsersController::class, 'index'])->name('index');
+            Route::get('/', [UsersController::class, 'index'])
+                ->name('index')
+                ->can(BasePolicy::VIEW_ANY, User::class);
             
             Route::prefix('roles')->name('roles.')->group(static function (): void {
-                Route::get('/', [RolesController::class, 'index'])->name('index');
+                Route::get('/', [RolesController::class, 'index'])
+                    ->name('index')
+                    ->can(BasePolicy::VIEW_ANY, Role::class);
             });
             
             Route::prefix('permissions')->name('permissions.')->group(static function (): void {
-                Route::get('/', [PermissionsController::class, 'index'])->name('index');
+                Route::get('/', [PermissionsController::class, 'index'])
+                    ->name('index')
+                    ->can(BasePolicy::VIEW, Permission::class);
             });
     });
 }

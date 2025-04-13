@@ -13,7 +13,6 @@ use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Patrikjak\Starter\Models\Users\User;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -122,22 +121,29 @@ class Navigation extends Component
         }
 
         if ($this->config->get('pjstarter.features.users')) {
-            $usersSubItems = [
-                new NavigationItem(__('pjstarter::pages.users.roles.title'), route('users.roles.index')),
-            ];
+            $usersSubItems = [];
 
-            if ($currentUser->hasRole(RoleType::SUPERADMIN)) {
+            if ($currentUser->canViewAnyRoles()) {
+                $usersSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.users.roles.title'),
+                    route('users.roles.index'),
+                );
+            }
+
+            if ($currentUser->canViewAnyPermissions()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.permissions.title'),
                     route('users.permissions.index'),
                 );
             }
 
-            $items[] = new NavigationItem(
-                __('pjstarter::pages.users.title'),
-                route('users.index'),
-                subItems: $usersSubItems,
-            );
+            if ($currentUser->canViewAnyUsers()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.users.title'),
+                    route('users.index'),
+                    subItems: $usersSubItems,
+                );
+            }
         }
 
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items')));
