@@ -108,13 +108,40 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť používateľské role',
                     ],
                     true,
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::VIEW,
+                    [
+                        'en' => 'View detail of user role',
+                        'sk' => 'Zobraziť detail používateľskej role',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
                 new Permission(
                     RolePolicy::VIEW_SUPERADMIN,
                     [
                         'en' => 'View super admin role',
                         'sk' => 'Zobraziť super admin rolu',
+                    ],
+                    true,
+                    [RoleType::SUPERADMIN],
+                ),
+                new Permission(
+                    RolePolicy::MANAGE,
+                    [
+                        'en' => 'Manage permissions',
+                        'sk' => 'Spravovať oprávnenia',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    RolePolicy::MANAGE_PROTECTED,
+                    [
+                        'en' => 'Manage protected permissions',
+                        'sk' => 'Spravovať chránené oprávnenia',
                     ],
                     true,
                     [RoleType::SUPERADMIN],
@@ -131,10 +158,10 @@ trait PermissionsDefinition
                     [RoleType::SUPERADMIN],
                 ),
                 new Permission(
-                    PermissionPolicy::MANAGE_PROTECTED,
+                    PermissionPolicy::VIEW_PROTECTED,
                     [
-                        'en' => 'Manage protected permissions',
-                        'sk' => 'Správa chránených oprávnení',
+                        'en' => 'View protected permissions',
+                        'sk' => 'Zobraziť chránené oprávnenia',
                     ],
                     true,
                     [RoleType::SUPERADMIN],

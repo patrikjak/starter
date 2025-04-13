@@ -13,6 +13,7 @@ use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
 
 Route::middleware(['web', 'auth'])
     ->prefix('api')
@@ -69,6 +70,10 @@ Route::middleware(['web', 'auth'])
                     Route::get('/table-parts', [RolesController::class, 'tableParts'])
                         ->name('table-parts')
                         ->can(BasePolicy::VIEW_ANY, Role::class);
+                    
+                    Route::put('/{role}/permissions', [RolesController::class, 'syncPermissions'])
+                        ->name('permissions')
+                        ->can(RolePolicy::MANAGE, 'role');
                 });
                 
                 Route::prefix('permissions')->name('permissions.')->group(static function (): void {

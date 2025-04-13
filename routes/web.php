@@ -17,6 +17,7 @@ use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
 
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
@@ -109,12 +110,20 @@ if ($usersEnabled) {
                 Route::get('/', [RolesController::class, 'index'])
                     ->name('index')
                     ->can(BasePolicy::VIEW_ANY, Role::class);
+
+                Route::get('/{role}', [RolesController::class, 'show'])
+                    ->name('show')
+                    ->can(BasePolicy::VIEW, 'role');
+
+                Route::get('/{role}/permissions', [RolesController::class, 'permissions'])
+                    ->name('permissions')
+                    ->can(RolePolicy::MANAGE, 'role');
             });
             
             Route::prefix('permissions')->name('permissions.')->group(static function (): void {
                 Route::get('/', [PermissionsController::class, 'index'])
                     ->name('index')
-                    ->can(BasePolicy::VIEW, Permission::class);
+                    ->can(BasePolicy::VIEW_ANY, Permission::class);
             });
     });
 }

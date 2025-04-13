@@ -7,16 +7,27 @@ use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Factories\ModelFactory;
+use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
 
 class PermissionRepository implements PermissionRepositoryContract
 {
     /**
+     * @inheritDoc
      * @throws ModelIsNotInstanceOfBaseModelException
      */
     public function getAll(): Collection
     {
         return $this->getModel()::all();
+    }
+
+    /**
+     * @inheritDoc
+     * @throws ModelIsNotInstanceOfBaseModelException
+     */
+    public function getAllUnprotected(): Collection
+    {
+        return $this->getModel()::where('protected', '!=', 1)->get();
     }
 
     /**
@@ -35,6 +46,14 @@ class PermissionRepository implements PermissionRepositoryContract
         return $this->getModel()::where('protected', '=', 0)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByNames(array $names): Collection
+    {
+        return $this->getModel()::whereIn('name', $names)->get();
     }
 
     /**

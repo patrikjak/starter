@@ -5,9 +5,20 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Metadata\Metadata;
+use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Models\Users\Permission;
+use Patrikjak\Starter\Models\Users\Role;
+use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
+use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
+use Patrikjak\Starter\Policies\Users\PermissionPolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
+use Patrikjak\Starter\Policies\Users\UserPolicy;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
@@ -49,6 +60,8 @@ class StarterServiceProvider extends ServiceProvider
         $this->loadViews();
         $this->loadTranslations();
         $this->loadCommands();
+
+        $this->registerPolicies();
     }
 
     public function register(): void
@@ -144,5 +157,14 @@ class StarterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/pjstarter.php' => config_path('pjstarter.php'),
         ], 'pjstarter-config');
+    }
+
+    private function registerPolicies(): void
+    {
+        Gate::policy(StaticPage::class, StaticPagePolicy::class);
+        Gate::policy(Metadata::class, MetadataPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::policy(Permission::class, PermissionPolicy::class);
     }
 }

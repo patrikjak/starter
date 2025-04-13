@@ -3,8 +3,12 @@
 namespace Patrikjak\Starter\Models\Users;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\Role as BaseRole;
 
+/**
+ * @property-read Collection<Permission> $permissions
+ */
 class Role extends BaseRole
 {
     protected $with = ['permissions'];

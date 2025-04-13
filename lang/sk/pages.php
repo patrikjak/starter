@@ -58,6 +58,10 @@ return [
         'roles' => [
             'title' => 'Používateľské role',
             'name' => 'Názov',
+            'manage_permissions' => 'Spravovať oprávnenia',
+            'permissions' => 'Oprávnenia',
+            'details' => 'Detaily role',
+            'permissions_synced' => 'Oprávnenia boli synchronizované',
         ],
 
         'permissions' => [

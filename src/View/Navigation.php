@@ -130,7 +130,7 @@ class Navigation extends Component
                 );
             }
 
-            if ($currentUser->canViewAnyPermissions()) {
+            if ($currentUser->canViewAnyPermission()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.permissions.title'),
                     route('users.permissions.index'),

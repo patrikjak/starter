@@ -2,10 +2,11 @@
 
 namespace Patrikjak\Starter\Policies;
 
+use Illuminate\Database\Eloquent\Model;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
 
-abstract class BasePolicy
+class BasePolicy
 {
     public const string VIEW_ANY = 'viewAny';
 
@@ -26,24 +27,29 @@ abstract class BasePolicy
         return null;
     }
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, ?Model $model = null): bool
     {
         return $this->hasPermission($user, self::VIEW_ANY);
     }
 
-    public function view(User $user): bool
+    public function view(User $user, ?Model $model = null): bool
     {
         return $this->hasPermission($user, self::VIEW);
     }
 
-    public function create(User $user): bool
+    public function create(User $user, ?Model $model = null): bool
     {
         return $this->hasPermission($user, self::CREATE);
     }
 
-    public function edit(User $user): bool
+    public function edit(User $user, ?Model $model = null): bool
     {
         return $this->hasPermission($user, self::EDIT);
+    }
+
+    public function delete(User $user, ?Model $model = null): bool
+    {
+        return $this->hasPermission($user, self::DELETE);
     }
 
     public function hasPermission(User $user, string $action): bool

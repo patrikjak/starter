@@ -58,6 +58,10 @@ return [
         'roles' => [
             'title' => 'Roles',
             'name' => 'Name',
+            'manage_permissions' => 'Manage permissions',
+            'permissions' => 'Permissions',
+            'details' => 'Role details',
+            'permissions_synced' => 'Permissions were synced',
         ],
 
         'permissions' => [

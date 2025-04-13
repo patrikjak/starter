@@ -3,6 +3,7 @@
 namespace Patrikjak\Starter\Repositories\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Repositories\RoleRepository as BaseRoleRepository;
 use Patrikjak\Starter\Models\Users\Role;
@@ -28,5 +29,18 @@ class RoleRepository extends BaseRoleRepository implements RoleRepositoryContrac
     public function attachPermissions(Role $role, array $permissions): void
     {
         $role->permissions()->syncWithoutDetaching($permissions);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function syncPermissions(Role $role, array $permissions): void
+    {
+        $role->permissions()->sync($permissions);
+    }
+
+    public function getRolePermissions(Role $role): Collection
+    {
+        return $role->permissions;
     }
 }

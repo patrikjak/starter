@@ -14,9 +14,20 @@ interface PermissionRepository
      */
     public function getAll(): Collection;
 
+    /**
+     * @return Collection<Permission>
+     */
+    public function getAllUnprotected(): Collection;
+
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
 
     public function getAllUnprotectedPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
+
+    /**
+     * @param array<string> $names
+     * @return Collection<Permission>
+     */
+    public function getByNames(array $names): Collection;
 
     public function save(NewPermission $newPermission): void;
 

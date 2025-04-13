@@ -13,5 +13,5 @@ class PermissionPolicy extends BasePolicy
 
     public const string FEATURE_NAME = 'permission';
 
-    public const string MANAGE_PROTECTED = 'manageProtected';
+    public const string VIEW_PROTECTED = 'viewProtected';
 }

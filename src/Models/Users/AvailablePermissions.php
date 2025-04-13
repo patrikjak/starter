@@ -31,6 +31,16 @@ trait AvailablePermissions
         return $this->hasPermission(MetadataPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 
+    public function canViewMetadata(): bool
+    {
+        return $this->hasPermission(MetadataPolicy::FEATURE_NAME, BasePolicy::VIEW);
+    }
+
+    public function canEditMetadata(): bool
+    {
+        return $this->hasPermission(MetadataPolicy::FEATURE_NAME, BasePolicy::EDIT);
+    }
+
     public function canViewAnyUsers(): bool
     {
         return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
@@ -46,14 +56,24 @@ trait AvailablePermissions
         return $this->hasPermission(RolePolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 
-    public function canViewAnyPermissions(): bool
+    public function canViewRole(): bool
+    {
+        return $this->hasPermission(RolePolicy::FEATURE_NAME, BasePolicy::VIEW);
+    }
+
+    public function canManagePermissions(): bool
+    {
+        return $this->hasPermission(RolePolicy::FEATURE_NAME, RolePolicy::MANAGE);
+    }
+
+    public function canViewAnyPermission(): bool
     {
         return $this->hasPermission(PermissionPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 
-    public function canManageProtectedPermissions(): bool
+    public function canViewProtectedPermissions(): bool
     {
-        return $this->hasPermission(PermissionPolicy::FEATURE_NAME, PermissionPolicy::MANAGE_PROTECTED);
+        return $this->hasPermission(PermissionPolicy::FEATURE_NAME, PermissionPolicy::VIEW_PROTECTED);
     }
 
     public function canViewSuperAdminRole(): bool

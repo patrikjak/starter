@@ -68,7 +68,7 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
 
         $columns = ['description'];
 
-        if ($user->canManageProtectedPermissions()) {
+        if ($user->canViewProtectedPermissions()) {
             $columns[] = 'name';
             $columns[] = 'protected';
         }
@@ -86,7 +86,7 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
         $user = $this->authManager->user();
         assert($user instanceof User);
 
-        $users = $user->canManageProtectedPermissions()
+        $users = $user->canViewProtectedPermissions()
             ? $this->permissionRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),
