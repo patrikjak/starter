@@ -90,6 +90,15 @@ trait PermissionsDefinition
                     true,
                     [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
+                new Permission(
+                    UserPolicy::VIEW_SUPERADMIN,
+                    [
+                        'en' => 'View super admin',
+                        'sk' => 'Zobraziť super admin používateľov'
+                    ],
+                    true,
+                    [RoleType::SUPERADMIN],
+                ),
             ]),
             new FeaturePermissions(RolePolicy::FEATURE_NAME, [
                 new Permission(
@@ -101,6 +110,15 @@ trait PermissionsDefinition
                     true,
                     defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
+                new Permission(
+                    RolePolicy::VIEW_SUPERADMIN,
+                    [
+                        'en' => 'View super admin role',
+                        'sk' => 'Zobraziť super admin rolu',
+                    ],
+                    true,
+                    [RoleType::SUPERADMIN],
+                ),
             ]),
             new FeaturePermissions(PermissionPolicy::FEATURE_NAME, [
                 new Permission(
@@ -108,6 +126,15 @@ trait PermissionsDefinition
                     [
                         'en' => 'View user permissions',
                         'sk' => 'Zobraziť používateľské oprávnenia',
+                    ],
+                    true,
+                    [RoleType::SUPERADMIN],
+                ),
+                new Permission(
+                    PermissionPolicy::MANAGE_PROTECTED,
+                    [
+                        'en' => 'Manage protected permissions',
+                        'sk' => 'Správa chránených oprávnení',
                     ],
                     true,
                     [RoleType::SUPERADMIN],

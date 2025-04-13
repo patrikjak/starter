@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Services\StaticPages;
 
 use Illuminate\Auth\AuthManager;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
@@ -21,7 +20,6 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
     public function __construct(
         private readonly StaticPageRepository $staticPageRepository,
         private readonly AuthManager $authManager,
-        private readonly Gate $gate,
     ) {
     }
 

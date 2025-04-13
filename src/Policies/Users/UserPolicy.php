@@ -12,4 +12,6 @@ class UserPolicy extends BasePolicy
     use HandlesAuthorization;
 
     public const string FEATURE_NAME = 'user';
+
+    public const string VIEW_SUPERADMIN = 'viewSuperadmin';
 }

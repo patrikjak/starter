@@ -3,9 +3,8 @@
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Auth\AuthManager;
-use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Models\User;
 use Patrikjak\Starter\Models\Users\Permission;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
@@ -69,7 +68,7 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
 
         $columns = ['description'];
 
-        if ($user->hasRole(RoleType::SUPERADMIN)) {
+        if ($user->canManageProtectedPermissions()) {
             $columns[] = 'name';
             $columns[] = 'protected';
         }
@@ -84,10 +83,10 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
     {
         $tablePartsRoute = route('api.users.permissions.table-parts');
 
-        $currentUser = $this->authManager->user();
-        assert($currentUser instanceof User);
+        $user = $this->authManager->user();
+        assert($user instanceof User);
 
-        $users = $currentUser->hasRole(RoleType::SUPERADMIN)
+        $users = $user->canManageProtectedPermissions()
             ? $this->permissionRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),

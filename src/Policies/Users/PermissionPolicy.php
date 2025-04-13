@@ -12,4 +12,6 @@ class PermissionPolicy extends BasePolicy
     use HandlesAuthorization;
 
     public const string FEATURE_NAME = 'permission';
+
+    public const string MANAGE_PROTECTED = 'manageProtected';
 }

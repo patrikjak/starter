@@ -4,7 +4,7 @@ namespace Patrikjak\Starter\Repositories\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UsersRepositoryContract;
 
 class UserRepository implements UsersRepositoryContract

@@ -3,9 +3,8 @@
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Auth\AuthManager;
-use Patrikjak\Auth\Models\Role;
-use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Models\Users\Role;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
@@ -54,7 +53,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         $user = $this->authManager->user();
         assert($user instanceof User);
 
-        return $user->hasRole(RoleType::SUPERADMIN)
+        return $user->canViewSuperAdminRole()
             ? ['id', 'name']
             : ['name'];
     }
@@ -63,10 +62,10 @@ final class RolesTableProvider extends BasePaginatedTableProvider
     {
         $tablePartsRoute = route('api.users.roles.table-parts');
 
-        $currentUser = $this->authManager->user();
-        assert($currentUser instanceof User);
+        $user = $this->authManager->user();
+        assert($user instanceof User);
 
-        $users = $currentUser->hasRole(RoleType::SUPERADMIN)
+        $users = $user->canViewSuperAdminRole()
             ? $this->roleRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),
