@@ -219,7 +219,7 @@ class Navigation extends Component
             }
 
             $parentHasSubItems = $this->parentHasSubItems($item);
-            $shouldHighlight = $this->shouldHighlightItem($item, $parentHasSubItems);
+            $shouldHighlight = $this->shouldHighlightItem($item);
 
             if ($shouldHighlight) {
                 $newClasses[] = 'active';
@@ -237,7 +237,7 @@ class Navigation extends Component
         }
     }
 
-    private function shouldHighlightItem(NavigationItem $item, bool $parentHasSubItems = false): bool
+    private function shouldHighlightItem(NavigationItem $item): bool
     {
         $matchingRoute = $this->getMatchingRoute($item->getUrl());
 
@@ -254,7 +254,7 @@ class Navigation extends Component
         $matchingRoutesPrefixes = $currentPrefix === $matchingPagePrefix && $currentPrefix !== '';
 
         return $currentRouteIsItemUrl
-            || ($matchingRoutesPrefixes && $currentUrlNotExistsInSubItems && !$parentHasSubItems);
+            || ($matchingRoutesPrefixes && $currentUrlNotExistsInSubItems);
     }
 
     private function getMatchingRoute(string $url): ?RoutingRoute
