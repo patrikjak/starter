@@ -9,16 +9,20 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
+use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
+use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
@@ -44,6 +48,7 @@ class StarterServiceProvider extends ServiceProvider
         UserRepositoryContract::class => UserRepository::class,
         RoleRepositoryContract::class => RoleRepository::class,
         PermissionRepositoryContract::class => PermissionRepository::class,
+        AuthorRepositoryContract::class => AuthorRepository::class,
     ];
 
     public function boot(): void
@@ -121,6 +126,12 @@ class StarterServiceProvider extends ServiceProvider
                 __DIR__ . '/../database/migrations/features/users' => database_path('migrations'),
             ], 'pjstarter-migrations');
         }
+
+        if (config('pjstarter.features.articles')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/authors' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
     }
 
     private function loadRoutes(): void
@@ -166,5 +177,6 @@ class StarterServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Permission::class, PermissionPolicy::class);
+        Gate::policy(Author::class, AuthorPolicy::class);
     }
 }

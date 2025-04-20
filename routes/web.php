@@ -11,6 +11,8 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
+use Patrikjak\Starter\Models\Articles\Article;
+use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\Permission;
@@ -62,7 +64,9 @@ if ($articlesEnabled) {
         ->prefix('articles')
         ->name('articles.')
         ->group(static function (): void {
-            Route::get('/', [ArticlesController::class, 'index'])->name('index');
+            Route::get('/', [ArticlesController::class, 'index'])
+                ->name('index')
+                ->can(BasePolicy::VIEW_ANY, Article::class);
 
             Route::prefix('categories')->name('categories.')->group(static function (): void {
                 Route::get('/', [CategoriesController::class, 'categories'])->name('index');
@@ -75,7 +79,21 @@ if ($articlesEnabled) {
         ->prefix('authors')
         ->name('authors.')
         ->group(static function (): void {
-            Route::get('/', [AuthorsController::class, 'index'])->name('index');
+            Route::get('/', [AuthorsController::class, 'index'])
+                ->name('index')
+                ->can(BasePolicy::VIEW_ANY, Author::class);
+
+            Route::get('/create', [AuthorsController::class, 'create'])
+                ->name('create')
+                ->can(BasePolicy::CREATE, Author::class);
+
+            Route::get('/{author}', [AuthorsController::class, 'show'])
+                ->name('show')
+                ->can(BasePolicy::VIEW, Author::class);
+
+            Route::get('/{author}/edit', [AuthorsController::class, 'edit'])
+                ->name('edit')
+                ->can(BasePolicy::EDIT, Author::class);
     });
 }
 

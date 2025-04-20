@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\NewPermission;
+use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Factories\ModelFactory;
 use Patrikjak\Starter\Models\Users\Permission as PermissionModel;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
-use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
 readonly class PermissionSynchronizer
@@ -30,10 +32,9 @@ readonly class PermissionSynchronizer
         $permissionModel = ModelFactory::getPermissionModel();
 
         $newPermissions = Collection::make($permissionModel::getPermissions())
-            ->keyBy(fn (FeaturePermissions $featurePermissions) => $featurePermissions->feature)
-            ->map(fn (FeaturePermissions $featurePermissions) =>
-                new Collection($featurePermissions->permissions)->keyBy(
-                    fn (Permission $permission) => $permission->action
+            ->keyBy(static fn (FeaturePermissions $featurePermissions) => $featurePermissions->feature)
+            ->map(static fn (FeaturePermissions $featurePermissions) => new Collection($featurePermissions->permissions)->keyBy(
+                    static fn (Permission $permission) => $permission->action
                 )
             )
             ->toArray();
@@ -105,6 +106,7 @@ readonly class PermissionSynchronizer
 
                 if ($currentPermission === null) {
                     $toAdd[$feature][$action] = $permission;
+
                     continue;
                 }
 

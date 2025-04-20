@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;

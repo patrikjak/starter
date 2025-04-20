@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Patrikjak\Starter\Http\Controllers\Authors\Api\AuthorsController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
+use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\Permission;
@@ -21,6 +23,7 @@ Route::middleware(['web', 'auth'])
     ->group(static function(): void {
         $staticPagesEnabled = config('pjstarter.features.static_pages');
         $usersEnabled = config('pjstarter.features.users');
+        $articlesEnabled = config('pjstarter.features.articles');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')
@@ -81,6 +84,26 @@ Route::middleware(['web', 'auth'])
                         ->name('table-parts')
                         ->can(BasePolicy::VIEW_ANY, Permission::class);
                 });
+            });
+        }
+
+        if ($articlesEnabled) {
+            Route::prefix('authors')->name('authors.')->group(static function (): void {
+                Route::post('/', [AuthorsController::class, 'store'])
+                    ->name('store')
+                    ->can(BasePolicy::CREATE, Author::class);
+
+                Route::put('/{author}', [AuthorsController::class, 'update'])
+                    ->name('update')
+                    ->can(BasePolicy::EDIT, Author::class);
+                
+                Route::delete('/{author}', [AuthorsController::class, 'destroy'])
+                    ->name('destroy')
+                    ->can(BasePolicy::DELETE, Author::class);
+
+                Route::get('/table-parts', [AuthorsController::class, 'tableParts'])
+                    ->name('table-parts')
+                    ->can(BasePolicy::VIEW_ANY, Author::class);
             });
         }
     });

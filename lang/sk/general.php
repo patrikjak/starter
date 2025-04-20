@@ -15,5 +15,6 @@ return [
     'id' => 'ID',
     'yes' => 'Áno',
     'no' => 'Nie',
+    'success' => 'Úspech',
 
 ];

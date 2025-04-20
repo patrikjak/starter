@@ -7,8 +7,8 @@
             :action-label="__('pjstarter::general.save')"
         >
             @foreach($availablePermissions as $feature => $permissions)
-                <div class="permission-group mb-2%">
-                    <p class="strong font-primary">{{ ucfirst($feature) }}</p>
+                <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">{{ ucfirst($feature) }}</p>
 
                     <div class="permissions grid-4-items mt-2">
                         @foreach($permissions as $permission)

@@ -47,6 +47,13 @@ return [
 
     'authors' => [
         'title' => 'Autori',
+        'create_new_author' => 'Vytvoriť nového autora',
+        'name' => 'Meno',
+        'profile_picture' => 'Profilová fotka',
+        'author_details' => 'Detaily autora',
+        'edit_author' => 'Upraviť autora',
+        'author_edit' => 'Úprava autora',
+        'author_deleted' => 'Autor bol odstránený',
     ],
 
     'users' => [

@@ -107,10 +107,12 @@ class Navigation extends Component
                 ],
             );
 
-            $items[] = new NavigationItem(
-                __('pjstarter::pages.authors.title'),
-                route('authors.index'),
-            );
+            if ($currentUser->canViewAnyAuthor()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.authors.title'),
+                    route('authors.index'),
+                );
+            }
         }
 
         if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {

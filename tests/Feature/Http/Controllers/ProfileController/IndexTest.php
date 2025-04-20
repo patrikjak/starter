@@ -9,13 +9,6 @@ use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Carbon::setTestNow(Carbon::create(2025, 4, 5));
-    }
-
     public function testProfileNoAuthenticated(): void
     {
         $this->get(route('profile'))->assertRedirect(route('login'));
@@ -34,5 +27,12 @@ class IndexTest extends TestCase
         $this->assertMatchesHtmlSnapshot($response->getContent());
 
         $this->deleteIconsFromTestSkeleton();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(Carbon::create(2025, 4, 5));
     }
 }

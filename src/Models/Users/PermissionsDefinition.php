@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Models\Users;
 
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
+use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
+use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -85,7 +89,7 @@ trait PermissionsDefinition
                     BasePolicy::VIEW_ANY,
                     [
                         'en' => 'View users',
-                        'sk' => 'Zobraziť používateľov'
+                        'sk' => 'Zobraziť používateľov',
                     ],
                     true,
                     [RoleType::SUPERADMIN, RoleType::ADMIN],
@@ -94,7 +98,7 @@ trait PermissionsDefinition
                     UserPolicy::VIEW_SUPERADMIN,
                     [
                         'en' => 'View super admin',
-                        'sk' => 'Zobraziť super admin používateľov'
+                        'sk' => 'Zobraziť super admin používateľov',
                     ],
                     true,
                     [RoleType::SUPERADMIN],
@@ -165,6 +169,64 @@ trait PermissionsDefinition
                     ],
                     true,
                     [RoleType::SUPERADMIN],
+                ),
+            ]),
+            new FeaturePermissions(AuthorPolicy::FEATURE_NAME, [
+                new Permission(
+                    BasePolicy::VIEW_ANY,
+                    [
+                        'en' => 'View authors',
+                        'sk' => 'Zobraziť autorov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::VIEW,
+                    [
+                        'en' => 'View detail of author',
+                        'sk' => 'Zobraziť detail autora',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    [
+                        'en' => 'Create authors',
+                        'sk' => 'Vytvoriť autorov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    [
+                        'en' => 'Edit authors',
+                        'sk' => 'Editovať autorov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::DELETE,
+                    [
+                        'en' => 'Delete authors',
+                        'sk' => 'Zmazať autorov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+            ]),
+            new FeaturePermissions(ArticlePolicy::FEATURE_NAME, [
+                new Permission(
+                    BasePolicy::VIEW_ANY,
+                    [
+                        'en' => 'View articles',
+                        'sk' => 'Zobraziť články',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
             ]),
         ];

@@ -47,6 +47,13 @@ return [
 
     'authors' => [
         'title' => 'Authors',
+        'create_new_author' => 'Create new author',
+        'name' => 'Name',
+        'profile_picture' => 'Profile picture',
+        'author_details' => 'Author details',
+        'edit_author' => 'Edit author',
+        'author_edit' => 'Author edit',
+        'author_deleted' => 'Author was deleted',
     ],
 
     'users' => [

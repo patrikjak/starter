@@ -17,11 +17,13 @@
 
     @if (file_exists(base_path('vendor/patrikjak/starter/public/hot')))
         {{ Vite::useHotFile('/var/www/vendor/patrikjak/starter/public/hot') }}
+        <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwind.css') }}">
         <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.scss') }}">
         <script src="{{ Vite::asset('resources/js/main.ts') }}" defer type="module"></script>
     @else
         <link rel="stylesheet" href="{{ asset('vendor/pjstarter/assets/app.css') }}">
         <script src="{{ asset('vendor/pjstarter/assets/main.js') }}" defer type="module"></script>
+        <link rel="stylesheet" href="{{ asset('vendor/pjstarter/assets/tailwind.css') }}">
     @endif
 
     @isset($icon)

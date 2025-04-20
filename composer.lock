@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e434758657b08e3e079d7def125f6f83",
+    "content-hash": "9586b575d8b5bd7e68229b725aa79e3e",
     "packages": [
         {
             "name": "brick/math",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "patrikjak/utils",
-            "version": "2.5.1",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/utils.git",
-                "reference": "d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8"
+                "reference": "76a9d768cf4bbe20d12526048eb4874502ad21d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/utils/zipball/d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8",
-                "reference": "d1b962a9f9f7179ee73ef29bcfe56ea685a71bf8",
+                "url": "https://api.github.com/repos/patrikjak/utils/zipball/76a9d768cf4bbe20d12526048eb4874502ad21d8",
+                "reference": "76a9d768cf4bbe20d12526048eb4874502ad21d8",
                 "shasum": ""
             },
             "require": {
@@ -2819,9 +2819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/utils/issues",
-                "source": "https://github.com/patrikjak/utils/tree/v2.5.1"
+                "source": "https://github.com/patrikjak/utils/tree/v2.8.1"
             },
-            "time": "2025-03-27T19:30:08+00:00"
+            "time": "2025-04-20T10:53:14+00:00"
         },
         {
             "name": "phpoption/phpoption",

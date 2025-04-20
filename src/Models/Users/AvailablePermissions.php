@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Models\Users;
 
+use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -79,5 +82,10 @@ trait AvailablePermissions
     public function canViewSuperAdminRole(): bool
     {
         return $this->hasPermission(RolePolicy::FEATURE_NAME, RolePolicy::VIEW_SUPERADMIN);
+    }
+
+    public function canViewAnyAuthor(): bool
+    {
+        return $this->hasPermission(AuthorPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 }
