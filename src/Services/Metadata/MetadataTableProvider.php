@@ -96,7 +96,9 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         }
 
         return [
-            new Item(__('pjstarter::general.edit'), 'edit'),
+            new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
+                return route('metadata.edit', ['metadata' => $row['id']]);
+            }),
         ];
     }
 

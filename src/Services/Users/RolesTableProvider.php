@@ -11,6 +11,7 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
+use Patrikjak\Utils\Table\Dto\Cells\Simple;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -105,7 +106,16 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         }
 
         return [
-            new Item(__('pjstarter::pages.users.roles.manage_permissions'), 'manage_permissions'),
+            new Item(
+                __('pjstarter::pages.users.roles.manage_permissions'),
+                'manage_permissions',
+                href: static function (array $row) {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    return route('users.roles.permissions', ['role' => $roleId->value]);
+                },
+            ),
         ];
     }
 

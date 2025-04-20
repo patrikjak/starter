@@ -73,11 +73,21 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
         $actions = [];
 
         if ($user->canEditStaticPage()) {
-            $actions[] = new Item(__('pjstarter::general.edit'), 'edit');
+            $actions[] = new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
+                return route('static-pages.edit', ['staticPage' => $row['id']]);
+            });
         }
 
         if ($user->canDeleteStaticPage()) {
-            $actions[] = new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER);
+            $actions[] = new Item(
+                __('pjstarter::general.delete'),
+                'delete',
+                type: Type::DANGER,
+                href: static function (array $row) {
+                    return route('api.static-pages.destroy', ['staticPage' => $row['id']]);
+                },
+                method: 'DELETE',
+            );
         }
 
         return $actions;

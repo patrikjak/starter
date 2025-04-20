@@ -29,9 +29,15 @@ class StaticPagesController
         $staticPageRepository->update($staticPage->id, $request->getName());
     }
 
-    public function destroy(StaticPage $staticPage, StaticPageRepository $slugRepository): void
+    public function destroy(StaticPage $staticPage, StaticPageRepository $slugRepository): JsonResponse
     {
         $slugRepository->delete($staticPage->id);
+
+        return new JsonResponse([
+            'title' => __('pjstarter::general.success'),
+            'message' => __('pjstarter::pages.static_pages.static_page_deleted'),
+            'level' => 'success',
+        ]);
     }
 
     public function tableParts(TableParametersRequest $request, StaticPagesTableProvider $tableProvider): JsonResponse

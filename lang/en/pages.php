@@ -23,6 +23,7 @@ return [
             'prefix' => 'Leave empty for the root page',
         ],
         'metadatable_type' => 'Static page',
+        'static_page_deleted' => 'Static page was deleted',
     ],
 
     'metadata' => [

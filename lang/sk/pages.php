@@ -23,6 +23,7 @@ return [
             'prefix' => 'Pre koreňovú stránku nechajte prázdne',
         ],
         'metadatable_type' => 'Statická stránka',
+        'static_page_deleted' => 'Statická stránka bola odstránená',
     ],
 
     'metadata' => [
