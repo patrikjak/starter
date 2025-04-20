@@ -10,5 +10,9 @@ interface UserRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
 
-    public function getAllExceptSuperAdminsPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
+    public function getAllExceptSuperAdminsPaginated(
+        int $pageSize,
+        int $page,
+        string $refreshUrl,
+    ): LengthAwarePaginator;
 }

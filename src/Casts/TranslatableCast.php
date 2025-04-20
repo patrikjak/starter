@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 readonly class TranslatableCast implements CastsAttributes
 {
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function get(Model $model, string $key, mixed $value, array $attributes): string
     {
         $valueIsJson = json_validate($value);
@@ -33,6 +36,9 @@ readonly class TranslatableCast implements CastsAttributes
         return reset($allTranslations);
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         if (is_array($value)) {

@@ -77,6 +77,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         })->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getColumns(): array
     {
         $columns = ['name'];

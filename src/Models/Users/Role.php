@@ -13,6 +13,10 @@ use Patrikjak\Auth\Models\Role as BaseRole;
  */
 class Role extends BaseRole
 {
+    /**
+     * @var list<string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
     protected $with = ['permissions'];
 
     public function permissions(): BelongsToMany

@@ -33,6 +33,9 @@ class Permission extends Model
         return $this->belongsToMany(Role::class);
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [

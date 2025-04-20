@@ -33,10 +33,9 @@ readonly class PermissionSynchronizer
 
         $newPermissions = Collection::make($permissionModel::getPermissions())
             ->keyBy(static fn (FeaturePermissions $featurePermissions) => $featurePermissions->feature)
-            ->map(static fn (FeaturePermissions $featurePermissions) =>
-                new Collection($featurePermissions->permissions)->keyBy(
-                    static fn (Permission $permission) => $permission->action
-                )
+            ->map(
+                static fn (FeaturePermissions $featurePermissions) => new Collection($featurePermissions->permissions)
+                    ->keyBy(static fn (Permission $permission) => $permission->action)
             )
             ->toArray();
 
