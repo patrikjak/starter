@@ -18,6 +18,9 @@ use Patrikjak\Starter\Policies\Users\UserPolicy;
 
 trait PermissionsDefinition
 {
+    /**
+     * @return array<FeaturePermissions>
+     */
     public static function getPermissions(): array
     {
         return [

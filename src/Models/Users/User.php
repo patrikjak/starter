@@ -6,6 +6,9 @@ namespace Patrikjak\Starter\Models\Users;
 
 use Patrikjak\Auth\Models\User as BaseUser;
 
+/**
+ * @property Role $role
+ */
 class User extends BaseUser
 {
     use AvailablePermissions;

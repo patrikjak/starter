@@ -44,9 +44,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
     }
 
     /**
-     * @inheritDoc
+     * @return array<string, string>
      */
-    public function getHeader(): ?array
+    public function getHeader(): array
     {
         return [
             'id' => __('pjstarter::general.id'),
@@ -68,7 +68,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             $permissions = $this->getCroppedString($rolePermissions);
 
             return [
-                'id' => CellFactory::simple($role->id),
+                'id' => CellFactory::simple((string) $role->id),
                 'name' => $this->user->canViewRole()
                     ? CellFactory::link($role->name, route('users.roles.show', ['role' => $role->id]))
                     : CellFactory::simple($role->name),

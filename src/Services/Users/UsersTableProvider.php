@@ -28,9 +28,9 @@ final class UsersTableProvider extends BasePaginatedTableProvider
     }
 
     /**
-     * @inheritDoc
+     * @return array<string, string>
      */
-    public function getHeader(): ?array
+    public function getHeader(): array
     {
         return [
             'name' => __('pjstarter::pages.users.name'),
@@ -46,8 +46,11 @@ final class UsersTableProvider extends BasePaginatedTableProvider
     public function getData(): array
     {
         return $this->getPageData()->map(static function (User $user) {
+            assert(is_string($user->role_name));
+
             $role = CellFactory::chip(
                 $user->role_name,
+                /** @phpstan-ignore-next-line */
                 match ($user->role_name) {
                     RoleType::SUPERADMIN->name, RoleType::ADMIN->name => Type::SUCCESS,
                     RoleType::USER->name => Type::NEUTRAL,

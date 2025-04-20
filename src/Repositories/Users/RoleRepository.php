@@ -26,7 +26,7 @@ class RoleRepository extends BaseRoleRepository implements RoleRepositoryContrac
     }
 
     /**
-     * @param array<int> $permissions
+     * @inheritDoc
      */
     public function attachPermissions(Role $role, array $permissions): void
     {

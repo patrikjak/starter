@@ -23,7 +23,7 @@ class PermissionsService
     }
 
     /**
-     * @return Collection<Permission>
+     * @return Collection<string, Collection<int, mixed>>
      */
     public function getAllAvailablePermissionsGroupedByFeature(): Collection
     {

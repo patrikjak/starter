@@ -1,6 +1,42 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to undefined constant static\(Patrikjak\\Starter\\Policies\\BasePolicy\)\:\:FEATURE_NAME\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: src/Policies/BasePolicy.php
+
+		-
+			message: '#^Instanceof between Patrikjak\\Starter\\Models\\Authors\\Author and Patrikjak\\Starter\\Models\\Authors\\Author will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Repositories/Authors/AuthorRepository.php
+
+		-
+			message: '#^Instanceof between Patrikjak\\Starter\\Dto\\Users\\Permission and Patrikjak\\Starter\\Dto\\Users\\Permission will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Services/Users/PermissionSynchronizer.php
+
+		-
+			message: '#^Unable to resolve the template type TMakeKey in call to method static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Services/Users/PermissionSynchronizer.php
+
+		-
+			message: '#^Unable to resolve the template type TMakeValue in call to method static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Services/Users/PermissionSynchronizer.php
+
+		-
+			message: '#^Access to an undefined property Patrikjak\\Starter\\Models\\Users\\User\:\:\$role_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/Users/UsersTableProvider.php
+
+		-
 			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage\:\:once\(\)\.$#'
 			identifier: method.notFound
 			count: 1

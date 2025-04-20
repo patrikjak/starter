@@ -38,9 +38,9 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
     }
 
     /**
-     * @inheritDoc
+     * @return array<string, string>
      */
-    public function getHeader(): ?array
+    public function getHeader(): array
     {
         return [
             'name' => __('pjstarter::pages.authors.name'),

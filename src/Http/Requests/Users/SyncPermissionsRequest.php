@@ -8,6 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SyncPermissionsRequest extends FormRequest
 {
+    /**
+     * @return array<string>
+     */
     public function getPermissions(): array
     {
         $permissions = [];

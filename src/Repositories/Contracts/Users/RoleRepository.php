@@ -15,6 +15,9 @@ interface RoleRepository extends BaseRoleRepository
 
     public function getAllWithoutSuperAdminPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
 
+    /**
+     * @param array<int> $permissions
+     */
     public function attachPermissions(Role $role, array $permissions): void;
 
     /**

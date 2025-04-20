@@ -58,6 +58,9 @@ readonly class PermissionSynchronizer
         $this->insertDefaultPermissions($new);
     }
 
+    /**
+     * @param array<string, array<Permission>> $featurePermissions
+     */
     public function insertDefaultPermissions(array $featurePermissions): void
     {
         $roles = $this->roleRepository->getAll();
@@ -91,9 +94,9 @@ readonly class PermissionSynchronizer
     }
 
     /**
-     * @param array<FeaturePermissions> $newFeatures
+     * @param array<string, array<Permission>> $newFeatures
      * @param array<FeaturePermissions> $currentPermissions
-     * @return array<string, array<string, Permission>|FeaturePermissions>
+     * @return array<int, array<string, array<Permission>|FeaturePermissions>>
      */
     private function getPermissionsDiff(array $newFeatures, array $currentPermissions): array
     {
@@ -114,6 +117,7 @@ readonly class PermissionSynchronizer
                     $toUpdate[$feature][$action] = $permission;
                 }
 
+                /** @phpstan-ignore-next-line */
                 unset($currentPermissions[$feature]->permissions[$action]);
             }
         }
