@@ -14,7 +14,7 @@ class SyncPermissionsCommand extends Command
      * @var string
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected $signature = 'pjstarter:permissions:sync {--force : Force the command to run without confirmation}';
+    protected $signature = 'pjstarter:permissions:sync';
 
     /**
      * @var string

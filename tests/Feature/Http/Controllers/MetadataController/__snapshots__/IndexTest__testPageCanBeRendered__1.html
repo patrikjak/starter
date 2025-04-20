@@ -13,6 +13,7 @@
 
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
     
             <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
     
@@ -135,9 +136,10 @@
 
     
     </div>    
-    <table class="pj-table">
+    <div class="table-wrapper">
+        <table class="pj-table">
 
-        <thead>
+            <thead>
     <tr>
         
         
@@ -150,20 +152,21 @@
         
                     <th class="actions"></th>
             </tr>
-</thead>        <tbody>
+</thead>            <tbody>
     <tr class="empty-row">
     <td colspan="7">
         pjutils::table.no_data_available
     </td>
 </tr>
 </tbody>
-                    <div class="table-actions">
+                            <div class="table-actions">
             <div class="action edit neutral">
     
     <div class="label">
         <p>pjstarter::general.edit</p>
     </div>
-</div>    </div>            </table>
+</div>    </div>                    </table>
+    </div>
 
     
             <div class="pagination">

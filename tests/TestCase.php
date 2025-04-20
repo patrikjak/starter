@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Patrikjak\Auth\Tests\Traits\TestingData;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\UserCreator;
@@ -61,6 +62,9 @@ abstract class TestCase extends BaseTestCase
 
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
+
+        $this->artisan('seed:user-roles');
+        $this->artisan('pjstarter:permissions:sync');
     }
 
     /**
@@ -81,6 +85,7 @@ abstract class TestCase extends BaseTestCase
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/static-pages');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/users');
     }
 
     /**
@@ -91,6 +96,7 @@ abstract class TestCase extends BaseTestCase
     {
         tap($app['config'], static function (Repository $config): void {
             $config->set('auth.providers.users.model', User::class);
+            $config->set('pjauth.models.role', Role::class);
         });
     }
 }
