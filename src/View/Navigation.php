@@ -96,16 +96,22 @@ class Navigation extends Component
         }
 
         if ($articlesFeature) {
-            $items[] = new NavigationItem(
-                __('pjstarter::pages.articles.title'),
-                route('articles.index'),
-                subItems: [
-                    new NavigationItem(
-                        __('pjstarter::pages.articles.categories.title'),
-                        route('articles.categories.index'),
-                    ),
-                ],
-            );
+            $articlesSubItems = [];
+
+            if ($currentUser->canViewAnyArticleCategory()) {
+                $articlesSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.articles.categories.title'),
+                    route('articles.categories.index'),
+                );
+            }
+
+            if ($currentUser->canViewAnyArticle()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.articles.title'),
+                    route('articles.index'),
+                    subItems: $articlesSubItems,
+                );
+            }
 
             if ($currentUser->canViewAnyAuthor()) {
                 $items[] = new NavigationItem(

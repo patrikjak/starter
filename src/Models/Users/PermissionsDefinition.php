@@ -7,6 +7,7 @@ namespace Patrikjak\Starter\Models\Users;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
+use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
 use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
 use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\BasePolicy;
@@ -227,6 +228,53 @@ trait PermissionsDefinition
                     [
                         'en' => 'View articles',
                         'sk' => 'Zobraziť články',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+            ]),
+            new FeaturePermissions(ArticleCategoryPolicy::FEATURE_NAME, [
+                new Permission(
+                    BasePolicy::VIEW_ANY,
+                    [
+                        'en' => 'View article categories',
+                        'sk' => 'Zobraziť kategórie článkov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::VIEW,
+                    [
+                        'en' => 'View detail of article category',
+                        'sk' => 'Zobraziť detail kategórie článku',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    [
+                        'en' => 'Create article categories',
+                        'sk' => 'Vytvoriť kategórie článkov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    [
+                        'en' => 'Edit article categories',
+                        'sk' => 'Upraviť kategórie článkov',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::DELETE,
+                    [
+                        'en' => 'Delete article categories',
+                        'sk' => 'Zmazať kategórie článkov',
                     ],
                     false,
                     [RoleType::SUPERADMIN, RoleType::ADMIN],

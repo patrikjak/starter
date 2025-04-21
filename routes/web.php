@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Patrikjak\Starter\Http\Controllers\Articles\ArticleCategoriesController;
 use Patrikjak\Starter\Http\Controllers\Articles\ArticlesController;
-use Patrikjak\Starter\Http\Controllers\Articles\Categories\CategoriesController;
 use Patrikjak\Starter\Http\Controllers\Authors\AuthorsController;
 use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
@@ -12,6 +12,7 @@ use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Models\Articles\Article;
+use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
@@ -68,9 +69,25 @@ if ($articlesEnabled) {
                 ->name('index')
                 ->can(BasePolicy::VIEW_ANY, Article::class);
 
-            Route::prefix('categories')->name('categories.')->group(static function (): void {
-                Route::get('/', [CategoriesController::class, 'categories'])->name('index');
-            });
+            Route::prefix('categories')
+                ->name('categories.')
+                ->group(static function (): void {
+                    Route::get('/', [ArticleCategoriesController::class, 'index'])
+                        ->name('index')
+                        ->can(BasePolicy::VIEW_ANY, ArticleCategory::class);
+                    
+                    Route::get('/create', [ArticleCategoriesController::class, 'create'])
+                        ->name('create')
+                        ->can(BasePolicy::CREATE, ArticleCategory::class);
+
+                    Route::get('/{articleCategory}/edit', [ArticleCategoriesController::class, 'edit'])
+                        ->name('edit')
+                        ->can(BasePolicy::EDIT, ArticleCategory::class);
+
+                    Route::get('/{articleCategory}', [ArticleCategoriesController::class, 'show'])
+                        ->name('show')
+                        ->can(BasePolicy::VIEW, ArticleCategory::class);
+                });
     });
 }
 

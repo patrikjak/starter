@@ -38,11 +38,24 @@ return [
         'edit' => 'Edit SEO settings',
     ],
 
+    'slug' => [
+        'prefix' => 'Prefix',
+        'url' => 'URL',
+        'slug' => 'Slug',
+    ],
+
     'articles' => [
         'title' => 'Articles',
 
         'categories' => [
-            'title' => 'Categories',
+            'title' => 'Article categories',
+            'create_new_category' => 'Create new category',
+            'category' => 'Article category',
+            'category_details' => 'Details of the category',
+            'name' => 'Name',
+            'description' => 'Description',
+            'category_deleted' => 'Category was deleted',
+            'edit' => 'Category edit',
         ],
     ],
 

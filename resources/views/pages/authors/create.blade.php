@@ -7,6 +7,7 @@
             method="POST"
             :action="route('api.authors.store')"
             :redirect="route('authors.index')"
+            :action-label="__('pjstarter::general.save')"
         >
             <x-pjutils::form.input name="name" :label="__('pjstarter::pages.authors.name')" autofocus />
 

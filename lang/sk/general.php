@@ -16,5 +16,6 @@ return [
     'yes' => 'Áno',
     'no' => 'Nie',
     'success' => 'Úspech',
+    'empty' => 'Nevyplnené',
 
 ];

@@ -7,7 +7,9 @@ namespace Patrikjak\Starter\Repositories\Metadata;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Starter\Dto\Metadata\CreateMetadata;
 use Patrikjak\Starter\Dto\Metadata\UpdateMetadata;
+use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Metadata\Metadata;
+use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Utils\Common\Dto\Filter\FilterCriteria;
 use Patrikjak\Utils\Common\Dto\Sort\SortCriteria;
@@ -30,8 +32,21 @@ readonly class MetadataRepository implements MetadataRepositoryContract
         $columnsMask = Metadata::COLUMNS_MASK;
 
         $query = Metadata::with('metadatable')
-            ->join('static_pages AS sp', 'metadata.metadatable_id', '=', 'sp.id')
-            ->select('metadata.*', 'sp.name AS static_page_name', 'sp.id AS static_page_id');
+            ->leftJoin('static_pages as sp', static function ($join): void {
+                $join->on('metadata.metadatable_id', '=', 'sp.id')
+                    ->where('metadata.metadatable_type', '=', StaticPage::class);
+            })
+            ->leftJoin('article_categories as ac', static function ($join): void {
+                $join->on('metadata.metadatable_id', '=', 'ac.id')
+                    ->where('metadata.metadatable_type', '=', ArticleCategory::class);
+            })
+            ->select(
+                'metadata.*',
+                'sp.name AS static_page_name',
+                'sp.id AS static_page_id',
+                'ac.name AS article_category_name',
+                'ac.id AS article_category_id',
+            );
 
         $this->sortService->applySort($query, $sortCriteria, $columnsMask);
         $this->filterService->applyFilter($query, $filterCriteria, $columnsMask);

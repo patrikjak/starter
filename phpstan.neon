@@ -12,6 +12,7 @@ parameters:
 
     ignoreErrors:
         - identifier: missingType.generics
+        - identifier: instanceof.alwaysTrue
         - identifier: function.alreadyNarrowedType
         - '#Parameter \#1 \$view of function view expects view-string\|null, string given.#'
 

@@ -38,11 +38,24 @@ return [
         'edit' => 'Upraviť SEO nastavenia',
     ],
 
+    'slug' => [
+        'prefix' => 'Prefix',
+        'url' => 'URL',
+        'slug' => 'Slug',
+    ],
+
     'articles' => [
         'title' => 'Články',
 
         'categories' => [
-            'title' => 'Kategórie',
+            'title' => 'Kategórie článkov',
+            'create_new_category' => 'Vytvoriť novú kategóriu',
+            'category' => 'Kategória článku',
+            'category_details' => 'Detaily kategórie',
+            'name' => 'Názov',
+            'description' => 'Popis',
+            'category_deleted' => 'Kategória bola vymazaná',
+            'edit' => 'Úprava kategórie',
         ],
     ],
 

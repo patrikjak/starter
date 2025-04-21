@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Patrikjak\Starter\Http\Controllers\Articles\Api\ArticleCategoriesController;
 use Patrikjak\Starter\Http\Controllers\Authors\Api\AuthorsController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
@@ -8,6 +9,7 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
+use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
@@ -83,6 +85,29 @@ Route::middleware(['web', 'auth'])
                     Route::get('/table-parts', [PermissionsController::class, 'tableParts'])
                         ->name('table-parts')
                         ->can(BasePolicy::VIEW_ANY, Permission::class);
+                });
+            });
+        }
+
+        if ($articlesEnabled) {
+            Route::prefix('articles')->name('articles.')->group(static function (): void {
+
+                Route::prefix('categories')->name('categories.')->group(static function (): void {
+                    Route::post('/store', [ArticleCategoriesController::class, 'store'])
+                    ->name('store')
+                    ->can(BasePolicy::CREATE, ArticleCategory::class);
+
+                    Route::put('/{articleCategory}', [ArticleCategoriesController::class, 'update'])
+                        ->name('update')
+                        ->can(BasePolicy::EDIT, ArticleCategory::class);
+
+                    Route::delete('/{articleCategory}', [ArticleCategoriesController::class, 'destroy'])
+                        ->name('destroy')
+                        ->can(BasePolicy::DELETE, ArticleCategory::class);
+
+                    Route::get('/table-parts', [ArticleCategoriesController::class, 'tableParts'])
+                        ->name('table-parts')
+                        ->can(BasePolicy::VIEW_ANY, ArticleCategory::class);
                 });
             });
         }

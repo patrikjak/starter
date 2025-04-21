@@ -9,19 +9,23 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
 use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
+use Patrikjak\Starter\Repositories\Articles\ArticleCategoryRepository;
 use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
@@ -49,6 +53,7 @@ class StarterServiceProvider extends ServiceProvider
         RoleRepositoryContract::class => RoleRepository::class,
         PermissionRepositoryContract::class => PermissionRepository::class,
         AuthorRepositoryContract::class => AuthorRepository::class,
+        ArticleCategoryRepositoryContract::class => ArticleCategoryRepository::class,
     ];
 
     public function boot(): void
@@ -129,6 +134,12 @@ class StarterServiceProvider extends ServiceProvider
 
         if (config('pjstarter.features.articles')) {
             $this->publishes([
+                __DIR__ . '/../database/migrations/features/articles' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
+
+        if (config('pjstarter.features.articles')) {
+            $this->publishes([
                 __DIR__ . '/../database/migrations/features/authors' => database_path('migrations'),
             ], 'pjstarter-migrations');
         }
@@ -178,5 +189,6 @@ class StarterServiceProvider extends ServiceProvider
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Permission::class, PermissionPolicy::class);
         Gate::policy(Author::class, AuthorPolicy::class);
+        Gate::policy(ArticleCategory::class, ArticleCategoryPolicy::class);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Models\Users;
 
+use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
+use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
 use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
@@ -87,5 +89,15 @@ trait AvailablePermissions
     public function canViewAnyAuthor(): bool
     {
         return $this->hasPermission(AuthorPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
+    }
+
+    public function canViewAnyArticle(): bool
+    {
+        return $this->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
+    }
+
+    public function canViewAnyArticleCategory(): bool
+    {
+        return $this->hasPermission(ArticleCategoryPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 }

@@ -19,6 +19,6 @@ trait StringCropper
             return $string;
         }
 
-        return sprintf('%s%s', substr($string, 0, $totalLength), $append);
+        return sprintf('%s%s', mb_substr($string, 0, $totalLength), $append);
     }
 }

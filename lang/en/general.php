@@ -16,5 +16,6 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'success' => 'Success',
+    'empty' => 'Empty',
 
 ];
