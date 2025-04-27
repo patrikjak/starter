@@ -46,6 +46,28 @@ return [
 
     'articles' => [
         'title' => 'Articles',
+        'create' => 'Create article',
+        'new' => 'New article',
+        'detail' => 'Article detail',
+        'content' => 'Content',
+        'other_info' => 'Other information',
+        'category' => 'Category',
+        'author' => 'Author',
+        'article_title' => 'Article title',
+        'excerpt' => 'Excerpt',
+        'featured_image' => 'Featured image',
+        'status' => 'Status',
+        'visibility' => 'Visibility',
+        'read_time' => 'Read time (minutes)',
+        'published_at' => 'Published at',
+        'private' => 'Private',
+        'public' => 'Public',
+        'article' => 'Article',
+        'statuses' => [
+            'draft' => 'Draft',
+            'published' => 'Published',
+            'archived' => 'Archived',
+        ],
 
         'categories' => [
             'title' => 'Article categories',

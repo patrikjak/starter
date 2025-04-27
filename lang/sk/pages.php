@@ -46,6 +46,28 @@ return [
 
     'articles' => [
         'title' => 'Články',
+        'create' => 'Vytvoriť článok',
+        'new' => 'Nový článok',
+        'detail' => 'Detail článku',
+        'content' => 'Obsah',
+        'other_info' => 'Ostatné informácie',
+        'category' => 'Kategória',
+        'author' => 'Autor',
+        'article_title' => 'Názov článku',
+        'excerpt' => 'Úryvok',
+        'featured_image' => 'Hlavný obrázok',
+        'status' => 'Stav',
+        'visibility' => 'Viditeľnosť',
+        'read_time' => 'Čas na prečítanie (minúty)',
+        'published_at' => 'Dátum publikovania',
+        'private' => 'Súkromný',
+        'public' => 'Verejný',
+        'article' => 'Článok',
+        'statuses' => [
+            'draft' => 'Návrh',
+            'published' => 'Publikovaný',
+            'archived' => 'Archivovaný',
+        ],
 
         'categories' => [
             'title' => 'Kategórie článkov',

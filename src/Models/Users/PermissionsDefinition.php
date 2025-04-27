@@ -232,6 +232,42 @@ trait PermissionsDefinition
                     false,
                     [RoleType::SUPERADMIN, RoleType::ADMIN],
                 ),
+                new Permission(
+                    BasePolicy::VIEW,
+                    [
+                        'en' => 'View article detail',
+                        'sk' => 'Zobraziť detail článku',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    [
+                        'en' => 'Create articles',
+                        'sk' => 'Vytvoriť články',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    [
+                        'en' => 'Edit articles',
+                        'sk' => 'Upraviť články',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
+                new Permission(
+                    BasePolicy::DELETE,
+                    [
+                        'en' => 'Delete articles',
+                        'sk' => 'Zmazať články',
+                    ],
+                    false,
+                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                ),
             ]),
             new FeaturePermissions(ArticleCategoryPolicy::FEATURE_NAME, [
                 new Permission(

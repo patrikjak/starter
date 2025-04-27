@@ -69,6 +69,18 @@ if ($articlesEnabled) {
                 ->name('index')
                 ->can(BasePolicy::VIEW_ANY, Article::class);
 
+            Route::get('/create', [ArticlesController::class, 'create'])
+                ->name('create')
+                ->can(BasePolicy::CREATE, Article::class);
+
+            /*Route::get('/{article}/edit', [ArticlesController::class, 'edit'])
+                ->name('edit')
+                ->can(BasePolicy::EDIT, Article::class);
+
+            Route::get('/{article}', [ArticlesController::class, 'show'])
+                ->name('show')
+                ->can(BasePolicy::VIEW, Article::class);*/
+
             Route::prefix('categories')
                 ->name('categories.')
                 ->group(static function (): void {

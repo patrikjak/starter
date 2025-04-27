@@ -24,8 +24,10 @@ use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
 use Patrikjak\Starter\Repositories\Articles\ArticleCategoryRepository;
+use Patrikjak\Starter\Repositories\Articles\ArticleRepository;
 use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
@@ -54,6 +56,7 @@ class StarterServiceProvider extends ServiceProvider
         PermissionRepositoryContract::class => PermissionRepository::class,
         AuthorRepositoryContract::class => AuthorRepository::class,
         ArticleCategoryRepositoryContract::class => ArticleCategoryRepository::class,
+        ArticleRepositoryContract::class => ArticleRepository::class,
     ];
 
     public function boot(): void

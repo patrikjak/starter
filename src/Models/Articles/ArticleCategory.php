@@ -8,6 +8,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Models\Common\Visitable;
 use Patrikjak\Starter\Models\Metadata\Concerns\MetadatableDefaults;
@@ -50,5 +51,10 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     public function getMetadatableTypeLabel(): string
     {
         return __('pjstarter::pages.articles.categories.category');
+    }
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
     }
 }

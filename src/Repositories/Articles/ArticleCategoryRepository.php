@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Repositories\Articles;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Articles\ArticleCategoryData;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
@@ -17,6 +18,19 @@ class ArticleCategoryRepository implements ArticleCategoryRepositoryContract
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
         return $this->getAllPaginatedByModel(ArticleCategory::class, $pageSize, $page, $refreshUrl);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAll(): Collection
+    {
+        return ArticleCategory::all();
+    }
+
+    public function getById(string $id): ArticleCategory
+    {
+        return ArticleCategory::findOrFail($id);
     }
 
     public function create(ArticleCategoryData $articleCategory): void

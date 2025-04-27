@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\Articles\Api\ArticleCategoriesController;
+use Patrikjak\Starter\Http\Controllers\Articles\Api\ArticlesController;
 use Patrikjak\Starter\Http\Controllers\Authors\Api\AuthorsController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
@@ -9,6 +10,7 @@ use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
+use Patrikjak\Starter\Models\Articles\Article;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
@@ -47,13 +49,9 @@ Route::middleware(['web', 'auth'])
                         ->name('table-parts')
                         ->can(BasePolicy::VIEW_ANY, StaticPage::class);
             });
-
-            Route::prefix('slugs')->name('slugs.')->group(static function (): void {
-                Route::put('/{slug}', [SlugsController::class, 'update'])->name('update');
-            });
         }
 
-        if ($staticPagesEnabled) {
+        if ($staticPagesEnabled || $articlesEnabled) {
             Route::prefix('metadata')->name('metadata.')->group(static function (): void {
                 Route::put('/{metadata}', [MetadataController::class, 'update'])
                     ->name('update')
@@ -62,6 +60,10 @@ Route::middleware(['web', 'auth'])
                 Route::get('/table-parts', [MetadataController::class, 'tableParts'])
                     ->name('table-parts')
                     ->can(BasePolicy::VIEW_ANY, Metadata::class);
+            });
+
+            Route::prefix('slugs')->name('slugs.')->group(static function (): void {
+                Route::put('/{slug}', [SlugsController::class, 'update'])->name('update');
             });
         }
 
@@ -91,11 +93,26 @@ Route::middleware(['web', 'auth'])
 
         if ($articlesEnabled) {
             Route::prefix('articles')->name('articles.')->group(static function (): void {
+                Route::post('/', [ArticlesController::class, 'store'])
+                    ->name('store')
+                    ->can(BasePolicy::CREATE, Article::class);
+
+                Route::put('/{article}', [ArticlesController::class, 'update'])
+                    ->name('update')
+                    ->can(BasePolicy::EDIT, Article::class);
+
+                Route::delete('/{article}', [ArticlesController::class, 'destroy'])
+                    ->name('destroy')
+                    ->can(BasePolicy::DELETE, Article::class);
+
+                Route::get('/table-parts', [ArticlesController::class, 'tableParts'])
+                    ->name('table-parts')
+                    ->can(BasePolicy::VIEW_ANY, Article::class);
 
                 Route::prefix('categories')->name('categories.')->group(static function (): void {
-                    Route::post('/store', [ArticleCategoriesController::class, 'store'])
-                    ->name('store')
-                    ->can(BasePolicy::CREATE, ArticleCategory::class);
+                    Route::post('/', [ArticleCategoriesController::class, 'store'])
+                        ->name('store')
+                        ->can(BasePolicy::CREATE, ArticleCategory::class);
 
                     Route::put('/{articleCategory}', [ArticleCategoriesController::class, 'update'])
                         ->name('update')

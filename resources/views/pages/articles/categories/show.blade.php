@@ -1,7 +1,7 @@
 @use('Patrikjak\Starter\Policies\BasePolicy')
 @use('Patrikjak\Starter\Models\Articles\ArticleCategory')
 
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.authors.author_details'), $articleCategory->name)">
+<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.articles.categories.category_details'), $articleCategory->name)">
 
     @can(BasePolicy::EDIT, ArticleCategory::class)
         <x-slot:actions>

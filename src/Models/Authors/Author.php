@@ -7,6 +7,8 @@ namespace Patrikjak\Starter\Models\Authors;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Patrikjak\Starter\Models\Articles\Article;
 
 /**
  * @property string $id
@@ -18,4 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasUuids;
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
 }

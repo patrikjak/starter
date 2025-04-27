@@ -10,6 +10,12 @@
                     @lang('pjstarter::pages.articles.categories.title')
                 </a>
             </x-pjstarter::layout.action>
+
+            <x-pjstarter::layout.action>
+                <a href="{{ route('articles.create') }}">
+                    @lang('pjstarter::pages.articles.create')
+                </a>
+            </x-pjstarter::layout.action>
         </x-slot:actions>
     @endcan
 

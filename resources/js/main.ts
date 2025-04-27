@@ -12,7 +12,11 @@ bindTableFunctions();
 bindDropdowns();
 bindUploaders();
 
-new Form().bindSubmit();
+const articlesForm = document.querySelector('#article-form');
+
+if (!articlesForm) {
+    new Form().bindSubmit();
+}
 
 userNavigationButton.addEventListener('click', (): void => {
     const isOpen: boolean = userNavigationItems.classList.contains('active');
