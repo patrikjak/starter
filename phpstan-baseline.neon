@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Unable to resolve the template type TRelatedModel in call to method Illuminate\\Database\\Eloquent\\Model\:\:belongsToMany\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Models/Users/Permission.php
+
+		-
 			message: '#^Access to undefined constant static\(Patrikjak\\Starter\\Policies\\BasePolicy\)\:\:FEATURE_NAME\.$#'
 			identifier: classConstant.notFound
 			count: 1

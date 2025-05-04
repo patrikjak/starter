@@ -86,6 +86,7 @@ abstract class TestCase extends BaseTestCase
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/users');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/articles');
     }
 
     /**
