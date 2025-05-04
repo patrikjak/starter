@@ -7,6 +7,8 @@ namespace Patrikjak\Starter\Models\Users;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Patrikjak\Auth\Factories\RoleFactory;
+use Patrikjak\Auth\Models\Role as AuthRole;
 use Patrikjak\Starter\Casts\TranslatableCast;
 
 /**
@@ -30,7 +32,13 @@ class Permission extends Model
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        $model = RoleFactory::getRoleModelClass();
+
+        if ($model === AuthRole::class) {
+            $model = Role::class;
+        }
+
+        return $this->belongsToMany($model);
     }
 
     /**

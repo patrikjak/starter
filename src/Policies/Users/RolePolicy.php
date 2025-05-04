@@ -39,7 +39,8 @@ class RolePolicy extends BasePolicy
     {
         assert($model instanceof Role);
 
-        return $this->hasPermission($user, self::MANAGE) && $model->id !== RoleType::SUPERADMIN->value;
+        return $this->hasPermission($user, self::MANAGE) && $model->id !== RoleType::SUPERADMIN->value
+            && $user->role->id !== $model->id;
     }
 
     public function manageProtected(User $user): bool

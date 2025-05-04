@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Auth\AuthManager;
+use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
@@ -109,12 +110,22 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             new Item(
                 __('pjstarter::pages.users.roles.manage_permissions'),
                 'manage_permissions',
+                visible: function (array $row): bool {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    if ($this->userCanViewSuperAdminRole) {
+                        return true;
+                    }
+
+                    return $this->user->role->id !== (int) $roleId->value;
+                },
                 href: static function (array $row) {
                     $roleId = $row['id'];
                     assert($roleId instanceof Simple);
 
                     return route('users.roles.permissions', ['role' => $roleId->value]);
-                },
+                }
             ),
         ];
     }
