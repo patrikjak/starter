@@ -97,13 +97,13 @@ Route::middleware(['web', 'auth'])
                     ->name('store')
                     ->can(BasePolicy::CREATE, Article::class);
 
-                Route::put('/{article}', [ArticlesController::class, 'update'])
-                    ->name('update')
-                    ->can(BasePolicy::EDIT, Article::class);
-
-                Route::delete('/{article}', [ArticlesController::class, 'destroy'])
-                    ->name('destroy')
-                    ->can(BasePolicy::DELETE, Article::class);
+                Route::post('upload-image', [ArticlesController::class, 'uploadImage'])
+                    ->name('upload-image')
+                    ->can(BasePolicy::CREATE, Article::class);
+                
+                Route::post('fetch-image', [ArticlesController::class, 'fetchImage'])
+                    ->name('fetch-image')
+                    ->can(BasePolicy::CREATE, Article::class);
 
                 Route::get('/table-parts', [ArticlesController::class, 'tableParts'])
                     ->name('table-parts')
@@ -126,6 +126,14 @@ Route::middleware(['web', 'auth'])
                         ->name('table-parts')
                         ->can(BasePolicy::VIEW_ANY, ArticleCategory::class);
                 });
+
+                Route::put('/{article}', [ArticlesController::class, 'update'])
+                    ->name('update')
+                    ->can(BasePolicy::EDIT, Article::class);
+
+                Route::delete('/{article}', [ArticlesController::class, 'destroy'])
+                    ->name('destroy')
+                    ->can(BasePolicy::DELETE, Article::class);
             });
         }
 

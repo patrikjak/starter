@@ -22,4 +22,14 @@ enum ArticleStatus: string
                 sprintf('pjstarter::pages.articles.statuses.%s', $status->value)),
             ]);
     }
+
+    /**
+     * @lang('pjstarter::pages.articles.statuses.draft')
+     * @lang('pjstarter::pages.articles.statuses.published')
+     * @lang('pjstarter::pages.articles.statuses.archived')
+     */
+    public function toLabel(): string
+    {
+        return __(sprintf('pjstarter::pages.articles.statuses.%s', $this->value));
+    }
 }

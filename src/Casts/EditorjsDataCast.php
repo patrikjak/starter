@@ -11,13 +11,17 @@ class EditorjsDataCast implements CastsAttributes
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): EditorData
     {
-        return EditorDataFactory::createFromOutputData($value);
+        return EditorDataFactory::createFromOutputData(json_decode($value, true));
     }
 
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (json_validate($value)) {
-            return $value;
+        if ($value instanceof EditorData) {
+            return $value->toJson();
+        }
+
+        if (is_array($value)) {
+            return json_encode($value);
         }
 
         return $value;

@@ -68,6 +68,7 @@ return [
             'published' => 'Publikovaný',
             'archived' => 'Archivovaný',
         ],
+        'deleted' => 'Článok bol odstránený',
 
         'categories' => [
             'title' => 'Kategórie článkov',

@@ -3,10 +3,15 @@ import Header from '@editorjs/header';
 import RawTool from '@editorjs/raw';
 import EditorjsList from '@editorjs/list';
 import ImageTool from '@editorjs/image';
-import {IconListBulleted, IconListNumbered} from '@codexteam/icons';
 import Form from '../../../vendor/patrikjak/utils/resources/assets/js/form/Form';
 import {AxiosResponse} from "axios";
 import notify from "../../../vendor/patrikjak/utils/resources/assets/js/utils/notification";
+import {getData} from "../../../vendor/patrikjak/utils/resources/assets/js/helpers/general";
+
+const uploadImageUrl: string = getData(document.querySelector('#editorjs'), 'upload-image-url');
+const fetchImageUrl: string = getData(document.querySelector('#editorjs'), 'fetch-image-url');
+const csrfTokenMeta: HTMLMetaElement = document.head.querySelector('meta[name="csrf-token"]');
+const csrfToken: string = csrfTokenMeta.content;
 
 const editor = new EditorJS({
     tools: {
@@ -16,35 +21,23 @@ const editor = new EditorJS({
             inlineToolbar: true,
             config: {
                 defaultStyle: 'unordered',
+                counterTypes: ['numeric'],
             },
-            toolbox: [
-                {
-                    icon: IconListBulleted,
-                    title: 'Unordered List',
-                    data: {
-                        style: 'unordered',
-                    },
-                },
-                {
-                    icon: IconListNumbered,
-                    title: 'Ordered List',
-                    data: {
-                        style: 'ordered',
-                    },
-                },
-            ],
         },
         image: {
             class: ImageTool,
             config: {
+                additionalRequestHeaders: {
+                    'X-CSRF-TOKEN': csrfToken,
+                },
                 endpoints: {
-                    byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                    byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                    byFile: uploadImageUrl,
+                    byUrl: fetchImageUrl,
                 },
             },
         },
         raw: RawTool,
-    }
+    },
 });
 
 new Form()
@@ -73,11 +66,3 @@ new Form()
 
     })
     .bindSubmit();
-
-/*setInterval((): void => {
-    editor.save().then((outputData) => {
-        console.log('Article data: ', outputData)
-    }).catch((error) => {
-        console.log('Saving failed: ', error)
-    });
-}, 10000);*/

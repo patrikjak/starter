@@ -2,6 +2,7 @@
 
 namespace Patrikjak\Starter\Repositories\Articles;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Starter\Dto\Articles\ArticleInputData;
 use Patrikjak\Starter\Dto\Articles\ArticleProcessedData;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -9,9 +10,24 @@ use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as Artic
 
 class ArticleRepository implements ArticleRepositoryContract
 {
+    public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
+    {
+        return Article::with('author', 'articleCategory')
+            ->orderBy('created_at', 'desc')
+            ->paginate($pageSize, page: $page)
+            ->withPath($refreshUrl);
+    }
+
     public function create(ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void
     {
         $this->saveArticle(new Article(), $articleInputData, $articleProcessedData);
+    }
+
+    public function destroy(string $id): void
+    {
+        $article = Article::findOrFail($id);
+
+        $article->delete();
     }
 
     private function saveArticle(

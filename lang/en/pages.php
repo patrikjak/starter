@@ -68,6 +68,7 @@ return [
             'published' => 'Published',
             'archived' => 'Archived',
         ],
+        'article_deleted' => 'Article was deleted',
 
         'categories' => [
             'title' => 'Article categories',

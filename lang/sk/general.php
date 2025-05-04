@@ -17,5 +17,6 @@ return [
     'no' => 'Nie',
     'success' => 'Úspech',
     'empty' => 'Nevyplnené',
+    'minute' => '{1} minúta|[2,4] minúty|[5,*] minút',
 
 ];

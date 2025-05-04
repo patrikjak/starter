@@ -15,9 +15,12 @@
         <div class="grid grid-cols-5 gap-10 max-h-[90%]">
             <div class="article-content col-span-3 overflow-y-auto">
                 <p class="font-bold font-primary text-2xl border-b pb-2">@lang('pjstarter::pages.articles.content')</p>
-                <div class="editorjs mt-4" id="editorjs">
-
-                </div>
+                <div
+                    class="editorjs mt-4"
+                    id="editorjs"
+                    data-upload-image-url="{{ route('api.articles.upload-image') }}"
+                    data-fetch-image-url="{{ route('api.articles.fetch-image') }}"
+                ></div>
             </div>
 
             <div class="article-data col-span-2 overflow-y-auto">

@@ -18,4 +18,18 @@ class EditorData
         public string $rawData,
     ) {
     }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+
+    public function toJson(): string
+    {
+        return json_encode([
+            'time' => $this->time->timestamp,
+            'blocks' => $this->blocks->map(fn (Block $block) => $block->toArray())->all(),
+            'version' => $this->version,
+        ]);
+    }
 }

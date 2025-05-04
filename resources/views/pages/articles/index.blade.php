@@ -20,7 +20,7 @@
     @endcan
 
     <div class="articles">
-
+        <x-pjutils.table::table :$table />
     </div>
 
 </x-pjstarter::layout.app>

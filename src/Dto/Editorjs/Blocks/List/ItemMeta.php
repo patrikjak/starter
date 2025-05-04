@@ -1,10 +1,10 @@
 <?php
 
-namespace Patrikjak\Starter\Dto\Editorjs\Blocks;
+namespace Patrikjak\Starter\Dto\Editorjs\Blocks\List;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-interface Block extends Arrayable
+interface ItemMeta extends Arrayable
 {
     /**
      * @return array<string, mixed>

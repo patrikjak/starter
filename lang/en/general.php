@@ -17,5 +17,6 @@ return [
     'no' => 'No',
     'success' => 'Success',
     'empty' => 'Empty',
+    'minute' => '{1} minute|[2,4] minutes|[5,*] minutes',
 
 ];

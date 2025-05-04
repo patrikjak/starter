@@ -81,6 +81,11 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
         return $this->belongsTo(Author::class);
     }
 
+    public function getFeaturedImagePath(): string
+    {
+        return asset(sprintf('storage/%s', $this->featured_image));
+    }
+
     protected function casts(): array
     {
         return [
