@@ -8,6 +8,7 @@ use Patrikjak\Starter\Dto\Editorjs\Blocks\Block;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Header\Header;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Image\Image;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\List\ChecklistItemMeta;
+use Patrikjak\Starter\Dto\Editorjs\Blocks\List\ItemMeta;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\List\ListElement;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\List\ListItem;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\List\OrderedListItemMeta;
@@ -113,15 +114,22 @@ class EditorDataFactory
                 $mappedItemItems = self::mapListItems($itemItems, $style);
             }
 
-            $meta = match ($style) {
-                ListStyle::Ordered => new OrderedListItemMeta(),
-                ListStyle::Unordered => new UnorderedListItemMeta(),
-                ListStyle::Checklist => new ChecklistItemMeta(),
-            };
-
-            $mappedItems[] = new ListItem($item['content'], $meta, $mappedItemItems);
+            $mappedItems[] = new ListItem(
+                $item['content'],
+                self::getListMeta($item['meta'], $style),
+                $mappedItemItems,
+            );
         }
 
         return $mappedItems;
+    }
+
+    private static function getListMeta(array $meta, ListStyle $style): ItemMeta
+    {
+        return match ($style) {
+            ListStyle::Ordered => new OrderedListItemMeta(),
+            ListStyle::Unordered => new UnorderedListItemMeta(),
+            ListStyle::Checklist => new ChecklistItemMeta($meta['checked'] ?? false),
+        };
     }
 }

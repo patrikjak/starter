@@ -42,6 +42,12 @@ const editor = new EditorJS({
                     byFile: uploadImageUrl,
                     byUrl: fetchImageUrl,
                 },
+                features: {
+                    border: false,
+                    stretch: false,
+                    caption: false,
+                    background: false,
+                }
             },
         },
         raw: RawTool,
@@ -49,7 +55,7 @@ const editor = new EditorJS({
     // @ts-ignore
     data: data,
     autofocus: true,
-    placeholder: 'Start writing your article...',
+    placeholder: 'Add your content here',
 });
 
 new Form()

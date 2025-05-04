@@ -11,10 +11,10 @@ class Image implements Block
         public string $id,
         public string $type,
         public string $url,
-        public string $caption,
-        public string $withBorder,
-        public string $withBackground,
-        public string $stretched,
+        public ?string $caption = null,
+        public bool $withBorder = false,
+        public bool $withBackground = false,
+        public bool $stretched = false,
     ) {
     }
 
