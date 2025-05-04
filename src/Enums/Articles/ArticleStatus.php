@@ -18,9 +18,9 @@ enum ArticleStatus: string
     case ARCHIVED = 'archived';
 
     /**
-     * @lang('pjstarter::pages.articles.statuses.draft')
-     * @lang('pjstarter::pages.articles.statuses.published')
-     * @lang('pjstarter::pages.articles.statuses.archived')
+     * @lang("pjstarter::pages.articles.statuses.draft")
+     * @lang("pjstarter::pages.articles.statuses.published")
+     * @lang("pjstarter::pages.articles.statuses.archived")
      */
     public function toLabel(): string
     {

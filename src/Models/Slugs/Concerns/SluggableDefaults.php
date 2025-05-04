@@ -15,6 +15,8 @@ trait SluggableDefaults
 
     public function getSlug(): Slug
     {
+        assert($this->slug instanceof Slug);
+
         return $this->slug;
     }
 

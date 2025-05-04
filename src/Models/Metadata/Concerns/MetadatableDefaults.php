@@ -30,6 +30,8 @@ trait MetadatableDefaults
 
     public function getMetadata(): ?Metadata
     {
+        assert($this->metadata instanceof Metadata || $this->metadata === null);
+
         return $this->metadata;
     }
 

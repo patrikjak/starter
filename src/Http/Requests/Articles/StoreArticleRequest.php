@@ -91,7 +91,7 @@ class StoreArticleRequest extends FormRequest
             $this->file('featured_image'),
             ArticleStatus::from($this->input('status')),
             Visibility::PUBLIC,
-            $this->integer('read_time', null),
+            $this->integer('read_time', 0),
         );
     }
 

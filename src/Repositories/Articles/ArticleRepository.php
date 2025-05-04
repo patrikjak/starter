@@ -55,7 +55,7 @@ class ArticleRepository implements ArticleRepositoryContract
     ): void {
         $articleModel->title = $articleData->title;
         $articleModel->excerpt = $articleData->excerpt;
-        $articleModel->content = $articleData->content->rawData;
+        $articleModel->content = $articleData->content;
         $articleModel->featured_image = $articleProcessedData->featuredImagePath;
         $articleModel->status = $articleData->status;
         $articleModel->visibility = $articleData->visibility;
