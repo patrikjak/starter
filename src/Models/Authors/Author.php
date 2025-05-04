@@ -6,8 +6,10 @@ namespace Patrikjak\Starter\Models\Authors;
 
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Patrikjak\Starter\Database\Factories\Authors\AuthorFactory;
 use Patrikjak\Starter\Models\Articles\Article;
 
 /**
@@ -20,9 +22,15 @@ use Patrikjak\Starter\Models\Articles\Article;
 class Author extends Model
 {
     use HasUuids;
+    use HasFactory;
 
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
+    }
+
+    protected static function newFactory(): AuthorFactory
+    {
+        return AuthorFactory::new();
     }
 }

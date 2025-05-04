@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.articles.categories.edit - Testing Category  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <div class="item-wrapper">
+    <a href="http://localhost/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper has-sub-items active">
+    <a href="http://localhost/articles" class="item">
+        <span class="text">pjstarter::pages.articles.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow up"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/articles/categories" class="item active">
+        <span class="text">pjstarter::pages.articles.categories.title</span>
+
+            </a>
+
+    </div>                    </div>
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/authors" class="item">
+        <span class="text">pjstarter::pages.authors.title</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/metadata" class="item">
+        <span class="text">pjstarter::pages.metadata.title</span>
+
+            </a>
+
+    </div>            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/profile" class="item">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.articles.categories.edit - Testing Category</h1>
+
+                            </div>
+
+            <div class="body">
+                <div class="page-create">
+        <div class="grid-2-items">
+            <div class="card">
+                <p class="title">pjstarter::pages.articles.categories.category_details</p>
+                <form method="POST" action="http://localhost/api/articles/categories/e13e5622-0acf-41e7-96b0-74d4fd41fb84" data-redirect="http://localhost/articles/categories">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+            <input type="hidden" name="_method" value="PUT">    
+    <div class="pj-classic">
+            <label for="name">pjstarter::pages.articles.categories.name</label>
+    
+            <input type="text" id="name" name="name" value="Testing Category">
+    
+    </div>
+                    <div class="pj-textarea">
+    <label for="description">pjstarter::pages.articles.categories.description</label>
+    <textarea id="description" name="description">Testing Category Description</textarea>
+</div>
+
+            <button class="pj-btn" type="submit">
+        pjstarter::general.edit
+            </button>
+    </form>            </div>
+
+            <div class="card">
+                <p class="title">pjstarter::pages.slug.url</p>
+
+                <form method="POST" action="http://localhost/api/slugs/01969cf4-d72c-7024-bfc3-f91b4ffc3808" data-redirect="http://localhost/articles/categories">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+            <input type="hidden" name="_method" value="PUT">    
+    <div class="pj-classic">
+            <label for="prefix">pjstarter::pages.slug.prefix</label>
+    
+            <input type="text" id="prefix" name="prefix">
+    
+    </div>
+                    <div class="pj-classic">
+            <label for="slug">pjstarter::pages.slug.slug</label>
+    
+            <input type="text" id="slug" name="slug" value="testing-category">
+    
+    </div>
+
+            <button class="pj-btn" type="submit">
+        pjstarter::general.edit
+            </button>
+    </form>            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

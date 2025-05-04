@@ -7,10 +7,12 @@ namespace Patrikjak\Starter\Models\Articles;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Casts\EditorjsDataCast;
+use Patrikjak\Starter\Database\Factories\Articles\ArticleFactory;
 use Patrikjak\Starter\Dto\Editorjs\EditorData;
 use Patrikjak\Starter\Enums\Articles\ArticleStatus;
 use Patrikjak\Starter\Enums\Articles\Visibility;
@@ -51,6 +53,7 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
     use MetadatableDefaults;
     use SlugRelationship;
     use MetadataRelationship;
+    use HasFactory;
 
     public function getMetaTitle(): string
     {
@@ -100,5 +103,10 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
+    }
+
+    protected static function newFactory(): ArticleFactory
+    {
+        return ArticleFactory::new();
     }
 }

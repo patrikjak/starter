@@ -7,9 +7,11 @@ namespace Patrikjak\Starter\Models\Articles;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Patrikjak\Starter\Database\Factories\Articles\ArticleCategoryFactory;
 use Patrikjak\Starter\Models\Common\Visitable;
 use Patrikjak\Starter\Models\Metadata\Concerns\MetadatableDefaults;
 use Patrikjak\Starter\Models\Metadata\Metadata;
@@ -42,6 +44,7 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     use VisitableViaSlug;
     use MetadatableDefaults;
     use SluggableDefaults;
+    use HasFactory;
 
     public function getNewSlug(): string
     {
@@ -56,5 +59,10 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
+    }
+
+    protected static function newFactory(): ArticleCategoryFactory
+    {
+        return ArticleCategoryFactory::new();
     }
 }
