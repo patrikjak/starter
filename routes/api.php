@@ -98,12 +98,10 @@ Route::middleware(['web', 'auth'])
                     ->can(BasePolicy::CREATE, Article::class);
 
                 Route::post('/upload-image', [ArticlesController::class, 'uploadImage'])
-                    ->name('upload-image')
-                    ->can(BasePolicy::CREATE, Article::class);
+                    ->name('upload-image');
                 
                 Route::post('/fetch-image', [ArticlesController::class, 'fetchImage'])
-                    ->name('fetch-image')
-                    ->can(BasePolicy::CREATE, Article::class);
+                    ->name('fetch-image');
 
                 Route::get('/{article}/content', [ArticlesController::class, 'content'])
                     ->name('content')

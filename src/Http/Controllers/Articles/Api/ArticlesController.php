@@ -4,9 +4,11 @@ namespace Patrikjak\Starter\Http\Controllers\Articles\Api;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Patrikjak\Starter\Http\Controllers\TableParts;
 use Patrikjak\Starter\Http\Requests\Articles\StoreArticleRequest;
 use Patrikjak\Starter\Models\Articles\Article;
+use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Repositories\SupportsPagination;
 use Patrikjak\Starter\Services\Articles\ArticleService;
 use Patrikjak\Starter\Services\Articles\ArticlesTableProvider;
@@ -49,6 +51,8 @@ class ArticlesController
 
     public function uploadImage(Request $request, ArticleService $articleService): JsonResponse
     {
+        $this->ensureUserIsAuthorizedUploadImages($request);
+
         $image = $request->file('image');
 
         if ($image === null) {
@@ -67,6 +71,8 @@ class ArticlesController
 
     public function fetchImage(Request $request, ArticleService $articleService): JsonResponse
     {
+        $this->ensureUserIsAuthorizedUploadImages($request);
+
         return new JsonResponse([
             'success' => true,
             'file' => [
@@ -80,5 +86,15 @@ class ArticlesController
         return new JsonResponse([
             'content' => $article->content->toJson(),
         ]);
+    }
+
+    private function ensureUserIsAuthorizedUploadImages(Request $request): void
+    {
+        if (
+            $request->user()->cannot(BasePolicy::CREATE, Article::class)
+            && $request->user()->cannot(BasePolicy::EDIT, Article::class)
+        ) {
+            abort(403);
+        }
     }
 }

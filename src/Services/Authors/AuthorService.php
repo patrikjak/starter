@@ -97,6 +97,6 @@ readonly class AuthorService
 
     private function saveProfilePicture(UploadedFile $profilePicture): string
     {
-        return $profilePicture->store('profile_pictures', 'public');
+        return $profilePicture->store('profile-pictures', 'public');
     }
 }
