@@ -22,6 +22,9 @@ class ListElement implements Block
         return BlockType::List;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [
@@ -38,7 +41,11 @@ class ListElement implements Block
         ];
     }
 
-    private function getItemsArray($listItems): array
+    /**
+     * @param array<ListItem> $listItems
+     * @return array<int, array<string, mixed>>
+     */
+    private function getItemsArray(array $listItems): array
     {
         $toReturn = [];
 

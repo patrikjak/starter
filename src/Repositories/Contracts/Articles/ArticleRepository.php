@@ -13,9 +13,16 @@ interface ArticleRepository extends SupportsPagination
 {
     public function getAllContents(): Collection;
 
-    public function create(ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void;
+    public function create(
+        ArticleInputData $articleInputData,
+        ArticleProcessedData $articleProcessedData,
+    ): void;
 
-    public function update(string $id, ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void;
+    public function update(
+        string $id,
+        ArticleInputData $articleInputData,
+        ArticleProcessedData $articleProcessedData,
+    ): void;
 
     public function destroy(string $id): void;
 }

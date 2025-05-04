@@ -23,6 +23,9 @@ use Patrikjak\Starter\Enums\Editorjs\ListStyle;
 
 class EditorDataFactory
 {
+    /**
+     * @param array<string, mixed> $outputData
+     */
     public static function createFromOutputData(array $outputData): EditorData
     {
         return new EditorData(
@@ -33,6 +36,9 @@ class EditorDataFactory
         );
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $blocks
+     */
     private static function getBlocks(array $blocks): Collection
     {
         $mappedBlocks = [];
@@ -44,6 +50,9 @@ class EditorDataFactory
         return new Collection($mappedBlocks);
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function getBlock(array $blockData): Block
     {
         $blockType = BlockType::from($blockData['type']);
@@ -57,11 +66,17 @@ class EditorDataFactory
         };
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function mapParagraph(array $blockData): Paragraph
     {
         return new Paragraph($blockData['id'], $blockData['data']['text'] ?? '');
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function mapHeader(array $blockData): Header
     {
         $data = $blockData['data'];
@@ -69,6 +84,9 @@ class EditorDataFactory
         return new Header($blockData['id'], $data['text'], $data['level']);
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function mapList(array $blockData): ListElement
     {
         $data = $blockData['data'];
@@ -81,11 +99,17 @@ class EditorDataFactory
         );
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function mapRaw(array $blockData): Raw
     {
         return new Raw($blockData['id'], $blockData['data']['html']);
     }
 
+    /**
+     * @param array<string, mixed> $blockData
+     */
     private static function mapImage(array $blockData): Image
     {
         $data = $blockData['data'];
@@ -102,6 +126,7 @@ class EditorDataFactory
     }
 
     /**
+     * @param array<int, array<string, mixed>> $items
      * @return array<ListItem>
      */
     private static function mapListItems(array $items, ListStyle $style): array
@@ -126,6 +151,9 @@ class EditorDataFactory
         return $mappedItems;
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     private static function getListMeta(array $meta, ListStyle $style): ItemMeta
     {
         return match ($style) {

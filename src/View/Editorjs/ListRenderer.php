@@ -35,6 +35,9 @@ class ListRenderer extends BlockRenderer
         };
     }
 
+    /**
+     * @param array<ListItem> $listItems
+     */
     private function renderItems(array $listItems, string $tag): string
     {
         assert($this->block instanceof ListElement);

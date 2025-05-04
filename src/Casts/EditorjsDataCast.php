@@ -11,11 +11,17 @@ use Patrikjak\Starter\Factories\Editorjs\EditorDataFactory;
 
 class EditorjsDataCast implements CastsAttributes
 {
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function get(Model $model, string $key, mixed $value, array $attributes): EditorData
     {
         return EditorDataFactory::createFromOutputData(json_decode($value, true));
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         if ($value instanceof EditorData) {

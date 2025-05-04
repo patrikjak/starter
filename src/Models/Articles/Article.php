@@ -87,6 +87,9 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
         return asset(sprintf('storage/%s', $this->featured_image));
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [

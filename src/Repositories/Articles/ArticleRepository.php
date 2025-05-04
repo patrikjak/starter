@@ -31,8 +31,11 @@ class ArticleRepository implements ArticleRepositoryContract
         $this->saveArticle(new Article(), $articleInputData, $articleProcessedData);
     }
 
-    public function update(string $id, ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void
-    {
+    public function update(
+        string $id,
+        ArticleInputData $articleInputData,
+        ArticleProcessedData $articleProcessedData,
+    ): void {
         $article = Article::findOrFail($id);
 
         $this->saveArticle($article, $articleInputData, $articleProcessedData);

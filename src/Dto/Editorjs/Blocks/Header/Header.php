@@ -18,6 +18,9 @@ class Header implements Block
         return BlockType::Header;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

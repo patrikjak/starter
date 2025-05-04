@@ -12,6 +12,9 @@ class OrderedListItemMeta implements ItemMeta
     {
     }
 
+    /**
+     * @return array<string, int|string>
+     */
     public function toArray(): array
     {
         return [
