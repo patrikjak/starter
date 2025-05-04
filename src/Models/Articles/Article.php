@@ -36,7 +36,7 @@ use Patrikjak\Starter\Observers\Slugs\SluggableObserver;
  * @property string $featured_image
  * @property ArticleStatus $status
  * @property Visibility $visibility
- * @property ?integer $read_time
+ * @property ?int $read_time
  * @property CarbonInterface $published_at
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at

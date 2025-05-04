@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Enums\Articles;
 
 use Illuminate\Support\Collection;
@@ -15,14 +17,6 @@ enum ArticleStatus: string
 
     case ARCHIVED = 'archived';
 
-    public static function asOptions(): Collection
-    {
-        return new Collection(self::getAll())->mapWithKeys(
-            static fn (ArticleStatus $status) => [$status->value => __(
-                sprintf('pjstarter::pages.articles.statuses.%s', $status->value)),
-            ]);
-    }
-
     /**
      * @lang('pjstarter::pages.articles.statuses.draft')
      * @lang('pjstarter::pages.articles.statuses.published')
@@ -31,5 +25,13 @@ enum ArticleStatus: string
     public function toLabel(): string
     {
         return __(sprintf('pjstarter::pages.articles.statuses.%s', $this->value));
+    }
+
+    public static function asOptions(): Collection
+    {
+        return new Collection(self::getAll())->mapWithKeys(
+            static fn (ArticleStatus $status) => [$status->value => __(
+                sprintf('pjstarter::pages.articles.statuses.%s', $status->value)),
+            ]);
     }
 }

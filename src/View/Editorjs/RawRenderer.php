@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\View\Editorjs;
 
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Raw\Raw;

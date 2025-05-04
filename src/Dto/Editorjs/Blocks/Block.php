@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Dto\Editorjs\Blocks;
 
 use Illuminate\Contracts\Support\Arrayable;

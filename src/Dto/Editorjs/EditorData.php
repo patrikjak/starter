@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Dto\Editorjs;
 
 use Carbon\CarbonInterface;
@@ -19,13 +21,13 @@ class EditorData
     ) {
     }
 
-    public function __toString(): string
-    {
-        return $this->toJson();
-    }
-
     public function toJson(): string
     {
         return $this->rawData;
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

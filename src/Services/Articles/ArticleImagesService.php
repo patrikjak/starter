@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Services\Articles;
 
 use Illuminate\Filesystem\FilesystemManager;
@@ -23,7 +25,7 @@ readonly class ArticleImagesService
         $allImages = [];
         $existingImages = $this->filesystemManager->disk('public')->allFiles('articles/images');
         $existingImages = array_map(
-            fn (string $file) => basename($file),
+            static fn (string $file) => basename($file),
             $existingImages,
         );
 
@@ -44,7 +46,7 @@ readonly class ArticleImagesService
         $allImages = array_unique($allImages);
         $toDelete = array_diff($existingImages, $allImages);
         $toDelete = array_map(
-            fn (string $file) => sprintf('articles/images/%s', $file),
+            static fn (string $file) => sprintf('articles/images/%s', $file),
             $toDelete,
         );
 
