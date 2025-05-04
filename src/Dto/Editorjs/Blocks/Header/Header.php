@@ -11,11 +11,16 @@ class Header implements Block
     {
     }
 
+    public function getType(): BlockType
+    {
+        return BlockType::Header;
+    }
+
     public function toArray(): array
     {
         return [
             'id' => $this->id,
-            'type' => BlockType::Header->value,
+            'type' => $this->getType()->value,
             'data' => [
                 'text' => $this->text,
                 'level' => $this->level,

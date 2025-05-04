@@ -11,7 +11,10 @@ use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
+use Patrikjak\Starter\Services\Articles\ArticleCategoryService;
 use Patrikjak\Starter\Services\Articles\ArticlesTableProvider;
+use Patrikjak\Starter\Services\Authors\AuthorService;
+use Patrikjak\Utils\Common\Dto\Image;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
 
 class ArticlesController
@@ -33,20 +36,29 @@ class ArticlesController
     }
 
     public function create(
-        ArticleCategoryRepository $articleCategoryRepository,
-        AuthorRepository $authorRepository,
+        ArticleCategoryService $articleCategoryService,
+        AuthorService $authorService,
     ): View {
         return view('pjstarter::pages.articles.create', [
-            'articleCategories' => $articleCategoryRepository->getAll()
-                ->mapwithkeys(static fn (ArticleCategory $item) => [$item->id => $item->name]),
-            'authors' => $authorRepository->getAll()
-                ->mapwithkeys(static fn (Author $item) => [$item->id => $item->name]),
+            'articleCategories' => $articleCategoryService->getAllAsOptions(),
+            'authors' => $authorService->getAllAsOptions(),
             'statuses' => ArticleStatus::asOptions(),
         ]);
     }
 
-    public function edit(): View
-    {
-        return view('pjstarter::pages.articles.edit');
+    public function edit(
+        Article $article,
+        ArticleCategoryService $articleCategoryService,
+        AuthorService $authorService,
+    ): View {
+        return view('pjstarter::pages.articles.edit', [
+            'article' => $article,
+            'articleCategories' => $articleCategoryService->getAllAsOptions(),
+            'authors' => $authorService->getAllAsOptions(),
+            'statuses' => ArticleStatus::asOptions(),
+            'featuredImage' => $article->featured_image === null
+                ? []
+                : [new Image($article->getFeaturedImagePath(), __('pjstarter::pages.articles.featured_image'))],
+        ]);
     }
 }

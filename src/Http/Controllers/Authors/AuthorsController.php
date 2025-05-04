@@ -6,7 +6,7 @@ namespace Patrikjak\Starter\Http\Controllers\Authors;
 
 use Illuminate\Contracts\View\View;
 use Patrikjak\Starter\Models\Authors\Author;
-use Patrikjak\Starter\Services\Authors\AuthorsService;
+use Patrikjak\Starter\Services\Authors\AuthorService;
 use Patrikjak\Starter\Services\Authors\AuthorsTableProvider;
 use Patrikjak\Utils\Common\Dto\Image;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
@@ -22,7 +22,7 @@ class AuthorsController
         ]);
     }
 
-    public function show(Author $author, AuthorsService $authorsService): View
+    public function show(Author $author, AuthorService $authorsService): View
     {
         return view('pjstarter::pages.authors.show', [
             'author' => $author,
@@ -35,7 +35,7 @@ class AuthorsController
         return view('pjstarter::pages.authors.create');
     }
 
-    public function edit(Author $author, AuthorsService $authorsService): View
+    public function edit(Author $author, AuthorService $authorsService): View
     {
         return view('pjstarter::pages.authors.edit', [
             'author' => $author,

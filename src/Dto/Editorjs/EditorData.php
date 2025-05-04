@@ -26,10 +26,6 @@ class EditorData
 
     public function toJson(): string
     {
-        return json_encode([
-            'time' => $this->time->timestamp,
-            'blocks' => $this->blocks->map(fn (Block $block) => $block->toArray())->all(),
-            'version' => $this->version,
-        ]);
+        return $this->rawData;
     }
 }

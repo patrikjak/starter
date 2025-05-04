@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
 
-readonly class AuthorsService
+readonly class AuthorService
 {
     public function __construct(private AuthorRepository $authorRepository, private FilesystemManager $filesystem)
     {
@@ -25,7 +25,7 @@ readonly class AuthorsService
     /**
      * @throws Exception
      */
-    public function saveAuthorWithProfilePicture(string $name, ?UploadedFile $profilePicture): void
+    public function saveAuthor(string $name, ?UploadedFile $profilePicture): void
     {
         $path = null;
 
@@ -44,7 +44,7 @@ readonly class AuthorsService
         }
     }
 
-    public function updateAuthorWithProfilePicture(
+    public function updateAuthor(
         Author $author,
         string $newName,
         ?UploadedFile $newProfilePicture,
@@ -87,6 +87,12 @@ readonly class AuthorsService
         }
 
         $this->authorRepository->delete($author->id);
+    }
+
+    public function getAllAsOptions(): Collection
+    {
+        return $this->authorRepository->getAll()
+            ->mapwithkeys(static fn (Author $item) => [$item->id => $item->name]);
     }
 
     private function saveProfilePicture(UploadedFile $profilePicture): string

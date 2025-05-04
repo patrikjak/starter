@@ -13,9 +13,12 @@ use Patrikjak\Starter\Factories\Editorjs\EditorDataFactory;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
+use Patrikjak\Utils\Common\Http\Requests\Traits\FileUpload;
 
 class StoreArticleRequest extends FormRequest
 {
+    use FileUpload;
+
     /**
      * @return array<string, array<string|Enum|In>>
      */
@@ -67,7 +70,7 @@ class StoreArticleRequest extends FormRequest
             'excerpt' => __('pjstarter::pages.articles.excerpt'),
             'content' => __('pjstarter::pages.articles.content'),
             'content.blocks' => __('pjstarter::pages.articles.content'),
-            'feature_image' => __('pjstarter::pages.articles.featured_image'),
+            'featured_image' => __('pjstarter::pages.articles.featured_image'),
             'status' => __('pjstarter::pages.articles.status'),
             'read_time' => __('pjstarter::pages.articles.read_time'),
         ];

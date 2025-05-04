@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Casts\EditorjsDataCast;
+use Patrikjak\Starter\Dto\Editorjs\EditorData;
 use Patrikjak\Starter\Enums\Articles\ArticleStatus;
 use Patrikjak\Starter\Enums\Articles\Visibility;
 use Patrikjak\Starter\Models\Authors\Author;
@@ -31,7 +32,7 @@ use Patrikjak\Starter\Observers\Slugs\SluggableObserver;
  * @property ArticleCategory $articleCategory
  * @property string $title
  * @property string $excerpt
- * @property string $content
+ * @property EditorData $content
  * @property string $featured_image
  * @property ArticleStatus $status
  * @property Visibility $visibility

@@ -22,6 +22,15 @@ class ArticlesController
         $articleService->createArticle($request->getArticleInputData());
     }
 
+    public function update(Article $article, StoreArticleRequest $request, ArticleService $articleService): void
+    {
+        $articleService->updateArticle(
+            $article,
+            $request->getArticleInputData(),
+            $request->getFilesToDelete('featured_image'),
+        );
+    }
+
     public function destroy(Article $article, ArticleService $articleService): JsonResponse
     {
         $articleService->deleteArticle($article);
@@ -51,7 +60,7 @@ class ArticlesController
         return new JsonResponse([
             'success' => true,
             'file' => [
-                'url' => asset(sprintf('storage/%s', $articleService->saveArticleImage($image))),
+                'url' => $articleService->saveArticleImage($image),
             ],
         ]);
     }
@@ -61,11 +70,15 @@ class ArticlesController
         return new JsonResponse([
             'success' => true,
             'file' => [
-                'url' => asset(sprintf(
-                    'storage/%s',
-                    $articleService->saveArticleImageFromUrl($request->input('url')),
-                )),
+                'url' => $articleService->saveArticleImageFromUrl($request->input('url')),
             ],
+        ]);
+    }
+
+    public function content(Article $article): JsonResponse
+    {
+        return new JsonResponse([
+            'content' => $article->content->toJson(),
         ]);
     }
 }

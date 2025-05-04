@@ -11,6 +11,11 @@ class Paragraph implements Block
     {
     }
 
+    public function getType(): BlockType
+    {
+        return BlockType::Paragraph;
+    }
+
     /**
      * @inheritDoc
      */

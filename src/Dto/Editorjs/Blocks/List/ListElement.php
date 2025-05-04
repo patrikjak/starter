@@ -15,6 +15,11 @@ class ListElement implements Block
     {
     }
 
+    public function getType(): BlockType
+    {
+        return BlockType::List;
+    }
+
     public function toArray(): array
     {
         return [

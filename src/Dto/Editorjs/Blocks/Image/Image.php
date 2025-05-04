@@ -3,6 +3,7 @@
 namespace Patrikjak\Starter\Dto\Editorjs\Blocks\Image;
 
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Block;
+use Patrikjak\Starter\Enums\Editorjs\BlockType;
 
 class Image implements Block
 {
@@ -17,6 +18,11 @@ class Image implements Block
     ) {
     }
 
+    public function getType(): BlockType
+    {
+        return BlockType::Image;
+    }
+
     /**
      * @inheritDoc
      */
@@ -24,7 +30,7 @@ class Image implements Block
     {
         return [
             'id' => $this->id,
-            'type' => $this->type,
+            'type' => $this->getType()->value,
             'data' => [
                 'url' => $this->url,
                 'caption' => $this->caption,

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Patrikjak\Starter\Http\Controllers\TableParts;
 use Patrikjak\Starter\Http\Requests\Authors\StoreAuthorRequest;
 use Patrikjak\Starter\Models\Authors\Author;
-use Patrikjak\Starter\Services\Authors\AuthorsService;
+use Patrikjak\Starter\Services\Authors\AuthorService;
 use Patrikjak\Starter\Services\Authors\AuthorsTableProvider;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
 
@@ -20,14 +20,14 @@ class AuthorsController
     /**
      * @throws Exception
      */
-    public function store(StoreAuthorRequest $request, AuthorsService $authorsService): void
+    public function store(StoreAuthorRequest $request, AuthorService $authorService): void
     {
-        $authorsService->saveAuthorWithProfilePicture($request->getName(), $request->getProfilePicture());
+        $authorService->saveAuthor($request->getName(), $request->getProfilePicture());
     }
 
-    public function update(StoreAuthorRequest $request, Author $author, AuthorsService $authorsService): void
+    public function update(StoreAuthorRequest $request, Author $author, AuthorService $authorService): void
     {
-        $authorsService->updateAuthorWithProfilePicture(
+        $authorService->updateAuthor(
             $author,
             $request->getName(),
             $request->getProfilePicture(),
@@ -35,9 +35,9 @@ class AuthorsController
         );
     }
 
-    public function destroy(Author $author, AuthorsService $authorsService): JsonResponse
+    public function destroy(Author $author, AuthorService $authorService): JsonResponse
     {
-        $authorsService->deleteAuthor($author);
+        $authorService->deleteAuthor($author);
 
         return new JsonResponse([
             'title' => __('pjstarter::general.success'),

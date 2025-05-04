@@ -69,6 +69,7 @@ return [
             'archived' => 'Archived',
         ],
         'article_deleted' => 'Article was deleted',
+        'edit' => 'Article edit',
 
         'categories' => [
             'title' => 'Article categories',

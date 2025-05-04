@@ -97,13 +97,17 @@ Route::middleware(['web', 'auth'])
                     ->name('store')
                     ->can(BasePolicy::CREATE, Article::class);
 
-                Route::post('upload-image', [ArticlesController::class, 'uploadImage'])
+                Route::post('/upload-image', [ArticlesController::class, 'uploadImage'])
                     ->name('upload-image')
                     ->can(BasePolicy::CREATE, Article::class);
                 
-                Route::post('fetch-image', [ArticlesController::class, 'fetchImage'])
+                Route::post('/fetch-image', [ArticlesController::class, 'fetchImage'])
                     ->name('fetch-image')
                     ->can(BasePolicy::CREATE, Article::class);
+
+                Route::get('/{article}/content', [ArticlesController::class, 'content'])
+                    ->name('content')
+                    ->can(BasePolicy::EDIT, Article::class);
 
                 Route::get('/table-parts', [ArticlesController::class, 'tableParts'])
                     ->name('table-parts')

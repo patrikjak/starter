@@ -69,6 +69,7 @@ return [
             'archived' => 'Archivovaný',
         ],
         'deleted' => 'Článok bol odstránený',
+        'edit' => 'Úprava článku',
 
         'categories' => [
             'title' => 'Kategórie článkov',

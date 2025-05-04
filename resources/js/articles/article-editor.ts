@@ -1,17 +1,25 @@
-import EditorJS from '@editorjs/editorjs';
+import EditorJS, {OutputData} from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import RawTool from '@editorjs/raw';
 import EditorjsList from '@editorjs/list';
 import ImageTool from '@editorjs/image';
 import Form from '../../../vendor/patrikjak/utils/resources/assets/js/form/Form';
-import {AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
 import notify from "../../../vendor/patrikjak/utils/resources/assets/js/utils/notification";
 import {getData} from "../../../vendor/patrikjak/utils/resources/assets/js/helpers/general";
 
 const uploadImageUrl: string = getData(document.querySelector('#editorjs'), 'upload-image-url');
 const fetchImageUrl: string = getData(document.querySelector('#editorjs'), 'fetch-image-url');
+const articleContentUrl: string = getData(document.querySelector('#editorjs'), 'article-content-url');
 const csrfTokenMeta: HTMLMetaElement = document.head.querySelector('meta[name="csrf-token"]');
 const csrfToken: string = csrfTokenMeta.content;
+
+const editMode: boolean = document.querySelector('.edit-article') !== null;
+let data: OutputData|object = {};
+
+if (editMode) {
+    data = await getArticleContent();
+}
 
 const editor = new EditorJS({
     tools: {
@@ -38,6 +46,10 @@ const editor = new EditorJS({
         },
         raw: RawTool,
     },
+    // @ts-ignore
+    data: data,
+    autofocus: true,
+    placeholder: 'Start writing your article...',
 });
 
 new Form()
@@ -66,3 +78,9 @@ new Form()
 
     })
     .bindSubmit();
+
+async function getArticleContent(): Promise<OutputData> {
+    return await axios.get(articleContentUrl).then(response => {
+        return JSON.parse(response.data.content);
+    });
+}

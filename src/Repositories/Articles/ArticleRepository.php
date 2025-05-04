@@ -3,6 +3,7 @@
 namespace Patrikjak\Starter\Repositories\Articles;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Articles\ArticleInputData;
 use Patrikjak\Starter\Dto\Articles\ArticleProcessedData;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -18,9 +19,21 @@ class ArticleRepository implements ArticleRepositoryContract
             ->withPath($refreshUrl);
     }
 
+    public function getAllContents(): Collection
+    {
+        return Article::get(['content']);
+    }
+
     public function create(ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void
     {
         $this->saveArticle(new Article(), $articleInputData, $articleProcessedData);
+    }
+
+    public function update(string $id, ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void
+    {
+        $article = Article::findOrFail($id);
+
+        $this->saveArticle($article, $articleInputData, $articleProcessedData);
     }
 
     public function destroy(string $id): void

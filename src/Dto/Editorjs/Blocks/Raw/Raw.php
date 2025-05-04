@@ -11,6 +11,11 @@ class Raw implements Block
     {
     }
 
+    public function getType(): BlockType
+    {
+        return BlockType::Raw;
+    }
+
     /**
      * @inheritDoc
      */
