@@ -18,7 +18,18 @@ class ImageRenderer extends BlockRenderer
         $class = $this->getClassAttribute();
         $classAttribute = $class === '' ? '' : sprintf(' class="%s"', $class);
 
-        return sprintf('<img src="%s" alt="%s"%s>', $url, $alt, $classAttribute);
+        $imageTag = sprintf('<img src="%s" alt="%s"%s>', $url, $alt, $classAttribute);
+
+        if ($this->block->caption !== null) {
+            return sprintf(
+                '<figure>%s%s%s</figure>',
+                $imageTag,
+                PHP_EOL,
+                sprintf('<figcaption>%s</figcaption>', $this->block->caption),
+            );
+        }
+
+        return $imageTag;
     }
 
     private function getClassAttribute(): string

@@ -118,7 +118,7 @@ class EditorDataFactory
             $blockData['id'],
             $blockData['type'],
             $data['file']['url'],
-            $data['caption'] ?? '',
+            $data['caption'] === '' ? null : $data['caption'],
             $data['withBorder'] ?? false,
             $data['withBackground'] ?? false,
             $data['stretched'] ?? false,

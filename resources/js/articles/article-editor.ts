@@ -7,6 +7,7 @@ import Form from '../../../vendor/patrikjak/utils/resources/assets/js/form/Form'
 import axios, {AxiosResponse} from "axios";
 import notify from "../../../vendor/patrikjak/utils/resources/assets/js/utils/notification";
 import {getData} from "../../../vendor/patrikjak/utils/resources/assets/js/helpers/general";
+import Underline from "@editorjs/underline";
 
 const uploadImageUrl: string = getData(document.querySelector('#editorjs'), 'upload-image-url');
 const fetchImageUrl: string = getData(document.querySelector('#editorjs'), 'fetch-image-url');
@@ -45,12 +46,13 @@ const editor = new EditorJS({
                 features: {
                     border: false,
                     stretch: false,
-                    caption: false,
+                    caption: 'optional',
                     background: false,
                 }
             },
         },
         raw: RawTool,
+        underline: Underline,
     },
     // @ts-ignore
     data: data,
