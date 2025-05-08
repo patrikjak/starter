@@ -53,7 +53,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
             'excerpt' => __('pjstarter::pages.articles.excerpt'),
             'status' => __('pjstarter::pages.articles.status'),
             'published_at' => __('pjstarter::pages.articles.published_at'),
-            'created_at' => __('pjstarter::general.created_at'),
+            'updated_at' => __('pjstarter::general.last_edited'),
         ];
     }
 
@@ -89,7 +89,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
                         ? ''
                         : $article->published_at->format('d.m.Y H:i'),
                 ),
-                'created_at' => CellFactory::simple($article->created_at->format('d.m.Y H:i')),
+                'updated_at' => CellFactory::simple($article->updated_at->format('d.m.Y H:i')),
             ];
         })->toArray();
     }
