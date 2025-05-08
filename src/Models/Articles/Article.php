@@ -52,12 +52,6 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
     use SlugRelationship;
     use MetadataRelationship;
 
-    /**
-     * @var list<string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     */
-    protected $with = ['slug'];
-
     public function getMetaTitle(): string
     {
         return $this->getTitleFromTemplate($this->title);
