@@ -30,6 +30,21 @@ class SlugRepository implements PageRepositoryContract
             ->first();
     }
 
+    public function getByUri(string $uri): ?Slug
+    {
+        $uri = trim($uri, '/');
+        $uriParts = explode('/', $uri);
+
+        if (count($uriParts) > 1) {
+            $prefix = implode('/', array_slice($uriParts, 0, -1));
+            $slug = $uriParts[array_key_last($uriParts)];
+
+            return $this->getBySlug($slug, $prefix);
+        }
+
+        return $this->getBySlug($uri);
+    }
+
     public function create(CreateSlug $createSlug): void
     {
         $slug = new Slug();
