@@ -17,11 +17,6 @@ readonly class AuthorService
     {
     }
 
-    public function getProfilePicturePath(Author $author): string
-    {
-        return asset(sprintf('storage/%s', $author->profile_picture));
-    }
-
     /**
      * @throws Exception
      */
