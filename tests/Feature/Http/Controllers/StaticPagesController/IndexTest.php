@@ -16,7 +16,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $response = $this->get(route('static-pages.index'));
+        $response = $this->get(route('admin.static-pages.index'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -31,7 +31,7 @@ class IndexTest extends TestCase
             StaticPage::factory()->hasSlug()->create();
         });
 
-        $response = $this->get(route('static-pages.index'))
+        $response = $this->get(route('admin.static-pages.index'))
             ->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());

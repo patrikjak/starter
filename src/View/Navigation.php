@@ -84,14 +84,14 @@ class Navigation extends Component
         if ($this->config->get('pjstarter.features.dashboard')) {
             $items[] = new NavigationItem(
                 __('pjstarter::general.dashboard'),
-                route('dashboard'),
+                route('admin.dashboard'),
             );
         }
 
         if ($staticPagesFeature && $currentUser->canViewAnyStaticPage()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
-                route('static-pages.index'),
+                route('admin.static-pages.index'),
             );
         }
 
@@ -101,14 +101,14 @@ class Navigation extends Component
             if ($currentUser->canViewAnyArticleCategory()) {
                 $articlesSubItems[] = new NavigationItem(
                     __('pjstarter::pages.articles.categories.title'),
-                    route('articles.categories.index'),
+                    route('admin.articles.categories.index'),
                 );
             }
 
             if ($currentUser->canViewAnyArticle()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.articles.title'),
-                    route('articles.index'),
+                    route('admin.articles.index'),
                     subItems: $articlesSubItems,
                 );
             }
@@ -116,7 +116,7 @@ class Navigation extends Component
             if ($currentUser->canViewAnyAuthor()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.authors.title'),
-                    route('authors.index'),
+                    route('admin.authors.index'),
                 );
             }
         }
@@ -124,7 +124,7 @@ class Navigation extends Component
         if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
-                route('metadata.index'),
+                route('admin.metadata.index'),
             );
         }
 
@@ -134,21 +134,21 @@ class Navigation extends Component
             if ($currentUser->canViewAnyRoles()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.roles.title'),
-                    route('users.roles.index'),
+                    route('admin.users.roles.index'),
                 );
             }
 
             if ($currentUser->canViewAnyPermission()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.permissions.title'),
-                    route('users.permissions.index'),
+                    route('admin.users.permissions.index'),
                 );
             }
 
             if ($currentUser->canViewAnyUsers()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),
-                    route('users.index'),
+                    route('admin.users.index'),
                     subItems: $usersSubItems,
                 );
             }
@@ -179,7 +179,7 @@ class Navigation extends Component
         $items = [];
 
         if ($this->config->get('pjstarter.features.profile')) {
-            $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('profile'));
+            $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('admin.profile'));
         }
 
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.user_items')));

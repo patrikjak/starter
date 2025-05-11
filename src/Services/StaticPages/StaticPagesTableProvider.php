@@ -74,7 +74,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
 
         if ($user->canEditStaticPage()) {
             $actions[] = new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
-                return route('static-pages.edit', ['staticPage' => $row['id']]);
+                return route('admin.static-pages.edit', ['staticPage' => $row['id']]);
             });
         }
 
@@ -84,7 +84,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
                 'delete',
                 type: Type::DANGER,
                 href: static function (array $row) {
-                    return route('api.static-pages.destroy', ['staticPage' => $row['id']]);
+                    return route('admin.api.static-pages.destroy', ['staticPage' => $row['id']]);
                 },
                 method: 'DELETE',
             );
@@ -98,7 +98,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->staticPageRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.static-pages.table-parts'),
+            route('admin.api.static-pages.table-parts'),
         ));
     }
 }

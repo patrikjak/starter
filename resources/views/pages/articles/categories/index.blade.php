@@ -6,7 +6,7 @@
     @can(BasePolicy::VIEW_ANY, ArticleCategory::class)
         <x-slot:actions>
             <x-pjstarter::layout.action>
-                <a href="{{ route('articles.categories.create') }}">
+                <a href="{{ route('admin.articles.categories.create') }}">
                     @lang('pjstarter::pages.articles.categories.create_new_category')
                 </a>
             </x-pjstarter::layout.action>

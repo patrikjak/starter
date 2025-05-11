@@ -15,7 +15,7 @@ class EditTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->get(route('static-pages.create'));
+        $response = $this->get(route('admin.static-pages.create'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -26,7 +26,7 @@ class EditTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $this->get(route('static-pages.create'))->assertForbidden();
+        $this->get(route('admin.static-pages.create'))->assertForbidden();
     }
 
     protected function setUp(): void

@@ -9,10 +9,10 @@
             <div class="card">
                 <p class="title">@lang('pjstarter::pages.articles.categories.category_details')</p>
                 <x-pjutils::form
-                    :action="route('api.articles.categories.update', ['articleCategory' => $articleCategory->id])"
+                    :action="route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
-                    :redirect="route('articles.categories.index')"
+                    :redirect="route('admin.articles.categories.index')"
                 >
                     <x-pjutils::form.input
                         name="name"
@@ -32,10 +32,10 @@
                 <p class="title">@lang('pjstarter::pages.slug.url')</p>
 
                 <x-pjutils::form
-                    :action="route('api.slugs.update', ['slug' => $articleCategory->slug->id])"
+                    :action="route('admin.api.slugs.update', ['slug' => $articleCategory->slug->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
-                    :redirect="route('articles.categories.index')"
+                    :redirect="route('admin.articles.categories.index')"
                 >
                     <x-pjutils::form.input
                         name="prefix"

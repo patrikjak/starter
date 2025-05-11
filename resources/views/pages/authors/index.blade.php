@@ -6,7 +6,7 @@
     @can(BasePolicy::CREATE, Author::class)
         <x-slot:actions>
             <x-pjstarter::action>
-                <a href="{{ route('authors.create') }}">@lang('pjstarter::pages.authors.create_new_author')</a>
+                <a href="{{ route('admin.authors.create') }}">@lang('pjstarter::pages.authors.create_new_author')</a>
             </x-pjstarter::action>
         </x-slot:actions>
     @endcan

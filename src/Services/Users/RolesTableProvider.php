@@ -72,7 +72,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             return [
                 'id' => CellFactory::simple((string) $role->id),
                 'name' => $this->user->canViewRole()
-                    ? CellFactory::link($role->name, route('users.roles.show', ['role' => $role->id]))
+                    ? CellFactory::link($role->name, route('admin.users.roles.show', ['role' => $role->id]))
                     : CellFactory::simple($role->name),
                 'permissions' => CellFactory::simple($permissions),
             ];
@@ -124,7 +124,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                     $roleId = $row['id'];
                     assert($roleId instanceof Simple);
 
-                    return route('users.roles.permissions', ['role' => $roleId->value]);
+                    return route('admin.users.roles.permissions', ['role' => $roleId->value]);
                 }
             ),
         ];
@@ -132,7 +132,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 
     protected function getPaginator(): TablePaginator
     {
-        $tablePartsRoute = route('api.users.roles.table-parts');
+        $tablePartsRoute = route('admin.api.users.roles.table-parts');
 
         $users = $this->userCanViewSuperAdminRole
             ? $this->roleRepository->getAllPaginated(

@@ -16,7 +16,7 @@ class CreateTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->get(route('static-pages.create'));
+        $response = $this->get(route('admin.static-pages.create'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -27,7 +27,7 @@ class CreateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $this->get(route('static-pages.create'))->assertForbidden();
+        $this->get(route('admin.static-pages.create'))->assertForbidden();
     }
 
     #[DefineEnvironment('enableStaticPages')]
@@ -39,7 +39,7 @@ class CreateTest extends TestCase
             $staticPage = StaticPage::factory()->hasSlug()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->get(route('static-pages.edit', ['staticPage' => $staticPage->id]));
+            $response = $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]));
             $response->assertOk();
 
             $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -55,7 +55,7 @@ class CreateTest extends TestCase
             $staticPage = StaticPage::factory()->hasSlug()->create();
             assert($staticPage instanceof StaticPage);
 
-            $this->get(route('static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
+            $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
         });
     }
 

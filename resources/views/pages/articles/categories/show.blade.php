@@ -6,7 +6,7 @@
     @can(BasePolicy::EDIT, ArticleCategory::class)
         <x-slot:actions>
             <x-pjstarter::action>
-                <a href="{{ route('articles.categories.edit', ['articleCategory' => $articleCategory->id]) }}">
+                <a href="{{ route('admin.articles.categories.edit', ['articleCategory' => $articleCategory->id]) }}">
                     @lang('pjstarter::general.edit')
                 </a>
             </x-pjstarter::action>

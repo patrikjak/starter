@@ -26,7 +26,7 @@ class UpdateTest extends TestCase
             $staticPage = StaticPage::factory()->hasMetadata()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->put(route('api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
+            $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
             $response->assertOk();
         });
 
@@ -45,7 +45,7 @@ class UpdateTest extends TestCase
         $staticPage = StaticPage::factory()->hasMetadata()->create();
         assert($staticPage instanceof StaticPage);
 
-        $response = $this->put(route('api.metadata.update', ['metadata' => $staticPage->metadata->id]), [
+        $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), [
             'title' => 'Test title',
             'description' => 'Test description',
             'keywords' => 'Test keywords',
@@ -69,7 +69,7 @@ class UpdateTest extends TestCase
             $staticPage = StaticPage::factory()->hasMetadata()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->put(route('api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
+            $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
             $response->assertUnprocessable();
 
             $this->assertMatchesJsonSnapshot($response->getContent());

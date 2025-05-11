@@ -18,7 +18,7 @@ class UpdateTest extends TestCase
 
         $this->actingAs($this->createSuperAdminUser());
 
-        $this->putJson(route('api.static-pages.update', ['staticPage' => $staticPage->id]), [
+        $this->putJson(route('admin.api.static-pages.update', ['staticPage' => $staticPage->id]), [
             'name' => 'About us',
         ])->assertOk();
 
@@ -34,7 +34,7 @@ class UpdateTest extends TestCase
 
         $this->actingAs($this->createAdminUser());
 
-        $this->putJson(route('api.static-pages.update', ['staticPage' => $staticPage->id]))
+        $this->putJson(route('admin.api.static-pages.update', ['staticPage' => $staticPage->id]))
             ->assertForbidden();
     }
 

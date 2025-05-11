@@ -5,8 +5,8 @@
 
         <x-pjutils::form
             method="POST"
-            :action="route('api.articles.categories.store')"
-            :redirect="route('articles.categories.index')"
+            :action="route('admin.api.articles.categories.store')"
+            :redirect="route('admin.articles.categories.index')"
             :action-label="__('pjstarter::general.save')"
         >
             <x-pjutils::form.input name="name" :label="__('pjstarter::pages.articles.categories.name')" autofocus />

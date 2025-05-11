@@ -59,7 +59,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
             return [
                 'id' => $author->id,
                 'name' => $canViewAuthor
-                    ? CellFactory::link($author->name, route('authors.show', ['author' => $author->id]))
+                    ? CellFactory::link($author->name, route('admin.authors.show', ['author' => $author->id]))
                     : CellFactory::simple($author->name),
                 'created_at' => CellFactory::simple($author->created_at->format('d.m.Y H:i')),
             ];
@@ -84,7 +84,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
                 'edit',
                 Icon::EDIT,
                 href: static function (array $row) {
-                    return route('authors.edit', ['author' => $row['id']]);
+                    return route('admin.authors.edit', ['author' => $row['id']]);
                 },
             );
         }
@@ -96,7 +96,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
                 Icon::TRASH,
                 Type::DANGER,
                 href: static function (array $row) {
-                    return route('api.authors.destroy', ['author' => $row['id']]);
+                    return route('admin.api.authors.destroy', ['author' => $row['id']]);
                 },
                 method: 'DELETE',
             );
@@ -110,7 +110,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->authorRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.authors.table-parts'),
+            route('admin.api.authors.table-parts'),
         ));
     }
 }

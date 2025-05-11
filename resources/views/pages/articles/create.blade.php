@@ -18,8 +18,8 @@
                 <div
                     class="editorjs mt-4"
                     id="editorjs"
-                    data-upload-image-url="{{ route('api.articles.upload-image') }}"
-                    data-fetch-image-url="{{ route('api.articles.fetch-image') }}"
+                    data-upload-image-url="{{ route('admin.api.articles.upload-image') }}"
+                    data-fetch-image-url="{{ route('admin.api.articles.fetch-image') }}"
                 ></div>
             </div>
 
@@ -29,9 +29,9 @@
 
                     <x-pjutils::form
                         :action-label="__('pjstarter::general.save')"
-                        :action="route('api.articles.store')"
+                        :action="route('admin.api.articles.store')"
                         method="POST"
-                        :redirect="route('articles.index')"
+                        :redirect="route('admin.articles.index')"
                         id="article-form"
                     >
                         <x-pjutils::form.input name="title" :label="__('pjstarter::pages.articles.article_title')" />

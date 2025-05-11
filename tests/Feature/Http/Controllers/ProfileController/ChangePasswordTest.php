@@ -13,7 +13,7 @@ class ChangePasswordTest extends TestCase
     {
         $this->actingAs($this->createUser());
 
-        $response = $this->get(route('change-password'))
+        $response = $this->get(route('admin.change-password'))
             ->assertOk()
             ->assertViewIs('pjstarter::pages.profile.change-password');
 
@@ -22,7 +22,7 @@ class ChangePasswordTest extends TestCase
 
     public function testChangePasswordNoAuthenticated(): void
     {
-        $this->get(route('change-password'))->assertRedirect(route('login'));
+        $this->get(route('admin.change-password'))->assertRedirect(route('admin.login'));
     }
 
     #[DefineEnvironment('disableProfile')]

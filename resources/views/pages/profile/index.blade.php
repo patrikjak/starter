@@ -14,7 +14,7 @@
 
     <x-slot:actions>
         <x-pjstarter::layout.action>
-            <a href="{{ route('change-password') }}">@lang('pjstarter::pages.profile.change_password')</a>
+            <a href="{{ route('admin.change-password') }}">@lang('pjstarter::pages.profile.change_password')</a>
         </x-pjstarter::layout.action>
     </x-slot:actions>
 

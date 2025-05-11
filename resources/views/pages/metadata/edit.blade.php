@@ -12,9 +12,9 @@
 
         <x-pjutils::form
             method="PUT"
-            :action="route('api.metadata.update', ['metadata' => $metadata->id])"
+            :action="route('admin.api.metadata.update', ['metadata' => $metadata->id])"
             :action-label="__('pjstarter::general.edit')"
-            :redirect="route('metadata.index')"
+            :redirect="route('admin.metadata.index')"
         >
             <x-pjutils::form.input
                 name="title"

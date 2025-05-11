@@ -16,7 +16,7 @@ class StoreTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        $this->postJson(route('api.static-pages.store'), [
+        $this->postJson(route('admin.api.static-pages.store'), [
             'name' => 'About us',
         ]);
 
@@ -31,7 +31,7 @@ class StoreTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->postJson(route('api.static-pages.store'), ['name' => $name])
+        $response = $this->postJson(route('admin.api.static-pages.store'), ['name' => $name])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseCount('static_pages', 0);
@@ -46,7 +46,7 @@ class StoreTest extends TestCase
         $this->actingAs($this->createSuperAdminUser());
         StaticPage::factory()->create(['name' => 'About us']);
 
-        $response = $this->postJson(route('api.static-pages.store'), ['name' => 'About us'])
+        $response = $this->postJson(route('admin.api.static-pages.store'), ['name' => 'About us'])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseCount('static_pages', 1);
@@ -60,7 +60,7 @@ class StoreTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $this->postJson(route('api.static-pages.store'), ['name' => 'About us'])
+        $this->postJson(route('admin.api.static-pages.store'), ['name' => 'About us'])
             ->assertForbidden();
     }
 

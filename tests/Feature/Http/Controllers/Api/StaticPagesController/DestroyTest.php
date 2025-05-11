@@ -18,7 +18,7 @@ class DestroyTest extends TestCase
 
         $this->actingAs($this->createSuperAdminUser());
 
-        $this->deleteJson(route('api.static-pages.destroy', ['staticPage' => $staticPage->id]))
+        $this->deleteJson(route('admin.api.static-pages.destroy', ['staticPage' => $staticPage->id]))
             ->assertOk();
 
         $this->assertDatabaseMissing('static_pages', ['name' => 'page']);

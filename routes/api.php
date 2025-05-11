@@ -22,8 +22,8 @@ use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 
 Route::middleware(['web', 'auth'])
-    ->prefix('api')
-    ->name('api.')
+    ->prefix('admin/api')
+    ->name('admin.api.')
     ->group(static function(): void {
         $staticPagesEnabled = config('pjstarter.features.static_pages');
         $usersEnabled = config('pjstarter.features.users');
