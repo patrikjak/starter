@@ -83,7 +83,7 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
 
     protected function getPaginator(): TablePaginator
     {
-        $tablePartsRoute = route('api.users.permissions.table-parts');
+        $tablePartsRoute = route('admin.api.users.permissions.table-parts');
 
         $user = $this->authManager->user();
         assert($user instanceof User);

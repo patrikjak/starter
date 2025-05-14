@@ -5,8 +5,8 @@
 
         <x-pjutils::form
             method="PUT"
-            :action="route('api.authors.update', ['author' => $author->id])"
-            :redirect="route('authors.index')"
+            :action="route('admin.api.authors.update', ['author' => $author->id])"
+            :redirect="route('admin.authors.index')"
         >
             <x-pjutils::form.input name="name" :label="__('pjstarter::pages.authors.name')" :value="$author->name" />
 

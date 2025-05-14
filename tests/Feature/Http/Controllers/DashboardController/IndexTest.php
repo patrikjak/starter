@@ -12,7 +12,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createUser());
 
-        $response = $this->get(route('dashboard'))
+        $response = $this->get(route('admin.dashboard'))
             ->assertOk()
             ->assertViewIs('pjstarter::pages.dashboard');
 
@@ -21,6 +21,6 @@ class IndexTest extends TestCase
 
     public function testDashboardNoAuthenticated(): void
     {
-        $this->get(route('dashboard'))->assertRedirect(route('login'));
+        $this->get(route('admin.dashboard'))->assertRedirect(route('admin.login'));
     }
 }

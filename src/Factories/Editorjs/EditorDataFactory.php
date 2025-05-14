@@ -29,7 +29,7 @@ class EditorDataFactory
     public static function createFromOutputData(array $outputData): EditorData
     {
         return new EditorData(
-            CarbonImmutable::createFromTimestamp($outputData['time']),
+            CarbonImmutable::createFromTimestampMs($outputData['time']),
             self::getBlocks($outputData['blocks']),
             $outputData['version'],
             json_encode($outputData),
@@ -118,7 +118,7 @@ class EditorDataFactory
             $blockData['id'],
             $blockData['type'],
             $data['file']['url'],
-            $data['caption'] ?? '',
+            $data['caption'] === '' ? null : $data['caption'],
             $data['withBorder'] ?? false,
             $data['withBackground'] ?? false,
             $data['stretched'] ?? false,

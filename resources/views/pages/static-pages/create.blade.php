@@ -4,10 +4,10 @@
         <div class="card w-3/5 mx-auto">
             <p class="title">@lang('pjstarter::pages.static_pages.create_new_page')</p>
             <x-pjutils::form
-                :action="route('api.static-pages.store')"
+                :action="route('admin.api.static-pages.store')"
                 method="POST"
                 :action-label="__('pjstarter::general.create')"
-                :redirect="route('static-pages.index')"
+                :redirect="route('admin.static-pages.index')"
             >
                 <x-pjutils::form.input name="name" :label="__('pjstarter::pages.static_pages.name')" autofocus />
             </x-pjutils::form>

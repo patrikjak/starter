@@ -18,7 +18,7 @@ return new class extends Migration {
                 ->constrained('article_categories', 'id')
                 ->cascadeOnDelete();
             $table->string('title');
-            $table->string('excerpt')->nullable();
+            $table->text('excerpt')->nullable();
             $table->text('content');
             $table->string('featured_image')->nullable();
             $table->string('status')->default(ArticleStatus::DRAFT->value);

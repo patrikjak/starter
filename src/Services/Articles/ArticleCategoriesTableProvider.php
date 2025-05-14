@@ -70,7 +70,7 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
                     'name' => $canViewArticleCategory
                         ? CellFactory::link(
                             $articleCategory->name,
-                            route('articles.categories.show', ['articleCategory' => $articleCategory->id]),
+                            route('admin.articles.categories.show', ['articleCategory' => $articleCategory->id]),
                         )
                         : CellFactory::simple($articleCategory->name),
                     'url' => CellFactory::link($articleCategory->getUrl(), $articleCategory->getUrl()),
@@ -99,7 +99,7 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
                 'edit',
                 Icon::EDIT,
                 href: static function (array $row) {
-                    return route('articles.categories.edit', ['articleCategory' => $row['id']]);
+                    return route('admin.articles.categories.edit', ['articleCategory' => $row['id']]);
                 },
             );
         }
@@ -111,7 +111,7 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
                 Icon::TRASH,
                 Type::DANGER,
                 href: static function (array $row) {
-                    return route('api.articles.categories.destroy', ['articleCategory' => $row['id']]);
+                    return route('admin.api.articles.categories.destroy', ['articleCategory' => $row['id']]);
                 },
                 method: 'DELETE',
             );
@@ -125,7 +125,7 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->articleCategoryRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.articles.categories.table-parts'),
+            route('admin.api.articles.categories.table-parts'),
         ));
     }
 }

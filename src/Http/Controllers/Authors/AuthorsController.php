@@ -22,11 +22,10 @@ class AuthorsController
         ]);
     }
 
-    public function show(Author $author, AuthorService $authorsService): View
+    public function show(Author $author): View
     {
         return view('pjstarter::pages.authors.show', [
             'author' => $author,
-            'profilePicturePath' => $authorsService->getProfilePicturePath($author),
         ]);
     }
 
@@ -35,12 +34,12 @@ class AuthorsController
         return view('pjstarter::pages.authors.create');
     }
 
-    public function edit(Author $author, AuthorService $authorsService): View
+    public function edit(Author $author): View
     {
         return view('pjstarter::pages.authors.edit', [
             'author' => $author,
             'profilePicture' => $author->profile_picture
-                ? [new Image($authorsService->getProfilePicturePath($author), $author->profile_picture)]
+                ? [new Image($author->getProfilePicturePath(), $author->profile_picture)]
                 : [],
         ]);
     }

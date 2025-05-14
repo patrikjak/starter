@@ -18,9 +18,9 @@
                 <div
                     class="editorjs mt-4"
                     id="editorjs"
-                    data-upload-image-url="{{ route('api.articles.upload-image') }}"
-                    data-fetch-image-url="{{ route('api.articles.fetch-image') }}"
-                    data-article-content-url="{{ route('api.articles.content', ['article' => $article->id]) }}"
+                    data-upload-image-url="{{ route('admin.api.articles.upload-image') }}"
+                    data-fetch-image-url="{{ route('admin.api.articles.fetch-image') }}"
+                    data-article-content-url="{{ route('admin.api.articles.content', ['article' => $article->id]) }}"
                 ></div>
             </div>
 
@@ -30,9 +30,9 @@
 
                     <x-pjutils::form
                         :action-label="__('pjstarter::general.edit')"
-                        :action="route('api.articles.update', ['article' => $article->id])"
+                        :action="route('admin.api.articles.update', ['article' => $article->id])"
                         method="PUT"
-                        :redirect="route('articles.index')"
+                        :redirect="route('admin.articles.index')"
                         id="article-form"
                     >
                         <x-pjutils::form.input
@@ -87,10 +87,10 @@
                     <p class="title">@lang('pjstarter::pages.slug.url')</p>
 
                     <x-pjutils::form
-                        :action="route('api.slugs.update', ['slug' => $article->slug->id])"
+                        :action="route('admin.api.slugs.update', ['slug' => $article->slug->id])"
                         method="PUT"
                         :action-label="__('pjstarter::general.edit')"
-                        :redirect="route('articles.index')"
+                        :redirect="route('admin.articles.index')"
                     >
                         <x-pjutils::form.input
                             name="prefix"

@@ -10,10 +10,10 @@
             <div class="card">
                 <p class="title">@lang('pjstarter::pages.static_pages.edit_page')</p>
                 <x-pjutils::form
-                    :action="route('api.static-pages.update', ['staticPage' => $staticPage->id])"
+                    :action="route('admin.api.static-pages.update', ['staticPage' => $staticPage->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
-                    :redirect="route('static-pages.index')"
+                    :redirect="route('admin.static-pages.index')"
                 >
                     <x-pjutils::form.input
                         name="name"
@@ -27,10 +27,10 @@
                 <p class="title">@lang('pjstarter::pages.static_pages.url')</p>
 
                 <x-pjutils::form
-                    :action="route('api.slugs.update', ['slug' => $staticPage->slug->id])"
+                    :action="route('admin.api.slugs.update', ['slug' => $staticPage->slug->id])"
                     method="PUT"
                     :action-label="__('pjstarter::general.edit')"
-                    :redirect="route('static-pages.index')"
+                    :redirect="route('admin.static-pages.index')"
                 >
                     <x-pjutils::form.input
                         name="prefix"

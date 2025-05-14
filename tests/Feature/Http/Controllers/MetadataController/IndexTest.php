@@ -15,7 +15,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $response = $this->get(route('metadata.index'));
+        $response = $this->get(route('admin.metadata.index'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -30,7 +30,7 @@ class IndexTest extends TestCase
             $staticPage = StaticPage::factory()->hasMetadata()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->get(route('metadata.index'));
+            $response = $this->get(route('admin.metadata.index'));
             $response->assertOk();
 
             $this->assertMatchesHtmlSnapshot($response->getContent());

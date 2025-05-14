@@ -13,7 +13,7 @@
     @can(BasePolicy::EDIT, Metadata::class)
         <x-slot:actions>
             <x-pjstarter::layout.action>
-                <a href="{{ route('metadata.edit', ['metadata' => $metadata->id]) }}">@lang('pjstarter::general.edit')</a>
+                <a href="{{ route('admin.metadata.edit', ['metadata' => $metadata->id]) }}">@lang('pjstarter::general.edit')</a>
             </x-pjstarter::layout.action>
         </x-slot:actions>
     @endcan

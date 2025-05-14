@@ -18,5 +18,6 @@ return [
     'success' => 'Úspech',
     'empty' => 'Nevyplnené',
     'minute' => '{1} minúta|[2,4] minúty|[5,*] minút',
+    'last_edited' => 'Posledná úprava',
 
 ];

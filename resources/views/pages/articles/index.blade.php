@@ -7,7 +7,7 @@
         <x-slot:actions>
             @can(BasePolicy::VIEW_ANY, ArticleCategory::class)
                 <x-pjstarter::layout.action>
-                    <a href="{{ route('articles.categories.index') }}">
+                    <a href="{{ route('admin.articles.categories.index') }}">
                         @lang('pjstarter::pages.articles.categories.title')
                     </a>
                 </x-pjstarter::layout.action>
@@ -15,7 +15,7 @@
 
             @can(BasePolicy::CREATE, Article::class)
                 <x-pjstarter::layout.action>
-                    <a href="{{ route('articles.create') }}">
+                    <a href="{{ route('admin.articles.create') }}">
                         @lang('pjstarter::pages.articles.create')
                     </a>
                 </x-pjstarter::layout.action>

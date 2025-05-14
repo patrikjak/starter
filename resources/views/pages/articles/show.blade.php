@@ -8,7 +8,7 @@
     @can(BasePolicy::EDIT, Article::class)
         <x-slot:actions>
             <x-pjstarter::action>
-                <a href="{{ route('articles.edit', ['article' => $article->id]) }}">
+                <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}">
                     @lang('pjstarter::general.edit')
                 </a>
             </x-pjstarter::action>
@@ -21,7 +21,7 @@
 
         <p class="font-primary font-bold mt-2">@lang('pjstarter::pages.articles.category')</p>
         @can(BasePolicy::VIEW, ArticleCategory::class)
-            <a href="{{ route('articles.categories.show', ['articleCategory' => $article->articleCategory->id]) }}" class="font-primary">
+            <a href="{{ route('admin.articles.categories.show', ['articleCategory' => $article->articleCategory->id]) }}" class="font-primary">
                 {{ $article->articleCategory->name }}
             </a>
         @else
@@ -30,7 +30,7 @@
 
         <p class="font-primary font-bold mt-2">@lang('pjstarter::pages.articles.author')</p>
         @can(BasePolicy::VIEW, Author::class)
-            <a href="{{ route('authors.show', ['author' => $article->author->id]) }}" class="font-primary">
+            <a href="{{ route('admin.authors.show', ['author' => $article->author->id]) }}" class="font-primary">
                 {{ $article->author->name }}
             </a>
         @else

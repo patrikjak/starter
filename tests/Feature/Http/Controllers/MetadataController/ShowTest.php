@@ -20,7 +20,7 @@ class ShowTest extends TestCase
             $staticPage = StaticPage::factory()->hasMetadata()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->get(route('metadata.show', ['metadata' => $staticPage->metadata->id]));
+            $response = $this->get(route('admin.metadata.show', ['metadata' => $staticPage->metadata->id]));
             $response->assertOk();
 
             $this->assertMatchesHtmlSnapshot($response->getContent());

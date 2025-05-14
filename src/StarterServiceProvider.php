@@ -6,12 +6,14 @@ namespace Patrikjak\Starter;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
+use Patrikjak\Starter\Models\Slugs\Sluggable;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
@@ -73,6 +75,8 @@ class StarterServiceProvider extends ServiceProvider
         $this->loadViews();
         $this->loadTranslations();
         $this->loadCommands();
+
+        $this->loadExplicitRouteKeys();
 
         $this->registerPolicies();
     }
@@ -193,5 +197,19 @@ class StarterServiceProvider extends ServiceProvider
         Gate::policy(Permission::class, PermissionPolicy::class);
         Gate::policy(Author::class, AuthorPolicy::class);
         Gate::policy(ArticleCategory::class, ArticleCategoryPolicy::class);
+    }
+
+    private function loadExplicitRouteKeys(): void
+    {
+        Route::bind('sluggable', function (string $value): Sluggable {
+            $slugRepository = $this->app->make(SlugRepositoryContract::class);
+            $sluggable = $slugRepository->getByUri($value);
+
+            if ($sluggable === null) {
+                abort(404);
+            }
+
+            return $sluggable->sluggable;
+        });
     }
 }

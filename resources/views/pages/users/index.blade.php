@@ -7,13 +7,13 @@
     <x-slot:actions>
         @can(BasePolicy::VIEW_ANY, Role::class)
             <x-pjstarter::layout.action>
-                <a href="{{ route('users.roles.index') }}">@lang('pjstarter::pages.users.roles.title')</a>
+                <a href="{{ route('admin.users.roles.index') }}">@lang('pjstarter::pages.users.roles.title')</a>
             </x-pjstarter::layout.action>
         @endcan
 
         @can(BasePolicy::VIEW_ANY, Permission::class)
             <x-pjstarter::layout.action>
-                <a href="{{ route('users.permissions.index') }}">@lang('pjstarter::pages.users.permissions.title')</a>
+                <a href="{{ route('admin.users.permissions.index') }}">@lang('pjstarter::pages.users.permissions.title')</a>
             </x-pjstarter::layout.action>
         @endcan
     </x-slot:actions>

@@ -71,7 +71,7 @@ readonly class ArticleService
         if ($articleInputData->status === ArticleStatus::PUBLISHED) {
             $publishedAt = CarbonImmutable::now();
 
-            if ($article->published_at !== null) {
+            if ($article?->published_at !== null) {
                 $publishedAt = $article->published_at;
             }
         }

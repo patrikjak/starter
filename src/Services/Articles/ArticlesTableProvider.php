@@ -53,7 +53,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
             'excerpt' => __('pjstarter::pages.articles.excerpt'),
             'status' => __('pjstarter::pages.articles.status'),
             'published_at' => __('pjstarter::pages.articles.published_at'),
-            'created_at' => __('pjstarter::general.created_at'),
+            'updated_at' => __('pjstarter::general.last_edited'),
         ];
     }
 
@@ -73,7 +73,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
                 'title' => $canViewArticle
                     ? CellFactory::link(
                         $article->title,
-                        route('articles.show', ['article' => $article->id]),
+                        route('admin.articles.show', ['article' => $article->id]),
                     )
                     : CellFactory::simple($article->title),
                 'url' => CellFactory::link($article->getUrl(), $article->getUrl()),
@@ -89,7 +89,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
                         ? ''
                         : $article->published_at->format('d.m.Y H:i'),
                 ),
-                'created_at' => CellFactory::simple($article->created_at->format('d.m.Y H:i')),
+                'updated_at' => CellFactory::simple($article->updated_at->format('d.m.Y H:i')),
             ];
         })->toArray();
     }
@@ -112,7 +112,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
                 'edit',
                 Icon::EDIT,
                 href: static function (array $row) {
-                    return route('articles.edit', ['article' => $row['id']]);
+                    return route('admin.articles.edit', ['article' => $row['id']]);
                 },
             );
         }
@@ -124,7 +124,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
                 Icon::TRASH,
                 Type::DANGER,
                 href: static function (array $row) {
-                    return route('api.articles.destroy', ['article' => $row['id']]);
+                    return route('admin.api.articles.destroy', ['article' => $row['id']]);
                 },
                 method: 'DELETE',
             );
@@ -138,7 +138,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->articleRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.articles.table-parts'),
+            route('admin.api.articles.table-parts'),
         ));
     }
 }

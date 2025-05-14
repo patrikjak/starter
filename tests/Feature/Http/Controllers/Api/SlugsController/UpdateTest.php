@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
         $staticPage = StaticPage::factory()->create();
         assert($staticPage instanceof StaticPage);
 
-        $this->put(route('api.slugs.update', ['slug' => $staticPage->slug->id]))
+        $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]))
             ->assertForbidden();
     }
 
@@ -41,7 +41,7 @@ class UpdateTest extends TestCase
         
         $this->actingAs($this->createSuperAdminUser());
 
-        $this->put(route('api.slugs.update', ['slug' => $staticPage->slug->id]), $data)
+        $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), $data)
             ->assertOk();
 
         $this->assertDatabaseHas('slugs', $data);
@@ -59,7 +59,7 @@ class UpdateTest extends TestCase
 
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->put(route('api.slugs.update', ['slug' => $staticPage->slug->id]), $data);
+        $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), $data);
         $response->assertUnprocessable();
 
         $this->assertMatchesJsonSnapshot($response->getContent());
@@ -81,7 +81,7 @@ class UpdateTest extends TestCase
 
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->put(route('api.slugs.update', ['slug' => $staticPage->slug->id]), [
+        $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), [
             'slug' => $staticPage2->slug->slug,
         ]);
 
@@ -104,7 +104,7 @@ class UpdateTest extends TestCase
 
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->put(route('api.slugs.update', ['slug' => $staticPage2->slug->id]), [
+        $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage2->slug->id]), [
             'slug' => '',
         ]);
 

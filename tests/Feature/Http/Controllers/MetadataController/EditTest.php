@@ -19,7 +19,7 @@ class EditTest extends TestCase
             $staticPage = StaticPage::factory()->hasMetadata()->create();
             assert($staticPage instanceof StaticPage);
 
-            $response = $this->get(route('metadata.edit', ['metadata' => $staticPage->metadata->id]));
+            $response = $this->get(route('admin.metadata.edit', ['metadata' => $staticPage->metadata->id]));
             $response->assertOk();
 
             $this->assertMatchesHtmlSnapshot($response->getContent());

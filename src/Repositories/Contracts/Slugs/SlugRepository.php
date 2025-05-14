@@ -12,6 +12,8 @@ interface SlugRepository
 {
     public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug;
 
+    public function getByUri(string $uri): ?Slug;
+
     public function getBySlug(string $slug, ?string $prefix = null): ?Slug;
 
     public function create(CreateSlug $createSlug): void;

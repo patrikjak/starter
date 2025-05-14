@@ -71,7 +71,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
                 'title' => $canViewDetail
                     ? CellFactory::link(
                         $this->getCroppedString($metadata->title),
-                        route('metadata.show', ['metadata' => $metadata->id]),
+                        route('admin.metadata.show', ['metadata' => $metadata->id]),
                     )
                     : CellFactory::simple($this->getCroppedString($metadata->title)),
                 'description' => CellFactory::simple($this->getCroppedString($metadata->description)),
@@ -97,7 +97,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
 
         return [
             new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
-                return route('metadata.edit', ['metadata' => $row['id']]);
+                return route('admin.metadata.edit', ['metadata' => $row['id']]);
             }),
         ];
     }
@@ -155,7 +155,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->metadataRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.metadata.table-parts'),
+            route('admin.api.metadata.table-parts'),
             $this->getSortCriteria(),
             $this->getFilterCriteria(),
         ));

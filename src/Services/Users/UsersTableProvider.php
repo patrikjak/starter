@@ -74,7 +74,7 @@ final class UsersTableProvider extends BasePaginatedTableProvider
 
     protected function getPaginator(): TablePaginator
     {
-        $tablePartsRoute = route('api.users.table-parts');
+        $tablePartsRoute = route('admin.api.users.table-parts');
 
         $user = $this->authManager->user();
         assert($user instanceof User);

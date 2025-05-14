@@ -6,7 +6,7 @@
     @can(BasePolicy::EDIT, Author::class)
         <x-slot:actions>
             <x-pjstarter::action>
-                <a href="{{ route('authors.edit', ['author' => $author->id]) }}">@lang('pjstarter::pages.authors.edit_author')</a>
+                <a href="{{ route('admin.authors.edit', ['author' => $author->id]) }}">@lang('pjstarter::pages.authors.edit_author')</a>
             </x-pjstarter::action>
         </x-slot:actions>
     @endcan
@@ -17,7 +17,7 @@
 
         <p class="font-primary font-bold mt-2">@lang('pjstarter::pages.authors.profile_picture')</p>
         @isset($author->profile_picture)
-            <img src="{{ $profilePicturePath }}" alt="profile picture" class="max-w-52 max-h-52 object-contain mt-4 block">
+            <img src="{{ $author->getProfilePicturePath() }}" alt="profile picture" class="max-w-52 max-h-52 object-contain mt-4 block">
         @else
             <p>-</p>
         @endisset

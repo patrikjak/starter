@@ -3,7 +3,7 @@
     <div class="manage-permissions">
         <x-pjutils::form
             method="PUT"
-            :action="route('api.users.roles.permissions', ['role' => $role->id])"
+            :action="route('admin.api.users.roles.permissions', ['role' => $role->id])"
             :action-label="__('pjstarter::general.save')"
         >
             @foreach($availablePermissions as $feature => $permissions)

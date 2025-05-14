@@ -24,6 +24,15 @@ class Author extends Model
     use HasUuids;
     use HasFactory;
 
+    public function getProfilePicturePath(): ?string
+    {
+        if ($this->profile_picture === null) {
+            return null;
+        }
+
+        return asset(sprintf('storage/%s', $this->profile_picture));
+    }
+
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);

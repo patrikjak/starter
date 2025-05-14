@@ -18,5 +18,6 @@ return [
     'success' => 'Success',
     'empty' => 'Empty',
     'minute' => '{1} minute|[2,4] minutes|[5,*] minutes',
+    'last_edited' => 'Last edited',
 
 ];
