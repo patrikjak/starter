@@ -16,7 +16,7 @@ class ShowTest extends TestCase
         $category = ArticleCategory::factory()->create();
         assert($category instanceof ArticleCategory);
 
-        $response = $this->getJson(route('articles.categories.show', ['articleCategory' => $category->id]));
+        $response = $this->getJson(route('admin.articles.categories.show', ['articleCategory' => $category->id]));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());

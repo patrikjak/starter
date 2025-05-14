@@ -23,7 +23,7 @@ class EditTest extends TestCase
                 ->create();
             assert($category instanceof ArticleCategory);
 
-            $response = $this->getJson(route('articles.categories.edit', ['articleCategory' => $category->id]));
+            $response = $this->getJson(route('admin.articles.categories.edit', ['articleCategory' => $category->id]));
             $response->assertOk();
 
             $this->assertMatchesHtmlSnapshot($response->getContent());

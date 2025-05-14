@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $response = $this->getJson(route('articles.categories.index'));
+        $response = $this->getJson(route('admin.articles.categories.index'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -26,7 +26,7 @@ class IndexTest extends TestCase
         ArticleCategory::factory()
             ->create();
 
-        $response = $this->getJson(route('articles.categories.index'));
+        $response = $this->getJson(route('admin.articles.categories.index'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());

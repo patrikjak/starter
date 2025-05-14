@@ -12,7 +12,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        $response = $this->getJson(route('users.permissions.index'));
+        $response = $this->getJson(route('admin.users.permissions.index'));
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
@@ -23,7 +23,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $response = $this->getJson(route('users.permissions.index'));
+        $response = $this->getJson(route('admin.users.permissions.index'));
         $response->assertForbidden();
     }
 }
