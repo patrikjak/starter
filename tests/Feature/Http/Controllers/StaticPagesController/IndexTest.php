@@ -6,7 +6,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\StaticPagesController
 
 use Carbon\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -27,9 +27,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        StaticPage::withoutEvents(static function (): void {
-            StaticPage::factory()->hasSlug()->create();
-        });
+        StaticPageFactory::createDefaultWithoutEvents();
 
         $response = $this->get(route('admin.static-pages.index'))
             ->assertOk();

@@ -7,7 +7,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\MetadataControlle
 use Illuminate\Foundation\Console\Kernel;
 use Mockery\MockInterface;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -22,13 +22,10 @@ class UpdateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        StaticPage::withoutEvents(function () use ($data): void {
-            $staticPage = StaticPage::factory()->hasMetadata()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
-            $response->assertOk();
-        });
+        $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
+        $response->assertOk();
 
         $this->assertDatabaseHas('metadata', $data);
     }
@@ -42,8 +39,7 @@ class UpdateTest extends TestCase
             $mock->shouldReceive('call')->once()->with('view:clear');
         });
 
-        $staticPage = StaticPage::factory()->hasMetadata()->create();
-        assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
         $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), [
             'title' => 'Test title',
@@ -65,16 +61,12 @@ class UpdateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        StaticPage::withoutEvents(function () use ($data): void {
-            $staticPage = StaticPage::factory()->hasMetadata()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
-            $response->assertUnprocessable();
+        $response = $this->put(route('admin.api.metadata.update', ['metadata' => $staticPage->metadata->id]), $data);
+        $response->assertUnprocessable();
 
-            $this->assertMatchesJsonSnapshot($response->getContent());
-        });
-
+        $this->assertMatchesJsonSnapshot($response->getContent());
         $this->assertDatabaseMissing('metadata', $data);
     }
 

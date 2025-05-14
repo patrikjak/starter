@@ -6,6 +6,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\SlugsController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -22,8 +23,7 @@ class UpdateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $staticPage = StaticPage::factory()->create();
-        assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
         $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]))
             ->assertForbidden();
@@ -36,8 +36,7 @@ class UpdateTest extends TestCase
     #[DataProvider('updateCorrectDataProvider')]
     public function testSuccessfulUpdate(array $data): void
     {
-        $staticPage = StaticPage::factory()->create();
-        assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
         
         $this->actingAs($this->createSuperAdminUser());
 
@@ -54,8 +53,7 @@ class UpdateTest extends TestCase
     #[DataProvider('updateIncorrectDataProvider')]
     public function testUnsuccessfulUpdateDueValidation(array $data): void
     {
-        $staticPage = StaticPage::factory()->create();
-        assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
         $this->actingAs($this->createSuperAdminUser());
 
@@ -70,8 +68,7 @@ class UpdateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testUnsuccessfulUpdateDueToDuplicateSlug(): void
     {
-        $staticPage = StaticPage::factory()->create();
-        assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
         $staticPage2 = StaticPage::factory()->create([
             'id' => '69eed203-5218-4359-8efb-83b92a5142ed',
@@ -93,8 +90,7 @@ class UpdateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testUnsuccessfulUpdateDueToDuplicateEmptySlug(): void
     {
-        $staticPage = StaticPage::factory()->hasSlug(['slug' => ''])->create();
-        assert($staticPage instanceof StaticPage);
+        StaticPageFactory::createCustomWithoutEvents(slugData: ['slug' => '']);
 
         $staticPage2 = StaticPage::factory()->create([
             'id' => '69eed203-5218-4359-8efb-83b92a5142ed',

@@ -6,7 +6,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\StaticPagesController
 
 use Carbon\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class CreateTest extends TestCase
@@ -35,15 +35,12 @@ class CreateTest extends TestCase
     {
         $this->actingAs($this->createSuperAdminUser());
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasSlug()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]));
-            $response->assertOk();
+        $response = $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]));
+        $response->assertOk();
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('enableStaticPages')]
@@ -51,12 +48,9 @@ class CreateTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasSlug()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
-        });
+        $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
     }
 
     protected function setUp(): void
