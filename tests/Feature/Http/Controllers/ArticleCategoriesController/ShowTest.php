@@ -3,7 +3,7 @@
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ArticleCategoriesController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\Articles\ArticleCategory;
+use Patrikjak\Starter\Tests\Factories\ArticleCategoryFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class ShowTest extends TestCase
@@ -13,10 +13,13 @@ class ShowTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        $category = ArticleCategory::factory()->create();
-        assert($category instanceof ArticleCategory);
+        $articleCategory = ArticleCategoryFactory::createDefaultWithoutEvents();
 
-        $response = $this->getJson(route('admin.articles.categories.show', ['articleCategory' => $category->id]));
+        $response = $this->getJson(route(
+            'admin.articles.categories.show',
+            ['articleCategory' => $articleCategory->id],
+        ));
+
         $response->assertOk();
 
         $this->assertMatchesHtmlSnapshot($response->getContent());

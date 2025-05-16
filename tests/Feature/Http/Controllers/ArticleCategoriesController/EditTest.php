@@ -3,9 +3,7 @@
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ArticleCategoriesController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\Articles\ArticleCategory;
-use Patrikjak\Starter\Models\Metadata\Metadata;
-use Patrikjak\Starter\Models\Slugs\Slug;
+use Patrikjak\Starter\Tests\Factories\ArticleCategoryFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class EditTest extends TestCase
@@ -15,18 +13,17 @@ class EditTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        ArticleCategory::withoutEvents(function () {
-            $category = ArticleCategory::factory()
-                ->for(Slug::factory(), 'slug')
-                ->for(Metadata::factory(), 'metadata')
-                ->defaultData()
-                ->create();
-            assert($category instanceof ArticleCategory);
+        $articleCategory = ArticleCategoryFactory::createDefaultWithoutEvents();
 
-            $response = $this->getJson(route('admin.articles.categories.edit', ['articleCategory' => $category->id]));
-            $response->assertOk();
+        $response = $this->getJson(route(
+            'admin.articles.categories.edit',
+            [
+                'articleCategory' => $articleCategory->id,
+            ],
+        ));
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 }

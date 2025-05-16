@@ -2,8 +2,9 @@
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ArticleCategoriesController;
 
+use Illuminate\Support\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\Articles\ArticleCategory;
+use Patrikjak\Starter\Tests\Factories\ArticleCategoryFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -22,9 +23,10 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testIndexWithCategory(): void
     {
+        Carbon::setTestNow(Carbon::create(2025, 5, 16));
+
         $this->actingAs($this->createAdminUser());
-        ArticleCategory::factory()
-            ->create();
+        ArticleCategoryFactory::createDefaultWithoutEvents();
 
         $response = $this->getJson(route('admin.articles.categories.index'));
         $response->assertOk();
