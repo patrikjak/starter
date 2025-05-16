@@ -13,7 +13,17 @@ class AuthorFactory extends Factory
     {
         return [
             'id' => '3eb904c7-ba46-43e3-afaf-a8ebf3c9c3c2',
-            'name' => 'John Doe',
+            'name' => $this->faker->name(),
         ];
+    }
+
+    public function defaultData(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'id' => '3eb904c7-ba46-43e3-afaf-a8ebf3c9c3c2',
+                'name' => 'John Doe',
+            ];
+        });
     }
 }

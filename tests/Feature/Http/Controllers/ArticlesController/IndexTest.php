@@ -4,9 +4,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ArticlesController;
 
 use Illuminate\Support\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\Articles\Article;
-use Patrikjak\Starter\Models\Articles\ArticleCategory;
-use Patrikjak\Starter\Models\Authors\Author;
+use Patrikjak\Starter\Tests\Factories\ArticleFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -34,11 +32,7 @@ class IndexTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        Article::factory()
-            ->for(Author::factory())
-            ->for(ArticleCategory::factory())
-            ->defaultData()
-            ->create();
+        ArticleFactory::createDefaultWithoutEvents();
 
         $response = $this->getJson(route('admin.articles.index'));
         $response->assertOk();

@@ -18,19 +18,19 @@ class ArticleFactory extends Factory
             'title' => $this->faker->sentence(3),
             'excerpt' => $this->faker->sentence(10),
             'content' => [
-                'time' => 0,
+                'time' => 1747430180190,
                 'blocks' => [
                     [
                         'type' => 'header',
                         'data' => [
-                            'text' => 'Super Cool Article',
+                            'text' => $this->faker->sentence(3),
                             'level' => 2,
                         ],
                     ],
                     [
                         'type' => 'paragraph',
                         'data' => [
-                            'text' => 'This is a super cool article about testing.',
+                            'text' => $this->faker->sentence(10),
                         ],
                     ],
                 ],
@@ -54,8 +54,21 @@ class ArticleFactory extends Factory
                 'title' => 'Super Cool Article',
                 'excerpt' => 'This is a super cool article about testing.',
                 'content' => [
-                    'time' => 0,
+                    'time' => 1747430180190,
                     'blocks' => [
+                        [
+                            'type' => 'header',
+                            'data' => [
+                                'text' => 'Super Cool Article Title',
+                                'level' => 1,
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'data' => [
+                                'text' => 'Super cool',
+                            ],
+                        ],
                         [
                             'type' => 'header',
                             'data' => [
@@ -67,6 +80,58 @@ class ArticleFactory extends Factory
                             'type' => 'paragraph',
                             'data' => [
                                 'text' => 'This is a super cool article about testing.',
+                            ],
+                        ],
+                        [
+                            'type' => 'header',
+                            'data' => [
+                                'text' => 'Testing level 3',
+                                'level' => 3,
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'data' => [
+                                'text' => 'This is a super cool article about testing. - after level 3',
+                            ],
+                        ],
+                        [
+                            'type' => 'header',
+                            'data' => [
+                                'text' => 'Testing level 4',
+                                'level' => 4,
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'data' => [
+                                'text' => 'This is a super cool article about testing. - after level 4',
+                            ],
+                        ],
+                        [
+                            'type' => 'header',
+                            'data' => [
+                                'text' => 'Testing level 5',
+                                'level' => 5,
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'data' => [
+                                'text' => 'This is a super cool article about testing. - after level 5',
+                            ],
+                        ],
+                        [
+                            'type' => 'header',
+                            'data' => [
+                                'text' => 'Testing level 6',
+                                'level' => 6,
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'data' => [
+                                'text' => 'This is a super cool article about testing. - after level 6',
                             ],
                         ],
                     ],
