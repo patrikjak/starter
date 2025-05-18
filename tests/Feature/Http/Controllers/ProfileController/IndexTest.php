@@ -11,7 +11,7 @@ class IndexTest extends TestCase
 {
     public function testProfileNoAuthenticated(): void
     {
-        $this->get(route('admin.profile'))->assertRedirect(route('admin.login'));
+        $this->get(route('admin.profile'))->assertRedirect(route('login'));
     }
 
     public function testProfileCanBeRendered(): void

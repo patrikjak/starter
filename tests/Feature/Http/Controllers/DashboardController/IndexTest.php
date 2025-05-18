@@ -21,6 +21,6 @@ class IndexTest extends TestCase
 
     public function testDashboardNoAuthenticated(): void
     {
-        $this->get(route('admin.dashboard'))->assertRedirect(route('admin.login'));
+        $this->get(route('admin.dashboard'))->assertRedirect(route('login'));
     }
 }

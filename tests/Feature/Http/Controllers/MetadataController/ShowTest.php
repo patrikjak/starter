@@ -6,7 +6,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\MetadataController;
 
 use Carbon\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class ShowTest extends TestCase
@@ -16,15 +16,12 @@ class ShowTest extends TestCase
     {
         $this->actingAs($this->createAdminUser());
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasMetadata()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->get(route('admin.metadata.show', ['metadata' => $staticPage->metadata->id]));
-            $response->assertOk();
+        $response = $this->get(route('admin.metadata.show', ['metadata' => $staticPage->metadata->id]));
+        $response->assertOk();
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     protected function setUp(): void

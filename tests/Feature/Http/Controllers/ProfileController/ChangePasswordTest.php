@@ -22,7 +22,7 @@ class ChangePasswordTest extends TestCase
 
     public function testChangePasswordNoAuthenticated(): void
     {
-        $this->get(route('admin.change-password'))->assertRedirect(route('admin.login'));
+        $this->get(route('admin.change-password'))->assertRedirect(route('login'));
     }
 
     #[DefineEnvironment('disableProfile')]

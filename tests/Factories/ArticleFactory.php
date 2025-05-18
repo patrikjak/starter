@@ -22,7 +22,7 @@ class ArticleFactory
             $authorFactory = Author::factory();
             assert($authorFactory instanceof AuthorFactory);
 
-            $articleCategoryFactory = $articleCategoryFactory->defaultData();
+            $articleCategoryFactory = $articleCategoryFactory->defaultData()->state(['id' => '6c7af461-e5e2-499a-8884-1703e8663d7e']);
             $authorFactory = $authorFactory->defaultData();
 
             $articleFactory = Article::factory()

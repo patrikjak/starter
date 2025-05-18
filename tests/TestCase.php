@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests;
 
+use Carbon\Carbon;
 use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -62,6 +63,8 @@ abstract class TestCase extends BaseTestCase
 
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
+
+        Carbon::setTestNow(Carbon::create(2025, 5, 18));
 
         $this->artisan('seed:user-roles');
         $this->artisan('pjstarter:permissions:sync');
