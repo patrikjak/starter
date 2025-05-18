@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Factories;
 
 use Patrikjak\Starter\Database\Factories\StaticPages\StaticPageFactory as DatabaseStaticPageFactory;
@@ -33,6 +35,11 @@ class StaticPageFactory
         });
     }
 
+    /**
+     * @param array<string, string|int>$data
+     * @param array<string, string|int> $slugData
+     * @param array<string, string|int> $metadataData
+     */
     public static function createCustomWithoutEvents(
         array $data = [],
         array $slugData = [

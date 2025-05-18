@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Factories;
 
-use Patrikjak\Starter\Database\Factories\Articles\ArticleFactory as DatabaseArticleFactory;
 use Patrikjak\Starter\Database\Factories\Articles\ArticleCategoryFactory;
+use Patrikjak\Starter\Database\Factories\Articles\ArticleFactory as DatabaseArticleFactory;
 use Patrikjak\Starter\Database\Factories\Authors\AuthorFactory;
 use Patrikjak\Starter\Models\Articles\Article;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
@@ -22,7 +24,11 @@ class ArticleFactory
             $authorFactory = Author::factory();
             assert($authorFactory instanceof AuthorFactory);
 
-            $articleCategoryFactory = $articleCategoryFactory->defaultData()->state(['id' => '6c7af461-e5e2-499a-8884-1703e8663d7e']);
+            $articleCategoryFactory = $articleCategoryFactory
+                ->defaultData()
+                ->state([
+                    'id' => '6c7af461-e5e2-499a-8884-1703e8663d7e',
+                ]);
             $authorFactory = $authorFactory->defaultData();
 
             $articleFactory = Article::factory()

@@ -37,48 +37,6 @@ parameters:
 			path: tests/Feature/Http/Controllers/Api/MetadataController/UpdateTest.php
 
 		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasMetadata\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: tests/Feature/Http/Controllers/Api/MetadataController/UpdateTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/Api/SlugsController/UpdateTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasMetadata\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/MetadataController/EditTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasMetadata\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/MetadataController/IndexTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasMetadata\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/MetadataController/ShowTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: tests/Feature/Http/Controllers/StaticPagesController/CreateTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/Http/Controllers/StaticPagesController/IndexTest.php
-
-		-
 			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
 			identifier: method.notFound
 			count: 1

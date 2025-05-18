@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Factories;
 
-use Carbon\CarbonImmutable;
 use Patrikjak\Auth\Database\Factories\UserFactory as UserFactoryBase;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
@@ -15,15 +16,14 @@ class UserFactory
             $authorFactory = User::factory();
             assert($authorFactory instanceof UserFactoryBase);
 
-            return $authorFactory
-                ->withName('Super Admin')
-                ->withRole(RoleType::SUPERADMIN)
-                ->withEmail('superadmin@example.com')
-                ->create([
-                    'id' => '9cef6fd7-a490-40db-b49f-ba27f691888c',
-                    'created_at' => CarbonImmutable::create(2025, 5, 18),
-                    'updated_at' => CarbonImmutable::create(2025, 5, 18),
-                ]);
+            $authorFactory = $authorFactory->withRole(RoleType::SUPERADMIN);
+            assert($authorFactory instanceof UserFactoryBase);
+
+            return $authorFactory->create([
+                'id' => '9cef6fd7-a490-40db-b49f-ba27f691888c',
+                'name' => 'Super Admin',
+                'email' => 'superadmin@example.com',
+            ]);
         });
     }
 
@@ -33,13 +33,14 @@ class UserFactory
             $authorFactory = User::factory();
             assert($authorFactory instanceof UserFactoryBase);
 
-            return $authorFactory
-                ->withName('Admin')
-                ->withRole(RoleType::ADMIN)
-                ->withEmail('admin@example.com')
-                ->create([
-                    'id' => 'e847cd49-f1ba-4c88-a607-c46ab5d5e98f',
-                ]);
+            $authorFactory = $authorFactory->withRole(RoleType::ADMIN);
+            assert($authorFactory instanceof UserFactoryBase);
+
+            return $authorFactory->create([
+                'id' => 'e847cd49-f1ba-4c88-a607-c46ab5d5e98f',
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
+            ]);
         });
     }
 
@@ -50,10 +51,10 @@ class UserFactory
             assert($authorFactory instanceof UserFactoryBase);
 
             return $authorFactory
-                ->withName('User')
-                ->withEmail('user@example.com')
                 ->create([
                     'id' => '25381043-0c05-480b-b4c7-5da10059a107',
+                    'name' => 'User',
+                    'email' => 'user@example.com',
                 ]);
         });
     }

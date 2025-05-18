@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\UsersController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;

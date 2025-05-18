@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Patrikjak\Starter\Tests\Factories;
 
 use Patrikjak\Starter\Database\Factories\Articles\ArticleCategoryFactory as DatabaseArticleCategoryFactory;
