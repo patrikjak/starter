@@ -19,7 +19,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('usesNavigationItems')]
     public function testNavigation(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
@@ -31,7 +31,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testNavigationWithEnabledStaticPages(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
@@ -43,7 +43,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('disableProfile')]
     public function testNavigationWithDisabledProfile(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'

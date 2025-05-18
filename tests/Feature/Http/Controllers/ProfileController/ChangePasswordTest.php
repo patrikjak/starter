@@ -11,7 +11,7 @@ class ChangePasswordTest extends TestCase
 {
     public function testChangePasswordCanBeRendered(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $response = $this->get(route('admin.change-password'))
             ->assertOk()
@@ -28,7 +28,7 @@ class ChangePasswordTest extends TestCase
     #[DefineEnvironment('disableProfile')]
     public function testChangePasswordCannotBeRenderedWithoutEnabledFeature(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->get('profile/change-password')->assertNotFound();
     }

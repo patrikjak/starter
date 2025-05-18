@@ -20,7 +20,7 @@ class UpdateTest extends TestCase
     #[DataProvider('correctMetadataDataProvider')]
     public function testSuccessfulUpdate(array $data): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
@@ -33,7 +33,7 @@ class UpdateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testSuccessfulUpdateWithDispatchedUpdatedEvent(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $this->mock(Kernel::class, static function (MockInterface $mock): void {
             $mock->shouldReceive('call')->once()->with('view:clear');
@@ -59,7 +59,7 @@ class UpdateTest extends TestCase
     #[DataProvider('incorrectMetadataDataProvider')]
     public function testFailedUpdate(array $data): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 

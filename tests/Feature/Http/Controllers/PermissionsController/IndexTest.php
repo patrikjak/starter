@@ -22,7 +22,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testIndexForbidden(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->getJson(route('admin.users.permissions.index'));
         $response->assertForbidden();

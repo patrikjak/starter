@@ -11,7 +11,7 @@ class ShowTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testShow(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $articleCategory = ArticleCategoryFactory::createDefaultWithoutEvents();
 

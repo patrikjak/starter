@@ -10,7 +10,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testIndex(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->getJson(route('admin.users.roles.index'));
         $response->assertOk();

@@ -21,7 +21,7 @@ class UpdateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testCannotUpdateDueToPolicy(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
@@ -38,7 +38,7 @@ class UpdateTest extends TestCase
     {
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
         
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), $data)
             ->assertOk();
@@ -55,7 +55,7 @@ class UpdateTest extends TestCase
     {
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), $data);
         $response->assertUnprocessable();
@@ -76,7 +76,7 @@ class UpdateTest extends TestCase
         ]);
         assert($staticPage2 instanceof StaticPage);
 
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), [
             'slug' => $staticPage2->slug->slug,
@@ -98,7 +98,7 @@ class UpdateTest extends TestCase
         ]);
         assert($staticPage2 instanceof StaticPage);
 
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $response = $this->put(route('admin.api.slugs.update', ['slug' => $staticPage2->slug->id]), [
             'slug' => '',

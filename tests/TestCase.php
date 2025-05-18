@@ -13,14 +13,14 @@ use Patrikjak\Auth\Tests\Traits\TestingData;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
-use Patrikjak\Starter\Tests\Traits\UserCreator;
+use Patrikjak\Starter\Tests\Traits\WithTestUser;
 use Spatie\Snapshots\MatchesSnapshots;
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
     use MatchesSnapshots;
-    use UserCreator;
+    use WithTestUser;
     use TestingData;
     use ConfigSetter;
     use MatchesSnapshots {
@@ -68,6 +68,13 @@ abstract class TestCase extends BaseTestCase
 
         $this->artisan('seed:user-roles');
         $this->artisan('pjstarter:permissions:sync');
+    }
+
+    protected function tearDown(): void
+    {
+        Carbon::setTestNow(Carbon::now());
+
+        parent::tearDown();
     }
 
     /**

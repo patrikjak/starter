@@ -11,7 +11,7 @@ class EditTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testEdit(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $articleCategory = ArticleCategoryFactory::createDefaultWithoutEvents();
 

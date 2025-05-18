@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\ProfileController;
 
-use Carbon\Carbon;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -18,7 +17,7 @@ class IndexTest extends TestCase
     {
         $this->copyIconsToTestSkeleton();
 
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->get(route('admin.profile'))
             ->assertOk()
@@ -27,12 +26,5 @@ class IndexTest extends TestCase
         $this->assertMatchesHtmlSnapshot($response->getContent());
 
         $this->deleteIconsFromTestSkeleton();
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Carbon::setTestNow(Carbon::create(2025, 4, 5));
     }
 }

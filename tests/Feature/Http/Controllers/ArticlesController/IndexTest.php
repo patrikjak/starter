@@ -9,17 +9,10 @@ use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Carbon::setTestNow(Carbon::create(2025, 3, 30));
-    }
-
     #[DefineEnvironment('enableArticles')]
     public function testIndex(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->getJson(route('admin.articles.index'));
         $response->assertOk();
@@ -30,7 +23,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testIndexWithArticle(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         ArticleFactory::createDefaultWithoutEvents();
 

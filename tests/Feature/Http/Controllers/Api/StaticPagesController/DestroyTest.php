@@ -6,6 +6,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\StaticPagesContro
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\UserFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class DestroyTest extends TestCase
@@ -16,7 +17,7 @@ class DestroyTest extends TestCase
         $staticPage = StaticPage::factory()->create(['name' => 'Page']);
         assert($staticPage instanceof StaticPage);
 
-        $this->actingAs($this->createSuperAdminUser());
+        $this->actingAs(UserFactory::createDefaultSuperAdminWithoutEvents());
 
         $this->deleteJson(route('admin.api.static-pages.destroy', ['staticPage' => $staticPage->id]))
             ->assertOk();

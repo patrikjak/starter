@@ -15,7 +15,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->get(route('admin.metadata.index'));
         $response->assertOk();
@@ -27,7 +27,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testPageCanBeRenderedWithData(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         StaticPageFactory::createDefaultWithoutEvents();
         ArticleFactory::createDefaultWithoutEvents();
@@ -41,7 +41,7 @@ class IndexTest extends TestCase
 
     public function testPageNotFoundWithoutStaticPagesFeatureEnabled(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->get('metadata/');
         $response->assertNotFound();

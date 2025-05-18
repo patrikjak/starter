@@ -12,7 +12,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testIndex(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->getJson(route('admin.authors.index'));
         $response->assertOk();
@@ -23,9 +23,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testIndexWithAuthor(): void
     {
-        Carbon::setTestNow(Carbon::create(2025, 5, 18));
-
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         AuthorFactory::createDefaultWithoutEvents();
 

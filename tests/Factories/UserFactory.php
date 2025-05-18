@@ -18,7 +18,7 @@ class UserFactory
             return $authorFactory
                 ->withName('Super Admin')
                 ->withRole(RoleType::SUPERADMIN)
-                ->withEmail('super@admin.sk')
+                ->withEmail('superadmin@example.com')
                 ->create([
                     'id' => '9cef6fd7-a490-40db-b49f-ba27f691888c',
                     'created_at' => CarbonImmutable::create(2025, 5, 18),
@@ -36,11 +36,24 @@ class UserFactory
             return $authorFactory
                 ->withName('Admin')
                 ->withRole(RoleType::ADMIN)
-                ->withEmail('admin@admin.sk')
+                ->withEmail('admin@example.com')
                 ->create([
                     'id' => 'e847cd49-f1ba-4c88-a607-c46ab5d5e98f',
-                    'created_at' => CarbonImmutable::create(2025, 5, 18),
-                    'updated_at' => CarbonImmutable::create(2025, 5, 18),
+                ]);
+        });
+    }
+
+    public static function createDefaultUserWithoutEvents(): User
+    {
+        return User::withoutEvents(static function () {
+            $authorFactory = User::factory();
+            assert($authorFactory instanceof UserFactoryBase);
+
+            return $authorFactory
+                ->withName('User')
+                ->withEmail('user@example.com')
+                ->create([
+                    'id' => '25381043-0c05-480b-b4c7-5da10059a107',
                 ]);
         });
     }
