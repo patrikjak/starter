@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testIndex(): void
     {
-        $this->actingAs(UserFactory::createDefaultSuperAdminWithoutEvents());
+        $this->createAndActAsSuperAdmin();
 
         $response = $this->getJson(route('admin.users.permissions.index'));
         $response->assertOk();

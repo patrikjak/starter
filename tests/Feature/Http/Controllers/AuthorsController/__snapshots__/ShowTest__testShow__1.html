@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.authors.author_details - John Doe  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper has-sub-items">
+    <a href="http://localhost/admin/articles" class="item">
+        <span class="text">pjstarter::pages.articles.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/articles/categories" class="item">
+        <span class="text">pjstarter::pages.articles.categories.title</span>
+
+            </a>
+
+    </div>                    </div>
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/authors" class="item active">
+        <span class="text">pjstarter::pages.authors.title</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/metadata" class="item">
+        <span class="text">pjstarter::pages.metadata.title</span>
+
+            </a>
+
+    </div>            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/admin/profile" class="item">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.authors.author_details - John Doe</h1>
+
+                                    <div class="actions">
+                        <div class="action">
+    <a href="http://localhost/admin/authors/3eb904c7-ba46-43e3-afaf-a8ebf3c9c3c2/edit">pjstarter::pages.authors.edit_author</a>
+</div>
+                    </div>
+                            </div>
+
+            <div class="body">
+                <div class="card w-3/5 mx-auto">
+        <p class="font-primary font-bold">pjstarter::pages.authors.name</p>
+        <p>John Doe</p>
+
+        <p class="font-primary font-bold mt-2">pjstarter::pages.authors.profile_picture</p>
+                    <p>-</p>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

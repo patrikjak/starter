@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.users.roles.manage_permissions - USER  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper has-sub-items active">
+    <a href="http://localhost/admin/users" class="item">
+        <span class="text">pjstarter::pages.users.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow up"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/roles" class="item active">
+        <span class="text">pjstarter::pages.users.roles.title</span>
+
+            </a>
+
+    </div>                    </div>
+    </div>            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/admin/profile" class="item">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.users.roles.manage_permissions - USER</h1>
+
+                            </div>
+
+            <div class="body">
+                <div class="manage-permissions">
+        <form method="POST" action="http://localhost/admin/api/users/roles/3/permissions">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+            <input type="hidden" name="_method" value="PUT">    
+    <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Static_page</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_viewAny-static_page" name="permission_viewAny-static_page">
+
+        <label for="permission_viewAny-static_page">View static pages</label>
+    </div>
+</div>                                            </div>
+                </div>
+                            <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Metadata</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_viewAny-metadata" name="permission_viewAny-metadata">
+
+        <label for="permission_viewAny-metadata">View SEO settings</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_view-metadata" name="permission_view-metadata">
+
+        <label for="permission_view-metadata">View detail of SEO setting</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_edit-metadata" name="permission_edit-metadata">
+
+        <label for="permission_edit-metadata">Edit SEO settings</label>
+    </div>
+</div>                                            </div>
+                </div>
+                            <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Role</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_view-role" name="permission_view-role">
+
+        <label for="permission_view-role">View detail of user role</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_manage-role" name="permission_manage-role">
+
+        <label for="permission_manage-role">Manage permissions</label>
+    </div>
+</div>                                            </div>
+                </div>
+                            <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Author</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_viewAny-author" name="permission_viewAny-author">
+
+        <label for="permission_viewAny-author">View authors</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_view-author" name="permission_view-author">
+
+        <label for="permission_view-author">View detail of author</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_create-author" name="permission_create-author">
+
+        <label for="permission_create-author">Create authors</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_edit-author" name="permission_edit-author">
+
+        <label for="permission_edit-author">Edit authors</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_delete-author" name="permission_delete-author">
+
+        <label for="permission_delete-author">Delete authors</label>
+    </div>
+</div>                                            </div>
+                </div>
+                            <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Article</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_viewAny-article" name="permission_viewAny-article">
+
+        <label for="permission_viewAny-article">View articles</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_view-article" name="permission_view-article">
+
+        <label for="permission_view-article">View article detail</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_create-article" name="permission_create-article">
+
+        <label for="permission_create-article">Create articles</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_edit-article" name="permission_edit-article">
+
+        <label for="permission_edit-article">Edit articles</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_delete-article" name="permission_delete-article">
+
+        <label for="permission_delete-article">Delete articles</label>
+    </div>
+</div>                                            </div>
+                </div>
+                            <div class="permission-group mb-[2%]">
+                    <p class="font-primary font-bold">Article_category</p>
+
+                    <div class="permissions grid-4-items mt-2">
+                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_viewAny-article_category" name="permission_viewAny-article_category">
+
+        <label for="permission_viewAny-article_category">View article categories</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_view-article_category" name="permission_view-article_category">
+
+        <label for="permission_view-article_category">View detail of article category</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_create-article_category" name="permission_create-article_category">
+
+        <label for="permission_create-article_category">Create article categories</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_edit-article_category" name="permission_edit-article_category">
+
+        <label for="permission_edit-article_category">Edit article categories</label>
+    </div>
+</div>                                                    <div class="pj-checkbox">
+    <div class="group">
+        <input type="checkbox" id="permission_delete-article_category" name="permission_delete-article_category">
+
+        <label for="permission_delete-article_category">Delete article categories</label>
+    </div>
+</div>                                            </div>
+                </div>
+
+            <button class="pj-btn" type="submit">
+        pjstarter::general.save
+            </button>
+    </form>    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

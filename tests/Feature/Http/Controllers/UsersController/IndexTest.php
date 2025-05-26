@@ -20,4 +20,14 @@ class IndexTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
     }
+
+    #[DefineEnvironment('enableUsers')]
+    public function testIndexWithoutAccess(): void
+    {
+        $this->createAndActAsUser();
+
+        $response = $this->getJson(route('admin.users.index'));
+
+        $response->assertForbidden();
+    }
 }

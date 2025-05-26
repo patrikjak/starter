@@ -9,27 +9,27 @@ use Patrikjak\Starter\Tests\Factories\UserFactory;
 
 trait WithTestUser
 {
-    public function createAndActAsSuperAdmin(): User
+    public function createAndActAsSuperAdmin(array $additionalPermissions = []): User
     {
-        $user = UserFactory::createDefaultSuperAdminWithoutEvents();
+        $user = UserFactory::createDefaultSuperAdminWithoutEvents($additionalPermissions);
 
         $this->actingAs($user);
 
         return $user;
     }
 
-    public function createAndActAsAdmin(): User
+    public function createAndActAsAdmin(array $additionalPermissions = []): User
     {
-        $user = UserFactory::createDefaultAdminWithoutEvents();
+        $user = UserFactory::createDefaultAdminWithoutEvents($additionalPermissions);
 
         $this->actingAs($user);
 
         return $user;
     }
 
-    public function createAndActAsUser(): User
+    public function createAndActAsUser(array $additionalPermissions = []): User
     {
-        $user = UserFactory::createDefaultUserWithoutEvents();
+        $user = UserFactory::createDefaultUserWithoutEvents($additionalPermissions);
 
         $this->actingAs($user);
 
