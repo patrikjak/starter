@@ -14,6 +14,9 @@ use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
 class UserFactory
 {
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public static function createDefaultSuperAdminWithoutEvents(array $additionalPermissions = []): User
     {
         return User::withoutEvents(static function () use ($additionalPermissions) {
@@ -36,6 +39,9 @@ class UserFactory
         });
     }
 
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public static function createDefaultAdminWithoutEvents(array $additionalPermissions = []): User
     {
         return User::withoutEvents(static function () use ($additionalPermissions) {
@@ -58,6 +64,9 @@ class UserFactory
         });
     }
 
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public static function createDefaultUserWithoutEvents(array $additionalPermissions = []): User
     {
         return User::withoutEvents(static function () use ($additionalPermissions) {
@@ -77,6 +86,9 @@ class UserFactory
         });
     }
 
+    /**
+     * @param array<string> $additionalPermissions
+     */
     private static function attachAdditionalPermissions(Role $role, array $additionalPermissions): void
     {
         if (count($additionalPermissions) === 0) {

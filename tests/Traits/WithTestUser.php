@@ -9,6 +9,9 @@ use Patrikjak\Starter\Tests\Factories\UserFactory;
 
 trait WithTestUser
 {
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public function createAndActAsSuperAdmin(array $additionalPermissions = []): User
     {
         $user = UserFactory::createDefaultSuperAdminWithoutEvents($additionalPermissions);
@@ -18,6 +21,9 @@ trait WithTestUser
         return $user;
     }
 
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public function createAndActAsAdmin(array $additionalPermissions = []): User
     {
         $user = UserFactory::createDefaultAdminWithoutEvents($additionalPermissions);
@@ -27,6 +33,9 @@ trait WithTestUser
         return $user;
     }
 
+    /**
+     * @param array<string> $additionalPermissions
+     */
     public function createAndActAsUser(array $additionalPermissions = []): User
     {
         $user = UserFactory::createDefaultUserWithoutEvents($additionalPermissions);
