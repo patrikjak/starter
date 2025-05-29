@@ -22,7 +22,10 @@ class DeleteTest extends TestCase
 
         assert($articleCategory instanceof ArticleCategory);
 
-        $response = $this->deleteJson(route('admin.api.articles.categories.destroy', ['articleCategory' => $articleCategory->id]));
+        $response = $this->deleteJson(route(
+            'admin.api.articles.categories.destroy',
+            ['articleCategory' => $articleCategory->id],
+        ));
 
         $response->assertStatus(200);
 
@@ -36,7 +39,10 @@ class DeleteTest extends TestCase
     {
         $this->createAndActAsAdmin();
 
-        $response = $this->deleteJson(route('admin.api.articles.categories.destroy', ['articleCategory' => 'non-existent-id']));
+        $response = $this->deleteJson(route(
+            'admin.api.articles.categories.destroy',
+            ['articleCategory' => 'non-existent-id'],
+        ));
 
         $response->assertStatus(404);
     }
@@ -50,7 +56,10 @@ class DeleteTest extends TestCase
 
         assert($articleCategory instanceof ArticleCategory);
 
-        $response = $this->deleteJson(route('admin.api.articles.categories.destroy', ['articleCategory' => $articleCategory->id]));
+        $response = $this->deleteJson(route(
+            'admin.api.articles.categories.destroy',
+            ['articleCategory' => $articleCategory->id],
+        ));
 
         $response->assertStatus(403);
     }

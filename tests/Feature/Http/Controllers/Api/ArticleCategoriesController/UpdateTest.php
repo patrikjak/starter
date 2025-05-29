@@ -22,10 +22,13 @@ class UpdateTest extends TestCase
 
         assert($articleCategory instanceof ArticleCategory);
 
-        $response = $this->putJson(route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]), [
-            'name' => 'Updated Name',
-            'description' => 'Updated Description',
-        ]);
+        $response = $this->putJson(
+            route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]),
+            [
+                'name' => 'Updated Name',
+                'description' => 'Updated Description',
+            ],
+        );
 
         $response->assertStatus(200);
 
@@ -51,10 +54,13 @@ class UpdateTest extends TestCase
 
         assert($articleCategory instanceof ArticleCategory);
 
-        $response = $this->putJson(route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]), [
-            'name' => '',
-            'description' => 'Updated Description',
-        ]);
+        $response = $this->putJson(
+            route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]),
+            [
+                'name' => '',
+                'description' => 'Updated Description',
+            ],
+        );
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['name']);
@@ -76,11 +82,15 @@ class UpdateTest extends TestCase
         ]);
 
         assert($existingCategory instanceof ArticleCategory);
+        assert($categoryToUpdate instanceof ArticleCategory);
 
-        $response = $this->putJson(route('admin.api.articles.categories.update', ['articleCategory' => $categoryToUpdate->id]), [
-            'name' => 'Existing Category',
-            'description' => 'Updated Description',
-        ]);
+        $response = $this->putJson(
+            route('admin.api.articles.categories.update', ['articleCategory' => $categoryToUpdate->id]),
+            [
+                'name' => 'Existing Category',
+                'description' => 'Updated Description',
+            ],
+        );
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['name']);
@@ -95,10 +105,15 @@ class UpdateTest extends TestCase
 
         $articleCategory = ArticleCategory::factory()->create();
 
-        $response = $this->putJson(route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]), [
-            'name' => 'Updated Name',
-            'description' => 'Updated Description',
-        ]);
+        assert($articleCategory instanceof ArticleCategory);
+
+        $response = $this->putJson(
+            route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id]),
+            [
+                'name' => 'Updated Name',
+                'description' => 'Updated Description',
+            ],
+        );
 
         $response->assertStatus(403);
     }

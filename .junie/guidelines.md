@@ -112,6 +112,37 @@ $user = $this->createAndActAsAdmin(['manage-role']);
 $user = $this->createAndActAsUser();
 ```
 
+### Assertions for Factory-Created Instances
+
+When using factories to create model instances in tests, always add assertions to verify the type of the created instance. This ensures type safety and helps catch potential issues with factory configurations.
+
+Example:
+
+```php
+// Create a model instance using a factory
+$category = ArticleCategory::factory()->create();
+$author = Author::factory()->create();
+
+// Add assertions to verify the instance types
+assert($category instanceof ArticleCategory);
+assert($author instanceof Author);
+
+// Now use the instances in your test
+$response = $this->postJson(route('admin.api.articles.store'), [
+    'title' => 'Test Article',
+    'category' => $category->id,
+    'author' => $author->id,
+    // ...
+]);
+```
+
+These assertions should be added immediately after creating the instances and before using them in the test. This practice helps with:
+
+1. Type safety - Ensures the factory created the expected type of object
+2. IDE support - Helps IDEs provide better code completion and type hinting
+3. Static analysis - Improves PHPStan analysis by confirming types
+4. Documentation - Makes the expected types clear to other developers
+
 ## Code Style and Development Practices
 
 ### Static Analysis

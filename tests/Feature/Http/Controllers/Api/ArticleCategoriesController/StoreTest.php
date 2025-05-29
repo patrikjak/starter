@@ -48,9 +48,11 @@ class StoreTest extends TestCase
     {
         $this->createAndActAsAdmin();
 
-        ArticleCategory::factory()->create([
+        $existingCategory = ArticleCategory::factory()->create([
             'name' => 'Existing Category',
         ]);
+
+        assert($existingCategory instanceof ArticleCategory);
 
         $response = $this->postJson(route('admin.api.articles.categories.store'), [
             'name' => 'Existing Category',
