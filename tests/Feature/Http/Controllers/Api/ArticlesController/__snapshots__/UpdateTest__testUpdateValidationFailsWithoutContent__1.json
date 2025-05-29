@@ -1,0 +1,11 @@
+{
+    "message": "pjutils::validation.required (and 1 more error)",
+    "errors": {
+        "content": [
+            "pjutils::validation.required"
+        ],
+        "content.blocks": [
+            "pjutils::validation.required"
+        ]
+    }
+}

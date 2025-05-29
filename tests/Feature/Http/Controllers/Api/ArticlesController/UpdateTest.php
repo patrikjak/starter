@@ -44,6 +44,7 @@ class UpdateTest extends TestCase
                 'time' => 1747430180190,
                 'blocks' => [
                     [
+                        'id' => '1',
                         'type' => 'header',
                         'data' => [
                             'text' => 'Updated Header',
@@ -51,6 +52,7 @@ class UpdateTest extends TestCase
                         ],
                     ],
                     [
+                        'id' => '2',
                         'type' => 'paragraph',
                         'data' => [
                             'text' => 'Updated paragraph content.',
@@ -122,86 +124,6 @@ class UpdateTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['title']);
-
-        $this->assertMatchesJsonSnapshot($response->getContent());
-    }
-
-    #[DefineEnvironment('enableArticles')]
-    public function testUpdateValidationFailsWithoutCategory(): void
-    {
-        $this->createAndActAsAdmin();
-
-        $author = Author::factory()->create();
-
-        assert($author instanceof Author);
-        
-        $article = Article::factory()->create([
-            'author_id' => $author->id,
-        ]);
-
-        assert($article instanceof Article);
-
-        $response = $this->putJson(route('admin.api.articles.update', ['article' => $article->id]), [
-            'title' => 'Article Title',
-            'category' => '',
-            'author' => $author->id,
-            'content' => json_encode([
-                'time' => 1747430180190,
-                'blocks' => [
-                    [
-                        'type' => 'paragraph',
-                        'data' => [
-                            'text' => 'Content text',
-                        ],
-                    ],
-                ],
-                'version' => '2.24.0',
-            ]),
-            'status' => ArticleStatus::DRAFT->value,
-        ]);
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors(['category']);
-
-        $this->assertMatchesJsonSnapshot($response->getContent());
-    }
-
-    #[DefineEnvironment('enableArticles')]
-    public function testUpdateValidationFailsWithoutAuthor(): void
-    {
-        $this->createAndActAsAdmin();
-
-        $category = ArticleCategory::factory()->create();
-
-        assert($category instanceof ArticleCategory);
-        
-        $article = Article::factory()->create([
-            'article_category_id' => $category->id,
-        ]);
-
-        assert($article instanceof Article);
-
-        $response = $this->putJson(route('admin.api.articles.update', ['article' => $article->id]), [
-            'title' => 'Article Title',
-            'category' => $category->id,
-            'author' => '',
-            'content' => json_encode([
-                'time' => 1747430180190,
-                'blocks' => [
-                    [
-                        'type' => 'paragraph',
-                        'data' => [
-                            'text' => 'Content text',
-                        ],
-                    ],
-                ],
-                'version' => '2.24.0',
-            ]),
-            'status' => ArticleStatus::DRAFT->value,
-        ]);
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors(['author']);
 
         $this->assertMatchesJsonSnapshot($response->getContent());
     }

@@ -97,7 +97,7 @@ class StoreArticleRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $content = json_decode($this->input('content'), true);
+        $content = json_decode($this->input('content') ?? '', true);
 
         $this->merge(['content' => $content]);
     }
