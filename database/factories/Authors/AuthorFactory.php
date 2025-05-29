@@ -12,7 +12,7 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => '3eb904c7-ba46-43e3-afaf-a8ebf3c9c3c2',
+            'id' => $this->faker->uuid(),
             'name' => $this->faker->name(),
         ];
     }
