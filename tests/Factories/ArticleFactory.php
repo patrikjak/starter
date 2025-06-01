@@ -56,11 +56,18 @@ class ArticleFactory
 
     public static function createArticle(): Article
     {
-        return Article::factory()
+        $articleFactory = Article::factory();
+        assert($articleFactory instanceof DatabaseArticleFactory);
+
+        $article = $articleFactory
             ->has(Slug::factory(), 'slug')
             ->has(Metadata::factory(), 'metadata')
             ->for(ArticleCategory::factory(), 'articleCategory')
             ->for(Author::factory(), 'author')
             ->create();
+
+        assert($article instanceof Article);
+
+        return $article;
     }
 }
