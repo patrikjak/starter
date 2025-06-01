@@ -1,0 +1,8 @@
+{
+    "message": "pjutils::validation.unique",
+    "errors": {
+        "name": [
+            "pjutils::validation.unique"
+        ]
+    }
+}

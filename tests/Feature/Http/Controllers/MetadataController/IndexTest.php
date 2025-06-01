@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\MetadataController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\ArticleCategoryFactory;
+use Patrikjak\Starter\Tests\Factories\ArticleFactory;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -13,7 +15,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->get(route('admin.metadata.index'));
         $response->assertOk();
@@ -22,24 +24,24 @@ class IndexTest extends TestCase
     }
 
     #[DefineEnvironment('enableStaticPages')]
+    #[DefineEnvironment('enableArticles')]
     public function testPageCanBeRenderedWithData(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasMetadata()->create();
-            assert($staticPage instanceof StaticPage);
+        StaticPageFactory::createDefaultWithoutEvents();
+        ArticleFactory::createDefaultWithoutEvents();
+        ArticleCategoryFactory::createDefaultWithoutEvents();
 
-            $response = $this->get(route('admin.metadata.index'));
-            $response->assertOk();
+        $response = $this->get(route('admin.metadata.index'));
+        $response->assertOk();
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     public function testPageNotFoundWithoutStaticPagesFeatureEnabled(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $response = $this->get('metadata/');
         $response->assertNotFound();

@@ -15,7 +15,7 @@ return [
         'name' => 'Názov stránky',
         'prefix' => 'Prefix',
         'url' => 'URL',
-        'slug' => 'Slug',
+        'slug' => 'SEO URL',
         'new_page' => 'Nová stránka',
         'edit_page' => 'Úprava stránky',
         'create_new_page' => 'Vytvoriť novú stránku',
@@ -41,7 +41,7 @@ return [
     'slug' => [
         'prefix' => 'Prefix',
         'url' => 'URL',
-        'slug' => 'Slug',
+        'slug' => 'SEO URL',
     ],
 
     'articles' => [

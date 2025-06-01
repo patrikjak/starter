@@ -21,42 +21,4 @@ class ListElement implements Block
     {
         return BlockType::List;
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'type' => BlockType::List->value,
-            'data' => [
-                'style' => $this->style->value,
-                'items' => array_map(fn (ListItem $item) => [
-                    'content' => $item->content,
-                    'meta' => $item->itemMeta->toArray(),
-                    'items' => $this->getItemsArray($this->items),
-                ], $this->items),
-            ],
-        ];
-    }
-
-    /**
-     * @param array<ListItem> $listItems
-     * @return array<int, array<string, mixed>>
-     */
-    private function getItemsArray(array $listItems): array
-    {
-        $toReturn = [];
-
-        foreach ($listItems as $item) {
-            $toReturn[] = [
-                'content' => $item->content,
-                'meta' => $item->itemMeta->toArray(),
-                'items' => $this->getItemsArray($item->items),
-            ];
-        }
-
-        return $toReturn;
-    }
 }

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests;
 
+use Carbon\Carbon;
 use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,14 +13,14 @@ use Patrikjak\Auth\Tests\Traits\TestingData;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
-use Patrikjak\Starter\Tests\Traits\UserCreator;
+use Patrikjak\Starter\Tests\Traits\WithTestUser;
 use Spatie\Snapshots\MatchesSnapshots;
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
     use MatchesSnapshots;
-    use UserCreator;
+    use WithTestUser;
     use TestingData;
     use ConfigSetter;
     use MatchesSnapshots {
@@ -63,8 +64,17 @@ abstract class TestCase extends BaseTestCase
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
 
+        Carbon::setTestNow(Carbon::create(2025, 5, 18));
+
         $this->artisan('seed:user-roles');
         $this->artisan('pjstarter:permissions:sync');
+    }
+
+    protected function tearDown(): void
+    {
+        Carbon::setTestNow(Carbon::now());
+
+        parent::tearDown();
     }
 
     /**
@@ -86,6 +96,7 @@ abstract class TestCase extends BaseTestCase
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/users');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/authors');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/articles');
     }
 

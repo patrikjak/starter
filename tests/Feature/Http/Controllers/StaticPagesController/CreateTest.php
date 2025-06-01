@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\StaticPagesController;
 
-use Carbon\Carbon;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class CreateTest extends TestCase
@@ -14,7 +13,7 @@ class CreateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testCreatePageCanBeRendered(): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $response = $this->get(route('admin.static-pages.create'));
         $response->assertOk();
@@ -25,7 +24,7 @@ class CreateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testCreatePageIsForbidden(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $this->get(route('admin.static-pages.create'))->assertForbidden();
     }
@@ -33,36 +32,23 @@ class CreateTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testEditPageCanBeRendered(): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasSlug()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]));
-            $response->assertOk();
+        $response = $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]));
+        $response->assertOk();
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('enableStaticPages')]
     public function testEditPageIsForbidden(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasSlug()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
-        });
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Carbon::setTestNow(Carbon::create(2025, 3, 30));
+        $this->get(route('admin.static-pages.edit', ['staticPage' => $staticPage->id]))->assertForbidden();
     }
 }

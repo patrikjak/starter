@@ -1,0 +1,8 @@
+{
+    "message": "pjutils::validation.required",
+    "errors": {
+        "content.blocks": [
+            "pjutils::validation.required"
+        ]
+    }
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.users.title  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper has-sub-items">
+    <a href="http://localhost/admin/users" class="item active">
+        <span class="text">pjstarter::pages.users.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/roles" class="item">
+        <span class="text">pjstarter::pages.users.roles.title</span>
+
+            </a>
+
+    </div>                    </div>
+    </div>            </div>
+
+    <div class="user">
+        <div class="initials">
+            AD
+        </div>
+
+        <div class="info">
+            <div class="name">
+                Admin
+            </div>
+            <div class="email">
+                admin@example.com
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>        </div>
+    </div>
+</div>
+
+<div class="user-items">
+            <div class="group">
+                            <a href="http://localhost/admin/profile" class="item">
+                    <span class="text">pjstarter::pages.profile.title</span>
+                </a>
+                    </div>
+        <div class="group">
+        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+        </form>
+    </div>
+</div>
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.users.title</h1>
+
+                                    <div class="actions">
+                        <div class="action">
+    <a href="http://localhost/admin/users/roles">pjstarter::pages.users.roles.title</a>
+</div>
+                    </div>
+                            </div>
+
+            <div class="body">
+                <div class="users">
+        <div class="pj-table-wrapper" id="users-table" data-html-parts-url="http://localhost/admin/api/users/table-parts">
+    
+    <div class="table-wrapper">
+        <table class="pj-table">
+
+            <thead>
+    <tr>
+        
+                    <th>#</th>
+        
+                    <th>pjstarter::pages.users.name</th>
+                    <th>pjstarter::pages.users.email</th>
+                    <th>pjstarter::pages.users.role</th>
+                    <th>pjstarter::general.created_at</th>
+        
+            </tr>
+</thead>            <tbody>
+            <tr id="e847cd49-f1ba-4c88-a607-c46ab5d5e98f">
+    
+            <td>1</td>
+    
+            <td class="simple name">
+    
+    Admin
+
+    </td>            <td class="simple email">
+    
+    admin@example.com
+
+    </td>            <td class="chip role">
+    <span class="chip success">
+        ADMIN
+    </span>
+</td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>    </tbody>
+                    </table>
+    </div>
+
+    
+            <div class="pagination">
+    <div class="page-size" data-href="http://localhost/admin/api/users/table-parts">
+    <div class="pj-dropdown">
+    
+    <div class="dropdown-wrapper">
+        <div class="items">
+            <div class="chosen" data-value="10">
+    <span class="label">10</span>
+
+    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>
+</div>
+            <div class="all-items">
+                                    <div class="pj-dropdown-item" data-value="10">
+    10
+</div>                                    <div class="pj-dropdown-item" data-value="20">
+    20
+</div>                                    <div class="pj-dropdown-item" data-value="50">
+    50
+</div>                                    <div class="pj-dropdown-item" data-value="100">
+    100
+</div>                            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="links">
+                    <a href="" class="link arrow disabled">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <path d="M14 16L10 12L14 8" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/table-parts?page=1" class="link active">
+                    <span class="page-number">1</span>
+            </a>
+
+                    <a href="" class="link arrow disabled">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <rect width="24" height="24" fill="white"></rect>
+                        <path d="M10 8L14 12L10 16" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+            </div>
+</div>    </div>    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

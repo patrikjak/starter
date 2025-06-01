@@ -17,19 +17,4 @@ class Header implements Block
     {
         return BlockType::Header;
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'type' => $this->getType()->value,
-            'data' => [
-                'text' => $this->text,
-                'level' => $this->level,
-            ],
-        ];
-    }
 }

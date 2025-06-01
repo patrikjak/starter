@@ -12,6 +12,7 @@ use Patrikjak\Auth\Models\Role as AuthRole;
 use Patrikjak\Starter\Casts\TranslatableCast;
 
 /**
+ * @property int $id
  * @property string $name
  * @property string $description
  * @property bool $protected

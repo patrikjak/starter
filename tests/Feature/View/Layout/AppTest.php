@@ -63,7 +63,7 @@ class AppTest extends TestCase
     {
         parent::setUp();
 
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
     }
 
     protected function usesDifferentAppName(Application $app): void
