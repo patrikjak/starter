@@ -4,25 +4,27 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Tests;
 
+use Carbon\Carbon;
 use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Patrikjak\Auth\Models\User;
 use Patrikjak\Auth\Tests\Traits\TestingData;
+use Patrikjak\Starter\Models\Users\Role;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
-use Patrikjak\Starter\Tests\Traits\UserCreator;
+use Patrikjak\Starter\Tests\Traits\WithTestUser;
 use Spatie\Snapshots\MatchesSnapshots;
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
     use MatchesSnapshots;
-    use UserCreator;
+    use WithTestUser;
     use TestingData;
     use ConfigSetter;
     use MatchesSnapshots {
-        assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
+        MatchesSnapshots::assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
     }
     use RefreshDatabase;
 
@@ -61,6 +63,18 @@ abstract class TestCase extends BaseTestCase
 
         $this->app->setLocale('test');
         $this->app->setFallbackLocale('test');
+
+        Carbon::setTestNow(Carbon::create(2025, 5, 18));
+
+        $this->artisan('seed:user-roles');
+        $this->artisan('pjstarter:permissions:sync');
+    }
+
+    protected function tearDown(): void
+    {
+        Carbon::setTestNow(Carbon::now());
+
+        parent::tearDown();
     }
 
     /**
@@ -77,10 +91,13 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(base_path('vendor/patrikjak/auth/database/migrations'));
+        $this->loadMigrationsFrom(package_path('vendor/patrikjak/auth/database/migrations'));
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/static-pages');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/users');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/authors');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/articles');
     }
 
     /**
@@ -91,6 +108,7 @@ abstract class TestCase extends BaseTestCase
     {
         tap($app['config'], static function (Repository $config): void {
             $config->set('auth.providers.users.model', User::class);
+            $config->set('pjauth.models.role', Role::class);
         });
     }
 }

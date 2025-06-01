@@ -14,9 +14,9 @@ class StoreTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testSuccessfulStore(): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
-        $this->postJson(route('api.static-pages.store'), [
+        $this->postJson(route('admin.api.static-pages.store'), [
             'name' => 'About us',
         ]);
 
@@ -29,9 +29,9 @@ class StoreTest extends TestCase
     #[DataProvider('storeDataProvider')]
     public function testUnsuccessfulStore(string $name): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
-        $response = $this->postJson(route('api.static-pages.store'), ['name' => $name])
+        $response = $this->postJson(route('admin.api.static-pages.store'), ['name' => $name])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseCount('static_pages', 0);
@@ -43,10 +43,10 @@ class StoreTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testStoreIsUnsuccessfulBecauseUnique(): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
         StaticPage::factory()->create(['name' => 'About us']);
 
-        $response = $this->postJson(route('api.static-pages.store'), ['name' => 'About us'])
+        $response = $this->postJson(route('admin.api.static-pages.store'), ['name' => 'About us'])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseCount('static_pages', 1);
@@ -58,15 +58,15 @@ class StoreTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testUnableStore(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        $this->postJson(route('api.static-pages.store'), ['name' => 'About us'])
+        $this->postJson(route('admin.api.static-pages.store'), ['name' => 'About us'])
             ->assertForbidden();
     }
 
     public function testCannotSeeStoreRoute(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
         $this->postJson('api/static-pages/store', ['name' => 'About us'])
             ->assertNotFound();

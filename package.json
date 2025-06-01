@@ -10,9 +10,17 @@
         "sass": "^1.69.5"
     },
     "dependencies": {
+        "@codexteam/icons": "^0.3.3",
+        "@editorjs/editorjs": "^2.30.8",
+        "@editorjs/header": "^2.8.8",
+        "@editorjs/image": "^2.10.2",
+        "@editorjs/list": "^2.0.6",
+        "@editorjs/raw": "^2.5.1",
+        "@editorjs/underline": "^1.2.1",
+        "@tailwindcss/vite": "^4.1.4",
         "autoprefixer": "^10.4.21",
         "axios": "^1.8.2",
         "i18n-js": "^4.5.1",
-        "tailwindcss": "^4.0.12"
+        "tailwindcss": "^4.1.4"
     }
 }

@@ -11,9 +11,9 @@ class ChangePasswordTest extends TestCase
 {
     public function testChangePasswordCanBeRendered(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
-        $response = $this->get(route('change-password'))
+        $response = $this->get(route('admin.change-password'))
             ->assertOk()
             ->assertViewIs('pjstarter::pages.profile.change-password');
 
@@ -22,13 +22,13 @@ class ChangePasswordTest extends TestCase
 
     public function testChangePasswordNoAuthenticated(): void
     {
-        $this->get(route('change-password'))->assertRedirect(route('login'));
+        $this->get(route('admin.change-password'))->assertRedirect(route('login'));
     }
 
     #[DefineEnvironment('disableProfile')]
     public function testChangePasswordCannotBeRenderedWithoutEnabledFeature(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->get('profile/change-password')->assertNotFound();
     }

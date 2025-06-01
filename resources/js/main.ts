@@ -1,6 +1,7 @@
 import {bindPasswordVisibilitySwitch} from '../../vendor/patrikjak/utils/resources/assets/js/form/helper';
 import {bindTableFunctions} from '../../vendor/patrikjak/utils/resources/assets/js/table/table';
 import {bindDropdowns} from '../../vendor/patrikjak/utils/resources/assets/js/utils/dropdown';
+import {bindUploaders} from '../../vendor/patrikjak/utils/resources/assets/js/utils/file-uploader';
 import Form from "../../vendor/patrikjak/utils/resources/assets/js/form/Form";
 
 const userNavigationButton: HTMLElement = document.querySelector('.navigation .user .button');
@@ -9,8 +10,13 @@ const userNavigationItems: HTMLElement = document.querySelector('.user-items');
 bindPasswordVisibilitySwitch();
 bindTableFunctions();
 bindDropdowns();
+bindUploaders();
 
-new Form().bindSubmit();
+const articlesForm = document.querySelector('#article-form');
+
+if (!articlesForm) {
+    new Form().bindSubmit();
+}
 
 userNavigationButton.addEventListener('click', (): void => {
     const isOpen: boolean = userNavigationItems.classList.contains('active');
@@ -42,4 +48,25 @@ const logoutFormItem: HTMLElement = document.querySelector('.logout-form a');
 logoutFormItem.addEventListener('click', (event: MouseEvent): void => {
     event.preventDefault();
     logoutFormItem.closest('form').submit();
+});
+
+const navigationItemArrows: NodeListOf<HTMLElement> = document.querySelectorAll('.navigation .item .arrow-wrapper');
+
+navigationItemArrows.forEach((arrowWrapper: HTMLElement): void => {
+    arrowWrapper.addEventListener('click', (event: MouseEvent): void => {
+        event.preventDefault();
+
+        const arrow: HTMLElement = arrowWrapper.querySelector('.arrow');
+        const itemWrapper: HTMLElement = arrow.closest('.item-wrapper');
+
+        itemWrapper.classList.toggle('active');
+
+        if (itemWrapper.classList.contains('active')) {
+            arrow.classList.remove('down');
+            arrow.classList.add('up');
+        } else {
+            arrow.classList.remove('up');
+            arrow.classList.add('down');
+        }
+    });
 });

@@ -14,11 +14,11 @@ class SlugFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => '7f03daf7-955d-4d58-9d65-30e589d3cd89',
-            'slug' => 'about-us',
+            'id' => $this->faker->uuid(),
+            'slug' => $this->faker->slug(),
             'prefix' => null,
-            'sluggable_id' => StaticPageFactory::ID,
-            'sluggable_type' => StaticPage::class,
+            'sluggable_id' => $this->faker->uuid(),
+            'sluggable_type' => $this->faker->word(),
         ];
     }
 }

@@ -13,6 +13,7 @@
 
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
     
             <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
     
@@ -30,16 +31,25 @@
     </div>
 
     <div class="items">
-                    <a href="http://localhost/dashboard" class="item">
-                <span class="text">pjstarter::general.dashboard</span>
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
             </a>
-                    <a href="http://localhost/static-pages" class="item">
-                <span class="text">pjstarter::pages.static_pages.title</span>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/static-pages" class="item">
+        <span class="text">pjstarter::pages.static_pages.title</span>
+
             </a>
-                    <a href="http://localhost/metadata" class="item">
-                <span class="text">pjstarter::pages.metadata.title</span>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/metadata" class="item active">
+        <span class="text">pjstarter::pages.metadata.title</span>
+
             </a>
-            </div>
+
+    </div>            </div>
 
     <div class="user">
         <div class="initials">
@@ -64,7 +74,7 @@
 
 <div class="user-items">
             <div class="group">
-                            <a href="http://localhost/profile" class="item">
+                            <a href="http://localhost/admin/profile" class="item">
                     <span class="text">pjstarter::pages.profile.title</span>
                 </a>
                     </div>
@@ -80,7 +90,7 @@
 
                                     <div class="actions">
                         <div class="action">
-    <a href="http://localhost/metadata/68828772-5b02-4a62-b800-8a8a07d5b0bd/edit">pjstarter::general.edit</a>
+    <a href="http://localhost/admin/metadata/68828772-5b02-4a62-b800-8a8a07d5b0bd/edit">pjstarter::general.edit</a>
 </div>
                     </div>
                             </div>
@@ -88,38 +98,38 @@
             <div class="body">
                 <div class="card w-4/5 mx-auto">
         <div class="data">
-            <p class="font-primary strong">pjstarter::pages.metadata.meta_title</p>
+            <p class="font-primary font-bold">pjstarter::pages.metadata.meta_title</p>
             <p>About us | App</p>
         </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::pages.metadata.meta_description</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::pages.metadata.meta_description</p>
                             <p>About us page</p>
                     </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::pages.metadata.meta_keywords</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::pages.metadata.meta_keywords</p>
                             <p>about us, app</p>
                     </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::pages.metadata.canonical_url</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::pages.metadata.canonical_url</p>
                             <p>https://app.com/about-us</p>
                     </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::pages.metadata.structured_data</p>
-                            <p class="italic font-m">pjstarter::pages.metadata.empty</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::pages.metadata.structured_data</p>
+                            <p class="italic font-sm">pjstarter::pages.metadata.empty</p>
                     </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::general.created_at</p>
-                            <p>30.03.2025 00:00</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::general.created_at</p>
+                            <p>18.05.2025 00:00</p>
                     </div>
 
-        <div class="data mt-3%">
-            <p class="font-primary strong">pjstarter::general.updated_at</p>
-                            <p>30.03.2025 00:00</p>
+        <div class="data mt-[3%]">
+            <p class="font-primary font-bold">pjstarter::general.updated_at</p>
+                            <p>18.05.2025 00:00</p>
                     </div>
 
     </div>

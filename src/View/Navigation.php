@@ -8,9 +8,15 @@ use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
-use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Patrikjak\Starter\Models\Users\User;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Navigation extends Component
 {
@@ -18,6 +24,7 @@ class Navigation extends Component
         private readonly AuthManager $authManager,
         private readonly Config $config,
         private readonly UrlGenerator $urlGenerator,
+        private readonly Request $request,
     ) {
     }
 
@@ -68,23 +75,83 @@ class Navigation extends Component
     {
         $items = [];
 
+        $currentUser = $this->authManager->user();
+        assert($currentUser instanceof User);
+
+        $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
+        $articlesFeature = $this->config->get('pjstarter.features.articles');
+
         if ($this->config->get('pjstarter.features.dashboard')) {
             $items[] = new NavigationItem(
                 __('pjstarter::general.dashboard'),
-                route('dashboard'),
+                route('admin.dashboard'),
             );
         }
 
-        if ($this->config->get('pjstarter.features.static_pages')) {
+        if ($staticPagesFeature && $currentUser->canViewAnyStaticPage()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
-                route('static-pages.index'),
+                route('admin.static-pages.index'),
             );
+        }
 
+        if ($articlesFeature) {
+            $articlesSubItems = [];
+
+            if ($currentUser->canViewAnyArticleCategory()) {
+                $articlesSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.articles.categories.title'),
+                    route('admin.articles.categories.index'),
+                );
+            }
+
+            if ($currentUser->canViewAnyArticle()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.articles.title'),
+                    route('admin.articles.index'),
+                    subItems: $articlesSubItems,
+                );
+            }
+
+            if ($currentUser->canViewAnyAuthor()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.authors.title'),
+                    route('admin.authors.index'),
+                );
+            }
+        }
+
+        if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
-                route('metadata.index'),
+                route('admin.metadata.index'),
             );
+        }
+
+        if ($this->config->get('pjstarter.features.users')) {
+            $usersSubItems = [];
+
+            if ($currentUser->canViewAnyRoles()) {
+                $usersSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.users.roles.title'),
+                    route('admin.users.roles.index'),
+                );
+            }
+
+            if ($currentUser->canViewAnyPermission()) {
+                $usersSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.users.permissions.title'),
+                    route('admin.users.permissions.index'),
+                );
+            }
+
+            if ($currentUser->canViewAnyUsers()) {
+                $items[] = new NavigationItem(
+                    __('pjstarter::pages.users.title'),
+                    route('admin.users.index'),
+                    subItems: $usersSubItems,
+                );
+            }
         }
 
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items')));
@@ -112,7 +179,7 @@ class Navigation extends Component
         $items = [];
 
         if ($this->config->get('pjstarter.features.profile')) {
-            $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('profile'));
+            $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('admin.profile'));
         }
 
         $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.user_items')));
@@ -159,11 +226,93 @@ class Navigation extends Component
                 $newClasses[] = $item->classes;
             }
 
-            if ($this->urlGenerator->current() === $item->getUrl()) {
+            $parentHasSubItems = $this->parentHasSubItems($item);
+            $shouldHighlight = $this->shouldHighlightItem($item);
+
+            if ($shouldHighlight) {
                 $newClasses[] = 'active';
+
+                if ($parentHasSubItems) {
+                    $this->removeActiveClassFromParents($item);
+                }
             }
 
             $item->classes = implode(' ', $newClasses);
+
+            if (count($item->subItems) > 0) {
+                $this->setItemClasses($item->subItems);
+            }
         }
+    }
+
+    private function shouldHighlightItem(NavigationItem $item): bool
+    {
+        $matchingRoute = $this->getMatchingRoute($item->getUrl());
+
+        $currentPrefix = $this->request->route()?->getPrefix();
+        $matchingPagePrefix = $matchingRoute?->getPrefix();
+
+        $currentUrlNotExistsInSubItems = !in_array(
+            $this->urlGenerator->current(),
+            $this->getItemUrls($item->subItems),
+            true,
+        );
+
+        $currentRouteIsItemUrl = $this->urlGenerator->current() === $item->getUrl();
+        $matchingRoutesPrefixes = $currentPrefix === $matchingPagePrefix && $currentPrefix !== '';
+
+        return $currentRouteIsItemUrl
+            || ($matchingRoutesPrefixes && $currentUrlNotExistsInSubItems);
+    }
+
+    private function getMatchingRoute(string $url): ?RoutingRoute
+    {
+        try {
+            return Route::getRoutes()->match(Request::create($url));
+        } catch (NotFoundHttpException | MethodNotAllowedHttpException) {
+            return null;
+        }
+    }
+
+    /**
+     * @param array<NavigationItem> $items
+     * @return array<string>
+     */
+    private function getItemUrls(array $items): array
+    {
+        $urls = [];
+
+        foreach ($items as $item) {
+            $urls[] = $item->getUrl();
+        }
+
+        return $urls;
+    }
+
+    private function parentHasSubItems(?NavigationItem $item, bool $hasParent = false): bool
+    {
+        if ($item->getParent() === null) {
+            return $hasParent;
+        }
+
+        $parent = $item->getParent();
+
+        $this->parentHasSubItems($parent, true);
+
+        return true;
+    }
+
+    private function removeActiveClassFromParents(?NavigationItem $item, bool $skipCurrentItem = true): void
+    {
+        if ($item === null) {
+            return;
+        }
+
+        if (!$skipCurrentItem) {
+            $item->classes = str_replace('active', '', $item->classes);
+            $item->classes = trim($item->classes);
+        }
+
+        $this->removeActiveClassFromParents($item->getParent(), false);
     }
 }

@@ -16,9 +16,9 @@ class UpdateTest extends TestCase
         $staticPage = StaticPage::factory()->create(['name' => 'Page']);
         assert($staticPage instanceof StaticPage);
 
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
-        $this->putJson(route('api.static-pages.update', ['staticPage' => $staticPage->id]), [
+        $this->putJson(route('admin.api.static-pages.update', ['staticPage' => $staticPage->id]), [
             'name' => 'About us',
         ])->assertOk();
 
@@ -32,15 +32,15 @@ class UpdateTest extends TestCase
         $staticPage = StaticPage::factory()->create(['name' => 'Page']);
         assert($staticPage instanceof StaticPage);
 
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        $this->putJson(route('api.static-pages.update', ['staticPage' => $staticPage->id]))
+        $this->putJson(route('admin.api.static-pages.update', ['staticPage' => $staticPage->id]))
             ->assertForbidden();
     }
 
     public function testCannotSeeUpdateRoute(): void
     {
-        $this->actingAs($this->createSuperAdminUser());
+        $this->createAndActAsSuperAdmin();
 
         $this->putJson('api/static-pages/update')->assertNotFound();
     }

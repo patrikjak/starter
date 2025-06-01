@@ -4,8 +4,9 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\StaticPages;
 
-use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Auth\AuthManager;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
@@ -18,7 +19,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
 {
     public function __construct(
         private readonly StaticPageRepository $staticPageRepository,
-        private readonly Gate $gate,
+        private readonly AuthManager $authManager,
     ) {
     }
 
@@ -66,14 +67,30 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if ($this->gate->denies('update', StaticPage::class)) {
-            return [];
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
+        $actions = [];
+
+        if ($user->canEditStaticPage()) {
+            $actions[] = new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
+                return route('admin.static-pages.edit', ['staticPage' => $row['id']]);
+            });
         }
 
-        return [
-            new Item(__('pjstarter::general.edit'), 'edit'),
-            new Item(__('pjstarter::general.delete'), 'delete', type: Type::DANGER),
-        ];
+        if ($user->canDeleteStaticPage()) {
+            $actions[] = new Item(
+                __('pjstarter::general.delete'),
+                'delete',
+                type: Type::DANGER,
+                href: static function (array $row) {
+                    return route('admin.api.static-pages.destroy', ['staticPage' => $row['id']]);
+                },
+                method: 'DELETE',
+            );
+        }
+
+        return $actions;
     }
 
     protected function getPaginator(): TablePaginator
@@ -81,7 +98,7 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->staticPageRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.static-pages.table-parts'),
+            route('admin.api.static-pages.table-parts'),
         ));
     }
 }

@@ -8,9 +8,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Patrikjak\Starter\Tests\TestCase;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
-use Patrikjak\Starter\View\NavigationItem;
 
 class NavigationTest extends TestCase
 {
@@ -19,7 +19,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('usesNavigationItems')]
     public function testNavigation(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
@@ -31,7 +31,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testNavigationWithEnabledStaticPages(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
@@ -43,7 +43,7 @@ class NavigationTest extends TestCase
     #[DefineEnvironment('disableProfile')]
     public function testNavigationWithDisabledProfile(): void
     {
-        $this->actingAs($this->createUser());
+        $this->createAndActAsUser();
 
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
@@ -70,6 +70,27 @@ class NavigationTest extends TestCase
 
                     return new NavigationItem('Feature not for tester', 'feature-hidden-url');
                 },
+                'item_with_subitems' => new NavigationItem(
+                    'Item with subitems',
+                    'item-with-subitems-url',
+                    null,
+                    [
+                        new NavigationItem('Subitem 1', 'subitem-1-url'),
+                        new NavigationItem('Subitem 2', 'subitem-2-url'),
+                    ],
+                ),
+                'more_subitems' => new NavigationItem(
+                    'More subitems',
+                    'more-subitems-url',
+                    null,
+                    [
+                        new NavigationItem('Subitem 3', 'subitem-3-url', subItems: [
+                            new NavigationItem('Subitem 3.1', 'subitem-3-1-url'),
+                            new NavigationItem('Subitem 3.2', 'subitem-3-2-url'),
+                        ]),
+                        new NavigationItem('Subitem 4', 'subitem-4-url'),
+                    ],
+                ),
             ],
             'user_items' => [
                 'user_action' => static function (): NavigationItem {

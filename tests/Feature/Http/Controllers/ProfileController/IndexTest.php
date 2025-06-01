@@ -10,16 +10,16 @@ class IndexTest extends TestCase
 {
     public function testProfileNoAuthenticated(): void
     {
-        $this->get(route('profile'))->assertRedirect(route('login'));
+        $this->get(route('admin.profile'))->assertRedirect(route('login'));
     }
 
     public function testProfileCanBeRendered(): void
     {
         $this->copyIconsToTestSkeleton();
 
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        $response = $this->get(route('profile'))
+        $response = $this->get(route('admin.profile'))
             ->assertOk()
             ->assertViewIs('pjstarter::pages.profile.index');
 

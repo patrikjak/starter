@@ -1,7 +1,7 @@
 @php
     /**
-     * @var array<\Patrikjak\Starter\View\NavigationItem> $items
-     * @var array<\Patrikjak\Starter\View\NavigationItem> $userItems
+     * @var array<\Patrikjak\Starter\Dto\Common\NavigationItem> $items
+     * @var array<\Patrikjak\Starter\Dto\Common\NavigationItem> $userItems
      */
 @endphp
 
@@ -16,12 +16,7 @@
 
     <div class="items">
         @foreach($items as $item)
-            <a
-                href="{{ $item->getUrl() }}"
-                class="{{ $item->classes }}"
-            >
-                <span class="text">{{ $item->label }}</span>
-            </a>
+            <x-pjstarter::navigation-item :$item />
         @endforeach
     </div>
 
@@ -40,7 +35,7 @@
         </div>
 
         <div class="button">
-            <x-pjutils::arrow direction="right" />
+            <x-pjutils::arrow direction="right"/>
         </div>
     </div>
 </div>

@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\Metadata;
 
+use Illuminate\Auth\AuthManager;
 use Patrikjak\Starter\Models\Metadata\Metadata;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
+use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Filter\Definitions\FilterableColumn;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -17,8 +20,18 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
 class MetadataTableProvider extends BasePaginatedTableProvider
 {
-    public function __construct(private readonly MetadataRepository $metadataRepository)
-    {
+    use StringCropper;
+
+    private User $user;
+
+    public function __construct(
+        private readonly MetadataRepository $metadataRepository,
+        private readonly AuthManager $authManager,
+    ) {
+        $user = $this->authManager->user();
+        assert($user instanceof User);
+
+        $this->user = $user;
     }
 
     public function getTableId(): string
@@ -46,21 +59,25 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        return $this->getPageData()->map(function (Metadata $metadata) {
+        $canViewDetail = $this->user->canViewMetadata();
+
+        return $this->getPageData()->map(function (Metadata $metadata) use ($canViewDetail) {
             $canonicalUrl = $metadata->canonical_url === null
                 ? CellFactory::simple('')
                 : CellFactory::link($metadata->canonical_url, $metadata->canonical_url);
 
             return [
                 'id' => $metadata->id,
-                'title' => CellFactory::link(
-                    $this->getCroppedData($metadata->title),
-                    route('metadata.show', ['metadata' => $metadata->id]),
-                ),
-                'description' => CellFactory::simple($this->getCroppedData($metadata->description)),
+                'title' => $canViewDetail
+                    ? CellFactory::link(
+                        $this->getCroppedString($metadata->title),
+                        route('admin.metadata.show', ['metadata' => $metadata->id]),
+                    )
+                    : CellFactory::simple($this->getCroppedString($metadata->title)),
+                'description' => CellFactory::simple($this->getCroppedString($metadata->description)),
                 'keywords' => CellFactory::simple($metadata->keywords ?? ''),
                 'canonical_url' => $canonicalUrl,
-                'structured_data' => CellFactory::simple($this->getCroppedData($metadata->structured_data)),
+                'structured_data' => CellFactory::simple($this->getCroppedString($metadata->structured_data)),
                 'page_name' => CellFactory::double(
                     $metadata->metadatable->getPageName(),
                     $metadata->metadatable->getMetadatableTypeLabel(),
@@ -74,8 +91,14 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
+        if (!$this->user->canEditMetadata()) {
+            return [];
+        }
+
         return [
-            new Item(__('pjstarter::general.edit'), 'edit'),
+            new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
+                return route('admin.metadata.edit', ['metadata' => $row['id']]);
+            }),
         ];
     }
 
@@ -132,22 +155,9 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         return PaginatorFactory::createFromLengthAwarePaginator($this->metadataRepository->getAllPaginated(
             $this->getPageSize(),
             $this->getCurrentPage(),
-            route('api.metadata.table-parts'),
+            route('admin.api.metadata.table-parts'),
             $this->getSortCriteria(),
             $this->getFilterCriteria(),
         ));
-    }
-
-    private function getCroppedData(?string $string): string
-    {
-        if ($string !== null) {
-            if (strlen($string) < 50) {
-                return $string;
-            }
-
-            return sprintf('%s...', substr($string, 0, 50));
-        }
-
-        return '';
     }
 }

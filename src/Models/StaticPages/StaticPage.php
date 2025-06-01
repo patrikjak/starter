@@ -12,9 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Database\Factories\StaticPages\StaticPageFactory;
 use Patrikjak\Starter\Models\Common\Visitable;
+use Patrikjak\Starter\Models\Metadata\Concerns\MetadatableDefaults;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Metadata\Metadatable;
 use Patrikjak\Starter\Models\Metadata\MetadataRelationship;
+use Patrikjak\Starter\Models\Slugs\Concerns\SluggableDefaults;
+use Patrikjak\Starter\Models\Slugs\Concerns\VisitableViaSlug;
 use Patrikjak\Starter\Models\Slugs\Slug;
 use Patrikjak\Starter\Models\Slugs\Sluggable;
 use Patrikjak\Starter\Models\Slugs\SlugRelationship;
@@ -37,6 +40,9 @@ class StaticPage extends Model implements Sluggable, Visitable, Metadatable
     use SlugRelationship;
     use MetadataRelationship;
     use HasFactory;
+    use VisitableViaSlug;
+    use MetadatableDefaults;
+    use SluggableDefaults;
 
     /**
      * @var list<string>
@@ -49,61 +55,9 @@ class StaticPage extends Model implements Sluggable, Visitable, Metadatable
         return Str::slug($this->name);
     }
 
-    public function getSluggableId(): string
-    {
-        return $this->id;
-    }
-
-    public function getSlug(): Slug
-    {
-        return $this->slug;
-    }
-
-    public function getPrefix(): ?string
-    {
-        return null;
-    }
-
-    public function getUrl(): string
-    {
-        return sprintf(
-            '%s%s%s',
-            config('app.url'),
-            $this->slug->prefix === null ? '' : sprintf('/%s', $this->slug->prefix),
-            $this->slug->slug === '' ? '' : sprintf('/%s', $this->slug->slug),
-        );
-    }
-
-    public function getMetadatableId(): string
-    {
-        return $this->id;
-    }
-
-    public function getMetaTitle(): string
-    {
-        $metaTitleFormat = config('pjstarter.meta_title_format');
-
-        return str_replace(['{title}', '{appName}'], [$this->name, config('pjstarter.app_name')], $metaTitleFormat);
-    }
-
-    public function getCanonicalUrl(): ?string
-    {
-        return $this->getUrl();
-    }
-
-    public function getMetadata(): ?Metadata
-    {
-        return $this->metadata;
-    }
-
     public function getMetadatableTypeLabel(): string
     {
         return __('pjstarter::pages.static_pages.metadatable_type');
-    }
-
-    public function getPageName(): string
-    {
-        return $this->name;
     }
 
     /**

@@ -5,14 +5,44 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
+use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Articles\ArticleCategory;
+use Patrikjak\Starter\Models\Authors\Author;
+use Patrikjak\Starter\Models\Metadata\Metadata;
+use Patrikjak\Starter\Models\Slugs\Sluggable;
+use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Models\Users\Permission;
+use Patrikjak\Starter\Models\Users\Role;
+use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
+use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
+use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
+use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
+use Patrikjak\Starter\Policies\Users\PermissionPolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
+use Patrikjak\Starter\Policies\Users\UserPolicy;
+use Patrikjak\Starter\Repositories\Articles\ArticleCategoryRepository;
+use Patrikjak\Starter\Repositories\Articles\ArticleRepository;
+use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
 use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
 use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Users\PermissionRepository;
+use Patrikjak\Starter\Repositories\Users\RoleRepository;
+use Patrikjak\Starter\Repositories\Users\UserRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -23,6 +53,12 @@ class StarterServiceProvider extends ServiceProvider
         SlugRepositoryContract::class => SlugRepository::class,
         StaticPageRepositoryContract::class => StaticPageRepository::class,
         MetadataRepositoryContract::class => MetadataRepository::class,
+        UserRepositoryContract::class => UserRepository::class,
+        RoleRepositoryContract::class => RoleRepository::class,
+        PermissionRepositoryContract::class => PermissionRepository::class,
+        AuthorRepositoryContract::class => AuthorRepository::class,
+        ArticleCategoryRepositoryContract::class => ArticleCategoryRepository::class,
+        ArticleRepositoryContract::class => ArticleRepository::class,
     ];
 
     public function boot(): void
@@ -39,6 +75,10 @@ class StarterServiceProvider extends ServiceProvider
         $this->loadViews();
         $this->loadTranslations();
         $this->loadCommands();
+
+        $this->loadExplicitRouteKeys();
+
+        $this->registerPolicies();
     }
 
     public function register(): void
@@ -92,6 +132,24 @@ class StarterServiceProvider extends ServiceProvider
                 __DIR__ . '/../database/migrations/features/metadata' => database_path('migrations'),
             ], 'pjstarter-migrations');
         }
+
+        if (config('pjstarter.features.users')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/users' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
+
+        if (config('pjstarter.features.articles')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/articles' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
+
+        if (config('pjstarter.features.articles')) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/features/authors' => database_path('migrations'),
+            ], 'pjstarter-migrations');
+        }
     }
 
     private function loadRoutes(): void
@@ -114,6 +172,7 @@ class StarterServiceProvider extends ServiceProvider
     {
         $this->commands([
             InstallCommand::class,
+            SyncPermissionsCommand::class,
         ]);
     }
 
@@ -127,5 +186,30 @@ class StarterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/pjstarter.php' => config_path('pjstarter.php'),
         ], 'pjstarter-config');
+    }
+
+    private function registerPolicies(): void
+    {
+        Gate::policy(StaticPage::class, StaticPagePolicy::class);
+        Gate::policy(Metadata::class, MetadataPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::policy(Permission::class, PermissionPolicy::class);
+        Gate::policy(Author::class, AuthorPolicy::class);
+        Gate::policy(ArticleCategory::class, ArticleCategoryPolicy::class);
+    }
+
+    private function loadExplicitRouteKeys(): void
+    {
+        Route::bind('sluggable', function (string $value): Sluggable {
+            $slugRepository = $this->app->make(SlugRepositoryContract::class);
+            $sluggable = $slugRepository->getByUri($value);
+
+            if ($sluggable === null) {
+                abort(404);
+            }
+
+            return $sluggable->sluggable;
+        });
     }
 }

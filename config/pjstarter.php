@@ -20,6 +20,8 @@ return [
         'dashboard' => true,
         'profile' => true,
         'static_pages' => false,
+        'articles' => false,
+        'users' => false,
     ],
 
     /*
@@ -35,5 +37,9 @@ return [
      * Title format for the meta title tag
      */
     'meta_title_format' => '{title} | {appName}',
+
+    'models' => [
+        'permission' => \Patrikjak\Starter\Models\Users\Permission::class,
+    ],
 
 ];

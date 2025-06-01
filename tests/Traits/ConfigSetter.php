@@ -38,12 +38,34 @@ trait ConfigSetter
         $app['config']->set('pjstarter.features.static_pages', false);
     }
 
+    protected function enableArticles(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.articles', true);
+    }
+
+    protected function disableArticles(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.articles', false);
+    }
+
+    protected function enableUsers(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.users', true);
+    }
+
+    protected function disableUsers(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.users', false);
+    }
+
     protected function enableAllFeatures(Application $app): void
     {
         $app['config']->set('pjstarter.features', [
             'dashboard' => true,
             'profile' => true,
             'static_pages' => true,
+            'articles' => true,
+            'users' => true,
         ]);
     }
 
@@ -53,6 +75,8 @@ trait ConfigSetter
             'dashboard' => false,
             'profile' => false,
             'static_pages' => false,
+            'articles' => false,
+            'users' => false,
         ]);
     }
 } 

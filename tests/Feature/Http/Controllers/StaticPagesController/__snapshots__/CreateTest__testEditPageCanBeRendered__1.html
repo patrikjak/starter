@@ -13,6 +13,7 @@
 
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
     
             <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
     
@@ -30,16 +31,25 @@
     </div>
 
     <div class="items">
-                    <a href="http://localhost/dashboard" class="item">
-                <span class="text">pjstarter::general.dashboard</span>
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
             </a>
-                    <a href="http://localhost/static-pages" class="item">
-                <span class="text">pjstarter::pages.static_pages.title</span>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/static-pages" class="item active">
+        <span class="text">pjstarter::pages.static_pages.title</span>
+
             </a>
-                    <a href="http://localhost/metadata" class="item">
-                <span class="text">pjstarter::pages.metadata.title</span>
+
+    </div>                    <div class="item-wrapper">
+    <a href="http://localhost/admin/metadata" class="item">
+        <span class="text">pjstarter::pages.metadata.title</span>
+
             </a>
-            </div>
+
+    </div>            </div>
 
     <div class="user">
         <div class="initials">
@@ -51,7 +61,7 @@
                 Super Admin
             </div>
             <div class="email">
-                super@example.com
+                superadmin@example.com
             </div>
         </div>
 
@@ -64,7 +74,7 @@
 
 <div class="user-items">
             <div class="group">
-                            <a href="http://localhost/profile" class="item">
+                            <a href="http://localhost/admin/profile" class="item">
                     <span class="text">pjstarter::pages.profile.title</span>
                 </a>
                     </div>
@@ -85,7 +95,7 @@
         <div class="grid-2-items">
             <div class="card">
                 <p class="title">pjstarter::pages.static_pages.edit_page</p>
-                <form method="POST" action="http://localhost/api/static-pages/594f620b-47a4-4d77-87de-38289b56ba8c" data-redirect="http://localhost/static-pages">
+                <form method="POST" action="http://localhost/admin/api/static-pages/594f620b-47a4-4d77-87de-38289b56ba8c" data-redirect="http://localhost/admin/static-pages">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
     <div class="pj-classic">
@@ -103,7 +113,7 @@
             <div class="card">
                 <p class="title">pjstarter::pages.static_pages.url</p>
 
-                <form method="POST" action="http://localhost/api/slugs/7f03daf7-955d-4d58-9d65-30e589d3cd89" data-redirect="http://localhost/static-pages">
+                <form method="POST" action="http://localhost/admin/api/slugs/7f03daf7-955d-4d58-9d65-30e589d3cd89" data-redirect="http://localhost/admin/static-pages">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
     <div class="pj-classic">

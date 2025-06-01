@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
     plugins: [
@@ -7,12 +8,13 @@ export default defineConfig({
             input: [
                 'resources/css/app.scss',
                 'resources/css/profile.scss',
+                'resources/css/tailwind.css',
                 'resources/js/main.ts',
-                'resources/js/static-pages/static-pages-index.ts',
-                'resources/js/metadata/metadata-index.ts',
+                'resources/js/articles/article-editor.ts',
             ],
             refresh: false,
         }),
+        tailwindcss(),
     ],
     build: {
         rollupOptions: {

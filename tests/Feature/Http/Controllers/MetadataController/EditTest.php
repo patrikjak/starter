@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\MetadataController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Starter\Models\StaticPages\StaticPage;
+use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
 use Patrikjak\Starter\Tests\TestCase;
 
 class EditTest extends TestCase
@@ -13,16 +13,13 @@ class EditTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->actingAs($this->createAdminUser());
+        $this->createAndActAsAdmin();
 
-        StaticPage::withoutEvents(function (): void {
-            $staticPage = StaticPage::factory()->hasMetadata()->create();
-            assert($staticPage instanceof StaticPage);
+        $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 
-            $response = $this->get(route('metadata.edit', ['metadata' => $staticPage->metadata->id]));
-            $response->assertOk();
+        $response = $this->get(route('admin.metadata.edit', ['metadata' => $staticPage->metadata->id]));
+        $response->assertOk();
 
-            $this->assertMatchesHtmlSnapshot($response->getContent());
-        });
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 }
