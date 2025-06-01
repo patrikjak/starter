@@ -24,22 +24,4 @@ class Image implements Block
     {
         return BlockType::Image;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'type' => $this->getType()->value,
-            'data' => [
-                'url' => $this->url,
-                'caption' => $this->caption,
-                'withBorder' => $this->withBorder,
-                'withBackground' => $this->withBackground,
-                'stretched' => $this->stretched,
-            ],
-        ];
-    }
 }

@@ -17,18 +17,4 @@ class Raw implements Block
     {
         return BlockType::Raw;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'type' => BlockType::Raw->value,
-            'data' => [
-                'html' => $this->html,
-            ],
-        ];
-    }
 }

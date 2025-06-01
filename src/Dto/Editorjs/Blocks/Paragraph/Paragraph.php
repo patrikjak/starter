@@ -17,16 +17,4 @@ class Paragraph implements Block
     {
         return BlockType::Paragraph;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'type' => BlockType::Paragraph->value,
-            'data' => ['text' => $this->text],
-        ];
-    }
 }
