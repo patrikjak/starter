@@ -151,7 +151,7 @@ The project uses PHPStan (with Larastan) for static analysis:
 
 ```bash
 # Run PHPStan
-docker-compose run --rm cli vendor/bin/phpstan analyse
+docker compose run --rm cli php -d memory_limit=2G vendor/bin/phpstan analyse
 ```
 
 Configuration:
@@ -162,6 +162,11 @@ Configuration:
 ### Coding Standards
 
 The project uses Slevomat Coding Standard for PHP code style:
+
+```bash
+# Run PHPCS
+docker compose run --rm cli vendor/bin/phpcs --standard=ruleset.xml
+```
 
 - Strict type declarations are required
 - Classes should not exceed 300 lines
