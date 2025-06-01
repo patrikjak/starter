@@ -21,6 +21,7 @@ class ArticleFactory extends Factory
                 'time' => 1747430180190,
                 'blocks' => [
                     [
+                        'id' => $this->faker->uuid,
                         'type' => 'header',
                         'data' => [
                             'text' => $this->faker->sentence(3),
@@ -28,6 +29,7 @@ class ArticleFactory extends Factory
                         ],
                     ],
                     [
+                        'id' => $this->faker->uuid,
                         'type' => 'paragraph',
                         'data' => [
                             'text' => $this->faker->sentence(10),

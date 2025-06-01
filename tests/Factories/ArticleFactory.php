@@ -53,4 +53,14 @@ class ArticleFactory
                 ->create();
         });
     }
+
+    public static function createArticle(): Article
+    {
+        return Article::factory()
+            ->has(Slug::factory(), 'slug')
+            ->has(Metadata::factory(), 'metadata')
+            ->for(ArticleCategory::factory(), 'articleCategory')
+            ->for(Author::factory(), 'author')
+            ->create();
+    }
 }
