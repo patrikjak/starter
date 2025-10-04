@@ -17,6 +17,7 @@ return [
     ],
 
     'features' => [
+        'auth' => true,
         'dashboard' => true,
         'profile' => true,
         'static_pages' => false,

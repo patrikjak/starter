@@ -31,17 +31,17 @@ class Navigation extends Component
     public function render(): View
     {
         $user = $this->authManager->user();
-        assert($user instanceof User);
 
         return view('pjstarter::components.navigation', [
             'appName' => $this->config->get('pjstarter.app_name'),
             'appNameInitials' => $this->getAppNameInitials(),
             'homeUrl' => $this->getAppHome(),
-            'userName' => $user->name,
-            'userEmail' => $user->email,
+            'userName' => $user?->name,
+            'userEmail' => $user?->email,
             'userNameInitials' => $this->getUserNameInitials(),
             'items' => $this->getItems(),
             'userItems' => $this->getUserItems(),
+            'authFeaturesEnabled' => $this->config->get('pjstarter.features.auth'),
         ]);
     }
 
@@ -53,7 +53,10 @@ class Navigation extends Component
     private function getUserNameInitials(): string
     {
         $user = $this->authManager->user();
-        assert($user instanceof User);
+
+        if ($user === null) {
+            return '';
+        }
 
         $name = $user->name;
 
@@ -76,7 +79,7 @@ class Navigation extends Component
         $items = [];
 
         $currentUser = $this->authManager->user();
-        assert($currentUser instanceof User);
+        assert($currentUser instanceof User || $currentUser === null);
 
         $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
         $articlesFeature = $this->config->get('pjstarter.features.articles');
@@ -88,7 +91,7 @@ class Navigation extends Component
             );
         }
 
-        if ($staticPagesFeature && $currentUser->canViewAnyStaticPage()) {
+        if ($staticPagesFeature && ($currentUser === null || $currentUser->canViewAnyStaticPage())) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
                 route('admin.static-pages.index'),
@@ -98,14 +101,14 @@ class Navigation extends Component
         if ($articlesFeature) {
             $articlesSubItems = [];
 
-            if ($currentUser->canViewAnyArticleCategory()) {
+            if ($currentUser === null || $currentUser->canViewAnyArticleCategory()) {
                 $articlesSubItems[] = new NavigationItem(
                     __('pjstarter::pages.articles.categories.title'),
                     route('admin.articles.categories.index'),
                 );
             }
 
-            if ($currentUser->canViewAnyArticle()) {
+            if ($currentUser === null || $currentUser->canViewAnyArticle()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.articles.title'),
                     route('admin.articles.index'),
@@ -113,7 +116,7 @@ class Navigation extends Component
                 );
             }
 
-            if ($currentUser->canViewAnyAuthor()) {
+            if ($currentUser === null || $currentUser->canViewAnyAuthor()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.authors.title'),
                     route('admin.authors.index'),
@@ -121,7 +124,7 @@ class Navigation extends Component
             }
         }
 
-        if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {
+        if (($staticPagesFeature || $articlesFeature) && ($currentUser === null || $currentUser->canViewAnyMetadata())) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('admin.metadata.index'),

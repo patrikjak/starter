@@ -18,25 +18,27 @@ if (!articlesForm) {
     new Form().bindSubmit();
 }
 
-userNavigationButton.addEventListener('click', (): void => {
-    const isOpen: boolean = userNavigationItems.classList.contains('active');
+if (userNavigationButton) {
+    userNavigationButton.addEventListener('click', (): void => {
+        const isOpen: boolean = userNavigationItems.classList.contains('active');
 
-    if (!isOpen) {
-        userNavigationItems.classList.add('active');
-        userNavigationButton.classList.add('active');
+        if (!isOpen) {
+            userNavigationItems.classList.add('active');
+            userNavigationButton.classList.add('active');
 
-        setTimeout((): void => {
-            bindClosingUserItems();
-        }, 0);
-    }
-});
+            setTimeout((): void => {
+                bindClosingUserItems();
+            }, 0);
+        }
+    });
+}
 
 function bindClosingUserItems(): void {
     document.querySelector('body').addEventListener('click', function bindClosing(event: MouseEvent): void {
         const target: HTMLElement = event.target as HTMLElement;
         const isItem: boolean = userNavigationItems === target.closest('.user-items');
 
-        if (!isItem) {
+        if (userNavigationButton && !isItem) {
             userNavigationItems.classList.remove('active');
             userNavigationButton.classList.remove('active');
             document.querySelector('body').removeEventListener('click', bindClosing);
@@ -45,28 +47,33 @@ function bindClosingUserItems(): void {
 }
 
 const logoutFormItem: HTMLElement = document.querySelector('.logout-form a');
-logoutFormItem.addEventListener('click', (event: MouseEvent): void => {
-    event.preventDefault();
-    logoutFormItem.closest('form').submit();
-});
+
+if (logoutFormItem) {
+    logoutFormItem.addEventListener('click', (event: MouseEvent): void => {
+        event.preventDefault();
+        logoutFormItem.closest('form').submit();
+    });
+}
 
 const navigationItemArrows: NodeListOf<HTMLElement> = document.querySelectorAll('.navigation .item .arrow-wrapper');
 
-navigationItemArrows.forEach((arrowWrapper: HTMLElement): void => {
-    arrowWrapper.addEventListener('click', (event: MouseEvent): void => {
-        event.preventDefault();
+if (navigationItemArrows) {
+    navigationItemArrows.forEach((arrowWrapper: HTMLElement): void => {
+        arrowWrapper.addEventListener('click', (event: MouseEvent): void => {
+            event.preventDefault();
 
-        const arrow: HTMLElement = arrowWrapper.querySelector('.arrow');
-        const itemWrapper: HTMLElement = arrow.closest('.item-wrapper');
+            const arrow: HTMLElement = arrowWrapper.querySelector('.arrow');
+            const itemWrapper: HTMLElement = arrow.closest('.item-wrapper');
 
-        itemWrapper.classList.toggle('active');
+            itemWrapper.classList.toggle('active');
 
-        if (itemWrapper.classList.contains('active')) {
-            arrow.classList.remove('down');
-            arrow.classList.add('up');
-        } else {
-            arrow.classList.remove('up');
-            arrow.classList.add('down');
-        }
+            if (itemWrapper.classList.contains('active')) {
+                arrow.classList.remove('down');
+                arrow.classList.add('up');
+            } else {
+                arrow.classList.remove('up');
+                arrow.classList.add('down');
+            }
+        });
     });
-});
+}
