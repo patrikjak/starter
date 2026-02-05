@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Metadata;
+namespace Patrikjak\Starter\Repositories\Eloquent\Metadata;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Starter\Dto\Metadata\CreateMetadata;
@@ -16,7 +16,7 @@ use Patrikjak\Utils\Common\Dto\Sort\SortCriteria;
 use Patrikjak\Utils\Common\Services\QueryBuilder\FilterService;
 use Patrikjak\Utils\Common\Services\QueryBuilder\SortService;
 
-readonly class MetadataRepository implements MetadataRepositoryContract
+readonly class EloquentMetadataRepository implements MetadataRepositoryContract
 {
     public function __construct(private SortService $sortService, private FilterService $filterService)
     {

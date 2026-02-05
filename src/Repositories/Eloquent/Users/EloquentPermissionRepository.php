@@ -2,17 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Users;
+namespace Patrikjak\Starter\Repositories\Eloquent\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Factories\ModelFactory;
-use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
 
-class PermissionRepository implements PermissionRepositoryContract
+class EloquentPermissionRepository implements PermissionRepositoryContract
 {
     /**
      * @inheritDoc

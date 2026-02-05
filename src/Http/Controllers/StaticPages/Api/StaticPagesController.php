@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Patrikjak\Starter\Http\Controllers\TableParts;
 use Patrikjak\Starter\Http\Requests\StaticPages\StoreStaticPageRequest;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
-use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Starter\Services\StaticPages\StaticPagesTableProvider;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
 

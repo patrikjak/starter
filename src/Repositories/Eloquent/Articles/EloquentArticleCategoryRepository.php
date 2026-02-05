@@ -2,18 +2,18 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Articles;
+namespace Patrikjak\Starter\Repositories\Eloquent\Articles;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Articles\ArticleCategoryData;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
-use Patrikjak\Starter\Repositories\SupportsPagination;
+use Patrikjak\Starter\Repositories\Eloquent\EloquentSupportsPagination;
 
-class ArticleCategoryRepository implements ArticleCategoryRepositoryContract
+class EloquentArticleCategoryRepository implements ArticleCategoryRepositoryContract
 {
-    use SupportsPagination;
+    use EloquentSupportsPagination;
 
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
