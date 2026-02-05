@@ -27,7 +27,8 @@ src/                          # Main source code
 ├── Observers/                # Eloquent observers (Metadata, Slugs)
 ├── Policies/                 # Authorization policies with BasePolicy
 ├── Repositories/
-│   └── Contracts/            # Repository interfaces
+│   ├── Contracts/            # Repository interfaces
+│   └── Eloquent/             # Eloquent implementations (EloquentXxxRepository)
 ├── Rules/                    # Custom validation rules
 ├── Services/                 # Business logic layer
 ├── Support/                  # Helper utilities
@@ -150,9 +151,11 @@ namespace Patrikjak\Starter\{Feature}\{Type};
 ## Architecture Patterns
 
 ### Repository Pattern
-- Interfaces in `Repositories/Contracts/`
-- Implementations in `Repositories/{Feature}/`
-- Always use dependency injection
+- Interfaces in `Repositories/Contracts/{Feature}/`
+- Implementations in `Repositories/Eloquent/{Feature}/` with `Eloquent` prefix
+- Example: `EloquentArticleRepository` implements `ArticleRepository` contract
+- Always inject contracts, not implementations
+- Bindings configured in `StarterServiceProvider`
 
 ### Service Layer
 - Business logic in `Services/` classes
@@ -309,5 +312,24 @@ public function rules(): array
 public function edit(User $user, Article $article): bool
 {
     return $user->hasPermission(self::EDIT . '-' . self::FEATURE_NAME);
+}
+```
+
+### Repository Implementation
+```php
+// Contract (Repositories/Contracts/Articles/ArticleRepository.php)
+interface ArticleRepository extends SupportsPagination
+{
+    public function getAllContents(): Collection;
+    public function create(ArticleInputData $data, ArticleProcessedData $processed): void;
+}
+
+// Implementation (Repositories/Eloquent/Articles/EloquentArticleRepository.php)
+class EloquentArticleRepository implements ArticleRepository
+{
+    public function getAllContents(): Collection
+    {
+        return Article::get(['content']);
+    }
 }
 ```
