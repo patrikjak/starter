@@ -7,9 +7,9 @@ namespace Patrikjak\Starter\Repositories\Eloquent\Slugs;
 use Patrikjak\Starter\Dto\Slugs\CreateSlug;
 use Patrikjak\Starter\Dto\Slugs\UpdateSlug;
 use Patrikjak\Starter\Models\Slugs\Slug;
-use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 
-class EloquentSlugRepository implements SlugRepositoryContract
+class EloquentSlugRepository implements SlugRepository
 {
     public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug
     {

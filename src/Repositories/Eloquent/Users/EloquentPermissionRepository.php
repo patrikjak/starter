@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Exceptions\Common\ModelIsNotInstanceOfBaseModelException;
 use Patrikjak\Starter\Factories\ModelFactory;
-use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
 
-class EloquentPermissionRepository implements PermissionRepositoryContract
+class EloquentPermissionRepository implements PermissionRepository
 {
     /**
      * @inheritDoc

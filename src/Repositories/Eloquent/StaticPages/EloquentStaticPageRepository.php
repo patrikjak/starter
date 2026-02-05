@@ -6,10 +6,10 @@ namespace Patrikjak\Starter\Repositories\Eloquent\StaticPages;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
-use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Starter\Repositories\Eloquent\EloquentSupportsPagination;
 
-class EloquentStaticPageRepository implements StaticPageRepositoryContract
+class EloquentStaticPageRepository implements StaticPageRepository
 {
     use EloquentSupportsPagination;
 

@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Repositories\RoleRepository as BaseRoleRepository;
 use Patrikjak\Starter\Models\Users\Role;
-use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
-class EloquentRoleRepository extends BaseRoleRepository implements RoleRepositoryContract
+class EloquentRoleRepository extends BaseRoleRepository implements RoleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {

@@ -8,10 +8,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Articles\ArticleCategoryData;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
-use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository;
 use Patrikjak\Starter\Repositories\Eloquent\EloquentSupportsPagination;
 
-class EloquentArticleCategoryRepository implements ArticleCategoryRepositoryContract
+class EloquentArticleCategoryRepository implements ArticleCategoryRepository
 {
     use EloquentSupportsPagination;
 

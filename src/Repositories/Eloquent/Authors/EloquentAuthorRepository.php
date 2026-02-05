@@ -7,10 +7,10 @@ namespace Patrikjak\Starter\Repositories\Eloquent\Authors;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Models\Authors\Author;
-use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
 use Patrikjak\Starter\Repositories\Eloquent\EloquentSupportsPagination;
 
-class EloquentAuthorRepository implements AuthorRepositoryContract
+class EloquentAuthorRepository implements AuthorRepository
 {
     use EloquentSupportsPagination;
 
