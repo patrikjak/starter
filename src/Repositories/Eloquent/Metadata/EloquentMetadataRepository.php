@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Metadata;
+namespace Patrikjak\Starter\Repositories\Eloquent\Metadata;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Patrikjak\Starter\Dto\Metadata\CreateMetadata;
@@ -10,13 +10,13 @@ use Patrikjak\Starter\Dto\Metadata\UpdateMetadata;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
-use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
 use Patrikjak\Utils\Common\Dto\Filter\FilterCriteria;
 use Patrikjak\Utils\Common\Dto\Sort\SortCriteria;
 use Patrikjak\Utils\Common\Services\QueryBuilder\FilterService;
 use Patrikjak\Utils\Common\Services\QueryBuilder\SortService;
 
-readonly class MetadataRepository implements MetadataRepositoryContract
+readonly class EloquentMetadataRepository implements MetadataRepository
 {
     public function __construct(private SortService $sortService, private FilterService $filterService)
     {

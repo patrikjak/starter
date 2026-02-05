@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Articles;
+namespace Patrikjak\Starter\Repositories\Eloquent\Articles;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Dto\Articles\ArticleInputData;
 use Patrikjak\Starter\Dto\Articles\ArticleProcessedData;
 use Patrikjak\Starter\Models\Articles\Article;
-use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository;
 
-class ArticleRepository implements ArticleRepositoryContract
+class EloquentArticleRepository implements ArticleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {

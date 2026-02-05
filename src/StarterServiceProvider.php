@@ -25,9 +25,6 @@ use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
-use Patrikjak\Starter\Repositories\Articles\ArticleCategoryRepository;
-use Patrikjak\Starter\Repositories\Articles\ArticleRepository;
-use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
@@ -37,12 +34,15 @@ use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
-use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
-use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
-use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
-use Patrikjak\Starter\Repositories\Users\PermissionRepository;
-use Patrikjak\Starter\Repositories\Users\RoleRepository;
-use Patrikjak\Starter\Repositories\Users\UserRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleCategoryRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Authors\EloquentAuthorRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Metadata\EloquentMetadataRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Slugs\EloquentSlugRepository;
+use Patrikjak\Starter\Repositories\Eloquent\StaticPages\EloquentStaticPageRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentPermissionRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentRoleRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentUserRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -50,15 +50,15 @@ class StarterServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
-        SlugRepositoryContract::class => SlugRepository::class,
-        StaticPageRepositoryContract::class => StaticPageRepository::class,
-        MetadataRepositoryContract::class => MetadataRepository::class,
-        UserRepositoryContract::class => UserRepository::class,
-        RoleRepositoryContract::class => RoleRepository::class,
-        PermissionRepositoryContract::class => PermissionRepository::class,
-        AuthorRepositoryContract::class => AuthorRepository::class,
-        ArticleCategoryRepositoryContract::class => ArticleCategoryRepository::class,
-        ArticleRepositoryContract::class => ArticleRepository::class,
+        SlugRepositoryContract::class => EloquentSlugRepository::class,
+        StaticPageRepositoryContract::class => EloquentStaticPageRepository::class,
+        MetadataRepositoryContract::class => EloquentMetadataRepository::class,
+        UserRepositoryContract::class => EloquentUserRepository::class,
+        RoleRepositoryContract::class => EloquentRoleRepository::class,
+        PermissionRepositoryContract::class => EloquentPermissionRepository::class,
+        AuthorRepositoryContract::class => EloquentAuthorRepository::class,
+        ArticleCategoryRepositoryContract::class => EloquentArticleCategoryRepository::class,
+        ArticleRepositoryContract::class => EloquentArticleRepository::class,
     ];
 
     public function boot(): void
