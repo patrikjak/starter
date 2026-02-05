@@ -19,14 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.3.0] - 2025-XX-XX
+## [0.3.0] - 2025-06-02
 
 ### Added
 - Articles management system with Editor.js integration (#5)
 - Article categories and authors support
 - Comprehensive test coverage for articles (#6)
 
-## [0.2.0] - 2025-XX-XX
+## [0.2.0] - 2025-03-30
 
 ### Added
 - Metadata management for SEO (#4)
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Build assets configuration (#3)
 
-## [0.1.0] - 2025-XX-XX
+## [0.1.0] - 2025-03-15
 
 ### Added
 - Initial release
