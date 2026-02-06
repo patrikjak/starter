@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9586b575d8b5bd7e68229b725aa79e3e",
+    "content-hash": "30cdcf021416ff60b1888c2044d075b8",
     "packages": [
         {
             "name": "brick/math",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "patrikjak/utils",
-            "version": "2.8.2",
+            "version": "dev-json-filter",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/utils.git",
-                "reference": "04df169b41346e48b52ff23955166833e3cb47bb"
+                "reference": "2bf4bcaeeb00576c969ec0d497c5f7899d03512c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/utils/zipball/04df169b41346e48b52ff23955166833e3cb47bb",
-                "reference": "04df169b41346e48b52ff23955166833e3cb47bb",
+                "url": "https://api.github.com/repos/patrikjak/utils/zipball/2bf4bcaeeb00576c969ec0d497c5f7899d03512c",
+                "reference": "2bf4bcaeeb00576c969ec0d497c5f7899d03512c",
                 "shasum": ""
             },
             "require": {
@@ -2819,9 +2819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/utils/issues",
-                "source": "https://github.com/patrikjak/utils/tree/v2.8.2"
+                "source": "https://github.com/patrikjak/utils/tree/json-filter"
             },
-            "time": "2025-04-25T16:37:44+00:00"
+            "time": "2026-02-06T14:10:47+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -9973,9 +9973,18 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "patrikjak/utils",
+            "version": "dev-json-filter",
+            "alias": "2.8.2",
+            "alias_normalized": "2.8.2.0"
+        }
+    ],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "patrikjak/utils": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
