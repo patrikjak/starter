@@ -9,7 +9,7 @@ use Patrikjak\Starter\Dto\Editorjs\EditorData;
 use Patrikjak\Starter\Enums\Articles\ArticleStatus;
 use Patrikjak\Starter\Enums\Articles\Visibility;
 
-final readonly class ArticleInputData
+readonly class ArticleInputData
 {
     public function __construct(
         public string $authorId,

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Dto\Metadata;
 
-final readonly class CreateMetadata
+readonly class CreateMetadata
 {
     public function __construct(
         public string $title,

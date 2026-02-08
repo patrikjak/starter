@@ -14,6 +14,7 @@ composer require patrikjak/starter
 
 - [Web header Components](docs/metadata-header.md) - Documentation for the web header component
 - [Configuration](docs/config.md) - Documentation for all available configuration options
+- [Extensibility](docs/extensibility.md) - How to extend DTOs, repositories, and form requests
 
 ## Setup
 
