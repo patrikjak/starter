@@ -48,7 +48,7 @@ class ArticleRepository implements ArticleRepositoryContract
         $article->delete();
     }
 
-    private function saveArticle(
+    protected function saveArticle(
         Article $articleModel,
         ArticleInputData $articleData,
         ArticleProcessedData $articleProcessedData,
