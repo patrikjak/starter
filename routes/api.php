@@ -21,7 +21,10 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 
-Route::middleware(['web', 'auth'])
+$authEnabled = config('pjstarter.features.auth');
+$middleware = $authEnabled ? ['web', 'auth'] : ['web'];
+
+Route::middleware($middleware)
     ->prefix('admin/api')
     ->name('admin.api.')
     ->group(static function(): void {

@@ -22,6 +22,7 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 
+$authEnabled = config('pjstarter.features.auth');
 $dashboardEnabled = config('pjstarter.features.dashboard');
 $profileEnabled = config('pjstarter.features.profile');
 $staticPagesEnabled = config('pjstarter.features.static_pages');
@@ -31,6 +32,8 @@ $usersEnabled = config('pjstarter.features.users');
 Route::prefix('admin')
     ->name('admin.')
     ->group(static function () {
+        $authEnabled = config('pjstarter.features.auth');
+        $middleware = $authEnabled ? ['web', 'auth'] : ['web'];
         $dashboardEnabled = config('pjstarter.features.dashboard');
         $profileEnabled = config('pjstarter.features.profile');
         $staticPagesEnabled = config('pjstarter.features.static_pages');
@@ -38,20 +41,20 @@ Route::prefix('admin')
         $usersEnabled = config('pjstarter.features.users');
 
         if ($dashboardEnabled) {
-            Route::middleware(['web', 'auth'])->group(static function (): void {
+            Route::middleware($middleware)->group(static function (): void {
                 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             });
         }
 
-        if ($profileEnabled) {
-            Route::middleware(['web', 'auth'])->group(static function (): void {
+        if ($profileEnabled && $authEnabled) {
+            Route::middleware($middleware)->group(static function (): void {
                 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
                 Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
             });
         }
 
         if ($staticPagesEnabled) {
-            Route::middleware(['web', 'auth'])
+            Route::middleware($middleware)
                 ->prefix('static-pages')
                 ->name('static-pages.')
                 ->group(static function (): void {
@@ -70,7 +73,7 @@ Route::prefix('admin')
         }
 
         if ($articlesEnabled) {
-            Route::middleware(['web', 'auth'])
+            Route::middleware($middleware)
                 ->prefix('articles')
                 ->name('articles.')
                 ->group(static function (): void {
@@ -113,7 +116,7 @@ Route::prefix('admin')
         }
 
         if ($articlesEnabled) {
-            Route::middleware(['web', 'auth'])
+            Route::middleware($middleware)
                 ->prefix('authors')
                 ->name('authors.')
                 ->group(static function (): void {
@@ -136,7 +139,7 @@ Route::prefix('admin')
         }
 
         if ($staticPagesEnabled || $articlesEnabled) {
-            Route::middleware(['web', 'auth'])
+            Route::middleware($middleware)
                 ->prefix('metadata')
                 ->name('metadata.')
                 ->group(static function (): void {
@@ -154,7 +157,7 @@ Route::prefix('admin')
         }
 
         if ($usersEnabled) {
-            Route::middleware(['web', 'auth'])
+            Route::middleware($middleware)
                 ->prefix('users')
                 ->name('users.')
                 ->group(static function (): void {

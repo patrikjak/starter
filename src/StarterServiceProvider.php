@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Articles\Article;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
@@ -19,6 +20,7 @@ use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
+use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
 use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
@@ -63,6 +65,12 @@ class StarterServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $authEnabled = (bool) config('pjstarter.features.auth');
+
+        if (!$authEnabled) {
+            $this->disableAuthFeatures();
+        }
+
         $this->registerComponents();
 
         $this->publishAssets();
@@ -77,6 +85,14 @@ class StarterServiceProvider extends ServiceProvider
         $this->loadCommands();
 
         $this->loadExplicitRouteKeys();
+
+        if (!$authEnabled) {
+            $this->registerAuthFallbackRoutes();
+
+            $this->app->booted(function (): void {
+                $this->registerAuthFallbackRoutes();
+            });
+        }
 
         $this->registerPolicies();
     }
@@ -190,13 +206,47 @@ class StarterServiceProvider extends ServiceProvider
 
     private function registerPolicies(): void
     {
+        if (!config('pjstarter.features.auth')) {
+            Gate::before(static fn () => true);
+
+            return;
+        }
+
         Gate::policy(StaticPage::class, StaticPagePolicy::class);
         Gate::policy(Metadata::class, MetadataPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Permission::class, PermissionPolicy::class);
         Gate::policy(Author::class, AuthorPolicy::class);
+        Gate::policy(Article::class, ArticlePolicy::class);
         Gate::policy(ArticleCategory::class, ArticleCategoryPolicy::class);
+    }
+
+    private function disableAuthFeatures(): void
+    {
+        config()->set('pjauth.features.login', false);
+        config()->set('pjauth.features.register', false);
+        config()->set('pjauth.features.password_reset', false);
+        config()->set('pjauth.features.change_password', false);
+        config()->set('pjauth.features.register_via_invitation', false);
+    }
+
+    private function registerAuthFallbackRoutes(): void
+    {
+        $abort404 = static fn () => abort(404);
+
+        Route::middleware('web')->group(static function () use ($abort404): void {
+            Route::any('/login', $abort404)->name('login');
+            Route::any('/register', $abort404)->name('register');
+            Route::any('/password/{any?}', $abort404)->where('any', '.*');
+        });
+
+        Route::middleware('web')->prefix('api')->group(static function () use ($abort404): void {
+            Route::any('/login', $abort404);
+            Route::any('/register', $abort404);
+            Route::any('/logout', $abort404)->name('api.logout');
+            Route::any('/password/{any?}', $abort404)->where('any', '.*');
+        });
     }
 
     private function loadExplicitRouteKeys(): void
