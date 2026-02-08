@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Dto\Slugs;
 
-class UpdateSlug
+readonly class UpdateSlug
 {
-    public function __construct(public readonly string $slug, public readonly ?string $prefix = null)
+    public function __construct(public string $slug, public ?string $prefix = null)
     {
     }
 }
