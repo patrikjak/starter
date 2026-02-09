@@ -46,6 +46,13 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     use SluggableDefaults;
     use HasFactory;
 
+    /**
+     * Relationships to always eager load.
+     *
+     * @var array<int, string>
+     */
+    protected $with = ['slug'];
+
     public function getNewSlug(): string
     {
         return Str::slug($this->name);
