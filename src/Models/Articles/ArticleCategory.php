@@ -47,8 +47,6 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     use HasFactory;
 
     /**
-     * Relationships to always eager load.
-     *
      * @var array<int, string>
      */
     protected $with = ['slug'];
