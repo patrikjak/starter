@@ -97,16 +97,24 @@ docker compose run --rm cli vendor/bin/phpunit -d --update-snapshots
 ### Frontend
 
 ```bash
-npm install           # Install dependencies
-npm run dev          # Development server with HMR
-npm run build        # Production build
+# Install dependencies
+docker compose run --rm node npm install
+
+# Development server with HMR
+docker compose run --rm node npm run dev
+
+# Production build
+docker compose run --rm node npm run build
 ```
 
 ### Artisan Commands
 
 ```bash
-php artisan install:pjstarter              # Install package
-php artisan pjstarter:permissions:sync     # Sync permissions
+# Install package
+docker compose run --rm cli php artisan install:pjstarter
+
+# Sync permissions
+docker compose run --rm cli php artisan pjstarter:permissions:sync
 ```
 
 ## Code Style Requirements
@@ -275,6 +283,16 @@ When `auth` is `false`:
 - Actions from `BasePolicy`: `viewAny`, `view`, `create`, `edit`, `delete`
 - Additional actions per policy (e.g., `manage`, `manageProtected`, `viewSuperadmin`)
 - Features defined per policy class via `FEATURE_NAME` constant
+
+## Docker Environment
+
+This project uses Docker for all development tasks. **All commands must be executed via Docker Compose.**
+
+Available Docker services:
+- `cli` - PHP CLI environment for running tests, code style checks, and artisan commands
+- `node` - Node.js environment for frontend builds
+
+**IMPORTANT:** Never run commands directly on the host machine (e.g., `php`, `composer`, `npm`, `artisan`). Always use the Docker Compose wrapper.
 
 ## CI/CD Pipeline
 
