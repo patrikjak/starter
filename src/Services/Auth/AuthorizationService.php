@@ -2,27 +2,28 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Support\Traits;
+namespace Patrikjak\Starter\Services\Auth;
 
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Config\Repository as Config;
 use Patrikjak\Starter\Models\Users\User;
 
-trait HandlesNullableAuthUser
+readonly class AuthorizationService
 {
     private ?User $user;
 
-    private function initializeUser(AuthManager $authManager): void
+    public function __construct(AuthManager $authManager, private Config $config)
     {
         $user = $authManager->user();
         $this->user = $user instanceof User ? $user : null;
     }
 
-    private function isAuthEnabled(): bool
+    public function isAuthEnabled(): bool
     {
-        return (bool) config('pjstarter.features.auth');
+        return (bool) $this->config->get('pjstarter.features.auth');
     }
 
-    private function userCan(callable $permissionCheck): bool
+    public function userCan(callable $permissionCheck): bool
     {
         if (!$this->isAuthEnabled()) {
             return true;
@@ -31,7 +32,7 @@ trait HandlesNullableAuthUser
         return $this->user instanceof User && $permissionCheck($this->user);
     }
 
-    private function getUserPermission(callable $permissionCheck, bool $defaultWhenNoAuth = true): bool
+    public function getUserPermission(callable $permissionCheck, bool $defaultWhenNoAuth = true): bool
     {
         if (!$this->isAuthEnabled()) {
             return $defaultWhenNoAuth;

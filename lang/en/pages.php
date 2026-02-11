@@ -71,6 +71,10 @@ return [
         'article_deleted' => 'Article was deleted',
         'edit' => 'Article edit',
 
+        'index' => [
+            'title' => 'All articles',
+        ],
+
         'categories' => [
             'title' => 'Article categories',
             'create_new_category' => 'Create new category',
@@ -80,6 +84,10 @@ return [
             'description' => 'Description',
             'category_deleted' => 'Category was deleted',
             'edit' => 'Category edit',
+
+            'index' => [
+                'title' => 'All categories',
+            ],
         ],
     ],
 
@@ -99,6 +107,10 @@ return [
         'name' => 'Name',
         'email' => 'Email',
         'role' => 'Role',
+
+        'index' => [
+            'title' => 'All users',
+        ],
 
         'roles' => [
             'title' => 'Roles',

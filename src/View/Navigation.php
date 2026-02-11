@@ -104,10 +104,21 @@ class Navigation extends Component
                 $articlesSubItems[] = new NavigationItem(
                     __('pjstarter::pages.articles.categories.title'),
                     route('admin.articles.categories.index'),
+                    subItems: [
+                        new NavigationItem(
+                            __('pjstarter::pages.articles.categories.index.title'),
+                            route('admin.articles.categories.index'),
+                        ),
+                    ]
                 );
             }
 
             if ($currentUser === null || $currentUser->canViewAnyArticle()) {
+                array_unshift($articlesSubItems, new NavigationItem(
+                    __('pjstarter::pages.articles.index.title'),
+                    route('admin.articles.index'),
+                ));
+
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.articles.title'),
                     route('admin.articles.index'),
@@ -151,6 +162,11 @@ class Navigation extends Component
             }
 
             if ($currentUser === null || $currentUser->canViewAnyUsers()) {
+                array_unshift($usersSubItems, new NavigationItem(
+                    __('pjstarter::pages.users.index.title'),
+                    route('admin.users.index'),
+                ));
+
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),
                     route('admin.users.index'),

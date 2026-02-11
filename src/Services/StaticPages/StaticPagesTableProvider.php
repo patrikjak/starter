@@ -4,11 +4,10 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\StaticPages;
 
-use Illuminate\Auth\AuthManager;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
-use Patrikjak\Starter\Support\Traits\HandlesNullableAuthUser;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -18,11 +17,10 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
 class StaticPagesTableProvider extends BasePaginatedTableProvider
 {
-    use HandlesNullableAuthUser;
-
-    public function __construct(private readonly StaticPageRepository $staticPageRepository, AuthManager $authManager)
-    {
-        $this->initializeUser($authManager);
+    public function __construct(
+        private readonly StaticPageRepository $staticPageRepository,
+        private readonly AuthorizationService $authorizationService,
+    ) {
     }
 
     public function getTableId(): string
@@ -71,13 +69,13 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
     {
         $actions = [];
 
-        if ($this->userCan(static fn (User $user) => $user->canEditStaticPage())) {
+        if ($this->authorizationService->userCan(static fn (User $user) => $user->canEditStaticPage())) {
             $actions[] = new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
                 return route('admin.static-pages.edit', ['staticPage' => $row['id']]);
             });
         }
 
-        if ($this->userCan(static fn (User $user) => $user->canDeleteStaticPage())) {
+        if ($this->authorizationService->userCan(static fn (User $user) => $user->canDeleteStaticPage())) {
             $actions[] = new Item(
                 __('pjstarter::general.delete'),
                 'delete',

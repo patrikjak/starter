@@ -4,20 +4,18 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\Users;
 
-use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
-use Patrikjak\Starter\Support\Traits\HandlesNullableAuthUser;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
 
-class PermissionsService
+readonly class PermissionsService
 {
-    use HandlesNullableAuthUser;
-
-    public function __construct(private readonly PermissionRepository $permissionRepository, AuthManager $authManager)
-    {
-        $this->initializeUser($authManager);
+    public function __construct(
+        private PermissionRepository $permissionRepository,
+        private AuthorizationService $authorizationService,
+    ) {
     }
 
     /**
@@ -25,7 +23,7 @@ class PermissionsService
      */
     public function getAllAvailablePermissionsGroupedByFeature(): Collection
     {
-        $canViewProtected = $this->getUserPermission(
+        $canViewProtected = $this->authorizationService->getUserPermission(
             static fn (User $user) => $user->canViewProtectedPermissions(),
         );
         $availablePermissions = $canViewProtected
@@ -44,7 +42,7 @@ class PermissionsService
     public function getAvailablePermissionsFromNames(array $permissions): Collection
     {
         $permissions = $this->permissionRepository->getByNames($permissions);
-        $canViewProtectedPermissions = $this->getUserPermission(
+        $canViewProtectedPermissions = $this->authorizationService->getUserPermission(
             static fn (User $user) => $user->canViewProtectedPermissions(),
         );
 
