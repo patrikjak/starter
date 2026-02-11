@@ -47,7 +47,7 @@ class ArticleCategory extends Model implements Sluggable, Metadatable, Visitable
     use HasFactory;
 
     /**
-     * @var array<int, string>
+     * @var list<string>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $with = ['slug'];

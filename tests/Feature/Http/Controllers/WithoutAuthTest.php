@@ -50,4 +50,60 @@ class WithoutAuthTest extends TestCase
     {
         $this->get('/admin/change-password')->assertNotFound();
     }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableStaticPages')]
+    public function testStaticPagesAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.static-pages.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableArticles')]
+    public function testArticlesAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.articles.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableArticles')]
+    public function testAuthorsAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.authors.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableArticles')]
+    public function testArticleCategoriesAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.articles.categories.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableStaticPages')]
+    public function testMetadataAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.metadata.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableUsers')]
+    public function testUsersAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.users.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableUsers')]
+    public function testRolesAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.users.roles.index'))->assertOk();
+    }
+
+    #[DefineEnvironment('disableAuth')]
+    #[DefineEnvironment('enableUsers')]
+    public function testPermissionsAccessibleWithoutAuth(): void
+    {
+        $this->get(route('admin.users.permissions.index'))->assertOk();
+    }
 }

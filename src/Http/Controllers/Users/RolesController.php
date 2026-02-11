@@ -8,14 +8,16 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\View\View;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
-use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Services\Users\PermissionsService;
 use Patrikjak\Starter\Services\Users\RolesTableProvider;
+use Patrikjak\Starter\Support\Traits\HandlesNullableAuthUser;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
 
 class RolesController
 {
+    use HandlesNullableAuthUser;
+
     public function index(TableParametersRequest $request, RolesTableProvider $rolesTableProvider): View
     {
         return view('pjstarter::pages.users.roles.index', [
@@ -27,13 +29,13 @@ class RolesController
 
     public function show(Role $role, AuthManager $authManager): View
     {
-        $user = $authManager->user();
-        assert($user instanceof User);
+        $this->initializeUser($authManager);
+        $canSeeId = $this->getUserPermission(static fn (User $user) => $user->canViewSuperAdminRole());
 
         return view('pjstarter::pages.users.roles.show', [
             'role' => $role,
             'permissions' => $role->permissions->pluck('description')->implode(', '),
-            'canSeeId' => $user->canViewSuperAdminRole(),
+            'canSeeId' => $canSeeId,
         ]);
     }
 

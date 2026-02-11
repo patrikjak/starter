@@ -9,6 +9,7 @@ use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
 use Patrikjak\Starter\Support\StringCropper;
+use Patrikjak\Starter\Support\Traits\HandlesNullableAuthUser;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Filter\Definitions\FilterableColumn;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -20,18 +21,12 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
 class MetadataTableProvider extends BasePaginatedTableProvider
 {
+    use HandlesNullableAuthUser;
     use StringCropper;
 
-    private User $user;
-
-    public function __construct(
-        private readonly MetadataRepository $metadataRepository,
-        private readonly AuthManager $authManager,
-    ) {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
-
-        $this->user = $user;
+    public function __construct(private readonly MetadataRepository $metadataRepository, AuthManager $authManager)
+    {
+        $this->initializeUser($authManager);
     }
 
     public function getTableId(): string
@@ -59,7 +54,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        $canViewDetail = $this->user->canViewMetadata();
+        $canViewDetail = $this->getUserPermission(static fn (User $user) => $user->canViewMetadata());
 
         return $this->getPageData()->map(function (Metadata $metadata) use ($canViewDetail) {
             $canonicalUrl = $metadata->canonical_url === null
@@ -91,7 +86,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if (!$this->user->canEditMetadata()) {
+        if (!$this->getUserPermission(static fn (User $user) => $user->canEditMetadata())) {
             return [];
         }
 

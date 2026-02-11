@@ -12,6 +12,7 @@ use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository;
 use Patrikjak\Starter\Support\StringCropper;
+use Patrikjak\Starter\Support\Traits\HandlesNullableAuthUser;
 use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
@@ -23,17 +24,11 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 final class ArticlesTableProvider extends BasePaginatedTableProvider
 {
     use StringCropper;
+    use HandlesNullableAuthUser;
 
-    private User $user;
-
-    public function __construct(
-        private readonly ArticleRepository $articleRepository,
-        private readonly AuthManager $authManager,
-    ) {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
-
-        $this->user = $user;
+    public function __construct(private readonly ArticleRepository $articleRepository, AuthManager $authManager)
+    {
+        $this->initializeUser($authManager);
     }
 
     public function getTableId(): string
@@ -62,9 +57,8 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        $canViewArticle = $this->user->hasPermission(
-            ArticlePolicy::FEATURE_NAME,
-            BasePolicy::VIEW,
+        $canViewArticle = $this->getUserPermission(
+            static fn (User $user) => $user->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::VIEW),
         );
 
         return $this->getPageData()->map(function (Article $article) use ($canViewArticle) {
@@ -106,7 +100,11 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
     {
         $actions = [];
 
-        if ($this->user->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::EDIT)) {
+        if (
+            $this->getUserPermission(
+                static fn (User $user) => $user->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::EDIT),
+            )
+        ) {
             $actions[] = new Item(
                 __('pjstarter::general.edit'),
                 'edit',
@@ -117,7 +115,11 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
             );
         }
 
-        if ($this->user->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::DELETE)) {
+        if (
+            $this->getUserPermission(
+                static fn (User $user) => $user->hasPermission(ArticlePolicy::FEATURE_NAME, BasePolicy::DELETE),
+            )
+        ) {
             $actions[] = new Item(
                 __('pjstarter::general.delete'),
                 'delete',
