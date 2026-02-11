@@ -20,10 +20,8 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
 {
     use HandlesNullableAuthUser;
 
-    public function __construct(
-        private readonly StaticPageRepository $staticPageRepository,
-        AuthManager $authManager,
-    ) {
+    public function __construct(private readonly StaticPageRepository $staticPageRepository, AuthManager $authManager)
+    {
         $this->initializeUser($authManager);
     }
 
