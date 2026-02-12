@@ -207,7 +207,7 @@ class StarterServiceProvider extends ServiceProvider
     private function registerPolicies(): void
     {
         if (!config('pjstarter.features.auth')) {
-            Gate::before(static fn () => true);
+            Gate::before(static fn (?User $user) => true);
 
             return;
         }
