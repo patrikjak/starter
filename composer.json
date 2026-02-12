@@ -20,7 +20,11 @@
     "autoload": {
         "psr-4": {
             "Patrikjak\\Starter\\": "src/",
-            "Patrikjak\\Starter\\Database\\Factories\\": "database/factories/",
+            "Patrikjak\\Starter\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Patrikjak\\Starter\\Tests\\": "tests/"
         }
     },

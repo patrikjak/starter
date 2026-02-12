@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Patrikjak\Starter\Console\Commands\InstallCommand;
 use Patrikjak\Starter\Console\Commands\SyncPermissionsCommand;
+use Patrikjak\Starter\Models\Articles\Article;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
@@ -19,15 +20,13 @@ use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
+use Patrikjak\Starter\Policies\Articles\ArticlePolicy;
 use Patrikjak\Starter\Policies\Authors\AuthorPolicy;
 use Patrikjak\Starter\Policies\Metadata\MetadataPolicy;
 use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
-use Patrikjak\Starter\Repositories\Articles\ArticleCategoryRepository;
-use Patrikjak\Starter\Repositories\Articles\ArticleRepository;
-use Patrikjak\Starter\Repositories\Authors\AuthorRepository;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
@@ -37,12 +36,15 @@ use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
-use Patrikjak\Starter\Repositories\Metadata\MetadataRepository;
-use Patrikjak\Starter\Repositories\Slugs\SlugRepository;
-use Patrikjak\Starter\Repositories\StaticPages\StaticPageRepository;
-use Patrikjak\Starter\Repositories\Users\PermissionRepository;
-use Patrikjak\Starter\Repositories\Users\RoleRepository;
-use Patrikjak\Starter\Repositories\Users\UserRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleCategoryRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Authors\EloquentAuthorRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Metadata\EloquentMetadataRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Slugs\EloquentSlugRepository;
+use Patrikjak\Starter\Repositories\Eloquent\StaticPages\EloquentStaticPageRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentPermissionRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentRoleRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentUserRepository;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -50,19 +52,25 @@ class StarterServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
-        SlugRepositoryContract::class => SlugRepository::class,
-        StaticPageRepositoryContract::class => StaticPageRepository::class,
-        MetadataRepositoryContract::class => MetadataRepository::class,
-        UserRepositoryContract::class => UserRepository::class,
-        RoleRepositoryContract::class => RoleRepository::class,
-        PermissionRepositoryContract::class => PermissionRepository::class,
-        AuthorRepositoryContract::class => AuthorRepository::class,
-        ArticleCategoryRepositoryContract::class => ArticleCategoryRepository::class,
-        ArticleRepositoryContract::class => ArticleRepository::class,
+        SlugRepositoryContract::class => EloquentSlugRepository::class,
+        StaticPageRepositoryContract::class => EloquentStaticPageRepository::class,
+        MetadataRepositoryContract::class => EloquentMetadataRepository::class,
+        UserRepositoryContract::class => EloquentUserRepository::class,
+        RoleRepositoryContract::class => EloquentRoleRepository::class,
+        PermissionRepositoryContract::class => EloquentPermissionRepository::class,
+        AuthorRepositoryContract::class => EloquentAuthorRepository::class,
+        ArticleCategoryRepositoryContract::class => EloquentArticleCategoryRepository::class,
+        ArticleRepositoryContract::class => EloquentArticleRepository::class,
     ];
 
     public function boot(): void
     {
+        $authEnabled = (bool) config('pjstarter.features.auth');
+
+        if (!$authEnabled) {
+            $this->disableAuthFeatures();
+        }
+
         $this->registerComponents();
 
         $this->publishAssets();
@@ -77,6 +85,14 @@ class StarterServiceProvider extends ServiceProvider
         $this->loadCommands();
 
         $this->loadExplicitRouteKeys();
+
+        if (!$authEnabled) {
+            $this->registerAuthFallbackRoutes();
+
+            $this->app->booted(function (): void {
+                $this->registerAuthFallbackRoutes();
+            });
+        }
 
         $this->registerPolicies();
     }
@@ -190,13 +206,47 @@ class StarterServiceProvider extends ServiceProvider
 
     private function registerPolicies(): void
     {
+        if (!config('pjstarter.features.auth')) {
+            Gate::before(static fn (?User $user) => true);
+
+            return;
+        }
+
         Gate::policy(StaticPage::class, StaticPagePolicy::class);
         Gate::policy(Metadata::class, MetadataPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Permission::class, PermissionPolicy::class);
         Gate::policy(Author::class, AuthorPolicy::class);
+        Gate::policy(Article::class, ArticlePolicy::class);
         Gate::policy(ArticleCategory::class, ArticleCategoryPolicy::class);
+    }
+
+    private function disableAuthFeatures(): void
+    {
+        config()->set('pjauth.features.login', false);
+        config()->set('pjauth.features.register', false);
+        config()->set('pjauth.features.password_reset', false);
+        config()->set('pjauth.features.change_password', false);
+        config()->set('pjauth.features.register_via_invitation', false);
+    }
+
+    private function registerAuthFallbackRoutes(): void
+    {
+        $abort404 = static fn () => abort(404);
+
+        Route::middleware('web')->group(static function () use ($abort404): void {
+            Route::any('/login', $abort404)->name('login');
+            Route::any('/register', $abort404)->name('register');
+            Route::any('/password/{any?}', $abort404)->where('any', '.*');
+        });
+
+        Route::middleware('web')->prefix('api')->group(static function () use ($abort404): void {
+            Route::any('/login', $abort404);
+            Route::any('/register', $abort404);
+            Route::any('/logout', $abort404)->name('api.logout');
+            Route::any('/password/{any?}', $abort404)->where('any', '.*');
+        });
     }
 
     private function loadExplicitRouteKeys(): void

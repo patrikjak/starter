@@ -11,14 +11,12 @@ use Patrikjak\Starter\Http\Controllers\TableParts;
 use Patrikjak\Starter\Http\Requests\Articles\StoreArticleRequest;
 use Patrikjak\Starter\Models\Articles\Article;
 use Patrikjak\Starter\Policies\BasePolicy;
-use Patrikjak\Starter\Repositories\SupportsPagination;
 use Patrikjak\Starter\Services\Articles\ArticleService;
 use Patrikjak\Starter\Services\Articles\ArticlesTableProvider;
 use Patrikjak\Utils\Table\Http\Requests\TableParametersRequest;
 
 class ArticlesController
 {
-    use SupportsPagination;
     use TableParts;
 
     public function store(StoreArticleRequest $request, ArticleService $articleService): void

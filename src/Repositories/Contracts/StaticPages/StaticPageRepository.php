@@ -11,4 +11,6 @@ interface StaticPageRepository extends SupportsPagination
     public function create(string $name): void;
 
     public function update(string $id, string $name): void;
+
+    public function delete(string $id): void;
 }

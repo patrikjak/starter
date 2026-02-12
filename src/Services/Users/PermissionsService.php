@@ -4,22 +4,18 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\Users;
 
-use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
 
-class PermissionsService
+readonly class PermissionsService
 {
-    private User $user;
-
-    public function __construct(private readonly PermissionRepository $permissionRepository, AuthManager $authManager)
-    {
-        $user = $authManager->user();
-        assert($user instanceof User);
-
-        $this->user = $user;
+    public function __construct(
+        private PermissionRepository $permissionRepository,
+        private AuthorizationService $authorizationService,
+    ) {
     }
 
     /**
@@ -27,7 +23,10 @@ class PermissionsService
      */
     public function getAllAvailablePermissionsGroupedByFeature(): Collection
     {
-        $availablePermissions = $this->user->canViewProtectedPermissions()
+        $canViewProtected = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewProtectedPermissions(),
+        );
+        $availablePermissions = $canViewProtected
             ? $this->permissionRepository->getAll()
             : $this->permissionRepository->getAllUnprotected();
 
@@ -43,7 +42,9 @@ class PermissionsService
     public function getAvailablePermissionsFromNames(array $permissions): Collection
     {
         $permissions = $this->permissionRepository->getByNames($permissions);
-        $canViewProtectedPermissions = $this->user->canViewProtectedPermissions();
+        $canViewProtectedPermissions = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewProtectedPermissions(),
+        );
 
         $availablePermissions = $permissions->filter(
             static function (Permission $permission) use ($canViewProtectedPermissions) {

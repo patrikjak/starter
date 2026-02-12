@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories;
+namespace Patrikjak\Starter\Repositories\Eloquent;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
-trait SupportsPagination
+trait EloquentSupportsPagination
 {
     public function getAllPaginatedByModel(
         string $model,

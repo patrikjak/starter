@@ -19,7 +19,7 @@ class SlugServiceTest extends TestCase
 
             $sluggable = $slugService->getSluggableFromUrl(sprintf('%s/test', config('app.url')));
 
-            $this->assertEquals($staticPage->id, $sluggable->id);
+            $this->assertEquals($staticPage->id, $sluggable->getSluggableId());
         });
     }
 
@@ -32,7 +32,7 @@ class SlugServiceTest extends TestCase
 
             $sluggable = $slugService->getSluggableFromUrl(sprintf('%s/test', config('app.url')));
 
-            $this->assertEquals($staticPage->id, $sluggable->id);
+            $this->assertEquals($staticPage->id, $sluggable->getSluggableId());
         });
     }
 

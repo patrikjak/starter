@@ -71,6 +71,10 @@ return [
         'deleted' => 'Článok bol odstránený',
         'edit' => 'Úprava článku',
 
+        'index' => [
+            'title' => 'Všetky články',
+        ],
+
         'categories' => [
             'title' => 'Kategórie článkov',
             'create_new_category' => 'Vytvoriť novú kategóriu',
@@ -80,6 +84,10 @@ return [
             'description' => 'Popis',
             'category_deleted' => 'Kategória bola vymazaná',
             'edit' => 'Úprava kategórie',
+
+            'index' => [
+                'title' => 'Všetky kategórie',
+            ],
         ],
     ],
 
@@ -99,6 +107,10 @@ return [
         'name' => 'Meno',
         'email' => 'Email',
         'role' => 'Rola',
+
+        'index' => [
+            'title' => 'Všetci používatelia',
+        ],
 
         'roles' => [
             'title' => 'Používateľské role',

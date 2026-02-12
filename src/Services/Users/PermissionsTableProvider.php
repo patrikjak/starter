@@ -66,11 +66,11 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
     public function getColumns(): array
     {
         $user = $this->authManager->user();
-        assert($user instanceof User);
+        $user = $user instanceof User ? $user : null;
 
         $columns = ['description'];
 
-        if ($user->canViewProtectedPermissions()) {
+        if ($user?->canViewProtectedPermissions() ?? true) {
             $columns[] = 'name';
             $columns[] = 'protected';
         }
@@ -86,9 +86,9 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
         $tablePartsRoute = route('admin.api.users.permissions.table-parts');
 
         $user = $this->authManager->user();
-        assert($user instanceof User);
+        $user = $user instanceof User ? $user : null;
 
-        $users = $user->canViewProtectedPermissions()
+        $users = $user?->canViewProtectedPermissions() ?? true
             ? $this->permissionRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),

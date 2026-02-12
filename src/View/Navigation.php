@@ -30,18 +30,18 @@ class Navigation extends Component
 
     public function render(): View
     {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
+        $user = $this->getUser();
 
         return view('pjstarter::components.navigation', [
             'appName' => $this->config->get('pjstarter.app_name'),
             'appNameInitials' => $this->getAppNameInitials(),
             'homeUrl' => $this->getAppHome(),
-            'userName' => $user->name,
-            'userEmail' => $user->email,
+            'userName' => $user?->name,
+            'userEmail' => $user?->email,
             'userNameInitials' => $this->getUserNameInitials(),
             'items' => $this->getItems(),
             'userItems' => $this->getUserItems(),
+            'authFeaturesEnabled' => $this->config->get('pjstarter.features.auth'),
         ]);
     }
 
@@ -52,8 +52,11 @@ class Navigation extends Component
 
     private function getUserNameInitials(): string
     {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return '';
+        }
 
         $name = $user->name;
 
@@ -75,8 +78,7 @@ class Navigation extends Component
     {
         $items = [];
 
-        $currentUser = $this->authManager->user();
-        assert($currentUser instanceof User);
+        $currentUser = $this->getUser();
 
         $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
         $articlesFeature = $this->config->get('pjstarter.features.articles');
@@ -88,7 +90,7 @@ class Navigation extends Component
             );
         }
 
-        if ($staticPagesFeature && $currentUser->canViewAnyStaticPage()) {
+        if ($staticPagesFeature && ($currentUser === null || $currentUser->canViewAnyStaticPage())) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
                 route('admin.static-pages.index'),
@@ -98,14 +100,25 @@ class Navigation extends Component
         if ($articlesFeature) {
             $articlesSubItems = [];
 
-            if ($currentUser->canViewAnyArticleCategory()) {
+            if ($currentUser === null || $currentUser->canViewAnyArticleCategory()) {
                 $articlesSubItems[] = new NavigationItem(
                     __('pjstarter::pages.articles.categories.title'),
                     route('admin.articles.categories.index'),
+                    subItems: [
+                        new NavigationItem(
+                            __('pjstarter::pages.articles.categories.index.title'),
+                            route('admin.articles.categories.index'),
+                        ),
+                    ]
                 );
             }
 
-            if ($currentUser->canViewAnyArticle()) {
+            if ($currentUser === null || $currentUser->canViewAnyArticle()) {
+                array_unshift($articlesSubItems, new NavigationItem(
+                    __('pjstarter::pages.articles.index.title'),
+                    route('admin.articles.index'),
+                ));
+
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.articles.title'),
                     route('admin.articles.index'),
@@ -113,7 +126,7 @@ class Navigation extends Component
                 );
             }
 
-            if ($currentUser->canViewAnyAuthor()) {
+            if ($currentUser === null || $currentUser->canViewAnyAuthor()) {
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.authors.title'),
                     route('admin.authors.index'),
@@ -121,7 +134,10 @@ class Navigation extends Component
             }
         }
 
-        if (($staticPagesFeature || $articlesFeature) && $currentUser->canViewAnyMetadata()) {
+        if (
+            ($staticPagesFeature || $articlesFeature)
+            && ($currentUser === null || $currentUser->canViewAnyMetadata())
+        ) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('admin.metadata.index'),
@@ -131,21 +147,26 @@ class Navigation extends Component
         if ($this->config->get('pjstarter.features.users')) {
             $usersSubItems = [];
 
-            if ($currentUser->canViewAnyRoles()) {
+            if ($currentUser === null || $currentUser->canViewAnyRoles()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.roles.title'),
                     route('admin.users.roles.index'),
                 );
             }
 
-            if ($currentUser->canViewAnyPermission()) {
+            if ($currentUser === null || $currentUser->canViewAnyPermission()) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.permissions.title'),
                     route('admin.users.permissions.index'),
                 );
             }
 
-            if ($currentUser->canViewAnyUsers()) {
+            if ($currentUser === null || $currentUser->canViewAnyUsers()) {
+                array_unshift($usersSubItems, new NavigationItem(
+                    __('pjstarter::pages.users.index.title'),
+                    route('admin.users.index'),
+                ));
+
                 $items[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),
                     route('admin.users.index'),
@@ -158,6 +179,14 @@ class Navigation extends Component
         $this->setItemClasses($items);
 
         return $items;
+    }
+
+    private function getUser(): ?User
+    {
+        $user = $this->authManager->user();
+        assert($user instanceof User || $user === null);
+
+        return $user;
     }
 
     private function getAppHome(): string
@@ -178,7 +207,7 @@ class Navigation extends Component
     {
         $items = [];
 
-        if ($this->config->get('pjstarter.features.profile')) {
+        if ($this->config->get('pjstarter.features.profile') && $this->config->get('pjstarter.features.auth')) {
             $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('admin.profile'));
         }
 
@@ -203,7 +232,7 @@ class Navigation extends Component
                 continue;
             }
 
-            $returnValue = $item($this->authManager->user());
+            $returnValue = $item($this->getUser());
 
             if ($returnValue instanceof NavigationItem) {
                 $items[] = $returnValue;

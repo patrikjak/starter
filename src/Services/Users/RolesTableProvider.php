@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\Users;
 
-use Illuminate\Auth\AuthManager;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Cells\Simple;
@@ -22,22 +22,20 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 {
     use StringCropper;
 
-    private User $user;
-
     private bool $userCanViewSuperAdminRole = false;
 
     private bool $userCanViewAnyPermission = false;
 
     public function __construct(
         private readonly RoleRepository $roleRepository,
-        private readonly AuthManager $authManager,
+        private readonly AuthorizationService $authorizationService,
     ) {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
-
-        $this->user = $user;
-        $this->userCanViewSuperAdminRole = $this->user->canViewSuperAdminRole();
-        $this->userCanViewAnyPermission = $this->user->canViewAnyPermission();
+        $this->userCanViewSuperAdminRole = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewSuperAdminRole(),
+        );
+        $this->userCanViewAnyPermission = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewAnyPermission(),
+        );
     }
 
     public function getTableId(): string
@@ -71,7 +69,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 
             return [
                 'id' => CellFactory::simple((string) $role->id),
-                'name' => $this->user->canViewRole()
+                'name' => $this->authorizationService->getUserPermission(static fn (User $user) => $user->canViewRole())
                     ? CellFactory::link($role->name, route('admin.users.roles.show', ['role' => $role->id]))
                     : CellFactory::simple($role->name),
                 'permissions' => CellFactory::simple($permissions),
@@ -102,7 +100,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if (!$this->user->canManagePermissions()) {
+        if (!$this->authorizationService->getUserPermission(static fn (User $user) => $user->canManagePermissions())) {
             return [];
         }
 
@@ -118,7 +116,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                         return true;
                     }
 
-                    return $this->user->role->id !== (int) $roleId->value;
+                    return $this->authorizationService->getUserPermission(
+                        static fn (User $user) => $user->role->id !== (int) $roleId->value,
+                    );
                 },
                 href: static function (array $row) {
                     $roleId = $row['id'];

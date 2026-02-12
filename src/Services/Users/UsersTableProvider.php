@@ -77,9 +77,9 @@ final class UsersTableProvider extends BasePaginatedTableProvider
         $tablePartsRoute = route('admin.api.users.table-parts');
 
         $user = $this->authManager->user();
-        assert($user instanceof User);
+        $user = $user instanceof User ? $user : null;
 
-        $users = $user->canViewSuperAdmin()
+        $users = $user?->canViewSuperAdmin() ?? true
             ? $this->userRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),

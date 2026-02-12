@@ -8,6 +8,16 @@ use Illuminate\Contracts\Foundation\Application;
 
 trait ConfigSetter
 {
+    protected function enableAuth(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.auth', true);
+    }
+
+    protected function disableAuth(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.auth', false);
+    }
+
     protected function enableDashboard(Application $app): void
     {
         $app['config']->set('pjstarter.features.dashboard', true);
@@ -61,6 +71,7 @@ trait ConfigSetter
     protected function enableAllFeatures(Application $app): void
     {
         $app['config']->set('pjstarter.features', [
+            'auth' => true,
             'dashboard' => true,
             'profile' => true,
             'static_pages' => true,
@@ -72,6 +83,7 @@ trait ConfigSetter
     protected function disableAllFeatures(Application $app): void
     {
         $app['config']->set('pjstarter.features', [
+            'auth' => false,
             'dashboard' => false,
             'profile' => false,
             'static_pages' => false,

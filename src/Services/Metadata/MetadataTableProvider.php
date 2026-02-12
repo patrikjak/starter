@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Patrikjak\Starter\Services\Metadata;
 
-use Illuminate\Auth\AuthManager;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Filter\Definitions\FilterableColumn;
@@ -22,16 +22,10 @@ class MetadataTableProvider extends BasePaginatedTableProvider
 {
     use StringCropper;
 
-    private User $user;
-
     public function __construct(
         private readonly MetadataRepository $metadataRepository,
-        private readonly AuthManager $authManager,
+        private readonly AuthorizationService $authorizationService,
     ) {
-        $user = $this->authManager->user();
-        assert($user instanceof User);
-
-        $this->user = $user;
     }
 
     public function getTableId(): string
@@ -59,7 +53,9 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        $canViewDetail = $this->user->canViewMetadata();
+        $canViewDetail = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewMetadata(),
+        );
 
         return $this->getPageData()->map(function (Metadata $metadata) use ($canViewDetail) {
             $canonicalUrl = $metadata->canonical_url === null
@@ -91,7 +87,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if (!$this->user->canEditMetadata()) {
+        if (!$this->authorizationService->getUserPermission(static fn (User $user) => $user->canEditMetadata())) {
             return [];
         }
 

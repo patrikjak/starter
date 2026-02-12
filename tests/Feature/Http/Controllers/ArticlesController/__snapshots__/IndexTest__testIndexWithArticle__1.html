@@ -37,9 +37,24 @@
 
             </a>
 
-    </div>                    <div class="item-wrapper has-sub-items">
-    <a href="http://localhost/admin/articles" class="item active">
+    </div>                    <div class="item-wrapper has-sub-items active">
+    <a href="http://localhost/admin/articles" class="item">
         <span class="text">pjstarter::pages.articles.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow up"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/articles" class="item active">
+        <span class="text">pjstarter::pages.articles.index.title</span>
+
+            </a>
+
+    </div>                            <div class="item-wrapper has-sub-items">
+    <a href="http://localhost/admin/articles/categories" class="item">
+        <span class="text">pjstarter::pages.articles.categories.title</span>
 
                     <div class="arrow-wrapper">
     <i class="arrow down"></i>
@@ -48,10 +63,11 @@
             <div class="sub-items">
                             <div class="item-wrapper">
     <a href="http://localhost/admin/articles/categories" class="item">
-        <span class="text">pjstarter::pages.articles.categories.title</span>
+        <span class="text">pjstarter::pages.articles.categories.index.title</span>
 
             </a>
 
+    </div>                    </div>
     </div>                    </div>
     </div>                    <div class="item-wrapper">
     <a href="http://localhost/admin/authors" class="item">
@@ -67,39 +83,40 @@
 
     </div>            </div>
 
-    <div class="user">
-        <div class="initials">
-            AD
-        </div>
-
-        <div class="info">
-            <div class="name">
-                Admin
+            <div class="user">
+            <div class="initials">
+                AD
             </div>
-            <div class="email">
-                admin@example.com
-            </div>
-        </div>
 
-        <div class="button">
-            <div class="arrow-wrapper">
+            <div class="info">
+                <div class="name">
+                    Admin
+                </div>
+                <div class="email">
+                    admin@example.com
+                </div>
+            </div>
+
+            <div class="button">
+                <div class="arrow-wrapper">
     <i class="arrow right"></i>
-</div>        </div>
+</div>            </div>
+        </div>
     </div>
-</div>
 
-<div class="user-items">
-            <div class="group">
-                            <a href="http://localhost/admin/profile" class="item">
-                    <span class="text">pjstarter::pages.profile.title</span>
-                </a>
-                    </div>
-        <div class="group">
-        <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-            <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">            <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-        </form>
+    <div class="user-items">
+                    <div class="group">
+                                    <a href="http://localhost/admin/profile" class="item">
+                        <span class="text">pjstarter::pages.profile.title</span>
+                    </a>
+                            </div>
+                <div class="group">
+            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+            </form>
+        </div>
     </div>
-</div>
+
         <div class="content">
             <div class="header">
                 <h1>pjstarter::pages.articles.title</h1>

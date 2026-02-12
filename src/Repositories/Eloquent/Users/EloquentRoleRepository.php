@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Users;
+namespace Patrikjak\Starter\Repositories\Eloquent\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Repositories\RoleRepository as BaseRoleRepository;
 use Patrikjak\Starter\Models\Users\Role;
-use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
-class RoleRepository extends BaseRoleRepository implements RoleRepositoryContract
+class EloquentRoleRepository extends BaseRoleRepository implements RoleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {

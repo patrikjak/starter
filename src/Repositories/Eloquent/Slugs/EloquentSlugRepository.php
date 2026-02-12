@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Repositories\Slugs;
+namespace Patrikjak\Starter\Repositories\Eloquent\Slugs;
 
 use Patrikjak\Starter\Dto\Slugs\CreateSlug;
 use Patrikjak\Starter\Dto\Slugs\UpdateSlug;
 use Patrikjak\Starter\Models\Slugs\Slug;
-use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as PageRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 
-class SlugRepository implements PageRepositoryContract
+class EloquentSlugRepository implements SlugRepository
 {
     public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug
     {
