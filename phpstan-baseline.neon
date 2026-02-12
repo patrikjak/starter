@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Patrikjak\\Starter\\Models\\Articles\\Article\:\:getMetadata\(\) should return Patrikjak\\Starter\\Models\\Metadata\\Metadata\|null but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Models/Articles/Article.php
+
+		-
 			message: '#^Unable to resolve the template type TRelatedModel in call to method Illuminate\\Database\\Eloquent\\Model\:\:belongsToMany\(\)$#'
 			identifier: argument.templateType
 			count: 1
@@ -13,13 +19,13 @@ parameters:
 			path: src/Policies/BasePolicy.php
 
 		-
-			message: '#^Unable to resolve the template type TMakeKey in call to method static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
+			message: '#^Unable to resolve the template type TMakeKey in call to static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
 			identifier: argument.templateType
 			count: 1
 			path: src/Services/Users/PermissionSynchronizer.php
 
 		-
-			message: '#^Unable to resolve the template type TMakeValue in call to method static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
+			message: '#^Unable to resolve the template type TMakeValue in call to static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
 			identifier: argument.templateType
 			count: 1
 			path: src/Services/Users/PermissionSynchronizer.php

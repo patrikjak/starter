@@ -33,13 +33,13 @@ use Patrikjak\Starter\Observers\Slugs\SluggableObserver;
  * @property Author $author
  * @property ArticleCategory $articleCategory
  * @property string $title
- * @property string $excerpt
+ * @property ?string $excerpt
  * @property EditorData $content
- * @property string $featured_image
+ * @property ?string $featured_image
  * @property ArticleStatus $status
  * @property Visibility $visibility
  * @property ?int $read_time
- * @property CarbonInterface $published_at
+ * @property ?CarbonInterface $published_at
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
  */

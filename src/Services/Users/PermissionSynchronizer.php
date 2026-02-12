@@ -117,7 +117,6 @@ readonly class PermissionSynchronizer
                     $toUpdate[$feature][$action] = $permission;
                 }
 
-                /** @phpstan-ignore-next-line */
                 unset($currentPermissions[$feature]->permissions[$action]);
             }
         }
