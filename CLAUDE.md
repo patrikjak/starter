@@ -110,11 +110,61 @@ docker compose run --rm node npm run build
 ### Artisan Commands
 
 ```bash
-# Install package
+# Install package (publishes assets, views, config, translations)
 docker compose run --rm cli php artisan install:pjstarter
 
-# Sync permissions
+# Seed user roles (from patrikjak/auth, creates SUPERADMIN/ADMIN/USER roles)
+docker compose run --rm cli php artisan seed:user-roles
+
+# Sync permissions (creates all permissions in database from PermissionsDefinition)
 docker compose run --rm cli php artisan pjstarter:permissions:sync
+```
+
+## Database Setup (for consuming applications)
+
+The package requires a specific setup order. **Permissions must exist before roles can be assigned.**
+
+### Setup Order
+
+```bash
+# 1. Run migrations
+php artisan migrate
+
+# 2. Seed user roles (SUPERADMIN, ADMIN, USER)
+php artisan seed:user-roles
+
+# 3. Sync permissions (creates all permissions from PermissionsDefinition)
+php artisan pjstarter:permissions:sync
+
+# 4. Seed application data (roles with permissions, users, content)
+php artisan db:seed
+```
+
+### Required Configuration
+
+The consuming application must configure the auth user model:
+
+```php
+// config/auth.php
+'providers' => [
+    'users' => [
+        'model' => Patrikjak\Starter\Models\Users\User::class,
+    ],
+],
+```
+
+### Seeder Requirements
+
+When creating seeders in consuming applications, follow this order:
+
+1. **RoleSeeder** - Create roles (IDs must match `RoleType` enum: 1=SUPERADMIN, 2=ADMIN, 3=USER) and attach permissions
+2. **UserSeeder** - Create users with role assignments
+3. **Content seeders** - Authors, article categories, articles, static pages, etc.
+
+
+```bash
+# Full reset in demo app
+docker compose exec web bash -c "php artisan migrate:fresh --force && php artisan seed:user-roles && php artisan pjstarter:permissions:sync && php artisan db:seed"
 ```
 
 ## Code Style Requirements
