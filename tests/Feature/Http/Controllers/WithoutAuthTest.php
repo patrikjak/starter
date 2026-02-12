@@ -12,7 +12,10 @@ class WithoutAuthTest extends TestCase
     #[DefineEnvironment('disableAuth')]
     public function testDashboardAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.dashboard'))->assertOk();
+        $response = $this->get(route('admin.dashboard'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
@@ -55,55 +58,79 @@ class WithoutAuthTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testStaticPagesAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.static-pages.index'))->assertOk();
+        $response = $this->get(route('admin.static-pages.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableArticles')]
     public function testArticlesAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.articles.index'))->assertOk();
+        $response = $this->get(route('admin.articles.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableArticles')]
     public function testAuthorsAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.authors.index'))->assertOk();
+        $response = $this->get(route('admin.authors.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableArticles')]
     public function testArticleCategoriesAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.articles.categories.index'))->assertOk();
+        $response = $this->get(route('admin.articles.categories.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableStaticPages')]
     public function testMetadataAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.metadata.index'))->assertOk();
+        $response = $this->get(route('admin.metadata.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableUsers')]
     public function testUsersAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.users.index'))->assertOk();
+        $response = $this->get(route('admin.users.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableUsers')]
     public function testRolesAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.users.roles.index'))->assertOk();
+        $response = $this->get(route('admin.users.roles.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 
     #[DefineEnvironment('disableAuth')]
     #[DefineEnvironment('enableUsers')]
     public function testPermissionsAccessibleWithoutAuth(): void
     {
-        $this->get(route('admin.users.permissions.index'))->assertOk();
+        $response = $this->get(route('admin.users.permissions.index'));
+        $response->assertOk();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 }

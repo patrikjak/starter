@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="test">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{CSRF-TOKEN}">
+    <title> pjstarter::pages.users.permissions.title  - App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+
+            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
+        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
+        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
+    
+            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
+    
+        </head>
+<body>
+
+    <div class="base-layer">
+        <div class="navigation">
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+    <div class="items">
+                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item">
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                    <div class="item-wrapper has-sub-items active">
+    <a href="http://localhost/admin/users" class="item">
+        <span class="text">pjstarter::pages.users.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow up"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users" class="item">
+        <span class="text">pjstarter::pages.users.index.title</span>
+
+            </a>
+
+    </div>                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/roles" class="item">
+        <span class="text">pjstarter::pages.users.roles.title</span>
+
+            </a>
+
+    </div>                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/permissions" class="item active">
+        <span class="text">pjstarter::pages.users.permissions.title</span>
+
+            </a>
+
+    </div>                    </div>
+    </div>            </div>
+
+    </div>
+
+
+        <div class="content">
+            <div class="header">
+                <h1>pjstarter::pages.users.permissions.title</h1>
+
+                            </div>
+
+            <div class="body">
+                <div class="users-permissions">
+        <div class="pj-table-wrapper" id="permissions-table" data-html-parts-url="http://localhost/admin/api/users/permissions/table-parts">
+    
+    <div class="table-wrapper">
+        <table class="pj-table">
+
+            <thead>
+    <tr>
+        
+        
+                    <th>pjstarter::pages.users.permissions.description</th>
+                    <th>pjstarter::pages.users.permissions.name</th>
+                    <th>pjstarter::pages.users.permissions.protected</th>
+                    <th>pjstarter::general.created_at</th>
+                    <th>pjstarter::general.updated_at</th>
+        
+            </tr>
+</thead>            <tbody>
+            <tr id="1">
+    
+    
+            <td class="simple description">
+    
+    View static pages
+
+    </td>            <td class="simple name">
+    
+    viewAny-static_page
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.unprotected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="2">
+    
+    
+            <td class="simple description">
+    
+    Create static pages
+
+    </td>            <td class="simple name">
+    
+    create-static_page
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="3">
+    
+    
+            <td class="simple description">
+    
+    Edit static pages
+
+    </td>            <td class="simple name">
+    
+    edit-static_page
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="4">
+    
+    
+            <td class="simple description">
+    
+    Delete static pages
+
+    </td>            <td class="simple name">
+    
+    delete-static_page
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="5">
+    
+    
+            <td class="simple description">
+    
+    View SEO settings
+
+    </td>            <td class="simple name">
+    
+    viewAny-metadata
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.unprotected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="6">
+    
+    
+            <td class="simple description">
+    
+    View detail of SEO setting
+
+    </td>            <td class="simple name">
+    
+    view-metadata
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.unprotected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="7">
+    
+    
+            <td class="simple description">
+    
+    Edit SEO settings
+
+    </td>            <td class="simple name">
+    
+    edit-metadata
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.unprotected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="8">
+    
+    
+            <td class="simple description">
+    
+    View users
+
+    </td>            <td class="simple name">
+    
+    viewAny-user
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="9">
+    
+    
+            <td class="simple description">
+    
+    View super admin
+
+    </td>            <td class="simple name">
+    
+    viewSuperadmin-user
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>            <tr id="10">
+    
+    
+            <td class="simple description">
+    
+    View user roles
+
+    </td>            <td class="simple name">
+    
+    viewAny-role
+
+    </td>            <td class="simple protected">
+    
+    pjstarter::pages.users.permissions.protected
+
+    </td>            <td class="simple created_at">
+    
+    18.05.2025 00:00
+
+    </td>            <td class="simple updated_at">
+    
+    18.05.2025 00:00
+
+    </td>    
+    </tr>    </tbody>
+                    </table>
+    </div>
+
+    
+            <div class="pagination">
+    <div class="page-size" data-href="http://localhost/admin/api/users/permissions/table-parts">
+    <div class="pj-dropdown">
+    
+    <div class="dropdown-wrapper">
+        <div class="items">
+            <div class="chosen" data-value="10">
+    <span class="label">10</span>
+
+    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>
+</div>
+            <div class="all-items">
+                                    <div class="pj-dropdown-item" data-value="10">
+    10
+</div>                                    <div class="pj-dropdown-item" data-value="20">
+    20
+</div>                                    <div class="pj-dropdown-item" data-value="50">
+    50
+</div>                                    <div class="pj-dropdown-item" data-value="100">
+    100
+</div>                            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="links">
+                    <a href="" class="link arrow disabled">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <path d="M14 16L10 12L14 8" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/permissions/table-parts?page=1" class="link active">
+                    <span class="page-number">1</span>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/permissions/table-parts?page=2" class="link">
+                    <span class="page-number">2</span>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/permissions/table-parts?page=3" class="link">
+                    <span class="page-number">3</span>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/permissions/table-parts?page=4" class="link">
+                    <span class="page-number">4</span>
+            </a>
+
+                    <a href="http://localhost/admin/api/users/permissions/table-parts?page=2" class="link arrow">
+                    <div class="arrows">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                        <rect width="24" height="24" fill="white"></rect>
+                        <path d="M10 8L14 12L10 16" stroke="#010722" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"></path>
+                    </svg>
+                            </div>
+            </a>
+
+            </div>
+</div>    </div>    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
