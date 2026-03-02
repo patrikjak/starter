@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Patrikjak Starter** is a Laravel package (v0.3.0) that provides a reusable admin panel scaffolding system. It includes built-in support for articles, authors, metadata, static pages, user management, roles, and permissions.
+**Patrikjak Starter** is a Laravel package that provides a reusable admin panel scaffolding system. It includes built-in support for articles, authors, metadata, static pages, user management, roles, and permissions.
 
 - **Type:** Laravel Library/Package
 - **PHP Version:** 8.4 (required)
@@ -95,16 +95,16 @@ docker compose run --rm cli vendor/bin/phpunit -d --update-snapshots
 ### Frontend
 
 ```bash
-npm install           # Install dependencies
-npm run dev          # Development server with HMR
-npm run build        # Production build
+docker compose run --rm node npm install # Install dependencies
+docker compose run --rm node npm run dev # Development server with HMR
+docker compose run --rm node npm run build # Production build
 ```
 
 ### Artisan Commands
 
 ```bash
-php artisan install:pjstarter              # Install package
-php artisan pjstarter:permissions:sync     # Sync permissions
+docker compose run --rm cli php artisan install:pjstarter              # Install package
+docker compose run --rm cli php artisan pjstarter:permissions:sync     # Sync permissions
 ```
 
 ## Code Style Requirements
