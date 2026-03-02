@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Unit\View\Editorjs;
 
@@ -40,8 +40,8 @@ class RendererTest extends TestCase
             time: Carbon::now(),
             blocks: new Collection([$paragraph]),
             version: '2.22.2',
-            rawData: '{"time": "2023-01-01", "blocks": [' . 
-                '{"id": "test-paragraph", "type": "paragraph", "data": {"text": "This is a test paragraph"}}' . 
+            rawData: '{"time": "2023-01-01", "blocks": [' .
+                '{"id": "test-paragraph", "type": "paragraph", "data": {"text": "This is a test paragraph"}}' .
                 '], "version": "2.22.2"}'
         );
 

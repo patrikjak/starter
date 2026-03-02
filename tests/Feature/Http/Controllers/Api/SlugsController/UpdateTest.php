@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\SlugsController;
 
@@ -37,7 +37,7 @@ class UpdateTest extends TestCase
     public function testSuccessfulUpdate(array $data): void
     {
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
-        
+
         $this->createAndActAsSuperAdmin();
 
         $this->put(route('admin.api.slugs.update', ['slug' => $staticPage->slug->id]), $data)

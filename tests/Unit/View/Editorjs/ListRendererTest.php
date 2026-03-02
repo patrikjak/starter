@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Unit\View\Editorjs;
 
@@ -35,7 +35,7 @@ class ListRendererTest extends TestCase
         $renderer = new ListRenderer($listElement);
         $html = $renderer->render();
 
-        $expected = '<ol class="ordered"><li>First item</li>'.PHP_EOL.'<li>Second item</li></ol>';
+        $expected = '<ol class="ordered"><li>First item</li>' . PHP_EOL . '<li>Second item</li></ol>';
         $this->assertEquals($expected, $html);
     }
 
@@ -59,7 +59,7 @@ class ListRendererTest extends TestCase
         $renderer = new ListRenderer($listElement);
         $html = $renderer->render();
 
-        $expected = '<ul class="unordered"><li>First item</li>'.PHP_EOL.'<li>Second item</li></ul>';
+        $expected = '<ul class="unordered"><li>First item</li>' . PHP_EOL . '<li>Second item</li></ul>';
         $this->assertEquals($expected, $html);
     }
 
@@ -83,9 +83,9 @@ class ListRendererTest extends TestCase
         $renderer = new ListRenderer($listElement);
         $html = $renderer->render();
 
-        $expected = '<ul class="checklist">' . 
-            '<li><input type="checkbox" checked> Checked item</li>' . PHP_EOL . 
-            '<li><input type="checkbox" > Unchecked item</li>' . 
+        $expected = '<ul class="checklist">' .
+            '<li><input type="checkbox" checked> Checked item</li>' . PHP_EOL .
+            '<li><input type="checkbox" > Unchecked item</li>' .
             '</ul>';
         $this->assertEquals($expected, $html);
     }
@@ -120,13 +120,13 @@ class ListRendererTest extends TestCase
         $renderer = new ListRenderer($listElement);
         $html = $renderer->render();
 
-        $expected = '<ul class="unordered">' . 
-            '<li>Parent item</li>' . PHP_EOL . 
-            '<ul class="nested unordered">' . 
-                '<li>Child item 1</li>' . PHP_EOL . 
-                '<li>Child item 2</li>' . 
-            '</ul>' . PHP_EOL . 
-            '<li>Another parent item</li>' . 
+        $expected = '<ul class="unordered">' .
+            '<li>Parent item</li>' . PHP_EOL .
+            '<ul class="nested unordered">' .
+                '<li>Child item 1</li>' . PHP_EOL .
+                '<li>Child item 2</li>' .
+            '</ul>' . PHP_EOL .
+            '<li>Another parent item</li>' .
             '</ul>';
         $this->assertEquals($expected, $html);
     }

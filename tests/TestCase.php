@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests;
 
@@ -15,6 +15,7 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\WithTestUser;
 use Spatie\Snapshots\MatchesSnapshots;
+
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase

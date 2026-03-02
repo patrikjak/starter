@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\View;
 
@@ -124,7 +124,9 @@ class Navigation extends Component
             }
         }
 
-        if (($staticPagesFeature || $articlesFeature) && ($currentUser === null || $currentUser->canViewAnyMetadata())) {
+        $canViewMetadata = $currentUser === null || $currentUser->canViewAnyMetadata();
+
+        if (($staticPagesFeature || $articlesFeature) && $canViewMetadata) {
             $items[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('admin.metadata.index'),

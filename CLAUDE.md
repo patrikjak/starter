@@ -276,6 +276,42 @@ GitHub Actions runs on every push:
 6. Run static analysis: `docker compose run --rm cli php -d memory_limit=2G vendor/bin/phpstan analyse`
 7. Commit and push changes
 
+## Extending Package Models in Consuming Applications
+
+When a consuming app extends a package model (e.g., `App\Models\ArticleCategory extends BaseArticleCategory`), Laravel's `getMorphClass()` returns the child class name by default (`App\Models\ArticleCategory`). This breaks morph relationships because:
+
+- The package's repository queries (`getAllPaginated`, etc.) use the **base** model class
+- The base model's morph relationship queries for `sluggable_type = Patrikjak\Starter\Models\Articles\ArticleCategory`
+- But slugs were stored with `sluggable_type = App\Models\ArticleCategory` — mismatch → slug is `null` → `assert($this->slug instanceof Slug)` fails
+
+**Required fix in the extending model:**
+
+```php
+class ArticleCategory extends BaseArticleCategory
+{
+    public function getMorphClass(): string
+    {
+        return BaseArticleCategory::class;
+    }
+}
+```
+
+This ensures all morph records (slugs, metadata) are consistently stored and queried with the base package class name.
+
+**Similarly for metadata:** The `MetadatableObserver` uses `getMorphClass()` for `metadatable_type`. Same fix applies.
+
+**Data migration:** If records were already created without this fix, update existing morph records:
+
+```sql
+UPDATE slugs SET sluggable_type = 'Patrikjak\Starter\Models\Articles\ArticleCategory'
+WHERE sluggable_type = 'App\Models\ArticleCategory';
+
+UPDATE metadata SET metadatable_type = 'Patrikjak\Starter\Models\Articles\ArticleCategory'
+WHERE metadatable_type = 'App\Models\ArticleCategory';
+```
+
+**Root cause in package:** The `EloquentArticleCategoryRepository::getAllPaginated()` hardcodes `ArticleCategory::class` (base model), so it will always load models as the base type. Repositories in consuming apps must override `getMorphClass()` on their extended models to match. Consider making repositories configurable (injectable model class) to properly support extension.
+
 ## Common Patterns
 
 ### Controller Action

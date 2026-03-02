@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\ArticlesController;
 
@@ -23,7 +23,7 @@ class UpdateTest extends TestCase
 
         assert($category instanceof ArticleCategory);
         assert($author instanceof Author);
-        
+
         $article = Article::factory()->create([
             'title' => 'Original Title',
             'article_category_id' => $category->id,
@@ -95,7 +95,7 @@ class UpdateTest extends TestCase
 
         assert($category instanceof ArticleCategory);
         assert($author instanceof Author);
-        
+
         $article = Article::factory()->create([
             'article_category_id' => $category->id,
             'author_id' => $author->id,
@@ -138,7 +138,7 @@ class UpdateTest extends TestCase
 
         assert($category instanceof ArticleCategory);
         assert($author instanceof Author);
-        
+
         $article = Article::factory()->create([
             'article_category_id' => $category->id,
             'author_id' => $author->id,
@@ -170,7 +170,7 @@ class UpdateTest extends TestCase
 
         assert($category instanceof ArticleCategory);
         assert($author instanceof Author);
-        
+
         $article = Article::factory()->create([
             'article_category_id' => $category->id,
             'author_id' => $author->id,

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Users;
 
@@ -52,8 +52,7 @@ final class PermissionsTableProvider extends BasePaginatedTableProvider
                 'description' => CellFactory::simple($permission->description),
                 'protected' => CellFactory::simple($permission->protected
                     ? __('pjstarter::pages.users.permissions.protected')
-                    : __('pjstarter::pages.users.permissions.unprotected')
-                ),
+                    : __('pjstarter::pages.users.permissions.unprotected')),
                 'created_at' => CellFactory::simple($permission->created_at->format('d.m.Y H:i')),
                 'updated_at' => CellFactory::simple($permission->updated_at->format('d.m.Y H:i')),
             ];

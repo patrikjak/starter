@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Users;
 
@@ -52,7 +52,8 @@ class PermissionsService
                 }
 
                 return true;
-        });
+            }
+        );
 
         return new Collection($availablePermissions);
     }

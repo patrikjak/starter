@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Users;
 
@@ -67,7 +67,7 @@ readonly class PermissionSynchronizer
 
         $permissions = $this->permissionRepository->getAll();
         $permissionIds = $permissions->mapWithKeys(
-            static fn (PermissionModel $permission ) => [$permission->name => $permission->id]
+            static fn (PermissionModel $permission) => [$permission->name => $permission->id]
         )->toArray();
 
         $rolePermissions = [
@@ -117,7 +117,6 @@ readonly class PermissionSynchronizer
                     $toUpdate[$feature][$action] = $permission;
                 }
 
-                /** @phpstan-ignore-next-line */
                 unset($currentPermissions[$feature]->permissions[$action]);
             }
         }

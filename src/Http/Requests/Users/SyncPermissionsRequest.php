@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Http\Requests\Users;
 
@@ -15,7 +15,7 @@ class SyncPermissionsRequest extends FormRequest
     {
         $permissions = [];
         $allData = $this->all();
-        
+
         foreach ($allData as $key => $value) {
             if (!str_contains($key, 'permission_')) {
                 continue;
@@ -23,7 +23,7 @@ class SyncPermissionsRequest extends FormRequest
 
             $permissions[] = str_replace('permission_', '', $key);
         }
-        
+
         return $permissions;
     }
 }

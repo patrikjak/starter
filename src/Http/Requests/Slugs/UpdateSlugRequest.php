@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Http\Requests\Slugs;
 
@@ -26,7 +26,7 @@ class UpdateSlugRequest extends FormRequest
 
         return $this->user()->can(BasePolicy::EDIT, $sluggableType->sluggable_type);
     }
-    
+
     /**
      * @return array<string, array<string|EmptySlugExistsRule|Unique>>
      */
