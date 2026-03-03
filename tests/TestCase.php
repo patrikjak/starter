@@ -22,12 +22,12 @@ abstract class TestCase extends BaseTestCase
     use MatchesSnapshots;
     use WithTestUser;
     use ConfigSetter;
-
-    protected const string TESTER_NAME = 'Tester';
     use MatchesSnapshots {
         MatchesSnapshots::assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
     }
     use RefreshDatabase;
+
+    protected const string TESTER_NAME = 'Tester';
 
     public function assertMatchesHtmlSnapshot(string $actual): void
     {
