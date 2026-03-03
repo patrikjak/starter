@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c35981f3c277807abf8d9d3fd925c18",
+    "content-hash": "146dec0c4810017d8336350e0b5ce25e",
     "packages": [
         {
             "name": "brick/math",
@@ -2738,22 +2738,22 @@
         },
         {
             "name": "patrikjak/auth",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/auth.git",
-                "reference": "9ca4d52ead477325f4a3da64fac70f8528af420c"
+                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/auth/zipball/9ca4d52ead477325f4a3da64fac70f8528af420c",
-                "reference": "9ca4d52ead477325f4a3da64fac70f8528af420c",
+                "url": "https://api.github.com/repos/patrikjak/auth/zipball/d26c3e9547ca6806ad764b7a810936e2df9f059a",
+                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^12.1.1",
                 "laravel/socialite": "^5.16",
-                "patrikjak/utils": "^2.3.0",
+                "patrikjak/utils": "^2.10.0",
                 "php": "^8.4"
             },
             "require-dev": {
@@ -2768,7 +2768,6 @@
             "autoload": {
                 "psr-4": {
                     "Patrikjak\\Auth\\": "src/",
-                    "Patrikjak\\Auth\\Tests\\": "tests/",
                     "Patrikjak\\Auth\\Database\\Seeders\\": "database/seeders/",
                     "Patrikjak\\Auth\\Database\\Factories\\": "database/factories/"
                 }
@@ -2789,9 +2788,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/auth/issues",
-                "source": "https://github.com/patrikjak/auth/tree/v1.4.0"
+                "source": "https://github.com/patrikjak/auth/tree/v1.4.1"
             },
-            "time": "2025-04-07T20:24:59+00:00"
+            "time": "2026-03-03T20:04:41+00:00"
         },
         {
             "name": "patrikjak/utils",
@@ -10191,7 +10190,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.5"
+        "php": "^8.4"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"
