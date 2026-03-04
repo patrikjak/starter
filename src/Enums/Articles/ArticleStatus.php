@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Enums\Articles;
 
@@ -31,7 +31,9 @@ enum ArticleStatus: string
     {
         return new Collection(self::getAll())->mapWithKeys(
             static fn (ArticleStatus $status) => [$status->value => __(
-                sprintf('pjstarter::pages.articles.statuses.%s', $status->value)),
-            ]);
+                sprintf('pjstarter::pages.articles.statuses.%s', $status->value)
+            ),
+            ]
+        );
     }
 }

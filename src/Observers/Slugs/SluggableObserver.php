@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Observers\Slugs;
 
@@ -33,7 +33,7 @@ final readonly class SluggableObserver
             $sluggable->getPrefix(),
         ));
     }
-    
+
     public function deleted(Sluggable $sluggable): void
     {
         $this->slugRepository->delete($sluggable->getSlug()->id);

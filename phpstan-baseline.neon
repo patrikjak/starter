@@ -1,55 +1,13 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Patrikjak\\Starter\\Models\\Articles\\Article\:\:getMetadata\(\) should return Patrikjak\\Starter\\Models\\Metadata\\Metadata\|null but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Models/Articles/Article.php
-
-		-
 			message: '#^Unable to resolve the template type TRelatedModel in call to method Illuminate\\Database\\Eloquent\\Model\:\:belongsToMany\(\)$#'
 			identifier: argument.templateType
 			count: 1
 			path: src/Models/Users/Permission.php
 
 		-
-			message: '#^Access to undefined constant static\(Patrikjak\\Starter\\Policies\\BasePolicy\)\:\:FEATURE_NAME\.$#'
-			identifier: classConstant.notFound
-			count: 1
-			path: src/Policies/BasePolicy.php
-
-		-
-			message: '#^Unable to resolve the template type TMakeKey in call to static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
-			identifier: argument.templateType
-			count: 1
-			path: src/Services/Users/PermissionSynchronizer.php
-
-		-
-			message: '#^Unable to resolve the template type TMakeValue in call to static method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:make\(\)$#'
-			identifier: argument.templateType
-			count: 1
-			path: src/Services/Users/PermissionSynchronizer.php
-
-		-
-			message: '#^Access to an undefined property Patrikjak\\Starter\\Models\\Users\\User\:\:\$role_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/Users/UsersTableProvider.php
-
-		-
 			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage\:\:once\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: tests/Feature/Http/Controllers/Api/MetadataController/UpdateTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/Feature/View/Layout/HeaderTest.php
-
-		-
-			message: '#^Call to an undefined method Patrikjak\\Starter\\Database\\Factories\\StaticPages\\StaticPageFactory\:\:hasSlug\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: tests/Unit/Services/Slugs/SlugServiceTest.php

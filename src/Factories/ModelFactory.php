@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Factories;
 
@@ -10,6 +10,7 @@ use Patrikjak\Starter\Models\Users\Permission;
 class ModelFactory
 {
     /**
+     * @return class-string<Permission>
      * @throws ModelIsNotInstanceOfBaseModelException
      */
     public static function getPermissionModel(): string

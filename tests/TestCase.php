@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests;
 
@@ -9,24 +9,25 @@ use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Patrikjak\Auth\Tests\Traits\TestingData;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 use Patrikjak\Starter\Tests\Traits\WithTestUser;
 use Spatie\Snapshots\MatchesSnapshots;
+
 use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
     use MatchesSnapshots;
     use WithTestUser;
-    use TestingData;
     use ConfigSetter;
     use MatchesSnapshots {
         MatchesSnapshots::assertMatchesHtmlSnapshot as baseAssertMatchesHtmlSnapshot;
     }
     use RefreshDatabase;
+
+    protected const string TESTER_NAME = 'Tester';
 
     public function assertMatchesHtmlSnapshot(string $actual): void
     {

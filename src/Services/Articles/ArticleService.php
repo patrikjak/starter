@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Articles;
 
@@ -117,7 +117,7 @@ readonly class ArticleService
 
         $this->filesystemManager->disk('public')->put($path, file_get_contents($url));
 
-        return asset(sprintf('storage/%s',$path));
+        return asset(sprintf('storage/%s', $path));
     }
 
     private function saveFeaturedImage(UploadedFile $featuredImage): string

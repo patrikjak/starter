@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Unit\View\Editorjs;
 
@@ -37,10 +37,10 @@ class ImageRendererTest extends TestCase
         $renderer = new ImageRenderer($image);
         $html = $renderer->render();
 
-        $expected = '<figure>' . 
-            '<img src="https://example.com/image.jpg" alt="image.jpg">' . 
-            PHP_EOL . 
-            '<figcaption>This is an image caption</figcaption>' . 
+        $expected = '<figure>' .
+            '<img src="https://example.com/image.jpg" alt="image.jpg">' .
+            PHP_EOL .
+            '<figcaption>This is an image caption</figcaption>' .
             '</figure>';
         $this->assertEquals($expected, $html);
     }
@@ -76,11 +76,11 @@ class ImageRendererTest extends TestCase
         $renderer = new ImageRenderer($image);
         $html = $renderer->render();
 
-        $expected = '<figure>' . 
-            '<img src="https://example.com/image.jpg" alt="image.jpg" ' . 
-            'class="with-border with-background stretched">' . 
-            PHP_EOL . 
-            '<figcaption>Image with all styles</figcaption>' . 
+        $expected = '<figure>' .
+            '<img src="https://example.com/image.jpg" alt="image.jpg" ' .
+            'class="with-border with-background stretched">' .
+            PHP_EOL .
+            '<figcaption>Image with all styles</figcaption>' .
             '</figure>';
         $this->assertEquals($expected, $html);
     }

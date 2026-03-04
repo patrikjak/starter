@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Policies;
 
@@ -10,6 +10,8 @@ use Patrikjak\Starter\Models\Users\User;
 
 class BasePolicy
 {
+    protected const string FEATURE_NAME = '';
+
     public const string VIEW_ANY = 'viewAny';
 
     public const string VIEW = 'view';

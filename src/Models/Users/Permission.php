@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Models\Users;
 
@@ -36,7 +36,7 @@ class Permission extends Model
         $model = RoleFactory::getRoleModelClass();
 
         if ($model === AuthRole::class) {
-            $model = Role::class;
+            return $this->belongsToMany(Role::class);
         }
 
         return $this->belongsToMany($model);

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Http\Controllers\Users\Api;
 
@@ -29,7 +29,7 @@ class RolesController
         PermissionsService $permissionsService,
     ): JsonResponse {
         $permissions = $permissionsService->getAvailablePermissionsFromNames($request->getPermissions());
-        
+
         $roleRepository->syncPermissions($role, $permissions->pluck('id')->toArray());
 
         return new JsonResponse([

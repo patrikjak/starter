@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Models\Articles;
 
@@ -19,6 +19,7 @@ use Patrikjak\Starter\Enums\Articles\Visibility;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Common\Visitable;
 use Patrikjak\Starter\Models\Metadata\Concerns\MetadatableDefaults;
+use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Metadata\Metadatable;
 use Patrikjak\Starter\Models\Metadata\MetadataRelationship;
 use Patrikjak\Starter\Models\Slugs\Concerns\SluggableDefaults;
@@ -42,6 +43,7 @@ use Patrikjak\Starter\Observers\Slugs\SluggableObserver;
  * @property ?CarbonInterface $published_at
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
+ * @property ?Metadata $metadata
  */
 #[ObservedBy(SluggableObserver::class)]
 #[ObservedBy(MetadatableObserver::class)]

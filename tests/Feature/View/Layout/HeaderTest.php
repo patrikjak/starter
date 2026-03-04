@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Tests\Feature\View\Layout;
 
@@ -20,7 +20,7 @@ class HeaderTest extends TestCase
         StaticPage::withoutEvents(static function () use ($metadata): void {
             StaticPage::factory()->hasSlug(['prefix' => null, 'slug' => ''])->hasMetadata($metadata)->create();
         });
-        
+
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
                 <x-pjstarter::layout.header />

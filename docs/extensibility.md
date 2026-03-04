@@ -1,6 +1,6 @@
 # Extensibility
 
-The PJStarter package is designed to be extendable. This guide explains how to override default behavior when your project needs additional data or custom logic beyond what the package provides.
+The pjstarter package is designed to be extendable. This guide explains how to override default behavior when your project needs additional data or custom logic beyond what the package provides.
 
 ## Service Provider Order
 
