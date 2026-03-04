@@ -29,7 +29,7 @@ class StaticPageFactory extends Factory
 
     public function defaultData(): static
     {
-        return $this->state(static function (array $attributes): array {
+        return $this->state(function (array $attributes): array {
             return [
                 'id' => '594f620b-47a4-4d77-87de-38289b56ba8c',
                 'name' => 'About us',
