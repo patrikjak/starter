@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.roles.title  - App</title>
+    <title> pjstarter::pages.users.title  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -47,63 +47,46 @@
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="http://localhost/admin/users" class="item">
+    <a href="http://localhost/admin/users" class="item active">
         <span class="text">pjstarter::pages.users.index.title</span>
 
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/roles" class="item active">
+    <a href="http://localhost/admin/users/roles" class="item">
         <span class="text">pjstarter::pages.users.roles.title</span>
+
+            </a>
+
+    </div>                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/permissions" class="item">
+        <span class="text">pjstarter::pages.users.permissions.title</span>
 
             </a>
 
     </div>                    </div>
     </div>            </div>
 
-            <div class="user">
-            <div class="initials">
-                AD
-            </div>
-
-            <div class="info">
-                <div class="name">
-                    Admin
-                </div>
-                <div class="email">
-                    admin@example.com
-                </div>
-            </div>
-
-            <div class="button">
-                <div class="arrow-wrapper">
-    <i class="arrow right"></i>
-</div>            </div>
-        </div>
     </div>
 
-    <div class="user-items">
-                    <div class="group">
-                                    <a href="http://localhost/admin/profile" class="item">
-                        <span class="text">pjstarter::pages.profile.title</span>
-                    </a>
-                            </div>
-                <div class="group">
-            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-            </form>
-        </div>
-    </div>
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.roles.title</h1>
+                <h1>pjstarter::pages.users.title</h1>
 
+                                    <div class="actions">
+                        <div class="action">
+    <a href="http://localhost/admin/users/roles">pjstarter::pages.users.roles.title</a>
+</div>        
+                    <div class="action">
+    <a href="http://localhost/admin/users/permissions">pjstarter::pages.users.permissions.title</a>
+</div>
+                    </div>
                             </div>
 
             <div class="body">
-                <div class="users-role">
-        <div class="pj-table-wrapper" id="roles-table" data-html-parts-url="http://localhost/admin/api/users/roles/table-parts">
+                <div class="users">
+        <div class="pj-table-wrapper" id="users-table" data-html-parts-url="http://localhost/admin/api/users/table-parts">
     
     <div class="table-wrapper">
         <table class="pj-table">
@@ -111,44 +94,27 @@
             <thead>
     <tr>
         
+                    <th>#</th>
         
-                    <th>pjstarter::pages.users.roles.name</th>
+                    <th>pjstarter::pages.users.name</th>
+                    <th>pjstarter::pages.users.email</th>
+                    <th>pjstarter::pages.users.role</th>
+                    <th>pjstarter::general.created_at</th>
         
-                    <th class="actions"></th>
             </tr>
 </thead>            <tbody>
-            <tr id="2" data-hidden-actions="manage_permissions">
-    
-    
-            <td class="link name">
-    <a href="http://localhost/admin/users/roles/2">ADMIN</a>
-</td>    
-                        <td></td>
-            </tr>            <tr id="3">
-    
-    
-            <td class="link name">
-    <a href="http://localhost/admin/users/roles/3">USER</a>
-</td>    
-                        <td class="actions" data-manage_permissions-href="http://localhost/admin/users/roles/3/permissions">
-    <div class="hellip">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</td>            </tr>    </tbody>
-                            <div class="table-actions">
-            <div class="action manage_permissions neutral">
-    
-    <div class="label">
-        <p>pjstarter::pages.users.roles.manage_permissions</p>
-    </div>
-</div>    </div>                    </table>
+    <tr class="empty-row">
+    <td colspan="5">
+        pjutils::table.no_data_available
+    </td>
+</tr>
+</tbody>
+                    </table>
     </div>
 
     
             <div class="pagination">
-    <div class="page-size" data-href="http://localhost/admin/api/users/roles/table-parts">
+    <div class="page-size" data-href="http://localhost/admin/api/users/table-parts">
     <div class="pj-dropdown">
     
     <div class="dropdown-wrapper">
@@ -183,7 +149,7 @@
                             </div>
             </a>
 
-                    <a href="http://localhost/admin/api/users/roles/table-parts?page=1" class="link active">
+                    <a href="http://localhost/admin/api/users/table-parts?page=1" class="link active">
                     <span class="page-number">1</span>
             </a>
 

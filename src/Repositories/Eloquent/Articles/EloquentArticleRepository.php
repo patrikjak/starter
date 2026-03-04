@@ -48,7 +48,7 @@ class EloquentArticleRepository implements ArticleRepository
         $article->delete();
     }
 
-    private function saveArticle(
+    protected function saveArticle(
         Article $articleModel,
         ArticleInputData $articleData,
         ArticleProcessedData $articleProcessedData,

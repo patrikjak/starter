@@ -12,6 +12,12 @@ services:
   node:
     image: node:25-alpine
     container_name: "starter-node"
+    working_dir: /var/www
+    networks:
+      - shared
     volumes:
-      - ".:/app"
-    working_dir: /app
+      - "./:/var/www"
+
+networks:
+  shared:
+    driver: bridge

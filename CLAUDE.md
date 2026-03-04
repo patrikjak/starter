@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Patrikjak Starter** is a Laravel package that provides a reusable admin panel scaffolding system. It includes built-in support for articles, authors, metadata, static pages, user management, roles, and permissions.
+**Patrikjak Starter** is a Laravel package that provides a reusable admin panel scaffolding system. It includes built-in support for articles, authors, metadata, static pages, user management, roles, and permissions. Authentication can be fully disabled via configuration.
 
 - **Type:** Laravel Library/Package
 - **PHP Version:** 8.4 (required)
@@ -36,7 +36,9 @@ src/                          # Main source code
 └── StarterServiceProvider.php
 
 tests/
-├── Feature/Http/Controllers/ # Feature tests for controllers
+├── Feature/
+│   ├── Http/Controllers/     # Feature tests (organized by controller, then by action)
+│   └── View/                 # View component tests
 ├── Unit/                     # Unit tests for services/renderers
 ├── Factories/                # Test-specific factories
 ├── Traits/                   # Test utilities (WithTestUser, ConfigSetter)
@@ -71,10 +73,10 @@ docker compose up -d
 docker compose run --rm cli vendor/bin/phpunit
 
 # Run specific test
-docker compose run --rm cli vendor/bin/phpunit tests/Feature/Http/Controllers/Articles/ArticleControllerTest.php
+docker compose run --rm cli vendor/bin/phpunit tests/Feature/Http/Controllers/StaticPagesController/IndexTest.php
 
 # Run tests with filter
-docker compose run --rm cli vendor/bin/phpunit --filter testCanCreateArticle
+docker compose run --rm cli vendor/bin/phpunit --filter testPageCanBeRendered
 
 # Check code style (PHPCS)
 docker compose run --rm cli vendor/bin/phpcs --standard=ruleset.xml
@@ -95,16 +97,74 @@ docker compose run --rm cli vendor/bin/phpunit -d --update-snapshots
 ### Frontend
 
 ```bash
-docker compose run --rm node npm install # Install dependencies
-docker compose run --rm node npm run dev # Development server with HMR
-docker compose run --rm node npm run build # Production build
+# Install dependencies
+docker compose run --rm node npm install
+
+# Development server with HMR
+docker compose run --rm node npm run dev
+
+# Production build
+docker compose run --rm node npm run build
 ```
 
 ### Artisan Commands
 
 ```bash
-docker compose run --rm cli php artisan install:pjstarter              # Install package
-docker compose run --rm cli php artisan pjstarter:permissions:sync     # Sync permissions
+# Install package (publishes assets, views, config, translations)
+docker compose run --rm cli php artisan install:pjstarter
+
+# Seed user roles (from patrikjak/auth, creates SUPERADMIN/ADMIN/USER roles)
+docker compose run --rm cli php artisan seed:user-roles
+
+# Sync permissions (creates all permissions in database from PermissionsDefinition)
+docker compose run --rm cli php artisan pjstarter:permissions:sync
+```
+
+## Database Setup (for consuming applications)
+
+The package requires a specific setup order. **Permissions must exist before roles can be assigned.**
+
+### Setup Order
+
+```bash
+# 1. Run migrations
+php artisan migrate
+
+# 2. Seed user roles (SUPERADMIN, ADMIN, USER)
+php artisan seed:user-roles
+
+# 3. Sync permissions (creates all permissions from PermissionsDefinition)
+php artisan pjstarter:permissions:sync
+
+# 4. Seed application data (roles with permissions, users, content)
+php artisan db:seed
+```
+
+### Required Configuration
+
+The consuming application must configure the auth user model:
+
+```php
+// config/auth.php
+'providers' => [
+    'users' => [
+        'model' => Patrikjak\Starter\Models\Users\User::class,
+    ],
+],
+```
+
+### Seeder Requirements
+
+When creating seeders in consuming applications, follow this order:
+
+1. **RoleSeeder** - Create roles (IDs must match `RoleType` enum: 1=SUPERADMIN, 2=ADMIN, 3=USER) and attach permissions
+2. **UserSeeder** - Create users with role assignments
+3. **Content seeders** - Authors, article categories, articles, static pages, etc.
+
+
+```bash
+# Full reset in demo app
+docker compose exec web bash -c "php artisan migrate:fresh --force && php artisan seed:user-roles && php artisan pjstarter:permissions:sync && php artisan db:seed"
 ```
 
 ## Code Style Requirements
@@ -145,7 +205,7 @@ docker compose run --rm cli php artisan pjstarter:permissions:sync     # Sync pe
 
 ```php
 namespace Patrikjak\Starter\{Feature}\{Type};
-// Example: Patrikjak\Starter\Http\Controllers\Articles\ArticleController
+// Example: Patrikjak\Starter\Http\Controllers\Articles\ArticlesController
 ```
 
 ## Architecture Patterns
@@ -169,7 +229,10 @@ namespace Patrikjak\Starter\{Feature}\{Type};
 ### Policies
 - Extend `BasePolicy` for common actions
 - Define `FEATURE_NAME` constant in each policy
-- Permission format: `{action}-{feature}` (e.g., `edit-article`)
+- `BasePolicy` constants: `VIEW_ANY`, `VIEW`, `CREATE`, `EDIT`, `DELETE`
+- Some policies define additional constants (e.g., `RolePolicy::MANAGE`, `RolePolicy::MANAGE_PROTECTED`)
+- Permission format: `{action}-{feature}` (e.g., `viewAny-article`, `edit-static_page`)
+- When `auth` feature is disabled, all policies are bypassed via `Gate::before()`
 
 ### Models
 - Use `HasUuids` trait for UUID primary keys
@@ -181,7 +244,10 @@ namespace Patrikjak\Starter\{Feature}\{Type};
 ### Test Structure
 - Extend `Patrikjak\Starter\Tests\TestCase`
 - Feature tests in `tests/Feature/`, unit tests in `tests/Unit/`
-- Test methods prefixed with `test` (e.g., `testCanCreateArticle`)
+- Test methods prefixed with `test` (e.g., `testPageCanBeRendered`)
+- **Tests are organized by controller and action**: `tests/Feature/Http/Controllers/{ControllerName}/{ActionTest}.php`
+  - e.g., `StaticPagesController/IndexTest.php`, `ArticlesController/CreateTest.php`
+- API tests follow the same pattern under `Api/` subdirectory
 
 ### Test Utilities
 ```php
@@ -190,10 +256,24 @@ $this->createAndActAsSuperAdmin();
 $this->createAndActAsAdmin(['edit-article', 'delete-article']);
 $this->createAndActAsUser();
 
+// Feature toggles via DefineEnvironment attribute
+#[DefineEnvironment('enableArticles')]
+#[DefineEnvironment('disableAuth')]
+
 // Factory assertions (required for type safety)
 $category = ArticleCategory::factory()->create();
 assert($category instanceof ArticleCategory);
 ```
+
+### ConfigSetter Trait Methods
+Available methods for `#[DefineEnvironment()]`:
+- `enableAuth` / `disableAuth`
+- `enableDashboard` / `disableDashboard`
+- `enableProfile` / `disableProfile`
+- `enableStaticPages` / `disableStaticPages`
+- `enableArticles` / `disableArticles`
+- `enableUsers` / `disableUsers`
+- `enableAllFeatures` / `disableAllFeatures`
 
 ### Snapshot Testing
 - Use `assertMatchesHtmlSnapshot()` for HTML responses
@@ -206,21 +286,22 @@ assert($category instanceof ArticleCategory);
 
 declare(strict_types = 1);
 
-namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Articles;
+namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\StaticPagesController;
 
-use Patrikjak\Starter\Models\Articles\Article;
+use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Tests\TestCase;
 
-class ArticleControllerTest extends TestCase
+class IndexTest extends TestCase
 {
-    public function testCanViewArticleList(): void
+    #[DefineEnvironment('enableStaticPages')]
+    public function testPageCanBeRendered(): void
     {
-        $this->createAndActAsAdmin(['view-article']);
+        $this->createAndActAsAdmin();
 
-        $response = $this->get(route('admin.articles.index'));
-
+        $response = $this->get(route('admin.static-pages.index'));
         $response->assertOk();
-        $response->assertMatchesHtmlSnapshot();
+
+        $this->assertMatchesHtmlSnapshot($response->getContent());
     }
 }
 ```
@@ -230,19 +311,38 @@ class ArticleControllerTest extends TestCase
 ### Feature Toggles (`config/pjstarter.php`)
 ```php
 'features' => [
+    'auth' => true,          // Toggle authentication (false = open access, auth routes return 404)
     'dashboard' => true,
     'profile' => true,
-    'static_pages' => true,
-    'articles' => true,
-    'users' => true,
+    'static_pages' => false,  // Disabled by default
+    'articles' => false,      // Disabled by default
+    'users' => false,         // Disabled by default
 ],
 ```
 
+When `auth` is `false`:
+- Auth routes (`/login`, `/register`, `/password/*`, `/api/logout`) return 404
+- Admin routes are accessible without authentication
+- All policy checks are bypassed (`Gate::before()` returns `true`)
+- Profile and change-password routes are disabled
+- Navigation hides user section and logout button
+
 ### Permissions System
-- Defined in `PermissionsDefinition.php`
+- Defined in `PermissionsDefinition` trait (`src/Models/Users/PermissionsDefinition.php`)
 - Format: `{action}-{feature}`
-- Actions from `BasePolicy`: `view`, `create`, `edit`, `delete`, `manage`
-- Features defined per policy class
+- Actions from `BasePolicy`: `viewAny`, `view`, `create`, `edit`, `delete`
+- Additional actions per policy (e.g., `manage`, `manageProtected`, `viewSuperadmin`)
+- Features defined per policy class via `FEATURE_NAME` constant
+
+## Docker Environment
+
+This project uses Docker for all development tasks. **All commands must be executed via Docker Compose.**
+
+Available Docker services:
+- `cli` - PHP CLI environment for running tests, code style checks, and artisan commands
+- `node` - Node.js environment for frontend builds
+
+**IMPORTANT:** Never run commands directly on the host machine (e.g., `php`, `composer`, `npm`, `artisan`). Always use the Docker Compose wrapper.
 
 ## CI/CD Pipeline
 
@@ -258,9 +358,10 @@ GitHub Actions runs on every push:
 
 | File | Purpose |
 |------|---------|
-| `src/StarterServiceProvider.php` | Registers services, routes, policies |
-| `config/pjstarter.php` | Package configuration |
+| `src/StarterServiceProvider.php` | Registers services, routes, policies, auth toggling |
+| `config/pjstarter.php` | Package configuration with feature toggles |
 | `tests/TestCase.php` | Base test class with utilities |
+| `tests/Traits/ConfigSetter.php` | Feature toggle helpers for tests |
 | `phpunit.xml` | Test configuration |
 | `phpstan.neon` | Static analysis config (Level 6) |
 | `ruleset.xml` | PHP code style rules |
@@ -345,9 +446,16 @@ public function rules(): array
 
 ### Policy Method
 ```php
-public function edit(User $user, Article $article): bool
+// BasePolicy handles common actions via hasPermission()
+// Each policy defines FEATURE_NAME, BasePolicy delegates automatically:
+public function viewAny(User $user, ?Model $model = null): bool
 {
-    return $user->hasPermission(self::EDIT . '-' . self::FEATURE_NAME);
+    return $this->hasPermission($user, self::VIEW_ANY);
+}
+
+public function hasPermission(User $user, string $action): bool
+{
+    return $user->hasPermission(static::FEATURE_NAME, $action);
 }
 ```
 

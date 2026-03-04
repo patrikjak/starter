@@ -10,6 +10,8 @@ use Patrikjak\Starter\Models\Users\User;
 
 class BasePolicy
 {
+    protected const string FEATURE_NAME = '';
+
     public const string VIEW_ANY = 'viewAny';
 
     public const string VIEW = 'view';

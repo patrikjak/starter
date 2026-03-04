@@ -8,7 +8,7 @@ use Carbon\CarbonInterface;
 use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 
-final readonly class ArticleProcessedData
+readonly class ArticleProcessedData
 {
     public function __construct(
         public Author $author,

@@ -10,6 +10,7 @@ use Patrikjak\Starter\Models\Users\Permission;
 class ModelFactory
 {
     /**
+     * @return class-string<Permission>
      * @throws ModelIsNotInstanceOfBaseModelException
      */
     public static function getPermissionModel(): string

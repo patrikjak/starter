@@ -8,6 +8,7 @@ use Patrikjak\Auth\Models\User as BaseUser;
 
 /**
  * @property Role $role
+ * @property string $role_name
  */
 class User extends BaseUser
 {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\MetadataController;
 
 use Illuminate\Foundation\Console\Kernel;
+use Mockery\Expectation;
 use Mockery\MockInterface;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Tests\Factories\StaticPageFactory;
@@ -36,7 +37,9 @@ class UpdateTest extends TestCase
         $this->createAndActAsAdmin();
 
         $this->mock(Kernel::class, static function (MockInterface $mock): void {
-            $mock->shouldReceive('call')->once()->with('view:clear');
+            $expectation = $mock->shouldReceive('call');
+            assert($expectation instanceof Expectation);
+            $expectation->once()->with('view:clear');
         });
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();

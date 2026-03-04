@@ -58,42 +58,17 @@
 
             </a>
 
+    </div>                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/permissions" class="item">
+        <span class="text">pjstarter::pages.users.permissions.title</span>
+
+            </a>
+
     </div>                    </div>
     </div>            </div>
 
-            <div class="user">
-            <div class="initials">
-                AD
-            </div>
-
-            <div class="info">
-                <div class="name">
-                    Admin
-                </div>
-                <div class="email">
-                    admin@example.com
-                </div>
-            </div>
-
-            <div class="button">
-                <div class="arrow-wrapper">
-    <i class="arrow right"></i>
-</div>            </div>
-        </div>
     </div>
 
-    <div class="user-items">
-                    <div class="group">
-                                    <a href="http://localhost/admin/profile" class="item">
-                        <span class="text">pjstarter::pages.profile.title</span>
-                    </a>
-                            </div>
-                <div class="group">
-            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-            </form>
-        </div>
-    </div>
 
         <div class="content">
             <div class="header">
@@ -112,24 +87,67 @@
     <tr>
         
         
+                    <th>pjstarter::general.id</th>
                     <th>pjstarter::pages.users.roles.name</th>
+                    <th>pjstarter::pages.users.roles.permissions</th>
         
                     <th class="actions"></th>
             </tr>
 </thead>            <tbody>
-            <tr id="2" data-hidden-actions="manage_permissions">
+            <tr id="1">
     
     
-            <td class="link name">
+            <td class="simple id">
+    
+    1
+
+    </td>            <td class="link name">
+    <a href="http://localhost/admin/users/roles/1">SUPERADMIN</a>
+</td>            <td class="simple permissions">
+    
+    View static pages, Create static pages, Edit st...
+
+    </td>    
+                        <td class="actions" data-manage_permissions-href="http://localhost/admin/users/roles/1/permissions">
+    <div class="hellip">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</td>            </tr>            <tr id="2">
+    
+    
+            <td class="simple id">
+    
+    2
+
+    </td>            <td class="link name">
     <a href="http://localhost/admin/users/roles/2">ADMIN</a>
-</td>    
-                        <td></td>
-            </tr>            <tr id="3">
+</td>            <td class="simple permissions">
+    
+    View static pages, View SEO settings, View deta...
+
+    </td>    
+                        <td class="actions" data-manage_permissions-href="http://localhost/admin/users/roles/2/permissions">
+    <div class="hellip">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</td>            </tr>            <tr id="3">
     
     
-            <td class="link name">
+            <td class="simple id">
+    
+    3
+
+    </td>            <td class="link name">
     <a href="http://localhost/admin/users/roles/3">USER</a>
-</td>    
+</td>            <td class="simple permissions">
+    
+    
+
+    </td>    
                         <td class="actions" data-manage_permissions-href="http://localhost/admin/users/roles/3/permissions">
     <div class="hellip">
         <div></div>

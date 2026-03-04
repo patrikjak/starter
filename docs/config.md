@@ -28,25 +28,33 @@ The `features` array allows you to enable or disable various package features:
 
 ```php
 'features' => [
-    'dashboard' => true,    // Enable/disable dashboard feature
-    'profile' => true,      // Enable/disable user profile feature
+    'auth' => true,          // Enable/disable authentication
+    'dashboard' => true,     // Enable/disable dashboard feature
+    'profile' => true,       // Enable/disable user profile feature
     'static_pages' => false, // Enable/disable static pages feature
+    'articles' => false,     // Enable/disable articles feature
+    'users' => false,        // Enable/disable user management feature
 ],
 ```
 
 ### Available Features
 
-1. **Dashboard** (`dashboard`)
+1. **Auth** (`auth`)
+   - Enables authentication and authorization
+   - When disabled: auth routes return 404, admin routes are accessible without login, all policy checks are bypassed
+   - Profile and change-password routes are disabled when auth is disabled
+
+2. **Dashboard** (`dashboard`)
    - Enables the main dashboard page
    - Provides a central hub for your application
    - Accessible via `/dashboard` route
 
-2. **Profile** (`profile`)
+3. **Profile** (`profile`)
    - Enables user profile management
    - Includes profile viewing and password change functionality
    - Accessible via `/profile` and `/change-password` routes
 
-3. **Static Pages** (`static_pages`)
+4. **Static Pages** (`static_pages`)
    - Enables static page management system
    - Includes metadata and slug management
    - Provides CRUD operations for static pages
@@ -55,6 +63,18 @@ The `features` array allows you to enable or disable various package features:
      - Metadata management
      - Slug management
      - Related migrations
+
+5. **Articles** (`articles`)
+   - Enables article management system
+   - Includes article categories and authors management
+   - Provides CRUD operations for articles, categories, and authors
+   - Accessible via `/articles`, `/articles/categories`, and `/authors` routes
+
+6. **Users** (`users`)
+   - Enables user, role, and permission management
+   - Provides CRUD operations for users
+   - Includes role and permission assignment
+   - Accessible via `/users`, `/users/roles`, and `/users/permissions` routes
 
 ## Navigation Configuration
 
