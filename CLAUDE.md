@@ -56,7 +56,8 @@ PHPUnit with Orchestra Testbench. Tests organized by controller action (`tests/F
 1. Implement the feature
 2. Write tests
 3. Run tests, PHPCS, PHPStan — all must pass
-4. Commit
+4. Update `CHANGELOG.md` under `[Unreleased]`
+5. Commit
 
 ## Key Gotcha: Extending Models
 
