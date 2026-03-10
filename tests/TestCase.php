@@ -87,6 +87,8 @@ abstract class TestCase extends BaseTestCase
             'Patrikjak\Starter\StarterServiceProvider',
             'Patrikjak\Auth\AuthServiceProvider',
             'Patrikjak\Utils\UtilsServiceProvider',
+            'BladeUI\Icons\BladeIconsServiceProvider',
+            'BladeUI\Heroicons\BladeHeroiconsServiceProvider',
         ];
     }
 

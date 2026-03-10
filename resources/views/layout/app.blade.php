@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/pjutils/assets/main.css') }}">
 
+    <script src="{{ asset('vendor/pjutils/assets/main.js') }}" defer type="module"></script>
+
     @if (file_exists(base_path('vendor/patrikjak/starter/public/hot')))
         {{ Vite::useHotFile('/var/www/vendor/patrikjak/starter/public/hot') }}
         <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwind.css') }}">

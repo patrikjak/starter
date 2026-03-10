@@ -6,7 +6,9 @@
         <script src="{{ Vite::asset('resources/js/articles/article-editor.ts') }}" type="module" defer></script>
     @endpush
 @else
-    <script src="{{ asset('vendor/pjstarter/assets/article-editor.js') }}" defer type="module"></script>
+    @push('scripts')
+        <script src="{{ asset('vendor/pjstarter/assets/article-editor.js') }}" defer type="module"></script>
+    @endpush
 @endif
 
 <x-pjstarter::layout.app :title="__('pjstarter::pages.articles.new')">

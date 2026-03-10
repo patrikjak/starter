@@ -3,15 +3,12 @@ import Header from '@editorjs/header';
 import RawTool from '@editorjs/raw';
 import EditorjsList from '@editorjs/list';
 import ImageTool from '@editorjs/image';
-import Form from '../../../vendor/patrikjak/utils/resources/assets/js/form/Form';
 import axios, {AxiosResponse} from "axios";
-import notify from "../../../vendor/patrikjak/utils/resources/assets/js/utils/notification";
-import {getData} from "../../../vendor/patrikjak/utils/resources/assets/js/helpers/general";
 import Underline from "@editorjs/underline";
 
-const uploadImageUrl: string = getData(document.querySelector('#editorjs'), 'upload-image-url');
-const fetchImageUrl: string = getData(document.querySelector('#editorjs'), 'fetch-image-url');
-const articleContentUrl: string = getData(document.querySelector('#editorjs'), 'article-content-url');
+const uploadImageUrl: string = window.pjutils.getData(document.querySelector('#editorjs'), 'upload-image-url');
+const fetchImageUrl: string = window.pjutils.getData(document.querySelector('#editorjs'), 'fetch-image-url');
+const articleContentUrl: string = window.pjutils.getData(document.querySelector('#editorjs'), 'article-content-url');
 const csrfTokenMeta: HTMLMetaElement = document.head.querySelector('meta[name="csrf-token"]');
 const csrfToken: string = csrfTokenMeta.content;
 
@@ -60,7 +57,7 @@ const editor = new EditorJS({
     placeholder: 'Add your content here',
 });
 
-new Form()
+new window.pjutils.Form()
     // @ts-ignore
     .setAdditionalData(async function (): Promise<FormData> {
         const additionalData = new FormData();
@@ -72,17 +69,17 @@ new Form()
     })
     .setErrorCallback(function (form: HTMLFormElement, response: AxiosResponse): void {
         if (response.status !== 422) {
-            Form.defaultErrorCallback(form, response);
+            window.pjutils.Form.defaultErrorCallback(form, response);
         }
 
         const errors = response.data.errors;
         const errorInputs: string[] = Object.getOwnPropertyNames(errors);
 
         if (errorInputs.includes('content.blocks')) {
-            notify(errors['content.blocks'], 'Ooops', 'error');
+            window.pjutils.notify(errors['content.blocks'], 'Ooops', 'error');
         }
 
-        Form.defaultErrorCallback(form, response);
+        window.pjutils.Form.defaultErrorCallback(form, response);
 
     })
     .bindSubmit();
