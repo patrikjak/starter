@@ -1,21 +1,10 @@
-import {bindPasswordVisibilitySwitch} from '../../vendor/patrikjak/utils/resources/assets/js/form/helper';
-import {bindTableFunctions} from '../../vendor/patrikjak/utils/resources/assets/js/table/table';
-import {bindDropdowns} from '../../vendor/patrikjak/utils/resources/assets/js/utils/dropdown';
-import {bindUploaders} from '../../vendor/patrikjak/utils/resources/assets/js/utils/file-uploader';
-import Form from "../../vendor/patrikjak/utils/resources/assets/js/form/Form";
-
 const userNavigationButton: HTMLElement = document.querySelector('.navigation .user .button');
 const userNavigationItems: HTMLElement = document.querySelector('.user-items');
-
-bindPasswordVisibilitySwitch();
-bindTableFunctions();
-bindDropdowns();
-bindUploaders();
 
 const articlesForm = document.querySelector('#article-form');
 
 if (!articlesForm) {
-    new Form().bindSubmit();
+    new window.pjutils.Form().bindSubmit();
 }
 
 if (userNavigationButton) {

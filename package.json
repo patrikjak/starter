@@ -6,6 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "baseline-browser-mapping": "^2.10.0",
         "laravel-vite-plugin": "^1.1.0",
         "sass": "^1.69.5"
     },

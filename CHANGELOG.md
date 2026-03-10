@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Decoupled frontend assets from `patrikjak/utils` source — starter's pre-built JS no longer bundles utils code; utils JS is loaded at runtime from its own pre-built assets via `window.pjutils` globals, so updating utils in a consumer app requires no starter rebuild
+
 ### Deprecated
 
 ### Removed
