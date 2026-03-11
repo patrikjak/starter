@@ -50,7 +50,7 @@ readonly class ArticleService
     public function deleteArticle(Article $article): void
     {
         if ($article->featured_image !== null) {
-            $this->filesystemManager->disk('public')->delete($article->featured_image);
+            $this->filesystemManager->disk()->delete($article->featured_image);
         }
 
         $this->articleRepository->destroy($article->id);
@@ -78,7 +78,7 @@ readonly class ArticleService
 
         if ($newFeaturedImage instanceof UploadedFile) {
             if ($article?->featured_image !== null) {
-                $this->filesystemManager->disk('public')->delete($article->featured_image);
+                $this->filesystemManager->disk()->delete($article->featured_image);
             }
 
             $featuredImagePath = $this->saveFeaturedImage($newFeaturedImage);
@@ -88,7 +88,7 @@ readonly class ArticleService
             $removeCurrentFeaturedImage = $filesToDelete->contains(basename($article?->featured_image));
 
             if ($removeCurrentFeaturedImage) {
-                $this->filesystemManager->disk('public')->delete($article?->featured_image);
+                $this->filesystemManager->disk()->delete($article?->featured_image);
             }
         }
 
@@ -106,7 +106,10 @@ readonly class ArticleService
 
     public function saveArticleImage(UploadedFile $file): string
     {
-        return asset(sprintf('storage/%s', $file->store('articles/images', 'public')));
+        $disk = $this->filesystemManager->getDefaultDriver();
+        $path = $file->store('articles/images', $disk);
+
+        return $this->filesystemManager->disk($disk)->url($path);
     }
 
     public function saveArticleImageFromUrl(string $url): string
@@ -114,14 +117,15 @@ readonly class ArticleService
         $imageName = Str::random(40);
         $extension = pathinfo($url, PATHINFO_EXTENSION);
         $path = sprintf('articles/images/%s.%s', $imageName, $extension);
+        $disk = $this->filesystemManager->getDefaultDriver();
 
-        $this->filesystemManager->disk('public')->put($path, file_get_contents($url));
+        $this->filesystemManager->disk($disk)->put($path, file_get_contents($url));
 
-        return asset(sprintf('storage/%s', $path));
+        return $this->filesystemManager->disk($disk)->url($path);
     }
 
     private function saveFeaturedImage(UploadedFile $featuredImage): string
     {
-        return $featuredImage->store('articles/featured-images', 'public');
+        return $featuredImage->store('articles/featured-images', $this->filesystemManager->getDefaultDriver());
     }
 }

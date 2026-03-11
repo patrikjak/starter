@@ -32,7 +32,7 @@ readonly class AuthorService
             $this->authorRepository->create($name, $path);
         } catch (Exception $e) {
             if ($path !== null) {
-                $this->filesystem->disk('public')->delete($path);
+                $this->filesystem->disk()->delete($path);
             }
 
             throw $e;
@@ -50,7 +50,7 @@ readonly class AuthorService
 
         if ($newProfilePicture !== null) {
             if ($author->profile_picture !== null) {
-                $this->filesystem->disk('public')->delete($author->profile_picture);
+                $this->filesystem->disk()->delete($author->profile_picture);
             }
 
             $profilePicturePath = $this->saveProfilePicture($newProfilePicture);
@@ -60,7 +60,7 @@ readonly class AuthorService
             $removeCurrentProfilePicture = $filesToDelete->contains(basename($author->profile_picture));
 
             if ($removeCurrentProfilePicture) {
-                $this->filesystem->disk('public')->delete($author->profile_picture);
+                $this->filesystem->disk()->delete($author->profile_picture);
             }
         }
 
@@ -78,7 +78,7 @@ readonly class AuthorService
     public function deleteAuthor(Author $author): void
     {
         if ($author->profile_picture !== null) {
-            $this->filesystem->disk('public')->delete($author->profile_picture);
+            $this->filesystem->disk()->delete($author->profile_picture);
         }
 
         $this->authorRepository->delete($author->id);
@@ -92,6 +92,6 @@ readonly class AuthorService
 
     private function saveProfilePicture(UploadedFile $profilePicture): string
     {
-        return $profilePicture->store('profile-pictures', 'public');
+        return $profilePicture->store('profile-pictures', $this->filesystem->getDefaultDriver());
     }
 }

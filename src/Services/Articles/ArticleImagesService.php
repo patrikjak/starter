@@ -23,7 +23,8 @@ readonly class ArticleImagesService
     {
         $articleContents = $this->articleRepository->getAllContents();
         $allImages = [];
-        $existingImages = $this->filesystemManager->disk('public')->allFiles('articles/images');
+        $disk = $this->filesystemManager->disk();
+        $existingImages = $disk->allFiles('articles/images');
         $existingImages = array_map(
             static fn (string $file) => basename($file),
             $existingImages,
@@ -50,6 +51,6 @@ readonly class ArticleImagesService
             $toDelete,
         );
 
-        $this->filesystemManager->disk('public')->delete($toDelete);
+        $disk->delete($toDelete);
     }
 }
