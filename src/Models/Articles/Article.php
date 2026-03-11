@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Patrikjak\Starter\Casts\EditorjsDataCast;
 use Patrikjak\Starter\Database\Factories\Articles\ArticleFactory;
@@ -89,7 +90,7 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
 
     public function getFeaturedImagePath(): string
     {
-        return asset(sprintf('storage/%s', $this->featured_image));
+        return Storage::url($this->featured_image);
     }
 
     /**
