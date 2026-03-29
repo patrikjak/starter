@@ -2,12 +2,24 @@
 
 return [
 
+    'dashboard' => [
+        'welcome' => 'Vitajte späť',
+        'welcome_subtitle' => 'Tu je rýchly prehľad vášho obsahu.',
+        'welcome_subtitle_empty' => 'Váš administračný panel je pripravený.',
+        'articles' => 'Články',
+        'categories' => 'Kategórie',
+        'authors' => 'Autori',
+        'static_pages' => 'Statické stránky',
+    ],
+
     'profile' => [
         'title' => 'Profil',
         'change_password' => 'Zmeniť heslo',
         'password_change' => 'Zmena hesla',
         'set_new_password' => 'Nastaviť nové heslo',
         'member_since' => 'Členom od',
+        'name' => 'Meno',
+        'email' => 'Email',
     ],
 
     'static_pages' => [
@@ -70,6 +82,15 @@ return [
         ],
         'deleted' => 'Článok bol odstránený',
         'edit' => 'Úprava článku',
+        'article_info' => 'Informácie o článku',
+        'media' => 'Médiá',
+        'publishing' => 'Publikovanie',
+
+        'accordion' => [
+            'basic_info' => 'Základné informácie',
+            'excerpt' => 'Úryvok',
+            'media' => 'Médiá',
+        ],
 
         'index' => [
             'title' => 'Všetky články',
@@ -77,7 +98,7 @@ return [
 
         'categories' => [
             'title' => 'Kategórie článkov',
-            'create_new_category' => 'Vytvoriť novú kategóriu',
+            'create_new_category' => 'Nová kategória',
             'category' => 'Kategória článku',
             'category_details' => 'Detaily kategórie',
             'name' => 'Názov',
@@ -93,7 +114,7 @@ return [
 
     'authors' => [
         'title' => 'Autori',
-        'create_new_author' => 'Vytvoriť nového autora',
+        'create_new_author' => 'Nový autor',
         'name' => 'Meno',
         'profile_picture' => 'Profilová fotka',
         'author_details' => 'Detaily autora',

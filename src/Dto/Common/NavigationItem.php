@@ -18,6 +18,7 @@ class NavigationItem
         public string|Closure $url,
         public ?string $classes = null,
         public array $subItems = [],
+        public ?string $icon = null,
     ) {
         foreach ($this->subItems as $subItem) {
             $subItem->setParent($this);

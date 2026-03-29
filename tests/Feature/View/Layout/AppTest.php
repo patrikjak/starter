@@ -34,16 +34,12 @@ class AppTest extends TestCase
         $this->assertMatchesHtmlSnapshot(Blade::render(
             <<<'HTML'
                 <x-pjstarter::layout.app title="Page title">
-                    
+
                     <x-slot:actions>
-                        <x-pjstarter::layout.action>
-                            <a href="">Action 1</a>
-                        </x-pjstarter::layout.action>
-                        <x-pjstarter::layout.action>
-                            <a href="">Action 2</a>
-                        </x-pjstarter::layout.action>
+                        <x-pjutils::button href="">Action 1</x-pjutils::button>
+                        <x-pjutils::button href="">Action 2</x-pjutils::button>
                     </x-slot:actions>
-                
+
                 </x-pjstarter::layout.app>
             HTML
         ));

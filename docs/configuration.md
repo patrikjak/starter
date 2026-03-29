@@ -42,6 +42,64 @@ Defined in `PermissionsDefinition` trait (`src/Models/Users/PermissionsDefinitio
 | `ruleset.xml` | PHP code style rules |
 | `vite.config.js` | Frontend build configuration |
 
+## Custom Navigation Items & Groups
+
+Custom navigation entries are configured via `config/pjstarter.php` under `navigation.items`.
+
+### Plain items
+
+Plain `NavigationItem` instances are appended to the built-in **Management** group:
+
+```php
+use Patrikjak\Starter\Dto\Common\NavigationItem;
+
+'navigation' => [
+    'items' => [
+        new NavigationItem('My Page', '/admin/my-page', icon: '<svg>...</svg>'),
+    ],
+],
+```
+
+### Custom groups
+
+Wrap items in a `NavigationGroup` to render them as their own labelled sidebar section, placed after the built-in groups:
+
+```php
+use Patrikjak\Starter\Dto\Common\NavigationGroup;
+use Patrikjak\Starter\Dto\Common\NavigationItem;
+
+'navigation' => [
+    'items' => [
+        new NavigationGroup('My Section', [
+            new NavigationItem('Page A', '/admin/page-a', icon: '<svg>...</svg>'),
+            new NavigationItem('Page B', '/admin/page-b'),
+        ]),
+        new NavigationGroup('Another Section', [
+            new NavigationItem('Page C', '/admin/page-c'),
+        ]),
+    ],
+],
+```
+
+Both plain items and groups can be mixed freely in the same array. Closures that receive the authenticated `User` and return a `NavigationItem|null` are also supported (for conditional visibility):
+
+```php
+'items' => [
+    static fn (User $user): ?NavigationItem =>
+        $user->isAdmin() ? new NavigationItem('Admin Only', '/admin/secret') : null,
+],
+```
+
+### User dropdown items
+
+`navigation.user_items` accepts the same `NavigationItem` / `Closure` values (groups are not applicable here):
+
+```php
+'user_items' => [
+    new NavigationItem('Settings', '/admin/settings'),
+],
+```
+
 ## CI/CD Pipeline
 
 GitHub Actions runs on every push:

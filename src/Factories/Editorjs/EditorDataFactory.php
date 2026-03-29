@@ -6,6 +6,7 @@ namespace Patrikjak\Starter\Factories\Editorjs;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Block;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Header\Header;
 use Patrikjak\Starter\Dto\Editorjs\Blocks\Image\Image;
@@ -31,7 +32,7 @@ class EditorDataFactory
         return new EditorData(
             CarbonImmutable::createFromTimestampMs($outputData['time']),
             self::getBlocks($outputData['blocks']),
-            $outputData['version'],
+            $outputData['version'] ?? '',
             json_encode($outputData),
         );
     }
@@ -71,7 +72,7 @@ class EditorDataFactory
      */
     private static function mapParagraph(array $blockData): Paragraph
     {
-        return new Paragraph($blockData['id'], $blockData['data']['text'] ?? '');
+        return new Paragraph($blockData['id'] ?? Str::uuid()->toString(), $blockData['data']['text'] ?? '');
     }
 
     /**
@@ -81,7 +82,7 @@ class EditorDataFactory
     {
         $data = $blockData['data'];
 
-        return new Header($blockData['id'], $data['text'], $data['level']);
+        return new Header($blockData['id'] ?? Str::uuid()->toString(), $data['text'], $data['level']);
     }
 
     /**
@@ -93,7 +94,7 @@ class EditorDataFactory
         $style = ListStyle::from($data['style']);
 
         return new ListElement(
-            $blockData['id'],
+            $blockData['id'] ?? Str::uuid()->toString(),
             $style,
             self::mapListItems($data['items'], $style),
         );
@@ -104,7 +105,7 @@ class EditorDataFactory
      */
     private static function mapRaw(array $blockData): Raw
     {
-        return new Raw($blockData['id'], $blockData['data']['html']);
+        return new Raw($blockData['id'] ?? Str::uuid()->toString(), $blockData['data']['html']);
     }
 
     /**
@@ -115,7 +116,7 @@ class EditorDataFactory
         $data = $blockData['data'];
 
         return new Image(
-            $blockData['id'],
+            $blockData['id'] ?? Str::uuid()->toString(),
             $blockData['type'],
             $data['file']['url'],
             $data['caption'] === '' ? null : $data['caption'],

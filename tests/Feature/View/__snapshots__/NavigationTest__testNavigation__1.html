@@ -1,5 +1,11 @@
 <html><body>
 <div class="navigation">
+    <button id="nav-collapse-btn" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
     <div class="app-name">
         <div class="initials">
             AP
@@ -8,92 +14,102 @@
         <a href="home.url">App</a>
     </div>
 
+
     <div class="items">
-                    <div class="item-wrapper">
-    <a href="http://localhost/admin/dashboard" class="item">
-        <span class="text">pjstarter::general.dashboard</span>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_main</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+                    <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
+                <span class="text">pjstarter::general.dashboard</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="feature-url" class="item active">
-        <span class="text">Feature</span>
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_management</p>
+
+                                    <div class="item-wrapper">
+    <a href="feature-url" class="item" data-nav-tooltip="Feature">
+                <span class="text">Feature</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="another-feature-url" class="item active">
-        <span class="text">Another Feature</span>
+    </div>                                    <div class="item-wrapper">
+    <a href="another-feature-url" class="item" data-nav-tooltip="Another Feature">
+                <span class="text">Another Feature</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="feature-hidden-url" class="item active">
-        <span class="text">Feature not for tester</span>
+    </div>                                    <div class="item-wrapper">
+    <a href="feature-hidden-url" class="item" data-nav-tooltip="Feature not for tester">
+                <span class="text">Feature not for tester</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper has-sub-items active">
-    <a href="item-with-subitems-url" class="item">
-        <span class="text">Item with subitems</span>
+    </div>                                    <div class="item-wrapper has-sub-items">
+    <a href="item-with-subitems-url" class="item" data-nav-tooltip="Item with subitems">
+                <span class="text">Item with subitems</span>
 
                     <div class="arrow-wrapper">
-    <i class="arrow up"></i>
+    <i class="arrow down"></i>
 </div>            </a>
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="subitem-1-url" class="item active">
-        <span class="text">Subitem 1</span>
+    <a href="subitem-1-url" class="item" data-nav-tooltip="Subitem 1">
+                <span class="text">Subitem 1</span>
 
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="subitem-2-url" class="item active">
-        <span class="text">Subitem 2</span>
+    <a href="subitem-2-url" class="item" data-nav-tooltip="Subitem 2">
+                <span class="text">Subitem 2</span>
 
             </a>
 
     </div>                    </div>
-    </div>                    <div class="item-wrapper has-sub-items active">
-    <a href="more-subitems-url" class="item">
-        <span class="text">More subitems</span>
+    </div>                                    <div class="item-wrapper has-sub-items">
+    <a href="more-subitems-url" class="item" data-nav-tooltip="More subitems">
+                <span class="text">More subitems</span>
 
                     <div class="arrow-wrapper">
-    <i class="arrow up"></i>
+    <i class="arrow down"></i>
 </div>            </a>
 
             <div class="sub-items">
-                            <div class="item-wrapper has-sub-items active">
-    <a href="subitem-3-url" class="item">
-        <span class="text">Subitem 3</span>
+                            <div class="item-wrapper has-sub-items">
+    <a href="subitem-3-url" class="item" data-nav-tooltip="Subitem 3">
+                <span class="text">Subitem 3</span>
 
                     <div class="arrow-wrapper">
-    <i class="arrow up"></i>
+    <i class="arrow down"></i>
 </div>            </a>
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="subitem-3-1-url" class="item active">
-        <span class="text">Subitem 3.1</span>
+    <a href="subitem-3-1-url" class="item" data-nav-tooltip="Subitem 3.1">
+                <span class="text">Subitem 3.1</span>
 
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="subitem-3-2-url" class="item active">
-        <span class="text">Subitem 3.2</span>
+    <a href="subitem-3-2-url" class="item" data-nav-tooltip="Subitem 3.2">
+                <span class="text">Subitem 3.2</span>
 
             </a>
 
     </div>                    </div>
     </div>                            <div class="item-wrapper">
-    <a href="subitem-4-url" class="item active">
-        <span class="text">Subitem 4</span>
+    <a href="subitem-4-url" class="item" data-nav-tooltip="Subitem 4">
+                <span class="text">Subitem 4</span>
 
             </a>
 
     </div>                    </div>
-    </div>            </div>
+    </div>                            </div>
+            </div>
 
             <div class="user">
             <div class="initials">
@@ -114,24 +130,24 @@
     <i class="arrow right"></i>
 </div>            </div>
         </div>
-    </div>
 
-    <div class="user-items">
-                    <div class="group">
-                                    <a href="http://localhost/admin/profile" class="item">
-                        <span class="text">pjstarter::pages.profile.title</span>
-                    </a>
-                                    <a href="user_action-url" class="item active">
-                        <span class="text">User Action</span>
-                    </a>
-                                    <a href="another_user_action-url" class="item custom-class active">
-                        <span class="text">Another User Action</span>
-                    </a>
-                            </div>
-                <div class="group">
-            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-            </form>
+        <div class="user-items">
+                            <div class="group">
+                                            <a href="http://localhost/admin/profile" class="item">
+                            <span class="text">pjstarter::pages.profile.title</span>
+                        </a>
+                                            <a href="user_action-url" class="item">
+                            <span class="text">User Action</span>
+                        </a>
+                                            <a href="another_user_action-url" class="item custom-class">
+                            <span class="text">Another User Action</span>
+                        </a>
+                                    </div>
+                        <div class="group">
+                <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                    <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+                </form>
+            </div>
         </div>
     </div>
 </body></html>

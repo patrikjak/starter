@@ -9,10 +9,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
-
-    <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
-
+            <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+        <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
+    
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
         <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
@@ -23,8 +22,18 @@
     </head>
 <body>
 
+    <style id="nav-init-style">
+        .navigation, .content, .user-items { transition: none !important; }
+    </style>
+
     <div class="base-layer">
         <div class="navigation">
+    <button id="nav-collapse-btn" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
     <div class="app-name">
         <div class="initials">
             AP
@@ -33,31 +42,26 @@
         <a href="/dashboard">App</a>
     </div>
 
+
     <div class="items">
-                    <div class="item-wrapper">
-    <a href="http://localhost/admin/dashboard" class="item">
-        <span class="text">pjstarter::general.dashboard</span>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_main</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+                    <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
+                <span class="text">pjstarter::general.dashboard</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper has-sub-items active">
-    <a href="http://localhost/admin/articles" class="item">
-        <span class="text">pjstarter::pages.articles.title</span>
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_content</p>
 
-                    <div class="arrow-wrapper">
-    <i class="arrow up"></i>
-</div>            </a>
-
-            <div class="sub-items">
-                            <div class="item-wrapper">
-    <a href="http://localhost/admin/articles" class="item active">
-        <span class="text">pjstarter::pages.articles.index.title</span>
-
-            </a>
-
-    </div>                            <div class="item-wrapper has-sub-items">
-    <a href="http://localhost/admin/articles/categories" class="item">
-        <span class="text">pjstarter::pages.articles.categories.title</span>
+                                    <div class="item-wrapper has-sub-items">
+    <a href="http://localhost/admin/articles" class="item active" data-nav-tooltip="pjstarter::pages.articles.title">
+                    <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg></span>
+                <span class="text">pjstarter::pages.articles.title</span>
 
                     <div class="arrow-wrapper">
     <i class="arrow down"></i>
@@ -65,26 +69,44 @@
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="http://localhost/admin/articles/categories" class="item">
-        <span class="text">pjstarter::pages.articles.categories.index.title</span>
+    <a href="http://localhost/admin/articles" class="item" data-nav-tooltip="pjstarter::pages.articles.index.title">
+                <span class="text">pjstarter::pages.articles.index.title</span>
+
+            </a>
+
+    </div>                            <div class="item-wrapper has-sub-items">
+    <a href="http://localhost/admin/articles/categories" class="item" data-nav-tooltip="pjstarter::pages.articles.categories.title">
+                <span class="text">pjstarter::pages.articles.categories.title</span>
+
+                    <div class="arrow-wrapper">
+    <i class="arrow down"></i>
+</div>            </a>
+
+            <div class="sub-items">
+                            <div class="item-wrapper">
+    <a href="http://localhost/admin/articles/categories" class="item" data-nav-tooltip="pjstarter::pages.articles.categories.index.title">
+                <span class="text">pjstarter::pages.articles.categories.index.title</span>
 
             </a>
 
     </div>                    </div>
     </div>                    </div>
-    </div>                    <div class="item-wrapper">
-    <a href="http://localhost/admin/authors" class="item">
-        <span class="text">pjstarter::pages.authors.title</span>
+    </div>                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/authors" class="item" data-nav-tooltip="pjstarter::pages.authors.title">
+                    <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></span>
+                <span class="text">pjstarter::pages.authors.title</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="http://localhost/admin/metadata" class="item">
-        <span class="text">pjstarter::pages.metadata.title</span>
+    </div>                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/metadata" class="item" data-nav-tooltip="pjstarter::pages.metadata.title">
+                    <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg></span>
+                <span class="text">pjstarter::pages.metadata.title</span>
 
             </a>
 
-    </div>            </div>
+    </div>                            </div>
+            </div>
 
             <div class="user">
             <div class="initials">
@@ -105,18 +127,18 @@
     <i class="arrow right"></i>
 </div>            </div>
         </div>
-    </div>
 
-    <div class="user-items">
-                    <div class="group">
-                                    <a href="http://localhost/admin/profile" class="item">
-                        <span class="text">pjstarter::pages.profile.title</span>
-                    </a>
-                            </div>
-                <div class="group">
-            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-            </form>
+        <div class="user-items">
+                            <div class="group">
+                                            <a href="http://localhost/admin/profile" class="item">
+                            <span class="text">pjstarter::pages.profile.title</span>
+                        </a>
+                                    </div>
+                        <div class="group">
+                <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                    <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -127,43 +149,64 @@
                             </div>
 
             <div class="body">
-                <div class="edit-article">
-        <div class="grid grid-cols-5 gap-10 max-h-[90%]">
-            <div class="article-content col-span-3 overflow-y-auto">
-                <p class="font-bold font-primary text-2xl border-b pb-2">pjstarter::pages.articles.content</p>
-                <div class="editorjs mt-4" id="editorjs" data-upload-image-url="http://localhost/admin/api/articles/upload-image" data-fetch-image-url="http://localhost/admin/api/articles/fetch-image" data-article-content-url="http://localhost/admin/api/articles/56495910-b334-4426-92ff-6564e95cb1ea/content"></div>
-            </div>
-
-            <div class="article-data col-span-2 overflow-y-auto">
-                <div class="article-data-wrapper card">
-                    <p class="title">pjstarter::pages.articles.other_info</p>
-
-                    <form method="POST" action="http://localhost/admin/api/articles/56495910-b334-4426-92ff-6564e95cb1ea" id="article-form" data-redirect="http://localhost/admin/articles">
+                <div class="edit-article article-editor-layout">
+        <div class="article-data">
+            <form method="POST" action="http://localhost/admin/api/articles/56495910-b334-4426-92ff-6564e95cb1ea" id="article-form" data-redirect="http://localhost/admin/articles">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
-    <div class="pj-classic">
+    <div class="pj-accordion-group">
+    <div class="pj-accordion open">
+    <button type="button" class="pj-accordion-header" aria-expanded="true">
+        <span class="pj-accordion-title">pjstarter::pages.articles.accordion.basic_info</span>
+        <svg class="pj-accordion-arrow" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+    <div class="pj-accordion-body">
+        <div class="pj-accordion-content">
+            <div class="pj-classic">
             <label for="title">pjstarter::pages.articles.article_title</label>
     
             <input type="text" id="title" name="title" value="Super Cool Article">
     
-    </div>
-                        <div class="pj-select">
+    </div>                        <div class="pj-select">
     <label for="category">pjstarter::pages.articles.category</label>
 
     <select id="category" name="category">
                                     <option value="6c7af461-e5e2-499a-8884-1703e8663d7e" selected>Testing Category</option>                        </select>
-</div>
-                        <div class="pj-select">
+</div>                        <div class="pj-select">
     <label for="author">pjstarter::pages.articles.author</label>
 
     <select id="author" name="author">
                                     <option value="3eb904c7-ba46-43e3-afaf-a8ebf3c9c3c2" selected>John Doe</option>                        </select>
-</div>
-                        <div class="pj-textarea">
+</div>                        <div class="pj-select">
+    <label for="status">pjstarter::pages.articles.status</label>
+
+    <select id="status" name="status">
+                                    <option value="draft" selected>pjstarter::pages.articles.statuses.draft</option>                            <option value="published">pjstarter::pages.articles.statuses.published</option>                            <option value="archived">pjstarter::pages.articles.statuses.archived</option>                        </select>
+</div>                        <div class="pj-classic">
+            <label for="read_time">pjstarter::pages.articles.read_time</label>
+    
+            <input type="text" id="read_time" name="read_time" value="5">
+    
+    </div>                        <div class="pj-textarea">
     <label for="excerpt">pjstarter::pages.articles.excerpt</label>
     <textarea id="excerpt" name="excerpt">This is a super cool article about testing.</textarea>
 </div>
-                        <div class="pj-photo-uploader">
+        </div>
+    </div>
+</div>
+
+                    <div class="pj-accordion">
+    <button type="button" class="pj-accordion-header" aria-expanded="false">
+        <span class="pj-accordion-title">pjstarter::pages.articles.accordion.media</span>
+        <svg class="pj-accordion-arrow" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+    <div class="pj-accordion-body">
+        <div class="pj-accordion-content">
+            <div class="pj-photo-uploader">
     <div class="pj-file">
             <label for="featured_image">pjstarter::pages.articles.featured_image</label>
     
@@ -181,48 +224,52 @@
 </div>    </div>
 </div>            </div>
 </div>
-                        <div class="pj-select">
-    <label for="status">pjstarter::pages.articles.status</label>
-
-    <select id="status" name="status">
-                                    <option value="draft" selected>pjstarter::pages.articles.statuses.draft</option>                            <option value="published">pjstarter::pages.articles.statuses.published</option>                            <option value="archived">pjstarter::pages.articles.statuses.archived</option>                        </select>
-</div>
-                        <div class="pj-classic">
-            <label for="read_time">pjstarter::pages.articles.read_time</label>
-    
-            <input type="text" id="read_time" name="read_time" value="5">
-    
+        </div>
     </div>
+</div>
+</div>
 
-            <button class="pj-btn" type="submit">
-        pjstarter::general.edit
+                <button class="pj-btn" type="submit">
+        pjstarter::general.save
             </button>
-    </form>                </div>
 
-                <div class="card mt-4">
-                    <p class="title">pjstarter::pages.slug.url</p>
-
-                    <form method="POST" action="http://localhost/admin/api/slugs/0f5a12ec-0ab4-4410-9de8-b98858f62a32" data-redirect="http://localhost/admin/articles">
+    </form>
+            <form method="POST" action="http://localhost/admin/api/slugs/0f5a12ec-0ab4-4410-9de8-b98858f62a32" data-redirect="http://localhost/admin/articles">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
-    <div class="pj-classic">
+    <div class="pj-accordion-group">
+    <div class="pj-accordion">
+    <button type="button" class="pj-accordion-header" aria-expanded="false">
+        <span class="pj-accordion-title">pjstarter::pages.slug.url</span>
+        <svg class="pj-accordion-arrow" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+    <div class="pj-accordion-body">
+        <div class="pj-accordion-content">
+            <div class="pj-classic">
             <label for="prefix">pjstarter::pages.slug.prefix</label>
     
             <input type="text" id="prefix" name="prefix">
     
-    </div>
-                        <div class="pj-classic">
+    </div>                        <div class="pj-classic">
             <label for="slug">pjstarter::pages.slug.slug</label>
     
             <input type="text" id="slug" name="slug" value="super-cool-article">
     
-    </div>
-
-            <button class="pj-btn" type="submit">
-        pjstarter::general.edit
+    </div>                        <button class="pj-btn" type="submit">
+        pjstarter::general.save
             </button>
-    </form>                </div>
-            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    </form>        </div>
+
+        <div class="article-content">
+            <p class="article-section-title">pjstarter::pages.articles.content</p>
+            <div class="editorjs" id="editorjs" data-upload-image-url="http://localhost/admin/api/articles/upload-image" data-fetch-image-url="http://localhost/admin/api/articles/fetch-image" data-article-content-url="http://localhost/admin/api/articles/56495910-b334-4426-92ff-6564e95cb1ea/content"></div>
         </div>
     </div>
             </div>

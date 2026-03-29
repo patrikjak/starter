@@ -2,12 +2,24 @@
 
 return [
 
+    'dashboard' => [
+        'welcome' => 'Welcome back',
+        'welcome_subtitle' => 'Here\'s a quick overview of your content.',
+        'welcome_subtitle_empty' => 'Your admin panel is ready.',
+        'articles' => 'Articles',
+        'categories' => 'Categories',
+        'authors' => 'Authors',
+        'static_pages' => 'Static pages',
+    ],
+
     'profile' => [
         'title' => 'Profile',
         'change_password' => 'Change password',
         'password_change' => 'Password change',
         'set_new_password' => 'Set new password',
         'member_since' => 'Member since',
+        'name' => 'Name',
+        'email' => 'Email',
     ],
 
     'static_pages' => [
@@ -17,7 +29,7 @@ return [
         'url' => 'URL',
         'slug' => 'Slug',
         'new_page' => 'New page',
-        'edit_page' => 'Edit page',
+        'edit_page' => 'Page edit',
         'create_new_page' => 'Create a new page',
         'placeholders' => [
             'prefix' => 'Leave empty for the root page',
@@ -70,6 +82,15 @@ return [
         ],
         'article_deleted' => 'Article was deleted',
         'edit' => 'Article edit',
+        'article_info' => 'Article info',
+        'media' => 'Media',
+        'publishing' => 'Publishing',
+
+        'accordion' => [
+            'basic_info' => 'Basic info',
+            'excerpt' => 'Excerpt',
+            'media' => 'Media',
+        ],
 
         'index' => [
             'title' => 'All articles',
@@ -77,7 +98,7 @@ return [
 
         'categories' => [
             'title' => 'Article categories',
-            'create_new_category' => 'Create new category',
+            'create_new_category' => 'New category',
             'category' => 'Article category',
             'category_details' => 'Details of the category',
             'name' => 'Name',
@@ -93,7 +114,7 @@ return [
 
     'authors' => [
         'title' => 'Authors',
-        'create_new_author' => 'Create new author',
+        'create_new_author' => 'New author',
         'name' => 'Name',
         'profile_picture' => 'Profile picture',
         'author_details' => 'Author details',

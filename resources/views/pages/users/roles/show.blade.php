@@ -1,16 +1,19 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.users.roles.details')">
 
-    <div class="card w-4/5 mx-auto">
+    <x-pjutils::details class="w-4/5 mx-auto">
         @if($canSeeId)
-            <p class="font-primary font-bold">@lang('pjstarter::general.id')</p>
-            <p>{{ $role->id }}</p>
+            <x-pjutils::details.row :label="__('pjstarter::general.id')">
+                {{ $role->id }}
+            </x-pjutils::details.row>
         @endif
 
-        <p @class(['font-primary', 'font-bold', 'mt-[3%]' => $canSeeId])>@lang('pjstarter::pages.users.roles.name')</p>
-        <p>{{ $role->name }}</p>
+        <x-pjutils::details.row :label="__('pjstarter::pages.users.roles.name')">
+            {{ $role->name }}
+        </x-pjutils::details.row>
 
-        <p class="font-primary font-bold mt-[3%]">@lang('pjstarter::pages.users.roles.permissions')</p>
-        <p>{{ $permissions }}</p>
-    </div>
+        <x-pjutils::details.row :label="__('pjstarter::pages.users.roles.permissions')">
+            {{ $permissions }}
+        </x-pjutils::details.row>
+    </x-pjutils::details>
 
 </x-pjstarter::layout.app>

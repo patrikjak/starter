@@ -4,10 +4,27 @@ $primary-300: #C2C8FF;
 $primary-200: #DDE1FF;
 $primary-100: #E9EDFB;
 
+$secondary: #6366F1;
+$secondary-hover: #4F46E5;
+$secondary-light: #EEF2FF;
+
 $background: #EBEEFE;
 $background-light: #F7F7F7;
+$background-page: #F5F5F7;
 
-$font: #010722;
+$nav-bg: $primary-100;
+$nav-border: $primary-300;
+$nav-text: $primary;
+$nav-text-active: #FFFFFF;
+$nav-item-hover: $primary-300;
+$nav-item-hover-text: $primary-hover;
+$nav-item-active-bg: $primary;
+$nav-item-active-text: #FFFFFF;
+$nav-group-label-color: #4F5059;
+$nav-sub-border: $primary-300;
+$nav-collapsed-width: 3.5rem;
+
+$font: #1F2937;
 $font-secondary: #00146F;
 $font-light: #4F5059;
 

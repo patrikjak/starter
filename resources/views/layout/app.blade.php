@@ -13,9 +13,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('vendor/pjutils/assets/main.css') }}">
-
-    <script src="{{ asset('vendor/pjutils/assets/main.js') }}" defer type="module"></script>
+    @if (file_exists(base_path('vendor/patrikjak/utils/public/hot')))
+        {{ Vite::useHotFile(base_path('vendor/patrikjak/utils/public/hot')) }}
+        <link rel="stylesheet" href="{{ Vite::asset('resources/assets/css/main.scss') }}">
+        <script src="{{ Vite::asset('resources/assets/js/main.ts') }}" defer type="module"></script>
+    @else
+        <link rel="stylesheet" href="{{ asset('vendor/pjutils/assets/main.css') }}">
+        <script src="{{ asset('vendor/pjutils/assets/main.js') }}" defer type="module"></script>
+    @endif
 
     @if (file_exists(base_path('vendor/patrikjak/starter/public/hot')))
         {{ Vite::useHotFile('/var/www/vendor/patrikjak/starter/public/hot') }}
@@ -36,6 +41,10 @@
     @stack('scripts')
 </head>
 <body>
+
+    <style id="nav-init-style">
+        .navigation, .content, .user-items { transition: none !important; }
+    </style>
 
     <div class="base-layer">
         <x-pjstarter::navigation />

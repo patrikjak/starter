@@ -1,4 +1,30 @@
-const userNavigationButton: HTMLElement = document.querySelector('.navigation .user .button');
+// ─── Nav collapse ─────────────────────────────────────────────────────────────
+
+const NAV_COLLAPSED_KEY = 'pjstarter_nav_collapsed';
+const navigation: HTMLElement = document.querySelector('.navigation');
+const navCollapseBtn: HTMLElement = document.getElementById('nav-collapse-btn');
+
+if (navigation && navCollapseBtn) {
+    const isCollapsed = localStorage.getItem(NAV_COLLAPSED_KEY) === '1';
+
+    if (isCollapsed) {
+        navigation.classList.add('collapsed');
+    }
+
+    // Remove the no-transition init style after first frame so animations work normally
+    requestAnimationFrame((): void => {
+        document.getElementById('nav-init-style')?.remove();
+    });
+
+    navCollapseBtn.addEventListener('click', (): void => {
+        const collapsed = navigation.classList.toggle('collapsed');
+        localStorage.setItem(NAV_COLLAPSED_KEY, collapsed ? '1' : '0');
+    });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const userNavigationButton: HTMLElement = document.querySelector('.navigation .user');
 const userNavigationItems: HTMLElement = document.querySelector('.user-items');
 
 const articlesForm = document.querySelector('#article-form');
@@ -43,6 +69,33 @@ if (logoutFormItem) {
         logoutFormItem.closest('form').submit();
     });
 }
+
+// ─── Nav item tooltips (collapsed mode) ───────────────────────────────────────
+
+const navTooltip: HTMLDivElement = document.createElement('div');
+navTooltip.className = 'nav-tooltip';
+document.body.appendChild(navTooltip);
+
+document.querySelectorAll<HTMLElement>('[data-nav-tooltip]').forEach((item: HTMLElement): void => {
+    item.addEventListener('mouseenter', (): void => {
+        const nav: HTMLElement = document.querySelector('.navigation');
+
+        if (!nav?.classList.contains('collapsed')) return;
+
+        const rect = item.getBoundingClientRect();
+        navTooltip.textContent = item.dataset.navTooltip;
+        navTooltip.style.top = `${rect.top + rect.height / 2}px`;
+        navTooltip.style.left = `${rect.right + 10}px`;
+        navTooltip.style.transform = 'translateY(-50%)';
+        navTooltip.classList.add('visible');
+    });
+
+    item.addEventListener('mouseleave', (): void => {
+        navTooltip.classList.remove('visible');
+    });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const navigationItemArrows: NodeListOf<HTMLElement> = document.querySelectorAll('.navigation .item .arrow-wrapper');
 

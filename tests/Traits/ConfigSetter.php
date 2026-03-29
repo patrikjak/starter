@@ -80,6 +80,12 @@ trait ConfigSetter
         ]);
     }
 
+    protected function disableContentFeatures(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.articles', false);
+        $app['config']->set('pjstarter.features.static_pages', false);
+    }
+
     protected function disableAllFeatures(Application $app): void
     {
         $app['config']->set('pjstarter.features', [

@@ -2,7 +2,11 @@
     <a
         href="{{ $item->getUrl() }}"
         class="{{ $item->classes }}"
+        data-nav-tooltip="{{ $item->label }}"
     >
+        @if($item->icon)
+            <span class="nav-icon">{!! $item->icon !!}</span>
+        @endif
         <span class="text">{{ $item->label }}</span>
 
         @if($item->subItems !== [])
