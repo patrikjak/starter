@@ -137,7 +137,7 @@ final class ArticlesTableProvider extends BasePaginatedTableProvider
         return $actions;
     }
 
-    public function getColumnVisibility(): ?ColumnVisibility
+    public function getColumnVisibility(): ColumnVisibility
     {
         return new ColumnVisibility(
             $this->getHeader(),
