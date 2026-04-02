@@ -6,7 +6,7 @@
 
         <x-slot:actions>
             @can(BasePolicy::VIEW_ANY, ArticleCategory::class)
-                <x-pjutils::button href="{{ route('admin.articles.categories.index') }}">
+                <x-pjutils::button href="{{ route('admin.articles.categories.index') }}" :bordered="true">
                     @lang('pjstarter::pages.articles.categories.title')
                 </x-pjutils::button>
             @endcan

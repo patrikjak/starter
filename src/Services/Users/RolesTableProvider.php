@@ -108,6 +108,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             new Item(
                 __('pjstarter::pages.users.roles.manage_permissions'),
                 'manage_permissions',
+                inline: true,
                 visible: function (array $row): bool {
                     $roleId = $row['id'];
                     assert($roleId instanceof Simple);

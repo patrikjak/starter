@@ -9,6 +9,7 @@ use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
 use Patrikjak\Utils\Common\Enums\Type;
+use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -70,6 +71,14 @@ final class UsersTableProvider extends BasePaginatedTableProvider
     public function showOrder(): bool
     {
         return true;
+    }
+
+    public function getColumnVisibility(): ?ColumnVisibility
+    {
+        return new ColumnVisibility(
+            $this->getHeader(),
+            ['created_at'],
+        );
     }
 
     protected function getPaginator(): TablePaginator

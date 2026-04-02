@@ -154,16 +154,11 @@ class MetadataTableProvider extends BasePaginatedTableProvider
 
     public function getColumnVisibility(): ?ColumnVisibility
     {
-//        return null;
         return new ColumnVisibility(
             $this->getHeader(),
-            [
-                'canonical_url',
-                'structured_data',
-            ]
+            ['canonical_url', 'structured_data'],
         );
     }
-
 
     protected function getPaginator(): TablePaginator
     {

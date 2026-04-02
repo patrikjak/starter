@@ -210,7 +210,7 @@ a {
     }
 
     .sub-items {
-        margin-left: 1.625rem;
+        margin-left: 1.375rem;
         margin-top: .15rem;
         margin-bottom: .15rem;
         padding-left: .625rem;
@@ -362,6 +362,7 @@ a {
             .arrow-wrapper {
                 display: none;
             }
+
         }
 
         .user {
@@ -652,6 +653,16 @@ a {
             margin: 0 0 1rem;
             border-bottom: 1px solid $gray-200;
             flex-shrink: 0;
+        }
+
+        .codex-editor__redactor {
+            padding-bottom: 1rem !important;
+        }
+
+        .ce-block__content,
+        .ce-toolbar__content {
+            max-width: unset;
+            margin: 0 3.5rem;
         }
     }
 

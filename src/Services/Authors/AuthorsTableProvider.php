@@ -86,6 +86,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
                 href: static function (array $row) {
                     return route('admin.authors.edit', ['author' => $row['id']]);
                 },
+                inline: true,
             );
         }
 
@@ -103,6 +104,7 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
                     return route('admin.api.authors.destroy', ['author' => $row['id']]);
                 },
                 method: 'DELETE',
+                inline: true,
             );
         }
 

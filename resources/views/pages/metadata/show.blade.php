@@ -3,9 +3,9 @@
 
 <x-pjstarter::layout.app
     :title="sprintf(
-        '%s - %s (%s)',
+        '%s: %s (%s)',
         __('pjstarter::pages.metadata.title'),
-        $metadata->metadatable->name,
+        $metadata->metadatable->getPageName(),
         $metadata->metadatable->getMetadatableTypeLabel(),
     )"
 >
