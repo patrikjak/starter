@@ -44,9 +44,6 @@
                             name="read_time"
                             :label="__('pjstarter::pages.articles.read_time')"
                         />
-                    </x-pjutils::accordion>
-
-                    <x-pjutils::accordion :title="__('pjstarter::pages.articles.accordion.excerpt')">
                         <x-pjutils::form.textarea name="excerpt" :label="__('pjstarter::pages.articles.excerpt')" />
                     </x-pjutils::accordion>
 

@@ -5,7 +5,7 @@
 
     <div class="profile">
         <div class="card w-1/2 mx-auto">
-            <p class="title">@lang('pjstarter::pages.profile.set_new_password')</p>
+            <h3 class="title">@lang('pjstarter::pages.profile.set_new_password')</h3>
             
             <x-pjutils::form
                 method="PATCH"

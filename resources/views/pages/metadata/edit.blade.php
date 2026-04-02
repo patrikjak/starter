@@ -8,7 +8,7 @@
 >
 
     <div class="card mx-auto w-4/5">
-        <p class="title">@lang('pjstarter::pages.metadata.edit')</p>
+        <h3 class="title">@lang('pjstarter::pages.metadata.edit')</h3>
 
         <x-pjutils::form
             method="PUT"
