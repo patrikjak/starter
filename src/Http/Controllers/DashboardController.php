@@ -22,12 +22,17 @@ class DashboardController
         $authorCount = $articlesEnabled ? Author::count() : null;
         $staticPageCount = $staticPagesEnabled ? StaticPage::count() : null;
 
+        $hasStats = $articleCount !== null
+            || $categoryCount !== null
+            || $authorCount !== null
+            || $staticPageCount !== null;
+
         return view('pjstarter::pages.dashboard', [
             'articleCount' => $articleCount,
             'categoryCount' => $categoryCount,
             'authorCount' => $authorCount,
             'staticPageCount' => $staticPageCount,
-            'hasStats' => $articleCount !== null || $categoryCount !== null || $authorCount !== null || $staticPageCount !== null,
+            'hasStats' => $hasStats,
         ]);
     }
 }
