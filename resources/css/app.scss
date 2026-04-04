@@ -1,44 +1,54 @@
 @use "variables" as *;
 @use "general";
 
+$nav-width: 17rem;
+$nav-collapsed-width: 4rem;
+$nav-transition: width .25s ease, opacity .2s ease;
+$content-transition: left .25s ease, width .25s ease;
+
 body {
     font-family: 'Outfit', sans-serif;
     color: $font;
-    background-color: $primary-300;
+    background-color: $white;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow: hidden;
 }
 
 h1 {
-    font-size: 2rem;
-    line-height: 2.25rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    margin: 0;
 }
 
 h2 {
-    font-size: 1.75rem;
-    line-height: 2rem;
-}
-
-h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1.75rem;
 }
 
-h4 {
-    font-size: 1.25rem;
+h3 {
+    font-size: 1.125rem;
     line-height: 1.5rem;
 }
 
-h5 {
+h4 {
     font-size: 1rem;
+    line-height: 1.375rem;
+}
+
+h5 {
+    font-size: .875rem;
     line-height: 1.25rem;
 }
 
 .base-layer {
-    background-color: $white;
+    display: flex;
+    height: 100%;
     overflow: hidden;
-    border-radius: .5rem;
-    height: 100vh;
+    gap: 0;
 }
 
 a {
@@ -50,105 +60,182 @@ a {
     box-sizing: initial;
 }
 
+// ─── Navigation ────────────────────────────────────────────────────────────────
+
 .navigation {
     position: relative;
-    background-color: $primary-100;
-    width: 20%;
-    height: 100vh;
-    overflow: hidden;
-    padding: .5rem;
-    border-right: solid 1px $primary-300;
+    flex-shrink: 0;
+    background-color: $nav-bg;
+    width: $nav-width;
+    height: 100%;
+    overflow: visible;
+    border-right: solid 1px $nav-border;
+    display: flex;
+    flex-direction: column;
+    transition: $nav-transition;
+    z-index: 10;
 
     .app-name {
         display: flex;
-        font-size: 1.5rem;
-        font-weight: bold;
-        padding: .5rem;
-        margin-bottom: 5%;
         align-items: center;
-        transition: .3s;
         gap: .75rem;
-        margin-top: 1rem;
+        padding: 1.25rem 1rem 1rem;
+        flex-shrink: 0;
+        overflow: hidden;
+        white-space: nowrap;
 
         .initials {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: .5rem;
+            flex-shrink: 0;
             background-color: $primary;
             color: $white;
-            border-radius: .25rem;
+            border-radius: .375rem;
             cursor: default;
             user-select: none;
-            width: 3rem;
-            height: 3rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            font-size: 1rem;
+            font-weight: 700;
         }
 
         a {
-            color: $font-secondary;
+            color: $nav-text;
+            font-size: 1.125rem;
+            font-weight: 700;
+            opacity: 1;
+            transition: opacity .2s ease;
+            overflow: hidden;
         }
     }
 
     .items {
-        height: 100%;
-        max-height: 75vh;
+        flex: 1;
         overflow-y: auto;
-        width: 100%;
+        overflow-x: hidden;
+        padding: .25rem .75rem .75rem;
+    }
 
-        .item {
+    .item-wrapper + .item-wrapper {
+        margin-top: .4rem;
+    }
+
+    .nav-group {
+        margin-bottom: .2rem;
+
+        & + .nav-group {
+            margin-top: .75rem;
+            padding-top: .75rem;
+            border-top: 1px solid rgba($nav-border, .4);
+        }
+    }
+
+    .nav-group-label {
+        font-size: .7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: rgba($nav-group-label-color, .7);
+        padding: .25rem .625rem .35rem;
+        opacity: 1;
+        transition: opacity .15s ease;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .item {
+        display: flex;
+        align-items: center;
+        gap: .625rem;
+        padding: .55rem .875rem;
+        border-radius: 999px;
+        color: $primary-hover;
+        font-size: .8125rem;
+        font-weight: 500;
+        transition: background-color .15s, color .15s;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .nav-icon {
             display: flex;
-            margin: .5rem;
-            padding: .5rem 1rem .5rem .75rem;
-            border-radius: .5rem;
             align-items: center;
-            color: $primary;
-            justify-content: space-between;
+            flex-shrink: 0;
+            width: 1rem;
+            height: 1rem;
 
-            .text {
-                transition: .3s;
+            svg {
+                width: 100%;
+                height: 100%;
             }
+        }
 
-            .arrow-wrapper {
-                width: 1.25rem;
+        .text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 1;
+            transition: opacity .15s ease;
+        }
 
-                .arrow {
-                    border-color: $primary;
-                    transition: .3s;
-                }
+        .arrow-wrapper {
+            flex-shrink: 0;
+            opacity: 1;
+            transition: opacity .15s ease;
+
+            .arrow {
+                border-color: rgba($nav-text, .5);
+                transition: border-color .15s;
             }
+        }
 
-            &:hover {
-                background-color: $primary-200;
-                color: $primary-hover;
+        &:hover {
+            background-color: rgba($primary, .1);
+            color: $primary-hover;
 
-                .text {
-                    transform: translateX(.5rem);
-                }
-
-                .arrow-wrapper .arrow {
-                    border-color: $primary-hover;
-                }
+            .arrow-wrapper .arrow {
+                border-color: $primary-hover;
             }
+        }
 
-            &.active {
-                background-color: $primary;
-                color: $white;
+        &.active {
+            background-color: $nav-item-active-bg;
+            color: $nav-item-active-text;
+            font-weight: 600;
 
-                .text {
-                    transform: translateX(.5rem);
-                }
-
-                .arrow-wrapper .arrow {
-                    border-color: $white;
-                }
+            .arrow-wrapper .arrow {
+                border-color: $nav-item-active-text;
             }
         }
     }
 
     .sub-items {
-        margin-left: 1.5rem;
-        border-left: solid 1px $primary;
+        margin-left: 1.3rem;
+        margin-top: .15rem;
+        margin-bottom: .15rem;
+        padding-left: .625rem;
+        border-left: 1.5px solid rgba($nav-sub-border, .85);
         display: none;
+        overflow: hidden;
+
+        .item-wrapper + .item-wrapper {
+            margin-top: .4rem;
+        }
+
+        .item {
+            font-size: .8rem;
+            padding: .45rem .75rem;
+            color: $nav-text;
+
+            &:hover {
+                color: $primary-hover;
+            }
+
+            &.active {
+                color: $nav-item-active-text;
+                font-weight: 600;
+            }
+        }
     }
 
     .item-wrapper.active > .sub-items {
@@ -156,90 +243,247 @@ a {
     }
 
     .user {
-        position: absolute;
-        bottom: 3%;
-        left: 5%;
-        width: 90%;
+        flex-shrink: 0;
+        margin: .5rem;
         background-color: $white;
         border-radius: .75rem;
-        padding: 1rem;
+        padding: .75rem;
         display: flex;
-        gap: .5rem;
+        gap: .625rem;
         align-items: center;
+        cursor: pointer;
+        border: 1px solid $gray-200;
+        transition: border-color .15s, box-shadow .15s;
+        overflow: hidden;
+
+        &:hover {
+            border-color: $primary-300;
+            box-shadow: 0 1px 4px rgba($primary, .08);
+        }
 
         .initials {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
             background-color: $primary;
             color: $white;
             cursor: default;
             user-select: none;
-            font-size: 1.25rem;
-            width: 2.5rem;
-            height: 2.5rem;
+            font-size: .875rem;
+            font-weight: 700;
+            width: 2rem;
+            height: 2rem;
             border-radius: 100%;
         }
 
         .info {
-            max-width: 70%;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity .15s ease;
 
-            .name, .email {
+            .name {
+                font-size: .875rem;
+                font-weight: 600;
+                color: $font-secondary;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .email {
+                font-size: .75rem;
+                color: $font-light;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
             }
         }
 
-        .email {
-            font-size: .875rem;
-        }
-
         .button {
-            margin-left: auto;
-            width: 2.5rem;
-            height: 2.5rem;
-            cursor: pointer;
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: .3s;
-
-            &:hover, &.active {
-                .arrow {
-                    border-color: $primary;
-                }
-            }
-
-            .arrow-wrapper {
-                transform: translateX(-2.5px);
-            }
+            opacity: 1;
+            transition: opacity .15s ease;
 
             .arrow {
                 border-color: $gray-400;
-                transition: .3s;
+                transition: border-color .15s;
             }
+        }
+
+        &.active .button .arrow {
+            border-color: $primary;
+        }
+    }
+
+    // ── Collapsed state ───────────────────────────────────────────────────────
+
+    &.collapsed {
+        width: $nav-collapsed-width;
+
+        .app-name {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .app-name a {
+            display: none;
+        }
+
+        .nav-group-label {
+            display: none;
+        }
+
+        .nav-group + .nav-group {
+            margin-top: .5rem;
+            padding-top: .5rem;
+        }
+
+        .item-wrapper {
+            display: flex;
+            justify-content: center;
+
+            & + .item-wrapper {
+                margin-top: .65rem;
+            }
+        }
+
+        .items .item {
+            display: inline-flex;
+            padding: .5rem;
+            gap: 0;
+            width: auto;
+
+            .text,
+            .arrow-wrapper {
+                display: none;
+            }
+
+        }
+
+        .user {
+            align-self: center;
+            width: auto;
+            margin: .5rem 0;
+            padding: .25rem;
+            border: none;
+            box-shadow: none;
+            background: none;
+            overflow: visible;
+            gap: 0;
+
+            .info,
+            .button {
+                display: none;
+            }
+        }
+
+        .sub-items {
+            display: none !important;
+        }
+
+        .user-items {
+            left: calc(100% + .5rem);
+            bottom: .5rem;
         }
     }
 }
 
-.user-items {
-    position: fixed;
-    bottom: 4%;
-    left: 20%;
-    width: 15%;
+// ─── Nav collapse button ───────────────────────────────────────────────────────
+
+#nav-collapse-btn {
+    position: absolute;
+    bottom: 5.5rem;
+    right: -.875rem;
+    z-index: 100;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
     background-color: $white;
-    border-radius: .5rem;
+    border: 1.5px solid $nav-border;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    padding: 0;
+    transition: background-color .15s, border-color .15s;
+
+    svg {
+        width: .875rem;
+        height: .875rem;
+        transition: transform .25s ease;
+    }
+
+    &:hover {
+        background-color: $primary-100;
+        border-color: $primary;
+    }
+
+    .navigation.collapsed & svg {
+        transform: rotate(180deg);
+    }
+}
+
+// ─── Pre-JS collapsed state (prevents flash on page load) ─────────────────────
+
+.nav-collapsed-init {
+    .navigation, .content, .user-items {
+        transition: none !important;
+    }
+
+    .navigation {
+        width: $nav-collapsed-width;
+    }
+}
+
+// ─── Nav tooltip (collapsed mode) ─────────────────────────────────────────────
+
+.nav-tooltip {
+    position: fixed;
+    background-color: $font;
+    color: $white;
+    font-size: .75rem;
+    font-weight: 500;
+    padding: .3rem .6rem;
+    border-radius: .375rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .1s ease;
+    z-index: 200;
+    white-space: nowrap;
+
+    &.visible {
+        opacity: 1;
+    }
+}
+
+// ─── User items dropdown ───────────────────────────────────────────────────────
+
+.user-items {
+    position: absolute;
+    bottom: 5rem;
+    left: calc(100% - 1rem);
+    width: 14rem;
+    background-color: $white;
+    border-radius: .75rem;
     overflow: hidden;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
     display: none;
     flex-direction: column;
-    padding: .5rem;
-    transition: .3s;
+    padding: .375rem;
     max-height: 50vh;
     overflow-y: auto;
     z-index: 1000;
-    border: 1px solid $primary-300;
+    border: 1px solid $gray-200;
 
     &.active {
         display: flex;
@@ -247,39 +491,27 @@ a {
 
     .item {
         display: flex;
-        padding: .5rem;
-        border-radius: .5rem;
+        padding: .5rem .75rem;
+        border-radius: 999px;
         align-items: center;
         color: $primary;
-        margin: .25rem 0;
-
-        .text {
-            transition: .3s;
-        }
+        font-size: .875rem;
+        gap: .5rem;
+        transition: background-color .15s, color .15s;
 
         &:hover {
-            background-color: $primary-200;
+            background-color: $primary-100;
             color: $primary-hover;
-
-            .text {
-                transform: translateX(.5rem);
-            }
         }
     }
 
     .group {
-        border-top: solid 1px $gray-300;
         padding: .25rem 0;
-        margin: 0 .25rem .25rem .25rem;
 
-        &:first-child {
-            margin-top: 0;
-            border-top: none;
-            padding-top: 0;
-        }
-
-        &:last-child {
-            margin-bottom: 0;
+        & + .group {
+            border-top: solid 1px $gray-100;
+            margin-top: .25rem;
+            padding-top: .375rem;
         }
     }
 
@@ -292,69 +524,197 @@ a {
             color: $danger !important;
             display: block;
             width: 100%;
-            padding: .5rem;
+            padding: .5rem .75rem;
+            font-size: .875rem;
+            border-radius: .5rem;
+            transition: background-color .15s;
+
+            &:hover {
+                background-color: $danger-light;
+            }
         }
     }
 }
 
+// ─── Content area ─────────────────────────────────────────────────────────────
+
 .content {
-    position: fixed;
-    width: calc(80% - 1rem);
-    height: 100vh;
-    top: .6rem;
-    left: calc(20% + .5rem);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    background-color: $white;
     overflow: hidden;
-    padding: 1rem;
-    border-radius: .5rem;
 
     .header {
+        flex-shrink: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 1rem;
-        border-bottom: solid 1px $primary-300;
-        margin-bottom: 2%;
+        padding: 0 2rem;
+        height: 5rem;
+        border-bottom: 1px solid $gray-200;
+        background-color: $white;
 
         h1 {
-            max-width: 60%;
-            word-wrap: break-word;
-            overflow: hidden;
-            padding: 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: $font-secondary;
+            line-height: 2rem;
         }
 
         .actions {
             display: flex;
             gap: .5rem;
-            max-width: 40%;
-            overflow: auto;
-            padding: 1rem 0;
+            align-items: center;
 
-            .action {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: .5rem;
-                cursor: pointer;
-                transition: .3s;
-                background-color: $primary;
-                color: $white;
-                white-space: nowrap;
-
-                a {
-                    color: $white;
-                    padding: .5rem .75rem;
-                }
-
-                &:hover {
-                    background-color: $primary-hover;
-                }
+            .pj-btn {
+                margin-top: 0;
+                padding: .5rem 1.25rem;
+                font-size: .875rem;
+                border-radius: 8px;
             }
         }
     }
 
     .body {
-        height: 90%;
-        margin: 1%;
+        flex: 1;
         overflow-y: auto;
+        padding: 2rem;
+    }
+}
+
+// ─── Dashboard ─────────────────────────────────────────────────────────────────
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .dashboard-welcome {
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: $font-secondary;
+            margin: 0 0 .25rem;
+        }
+
+        p {
+            font-size: .875rem;
+            color: $font-light;
+            margin: 0;
+        }
+    }
+}
+
+// ─── Form pages ────────────────────────────────────────────────────────────────
+
+.page-create {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.grid-2-items {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.card {
+    background-color: $white;
+    border: 1px solid $gray-200;
+    border-radius: 1rem;
+    padding: 1.5rem;
+
+    .title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: $font-secondary;
+        margin: 0 0 1.25rem;
+        padding-bottom: .75rem;
+        border-bottom: 1px solid $gray-200;
+        line-height: 1.375rem;
+    }
+
+    &.w-1\/2 { width: 50%; }
+    &.w-3\/5 { width: 60%; }
+    &.mx-auto { margin-left: auto; margin-right: auto; }
+}
+
+// ─── Stat card hover ───────────────────────────────────────────────────────────
+
+.pj-stat-card {
+    transition: box-shadow .15s, transform .15s;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        transform: translateY(-1px);
+    }
+}
+
+// ─── Article editor layout ─────────────────────────────────────────────────────
+
+.article-editor-layout {
+    display: grid;
+    grid-template-columns: 22rem 1fr;
+    gap: 2rem;
+    height: 100%;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .article-content {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 1.5rem;
+        background-color: $white;
+        border-radius: 1rem;
+        border: solid 1px $gray-200;
+
+        .article-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: $font-secondary;
+            padding-bottom: .75rem;
+            margin: 0 0 1rem;
+            border-bottom: 1px solid $gray-200;
+            flex-shrink: 0;
+        }
+
+        .codex-editor__redactor {
+            padding-bottom: 1rem !important;
+        }
+
+        .ce-block__content,
+        .ce-toolbar__content {
+            max-width: unset;
+            margin: 0 4rem;
+        }
+    }
+
+    .article-data {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: .25rem;
+        gap: 1rem;
+
+        .pj-accordion.open .pj-accordion-content {
+            padding-top: .5rem;
+        }
+
+        .pj-accordion-content .pj-input-wrapper:first-child,
+        .pj-accordion-content .pj-textarea:first-child,
+        .pj-accordion-content .pj-photo-uploader {
+            margin-top: 0;
+        }
     }
 }

@@ -1,42 +1,5 @@
 @use "variables" as *;
 
-.card {
-    background-color: $gray-50;
-    border-radius: .5rem;
-    padding: 1rem;
-    border: solid 1px $border;
-    color: $font-light;
-
-    form button {
-        margin: 1rem auto 0 auto;
-    }
-
-    .title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        border-bottom: 1px solid $gray-200;
-        margin-bottom: 1rem;
-        padding-bottom: .5rem;
-        color: $primary;
-    }
-}
-
 .font-primary {
     color: $primary;
-}
-
-.grid-2-items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-.grid-3-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-.grid-4-items {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
 }

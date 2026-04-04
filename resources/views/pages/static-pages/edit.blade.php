@@ -1,5 +1,5 @@
 <x-pjstarter::layout.app :title="sprintf(
-    '%s - %s%s',
+    '%s: %s%s',
     __('pjstarter::pages.static_pages.edit_page'),
     $staticPage->slug->prefix === null ? '' : sprintf('%s/', $staticPage->slug->prefix),
     $staticPage->name,
@@ -8,7 +8,7 @@
     <div class="page-create">
         <div class="grid-2-items">
             <div class="card">
-                <p class="title">@lang('pjstarter::pages.static_pages.edit_page')</p>
+                <h3 class="title">@lang('pjstarter::pages.static_pages.edit_page')</h3>
                 <x-pjutils::form
                     :action="route('admin.api.static-pages.update', ['staticPage' => $staticPage->id])"
                     method="PUT"
@@ -24,7 +24,7 @@
             </div>
 
             <div class="card">
-                <p class="title">@lang('pjstarter::pages.static_pages.url')</p>
+                <h3 class="title">@lang('pjstarter::pages.static_pages.url')</h3>
 
                 <x-pjutils::form
                     :action="route('admin.api.slugs.update', ['slug' => $staticPage->slug->id])"

@@ -9,10 +9,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
-
-    <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
-
+            <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+        <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
+    
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
         <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
@@ -22,8 +21,20 @@
         </head>
 <body>
 
+    <script>
+        if (localStorage.getItem('pjstarter_nav_collapsed') === '1') {
+            document.documentElement.classList.add('nav-collapsed-init');
+        }
+    </script>
+
     <div class="base-layer">
         <div class="navigation">
+    <button id="nav-collapse-btn" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
     <div class="app-name">
         <div class="initials">
             AP
@@ -32,15 +43,33 @@
         <a href="/dashboard">App</a>
     </div>
 
+
     <div class="items">
-                    <div class="item-wrapper">
-    <a href="http://localhost/admin/dashboard" class="item">
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_main</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
+                    </span>
         <span class="text">pjstarter::general.dashboard</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper has-sub-items active">
-    <a href="http://localhost/admin/users" class="item">
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_management</p>
+
+                                    <div class="item-wrapper has-sub-items active">
+    <a href="http://localhost/admin/users" class="item" data-nav-tooltip="pjstarter::pages.users.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+</svg>
+                    </span>
         <span class="text">pjstarter::pages.users.title</span>
 
                     <div class="arrow-wrapper">
@@ -49,25 +78,50 @@
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="http://localhost/admin/users" class="item">
+    <a href="http://localhost/admin/users" class="item" data-nav-tooltip="pjstarter::pages.users.index.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
         <span class="text">pjstarter::pages.users.index.title</span>
 
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/roles" class="item">
+    <a href="http://localhost/admin/users/roles" class="item" data-nav-tooltip="pjstarter::pages.users.roles.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
         <span class="text">pjstarter::pages.users.roles.title</span>
 
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/permissions" class="item active">
+    <a href="http://localhost/admin/users/permissions" class="item active" data-nav-tooltip="pjstarter::pages.users.permissions.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
         <span class="text">pjstarter::pages.users.permissions.title</span>
 
             </a>
 
     </div>                    </div>
-    </div>            </div>
+    </div>                            </div>
+            </div>
 
             <div class="user">
             <div class="initials">
@@ -88,18 +142,18 @@
     <i class="arrow right"></i>
 </div>            </div>
         </div>
-    </div>
 
-    <div class="user-items">
-                    <div class="group">
-                                    <a href="http://localhost/admin/profile" class="item">
-                        <span class="text">pjstarter::pages.profile.title</span>
-                    </a>
-                            </div>
-                <div class="group">
-            <form method="POST" action="http://localhost/api/logout" class="item logout-form">
-                <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
-            </form>
+        <div class="user-items">
+                            <div class="group">
+                                            <a href="http://localhost/admin/profile" class="item">
+                            <span class="text">pjstarter::pages.profile.title</span>
+                        </a>
+                                    </div>
+                        <div class="group">
+                <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                    <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -111,7 +165,7 @@
 
             <div class="body">
                 <div class="users-permissions">
-        <div class="pj-table-wrapper" id="permissions-table" data-html-parts-url="http://localhost/admin/api/users/permissions/table-parts">
+        <div class="pj-table-wrapper" id="permissions-table" data-html-parts-url="http://localhost/admin/api/users/permissions/table-parts" data-restoring>
     
     <div class="table-wrapper">
         <table class="pj-table">
@@ -120,25 +174,35 @@
     <tr>
         
         
-                    <th>pjstarter::pages.users.permissions.description</th>
-                    <th>pjstarter::pages.users.permissions.name</th>
-                    <th>pjstarter::pages.users.permissions.protected</th>
-                    <th>pjstarter::general.created_at</th>
-                    <th>pjstarter::general.updated_at</th>
+                                <th>
+                pjstarter::pages.users.permissions.name
+                            </th>
+                                <th>
+                pjstarter::pages.users.permissions.description
+                            </th>
+                                <th>
+                pjstarter::pages.users.permissions.protected
+                            </th>
+                                <th>
+                pjstarter::general.created_at
+                            </th>
+                                <th>
+                pjstarter::general.updated_at
+                            </th>
         
             </tr>
 </thead>            <tbody>
             <tr id="1">
     
     
-            <td class="simple description">
-    
-    View static pages
-
-    </td>
             <td class="simple name">
     
     viewAny-static_page
+
+    </td>
+            <td class="simple description">
+    
+    View static pages
 
     </td>
             <td class="simple protected">
@@ -160,14 +224,14 @@
     </tr>            <tr id="2">
     
     
-            <td class="simple description">
-    
-    Create static pages
-
-    </td>
             <td class="simple name">
     
     create-static_page
+
+    </td>
+            <td class="simple description">
+    
+    Create static pages
 
     </td>
             <td class="simple protected">
@@ -189,14 +253,14 @@
     </tr>            <tr id="3">
     
     
-            <td class="simple description">
-    
-    Edit static pages
-
-    </td>
             <td class="simple name">
     
     edit-static_page
+
+    </td>
+            <td class="simple description">
+    
+    Edit static pages
 
     </td>
             <td class="simple protected">
@@ -218,14 +282,14 @@
     </tr>            <tr id="4">
     
     
-            <td class="simple description">
-    
-    Delete static pages
-
-    </td>
             <td class="simple name">
     
     delete-static_page
+
+    </td>
+            <td class="simple description">
+    
+    Delete static pages
 
     </td>
             <td class="simple protected">
@@ -247,14 +311,14 @@
     </tr>            <tr id="5">
     
     
-            <td class="simple description">
-    
-    View SEO settings
-
-    </td>
             <td class="simple name">
     
     viewAny-metadata
+
+    </td>
+            <td class="simple description">
+    
+    View SEO settings
 
     </td>
             <td class="simple protected">
@@ -276,14 +340,14 @@
     </tr>            <tr id="6">
     
     
-            <td class="simple description">
-    
-    View detail of SEO setting
-
-    </td>
             <td class="simple name">
     
     view-metadata
+
+    </td>
+            <td class="simple description">
+    
+    View detail of SEO setting
 
     </td>
             <td class="simple protected">
@@ -305,14 +369,14 @@
     </tr>            <tr id="7">
     
     
-            <td class="simple description">
-    
-    Edit SEO settings
-
-    </td>
             <td class="simple name">
     
     edit-metadata
+
+    </td>
+            <td class="simple description">
+    
+    Edit SEO settings
 
     </td>
             <td class="simple protected">
@@ -334,14 +398,14 @@
     </tr>            <tr id="8">
     
     
-            <td class="simple description">
-    
-    View users
-
-    </td>
             <td class="simple name">
     
     viewAny-user
+
+    </td>
+            <td class="simple description">
+    
+    View users
 
     </td>
             <td class="simple protected">
@@ -363,14 +427,14 @@
     </tr>            <tr id="9">
     
     
-            <td class="simple description">
-    
-    View super admin
-
-    </td>
             <td class="simple name">
     
     viewSuperadmin-user
+
+    </td>
+            <td class="simple description">
+    
+    View super admin
 
     </td>
             <td class="simple protected">
@@ -392,14 +456,14 @@
     </tr>            <tr id="10">
     
     
-            <td class="simple description">
-    
-    View user roles
-
-    </td>
             <td class="simple name">
     
     viewAny-role
+
+    </td>
+            <td class="simple description">
+    
+    View user roles
 
     </td>
             <td class="simple protected">
@@ -418,10 +482,10 @@
 
     </td>
     
-    </tr>    </tbody>
-                    </table>
+    </tr>    </tbody>        </table>
     </div>
 
+    
     
             <div class="pagination">
     <div class="page-size" data-href="http://localhost/admin/api/users/permissions/table-parts">

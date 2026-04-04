@@ -2,7 +2,7 @@
 
     <div class="page-create">
         <div class="card w-3/5 mx-auto">
-            <p class="title">@lang('pjstarter::pages.static_pages.create_new_page')</p>
+            <h3 class="title">@lang('pjstarter::pages.static_pages.create_new_page')</h3>
             <x-pjutils::form
                 :action="route('admin.api.static-pages.store')"
                 method="POST"

@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="test">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="">
-    <title> Page title  - App</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
-        <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
-    
-            <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
-        <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
-        <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
-    
-            <link rel="icon" type="image/svg+xml" href="http://localhost/images/logo/favicon.svg">
-    
-        </head>
-<body>
-
-    <script>
-        if (localStorage.getItem('pjstarter_nav_collapsed') === '1') {
-            document.documentElement.classList.add('nav-collapsed-init');
-        }
-    </script>
-
-    <div class="base-layer">
-        <div class="navigation">
+<html><body>
+<div class="navigation">
     <button id="nav-collapse-btn" aria-label="Toggle navigation">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
@@ -56,6 +27,51 @@
 </svg>
                     </span>
         <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">Custom Group</p>
+
+                                    <div class="item-wrapper">
+    <a href="custom-a-url" class="item" data-nav-tooltip="Custom Item A">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
+        <span class="text">Custom Item A</span>
+
+            </a>
+
+    </div>                                    <div class="item-wrapper">
+    <a href="custom-b-url" class="item" data-nav-tooltip="Custom Item B">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
+        <span class="text">Custom Item B</span>
+
+            </a>
+
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">Another Group</p>
+
+                                    <div class="item-wrapper">
+    <a href="another-item-url" class="item" data-nav-tooltip="Another Item">
+        <span class="nav-icon">
+                            <svg></svg>
+                    </span>
+        <span class="text">Another Item</span>
 
             </a>
 
@@ -95,18 +111,4 @@
             </div>
         </div>
     </div>
-
-        <div class="content">
-            <div class="header">
-                <h1>Page title</h1>
-
-                            </div>
-
-            <div class="body">
-                
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+</body></html>

@@ -1,14 +1,14 @@
 <x-pjstarter::layout.app
     :title="sprintf(
-        '%s - %s (%s)',
+        '%s: %s (%s)',
         __('pjstarter::pages.metadata.title'),
-        $metadata->metadatable->name,
+        $metadata->metadatable->getPageName(),
         $metadata->metadatable->getMetadatableTypeLabel(),
     )"
 >
 
     <div class="card mx-auto w-4/5">
-        <p class="title">@lang('pjstarter::pages.metadata.edit')</p>
+        <h3 class="title">@lang('pjstarter::pages.metadata.edit')</h3>
 
         <x-pjutils::form
             method="PUT"

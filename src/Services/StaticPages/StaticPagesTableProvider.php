@@ -8,8 +8,10 @@ use Patrikjak\Starter\Models\StaticPages\StaticPage;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
 use Patrikjak\Starter\Services\Auth\AuthorizationService;
+use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
+use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -57,11 +59,6 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
         })->toArray();
     }
 
-    public function showOrder(): bool
-    {
-        return true;
-    }
-
     /**
      * @inheritDoc
      */
@@ -70,24 +67,40 @@ class StaticPagesTableProvider extends BasePaginatedTableProvider
         $actions = [];
 
         if ($this->authorizationService->userCan(static fn (User $user) => $user->canEditStaticPage())) {
-            $actions[] = new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
-                return route('admin.static-pages.edit', ['staticPage' => $row['id']]);
-            });
+            $actions[] = new Item(
+                __('pjstarter::general.edit'),
+                'edit',
+                Icon::EDIT,
+                href: static function (array $row) {
+                    return route('admin.static-pages.edit', ['staticPage' => $row['id']]);
+                },
+                inline: true,
+            );
         }
 
         if ($this->authorizationService->userCan(static fn (User $user) => $user->canDeleteStaticPage())) {
             $actions[] = new Item(
                 __('pjstarter::general.delete'),
                 'delete',
-                type: Type::DANGER,
+                Icon::TRASH,
+                Type::DANGER,
                 href: static function (array $row) {
                     return route('admin.api.static-pages.destroy', ['staticPage' => $row['id']]);
                 },
                 method: 'DELETE',
+                inline: true,
             );
         }
 
         return $actions;
+    }
+
+    public function getColumnVisibility(): ?ColumnVisibility
+    {
+        return new ColumnVisibility(
+            $this->getHeader(),
+            ['created_at', 'updated_at'],
+        );
     }
 
     protected function getPaginator(): TablePaginator

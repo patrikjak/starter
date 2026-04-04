@@ -1,7 +1,7 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.articles.categories.create_new_category')">
 
     <div class="card w-3/5 mx-auto">
-        <p class="title">@lang('pjstarter::pages.articles.categories.category_details')</p>
+        <h3 class="title">@lang('pjstarter::pages.articles.categories.category_details')</h3>
 
         <x-pjutils::form
             method="POST"

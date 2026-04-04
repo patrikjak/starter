@@ -5,9 +5,9 @@
 
     @can(BasePolicy::CREATE, Author::class)
         <x-slot:actions>
-            <x-pjstarter::action>
-                <a href="{{ route('admin.authors.create') }}">@lang('pjstarter::pages.authors.create_new_author')</a>
-            </x-pjstarter::action>
+            <x-pjutils::button href="{{ route('admin.authors.create') }}">
+                @lang('pjstarter::pages.authors.create_new_author')
+            </x-pjutils::button>
         </x-slot:actions>
     @endcan
 

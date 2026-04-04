@@ -31,7 +31,7 @@ class EditorDataFactory
         return new EditorData(
             CarbonImmutable::createFromTimestampMs($outputData['time']),
             self::getBlocks($outputData['blocks']),
-            $outputData['version'],
+            $outputData['version'] ?? '',
             json_encode($outputData),
         );
     }

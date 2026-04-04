@@ -1,7 +1,7 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.authors.author_edit')">
 
     <div class="card w-3/5 mx-auto">
-        <p class="title">@lang('pjstarter::pages.authors.author_details') - {{ $author->name }}</p>
+        <h3 class="title">@lang('pjstarter::pages.authors.author_details') - {{ $author->name }}</h3>
 
         <x-pjutils::form
             method="PUT"

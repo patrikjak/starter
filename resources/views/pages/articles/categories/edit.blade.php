@@ -1,5 +1,5 @@
 <x-pjstarter::layout.app :title="sprintf(
-    '%s - %s',
+    '%s: %s',
     __('pjstarter::pages.articles.categories.edit'),
     $articleCategory->name,
 )">
@@ -7,7 +7,7 @@
     <div class="page-create">
         <div class="grid-2-items">
             <div class="card">
-                <p class="title">@lang('pjstarter::pages.articles.categories.category_details')</p>
+                <h3 class="title">@lang('pjstarter::pages.articles.categories.category_details')</h3>
                 <x-pjutils::form
                     :action="route('admin.api.articles.categories.update', ['articleCategory' => $articleCategory->id])"
                     method="PUT"
@@ -29,7 +29,7 @@
             </div>
 
             <div class="card">
-                <p class="title">@lang('pjstarter::pages.slug.url')</p>
+                <h3 class="title">@lang('pjstarter::pages.slug.url')</h3>
 
                 <x-pjutils::form
                     :action="route('admin.api.slugs.update', ['slug' => $articleCategory->slug->id])"

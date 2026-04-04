@@ -9,10 +9,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
-
-    <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
-
+            <link rel="stylesheet" href="http://localhost/vendor/pjutils/assets/main.css">
+        <script src="http://localhost/vendor/pjutils/assets/main.js" defer type="module"></script>
+    
             <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/app.css">
         <script src="http://localhost/vendor/pjstarter/assets/main.js" defer type="module"></script>
         <link rel="stylesheet" href="http://localhost/vendor/pjstarter/assets/tailwind.css">
@@ -22,8 +21,20 @@
         </head>
 <body>
 
+    <script>
+        if (localStorage.getItem('pjstarter_nav_collapsed') === '1') {
+            document.documentElement.classList.add('nav-collapsed-init');
+        }
+    </script>
+
     <div class="base-layer">
         <div class="navigation">
+    <button id="nav-collapse-btn" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
     <div class="app-name">
         <div class="initials">
             AP
@@ -32,80 +43,125 @@
         <a href="/dashboard">App</a>
     </div>
 
+
     <div class="items">
-                    <div class="item-wrapper">
-    <a href="http://localhost/admin/dashboard" class="item">
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_main</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
+                    </span>
         <span class="text">pjstarter::general.dashboard</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="http://localhost/admin/static-pages" class="item active">
+    </div>                            </div>
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_content</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/static-pages" class="item active" data-nav-tooltip="pjstarter::pages.static_pages.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+</svg>
+                    </span>
         <span class="text">pjstarter::pages.static_pages.title</span>
 
             </a>
 
-    </div>                    <div class="item-wrapper">
-    <a href="http://localhost/admin/metadata" class="item">
+    </div>                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/metadata" class="item" data-nav-tooltip="pjstarter::pages.metadata.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+</svg>
+                    </span>
         <span class="text">pjstarter::pages.metadata.title</span>
 
             </a>
 
-    </div>            </div>
+    </div>                            </div>
+            </div>
 
     </div>
-
 
         <div class="content">
             <div class="header">
                 <h1>pjstarter::pages.static_pages.title</h1>
 
                                     <div class="actions">
-                        <div class="action">
-    <a href="http://localhost/admin/static-pages/create">pjstarter::general.create</a>
-</div>
+                        <a href="http://localhost/admin/static-pages/create" class="pj-btn button-like">pjstarter::pages.static_pages.create_new_page</a>
                     </div>
                             </div>
 
             <div class="body">
-                <div class="pj-table-wrapper" id="static-pages-table" data-html-parts-url="http://localhost/admin/api/static-pages/table-parts">
+                <div class="pj-table-wrapper" id="static-pages-table" data-html-parts-url="http://localhost/admin/api/static-pages/table-parts" data-restoring>
+    <div class="table-options">
+    <div class="controllers">
+        
+        
+                    <div class="controller column-visibility-controller" data-table-id="static-pages-table">
+    <div class="clickable">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+</svg>        <span>pjutils::table.columns</span>
+    </div>
+    <div class="options column-options">
+                    <label class="pj-checkbox-inline option column-option column-checkbox" value="name" checked>
+        <input type="checkbox" value="name" checked>
+        <span>pjstarter::pages.static_pages.name</span>
+    </label>
+                    <label class="pj-checkbox-inline option column-option column-checkbox" value="url" checked>
+        <input type="checkbox" value="url" checked>
+        <span>pjstarter::pages.static_pages.url</span>
+    </label>
+                    <label class="pj-checkbox-inline option column-option column-checkbox" value="created_at">
+        <input type="checkbox" value="created_at">
+        <span>pjstarter::general.created_at</span>
+    </label>
+                    <label class="pj-checkbox-inline option column-option column-checkbox" value="updated_at">
+        <input type="checkbox" value="updated_at">
+        <span>pjstarter::general.updated_at</span>
+    </label>
+            </div>
+</div>
+            </div>
+
     
+    </div>
     <div class="table-wrapper">
         <table class="pj-table">
 
             <thead>
     <tr>
         
-                    <th>#</th>
         
-                    <th>pjstarter::pages.static_pages.name</th>
-                    <th>pjstarter::pages.static_pages.url</th>
-                    <th>pjstarter::general.created_at</th>
-                    <th>pjstarter::general.updated_at</th>
+                                <th>
+                pjstarter::pages.static_pages.name
+                            </th>
+                                <th>
+                pjstarter::pages.static_pages.url
+                            </th>
         
                     <th class="actions"></th>
             </tr>
 </thead>            <tbody>
     <tr class="empty-row">
-    <td colspan="6">
-        pjutils::table.no_data_available
+    <td colspan="3">
+        <div class="empty-state">
+                        <p class="empty-state-title">pjutils::table.no_data_available</p>
+                    </div>
     </td>
 </tr>
-</tbody>
-                            <div class="table-actions">
-            <div class="action edit neutral">
-    
-    <div class="label">
-        <p>pjstarter::general.edit</p>
-    </div>
-</div>            <div class="action delete danger">
-    
-    <div class="label">
-        <p>pjstarter::general.delete</p>
-    </div>
-</div>    </div>                    </table>
+</tbody>        </table>
     </div>
 
+    
     
             <div class="pagination">
     <div class="page-size" data-href="http://localhost/admin/api/static-pages/table-parts">

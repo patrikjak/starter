@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Users;
 
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
+use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Cells\Simple;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -22,9 +22,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 {
     use StringCropper;
 
-    private bool $userCanViewSuperAdminRole = false;
+    private bool $userCanViewSuperAdminRole;
 
-    private bool $userCanViewAnyPermission = false;
+    private bool $userCanViewAnyPermission;
 
     public function __construct(
         private readonly RoleRepository $roleRepository,
@@ -108,6 +108,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             new Item(
                 __('pjstarter::pages.users.roles.manage_permissions'),
                 'manage_permissions',
+                Icon::CHECK,
                 visible: function (array $row): bool {
                     $roleId = $row['id'];
                     assert($roleId instanceof Simple);
@@ -125,7 +126,8 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                     assert($roleId instanceof Simple);
 
                     return route('admin.users.roles.permissions', ['role' => $roleId->value]);
-                }
+                },
+                inline: true
             ),
         ];
     }

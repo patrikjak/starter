@@ -14,6 +14,7 @@ use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
+use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -74,11 +75,6 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
         )->toArray();
     }
 
-    public function showOrder(): bool
-    {
-        return true;
-    }
-
     /**
      * @inheritDoc
      */
@@ -98,6 +94,7 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
                 href: static function (array $row) {
                     return route('admin.articles.categories.edit', ['articleCategory' => $row['id']]);
                 },
+                inline: true,
             );
         }
 
@@ -115,10 +112,19 @@ final class ArticleCategoriesTableProvider extends BasePaginatedTableProvider
                     return route('admin.api.articles.categories.destroy', ['articleCategory' => $row['id']]);
                 },
                 method: 'DELETE',
+                inline: true,
             );
         }
 
         return $actions;
+    }
+
+    public function getColumnVisibility(): ColumnVisibility
+    {
+        return new ColumnVisibility(
+            $this->getHeader(),
+            ['url', 'created_at'],
+        );
     }
 
     protected function getPaginator(): TablePaginator

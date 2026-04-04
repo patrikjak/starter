@@ -6,15 +6,15 @@
 
     <x-slot:actions>
         @can(BasePolicy::VIEW_ANY, Role::class)
-            <x-pjstarter::layout.action>
-                <a href="{{ route('admin.users.roles.index') }}">@lang('pjstarter::pages.users.roles.title')</a>
-            </x-pjstarter::layout.action>
+            <x-pjutils::button href="{{ route('admin.users.roles.index') }}" :bordered="true">
+                @lang('pjstarter::pages.users.roles.title')
+            </x-pjutils::button>
         @endcan
 
         @can(BasePolicy::VIEW_ANY, Permission::class)
-            <x-pjstarter::layout.action>
-                <a href="{{ route('admin.users.permissions.index') }}">@lang('pjstarter::pages.users.permissions.title')</a>
-            </x-pjstarter::layout.action>
+            <x-pjutils::button href="{{ route('admin.users.permissions.index') }}" :bordered="true">
+                @lang('pjstarter::pages.users.permissions.title')
+            </x-pjutils::button>
         @endcan
     </x-slot:actions>
 

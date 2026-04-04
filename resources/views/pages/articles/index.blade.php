@@ -6,19 +6,15 @@
 
         <x-slot:actions>
             @can(BasePolicy::VIEW_ANY, ArticleCategory::class)
-                <x-pjstarter::layout.action>
-                    <a href="{{ route('admin.articles.categories.index') }}">
-                        @lang('pjstarter::pages.articles.categories.title')
-                    </a>
-                </x-pjstarter::layout.action>
+                <x-pjutils::button href="{{ route('admin.articles.categories.index') }}" :bordered="true">
+                    @lang('pjstarter::pages.articles.categories.title')
+                </x-pjutils::button>
             @endcan
 
             @can(BasePolicy::CREATE, Article::class)
-                <x-pjstarter::layout.action>
-                    <a href="{{ route('admin.articles.create') }}">
-                        @lang('pjstarter::pages.articles.create')
-                    </a>
-                </x-pjstarter::layout.action>
+                <x-pjutils::button href="{{ route('admin.articles.create') }}">
+                    @lang('pjstarter::pages.articles.create')
+                </x-pjutils::button>
             @endcan
         </x-slot:actions>
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.profile.password_change  - App</title>
+    <title> pjstarter::general.dashboard  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
                 <p class="nav-group-label">pjstarter::general.nav_main</p>
 
                                     <div class="item-wrapper">
-    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+    <a href="http://localhost/admin/dashboard" class="item active" data-nav-tooltip="pjstarter::general.dashboard">
         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -98,59 +98,18 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.profile.password_change</h1>
+                <h1>pjstarter::general.dashboard</h1>
 
                             </div>
 
             <div class="body">
-                <div class="profile">
-        <div class="card w-1/2 mx-auto">
-            <h3 class="title">pjstarter::pages.profile.set_new_password</h3>
-            
-            <form method="POST" action="http://localhost/api/change-password">
-    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
-            <input type="hidden" name="_method" value="PATCH">    
-    <div class="pj-classic">
-    
-            <input type="hidden" id="validate_current_password" name="validate_current_password" value="0">
-    
-    </div>
-                <div class="pj-classic iconic">
-            <label for="password">pjauth::forms.password</label>
-    
-            <div class="input">
-            <input type="password" id="password" class="password hidden" name="password">
-
-            <div class="icon eye-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-</svg>
-            </div>
+                <div class="dashboard">
+        <div class="dashboard-welcome">
+            <h2>pjstarter::pages.dashboard.welcome</h2>
+            <p>pjstarter::pages.dashboard.welcome_subtitle_empty</p>
         </div>
-    
-    </div>
-    <div class="pj-classic iconic">
-            <label for="password_confirmation">pjauth::forms.password_confirmation</label>
-    
-            <div class="input">
-            <input type="password" id="password_confirmation" class="password hidden" name="password_confirmation" autocomplete="" placeholder="">
 
-            <div class="icon eye-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-</svg>
             </div>
-        </div>
-    
-    </div>
-
-            <button class="pj-btn" type="submit">
-        pjstarter::pages.profile.change_password
-            </button>
-    </form>        </div>
-    </div>
             </div>
         </div>
     </div>

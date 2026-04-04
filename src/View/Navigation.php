@@ -8,23 +8,25 @@ use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
+use Patrikjak\Starter\Dto\Common\NavigationGroup;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Patrikjak\Starter\Models\Users\User;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Navigation extends Component
 {
+    public const string ICON_DASHBOARD = 'heroicon-o-home';
+    public const string ICON_STATIC_PAGES = 'heroicon-o-document-text';
+    public const string ICON_ARTICLES = 'heroicon-o-newspaper';
+    public const string ICON_AUTHORS = 'heroicon-o-user';
+    public const string ICON_METADATA = 'heroicon-o-tag';
+    public const string ICON_USERS = 'heroicon-o-users';
+
     public function __construct(
         private readonly AuthManager $authManager,
         private readonly Config $config,
         private readonly UrlGenerator $urlGenerator,
-        private readonly Request $request,
     ) {
     }
 
@@ -39,7 +41,7 @@ class Navigation extends Component
             'userName' => $user?->name,
             'userEmail' => $user?->email,
             'userNameInitials' => $this->getUserNameInitials(),
-            'items' => $this->getItems(),
+            'groups' => $this->getGroups(),
             'userItems' => $this->getUserItems(),
             'authFeaturesEnabled' => $this->config->get('pjstarter.features.auth'),
         ]);
@@ -72,28 +74,32 @@ class Navigation extends Component
     }
 
     /**
-     * @return array<NavigationItem>
+     * @return array<NavigationGroup>
      */
-    private function getItems(): array
+    private function getGroups(): array
     {
-        $items = [];
-
         $currentUser = $this->getUser();
 
         $staticPagesFeature = $this->config->get('pjstarter.features.static_pages');
         $articlesFeature = $this->config->get('pjstarter.features.articles');
 
+        $mainItems = [];
+        $contentItems = [];
+        $managementItems = [];
+
         if ($this->config->get('pjstarter.features.dashboard')) {
-            $items[] = new NavigationItem(
+            $mainItems[] = new NavigationItem(
                 __('pjstarter::general.dashboard'),
                 route('admin.dashboard'),
+                icon: self::icon(self::ICON_DASHBOARD),
             );
         }
 
         if ($staticPagesFeature && ($currentUser === null || $currentUser->canViewAnyStaticPage())) {
-            $items[] = new NavigationItem(
+            $contentItems[] = new NavigationItem(
                 __('pjstarter::pages.static_pages.title'),
                 route('admin.static-pages.index'),
+                icon: self::icon(self::ICON_STATIC_PAGES),
             );
         }
 
@@ -119,17 +125,19 @@ class Navigation extends Component
                     route('admin.articles.index'),
                 ));
 
-                $items[] = new NavigationItem(
+                $contentItems[] = new NavigationItem(
                     __('pjstarter::pages.articles.title'),
                     route('admin.articles.index'),
                     subItems: $articlesSubItems,
+                    icon: self::icon(self::ICON_ARTICLES),
                 );
             }
 
             if ($currentUser === null || $currentUser->canViewAnyAuthor()) {
-                $items[] = new NavigationItem(
+                $contentItems[] = new NavigationItem(
                     __('pjstarter::pages.authors.title'),
                     route('admin.authors.index'),
+                    icon: self::icon(self::ICON_AUTHORS),
                 );
             }
         }
@@ -138,9 +146,10 @@ class Navigation extends Component
             ($staticPagesFeature || $articlesFeature)
             && ($currentUser === null || $currentUser->canViewAnyMetadata())
         ) {
-            $items[] = new NavigationItem(
+            $contentItems[] = new NavigationItem(
                 __('pjstarter::pages.metadata.title'),
                 route('admin.metadata.index'),
+                icon: self::icon(self::ICON_METADATA),
             );
         }
 
@@ -167,18 +176,49 @@ class Navigation extends Component
                     route('admin.users.index'),
                 ));
 
-                $items[] = new NavigationItem(
+                $managementItems[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),
                     route('admin.users.index'),
                     subItems: $usersSubItems,
+                    icon: self::icon(self::ICON_USERS),
                 );
             }
         }
 
-        $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items')));
-        $this->setItemClasses($items);
+        $parsed = $this->getItemsFromConfig($this->config->get('pjstarter.navigation.items'));
+        $configItems = $parsed['items'];
+        $configGroups = $parsed['groups'];
 
-        return $items;
+        $allItems = array_merge($mainItems, $contentItems, $managementItems, $configItems);
+
+        foreach ($configGroups as $group) {
+            $allItems = array_merge($allItems, $group->items);
+        }
+
+        $this->setItemClasses($allItems);
+
+        $groups = [];
+
+        if ($mainItems !== []) {
+            $groups[] = new NavigationGroup(__('pjstarter::general.nav_main'), $mainItems);
+        }
+
+        if ($contentItems !== []) {
+            $groups[] = new NavigationGroup(__('pjstarter::general.nav_content'), $contentItems);
+        }
+
+        if ($managementItems !== [] || $configItems !== []) {
+            $groups[] = new NavigationGroup(
+                __('pjstarter::general.nav_management'),
+                array_merge($managementItems, $configItems),
+            );
+        }
+
+        foreach ($configGroups as $group) {
+            $groups[] = $group;
+        }
+
+        return $groups;
     }
 
     private function getUser(): ?User
@@ -211,21 +251,29 @@ class Navigation extends Component
             $items[] = new NavigationItem(__('pjstarter::pages.profile.title'), route('admin.profile'));
         }
 
-        $items = array_merge($items, $this->getItemsFromConfig($this->config->get('pjstarter.navigation.user_items')));
+        $parsed = $this->getItemsFromConfig($this->config->get('pjstarter.navigation.user_items'));
+        $items = array_merge($items, $parsed['items']);
         $this->setItemClasses($items);
 
         return $items;
     }
 
     /**
-     * @param array<NavigationItem|Closure> $configItems
-     * @return array<NavigationItem>
+     * @param array<NavigationItem|NavigationGroup|Closure> $configItems
+     * @return array{items: array<NavigationItem>, groups: array<NavigationGroup>}
      */
     private function getItemsFromConfig(array $configItems): array
     {
         $items = [];
+        $groups = [];
 
         foreach ($configItems as $item) {
+            if ($item instanceof NavigationGroup) {
+                $groups[] = $item;
+
+                continue;
+            }
+
             if ($item instanceof NavigationItem) {
                 $items[] = $item;
 
@@ -239,7 +287,7 @@ class Navigation extends Component
             }
         }
 
-        return $items;
+        return ['items' => $items, 'groups' => $groups];
     }
 
     /**
@@ -276,31 +324,25 @@ class Navigation extends Component
 
     private function shouldHighlightItem(NavigationItem $item): bool
     {
-        $matchingRoute = $this->getMatchingRoute($item->getUrl());
+        $currentUrl = $this->urlGenerator->current();
+        $itemUrl = $item->getUrl();
 
-        $currentPrefix = $this->request->route()?->getPrefix();
-        $matchingPagePrefix = $matchingRoute?->getPrefix();
+        if ($currentUrl === $itemUrl) {
+            return true;
+        }
+
+        if ($item->subItems === []) {
+            return false;
+        }
 
         $currentUrlNotExistsInSubItems = !in_array(
-            $this->urlGenerator->current(),
+            $currentUrl,
             $this->getItemUrls($item->subItems),
             true,
         );
 
-        $currentRouteIsItemUrl = $this->urlGenerator->current() === $item->getUrl();
-        $matchingRoutesPrefixes = $currentPrefix === $matchingPagePrefix && $currentPrefix !== '';
-
-        return $currentRouteIsItemUrl
-            || ($matchingRoutesPrefixes && $currentUrlNotExistsInSubItems);
-    }
-
-    private function getMatchingRoute(string $url): ?RoutingRoute
-    {
-        try {
-            return Route::getRoutes()->match(Request::create($url));
-        } catch (NotFoundHttpException | MethodNotAllowedHttpException) {
-            return null;
-        }
+        return str_starts_with($currentUrl, rtrim($itemUrl, '/') . '/')
+            && $currentUrlNotExistsInSubItems;
     }
 
     /**
@@ -343,5 +385,10 @@ class Navigation extends Component
         }
 
         $this->removeActiveClassFromParents($item->getParent(), false);
+    }
+
+    public static function icon(string $name): string
+    {
+        return svg($name)->toHtml();
     }
 }

@@ -1,4 +1,4 @@
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.users.roles.manage_permissions'), $role->name)">
+<x-pjstarter::layout.app :title="sprintf('%s: %s', __('pjstarter::pages.users.roles.manage_permissions'), $role->name)">
 
     <div class="manage-permissions">
         <x-pjutils::form
@@ -7,10 +7,8 @@
             :action-label="__('pjstarter::general.save')"
         >
             @foreach($availablePermissions as $feature => $permissions)
-                <div class="permission-group mb-[2%]">
-                    <p class="font-primary font-bold">{{ ucfirst($feature) }}</p>
-
-                    <div class="permissions grid-4-items mt-2">
+                <x-pjutils::widget :title="ucfirst($feature)" class="mb-4">
+                    <div class="permissions grid grid-cols-4 gap-4">
                         @foreach($permissions as $permission)
                             <x-pjutils::form.checkbox
                                 :name="sprintf('permission_%s', $permission->name)"
@@ -19,7 +17,7 @@
                             />
                         @endforeach
                     </div>
-                </div>
+                </x-pjutils::widget>
             @endforeach
         </x-pjutils::form>
     </div>

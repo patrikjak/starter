@@ -1,7 +1,7 @@
 <x-pjstarter::layout.app :title="__('pjstarter::pages.authors.create_new_author')">
 
     <div class="card w-3/5 mx-auto">
-        <p class="title">@lang('pjstarter::pages.authors.author_details')</p>
+        <h3 class="title">@lang('pjstarter::pages.authors.author_details')</h3>
 
         <x-pjutils::form
             method="POST"

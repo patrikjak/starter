@@ -19,5 +19,12 @@ return [
     'empty' => 'Nevyplnené',
     'minute' => '{1} minúta|[2,4] minúty|[5,*] minút',
     'last_edited' => 'Posledná úprava',
+    'nav_main' => 'Hlavné',
+    'nav_content' => 'Obsah',
+    'nav_management' => 'Správa',
+    'good_morning' => 'Dobré ráno',
+    'good_afternoon' => 'Dobrý deň',
+    'good_evening' => 'Dobrý večer',
+    'dashboard_welcome_subtitle' => 'Vitajte späť v :app.',
 
 ];

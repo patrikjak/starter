@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Models\User;
+use Patrikjak\Starter\Dto\Common\NavigationGroup;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
 use Patrikjak\Starter\Tests\TestCase;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
@@ -50,6 +51,35 @@ class NavigationTest extends TestCase
                 <x-pjstarter::navigation />
             HTML
         ));
+    }
+
+    #[DefineEnvironment('usesNavigationGroups')]
+    public function testNavigationWithCustomGroups(): void
+    {
+        $this->createAndActAsUser();
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    protected function usesNavigationGroups(Application $app): void
+    {
+        $app['config']->set('pjstarter.navigation', [
+            'home' => '/dashboard',
+            'items' => [
+                new NavigationGroup('Custom Group', [
+                    new NavigationItem('Custom Item A', 'custom-a-url'),
+                    new NavigationItem('Custom Item B', 'custom-b-url'),
+                ]),
+                new NavigationGroup('Another Group', [
+                    new NavigationItem('Another Item', 'another-item-url', icon: '<svg></svg>'),
+                ]),
+            ],
+            'user_items' => [],
+        ]);
     }
 
     protected function usesNavigationItems(Application $app): void

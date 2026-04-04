@@ -9,7 +9,9 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
 use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
+use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
+use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Filter\Definitions\FilterableColumn;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Dto\Sort\SortableColumn;
@@ -92,9 +94,15 @@ class MetadataTableProvider extends BasePaginatedTableProvider
         }
 
         return [
-            new Item(__('pjstarter::general.edit'), 'edit', href: static function (array $row) {
-                return route('admin.metadata.edit', ['metadata' => $row['id']]);
-            }),
+            new Item(
+                __('pjstarter::general.edit'),
+                'edit',
+                Icon::EDIT,
+                href: static function (array $row) {
+                    return route('admin.metadata.edit', ['metadata' => $row['id']]);
+                },
+                inline: true,
+            ),
         ];
     }
 
@@ -144,6 +152,14 @@ class MetadataTableProvider extends BasePaginatedTableProvider
                 FilterableFactory::text(),
             ),
         ];
+    }
+
+    public function getColumnVisibility(): ?ColumnVisibility
+    {
+        return new ColumnVisibility(
+            $this->getHeader(),
+            ['canonical_url', 'structured_data'],
+        );
     }
 
     protected function getPaginator(): TablePaginator
