@@ -1,7 +1,7 @@
 @use('Patrikjak\Starter\Policies\BasePolicy')
 @use('Patrikjak\Starter\Models\Authors\Author')
 
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.authors.author_details'), $author->name)">
+<x-pjstarter::layout.app :title="sprintf('%s: %s', __('pjstarter::pages.authors.author_details'), $author->name)">
 
     @can(BasePolicy::EDIT, Author::class)
         <x-slot:actions>

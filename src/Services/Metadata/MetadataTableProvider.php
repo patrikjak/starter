@@ -9,6 +9,7 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
 use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
+use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Filter\Definitions\FilterableColumn;
@@ -96,6 +97,7 @@ class MetadataTableProvider extends BasePaginatedTableProvider
             new Item(
                 __('pjstarter::general.edit'),
                 'edit',
+                Icon::EDIT,
                 href: static function (array $row) {
                     return route('admin.metadata.edit', ['metadata' => $row['id']]);
                 },

@@ -11,9 +11,9 @@ if (navigation && navCollapseBtn) {
         navigation.classList.add('collapsed');
     }
 
-    // Remove the no-transition init style after first frame so animations work normally
+    // Remove the no-transition init class after first frame so animations work normally
     requestAnimationFrame((): void => {
-        document.getElementById('nav-init-style')?.remove();
+        document.documentElement.classList.remove('nav-collapsed-init');
     });
 
     navCollapseBtn.addEventListener('click', (): void => {
@@ -80,7 +80,9 @@ document.querySelectorAll<HTMLElement>('[data-nav-tooltip]').forEach((item: HTML
     item.addEventListener('mouseenter', (): void => {
         const nav: HTMLElement = document.querySelector('.navigation');
 
-        if (!nav?.classList.contains('collapsed')) return;
+        if (!nav?.classList.contains('collapsed')) {
+            return;
+        }
 
         const rect = item.getBoundingClientRect();
         navTooltip.textContent = item.dataset.navTooltip;

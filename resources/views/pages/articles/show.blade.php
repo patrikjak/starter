@@ -5,7 +5,7 @@
 @use('Patrikjak\Starter\Enums\Articles\ArticleStatus')
 @use('Patrikjak\Utils\Common\Enums\BadgeType')
 
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.articles.detail'), $article->title)">
+<x-pjstarter::layout.app :title="sprintf('%s: %s', __('pjstarter::pages.articles.detail'), $article->title)">
 
     @can(BasePolicy::EDIT, Article::class)
         <x-slot:actions>

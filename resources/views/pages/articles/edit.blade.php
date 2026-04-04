@@ -11,7 +11,7 @@
     @endpush
 @endif
 
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.articles.edit'), $article->title)">
+<x-pjstarter::layout.app :title="sprintf('%s: %s', __('pjstarter::pages.articles.edit'), $article->title)">
 
     <div class="edit-article article-editor-layout">
         <div class="article-data">

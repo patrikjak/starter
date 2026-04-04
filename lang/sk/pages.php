@@ -30,7 +30,7 @@ return [
         'slug' => 'SEO URL',
         'new_page' => 'Nová stránka',
         'edit_page' => 'Úprava stránky',
-        'create_new_page' => 'Vytvoriť novú stránku',
+        'create_new_page' => 'Nová stránka',
         'placeholders' => [
             'prefix' => 'Pre koreňovú stránku nechajte prázdne',
         ],
@@ -58,7 +58,7 @@ return [
 
     'articles' => [
         'title' => 'Články',
-        'create' => 'Vytvoriť článok',
+        'create' => 'Nový článok',
         'new' => 'Nový článok',
         'detail' => 'Detail článku',
         'content' => 'Obsah',

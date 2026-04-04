@@ -1,5 +1,5 @@
 <x-pjstarter::layout.app :title="sprintf(
-    '%s - %s%s',
+    '%s: %s%s',
     __('pjstarter::pages.static_pages.edit_page'),
     $staticPage->slug->prefix === null ? '' : sprintf('%s/', $staticPage->slug->prefix),
     $staticPage->name,

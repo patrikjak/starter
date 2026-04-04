@@ -42,9 +42,11 @@
 </head>
 <body>
 
-    <style id="nav-init-style">
-        .navigation, .content, .user-items { transition: none !important; }
-    </style>
+    <script>
+        if (localStorage.getItem('pjstarter_nav_collapsed') === '1') {
+            document.documentElement.classList.add('nav-collapsed-init');
+        }
+    </script>
 
     <div class="base-layer">
         <x-pjstarter::navigation />

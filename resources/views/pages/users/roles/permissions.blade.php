@@ -1,4 +1,4 @@
-<x-pjstarter::layout.app :title="sprintf('%s - %s', __('pjstarter::pages.users.roles.manage_permissions'), $role->name)">
+<x-pjstarter::layout.app :title="sprintf('%s: %s', __('pjstarter::pages.users.roles.manage_permissions'), $role->name)">
 
     <div class="manage-permissions">
         <x-pjutils::form

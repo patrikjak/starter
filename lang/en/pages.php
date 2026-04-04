@@ -30,7 +30,7 @@ return [
         'slug' => 'Slug',
         'new_page' => 'New page',
         'edit_page' => 'Page edit',
-        'create_new_page' => 'Create a new page',
+        'create_new_page' => 'New page',
         'placeholders' => [
             'prefix' => 'Leave empty for the root page',
         ],
@@ -58,7 +58,7 @@ return [
 
     'articles' => [
         'title' => 'Articles',
-        'create' => 'Create article',
+        'create' => 'New article',
         'new' => 'New article',
         'detail' => 'Article detail',
         'content' => 'Content',

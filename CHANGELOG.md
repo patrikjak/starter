@@ -19,6 +19,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.8.0] - 2026-04-04
+
+### Added
+
+- **Collapsible navigation** — the sidebar can now be collapsed to an icon-only rail via a toggle button; state persists across page loads via `localStorage`; collapsed state is applied before first paint to avoid a flash of the expanded nav
+- **Navigation tooltips** — hovering a nav item in collapsed mode shows a tooltip with the item label
+- **Navigation groups** — nav items are now organised into labelled groups (`NavigationGroup` DTO); the built-in items are split into Main, Content, and Management sections
+- **Navigation item icons** — `NavigationItem` now accepts an `icon` SVG string; built-in items each have a distinct Heroicon; custom items without an icon fall back to a generic grid icon
+- **Dashboard stat cards** — the dashboard now shows content counts (articles, categories, authors, static pages) as stat cards when the corresponding features are enabled; includes a welcome message that adapts when no stats are available
+- **Table action icons** — all inline table actions (edit, delete, manage permissions) now consistently show icons across every table
+
+### Changed
+
+- Navigation items are now grouped; consuming apps that inject custom items via `pjstarter.navigation` config should use the `NavigationGroup` structure
+- Page heading separator changed from ` - ` to `:` (e.g. `Úprava článku: My Article`) for clearer label/value distinction
+- Index page action buttons now use "New [Entity]" label pattern (e.g. "New article", "New author") instead of "Create [Entity]" or "Create"
+- Secondary navigation buttons (links to related sections, e.g. "Article categories" on the articles index) are now styled as outlined/bordered buttons to distinguish them from primary create actions
+- Row number column removed from all tables
+
+### Removed
+
+- `x-pjstarter::layout.action` component removed; use `x-pjutils::button` directly in `<x-slot:actions>` instead
+
 ## [0.7.1] - 2026-03-11
 
 ### Fixed

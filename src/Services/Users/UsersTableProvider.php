@@ -68,11 +68,6 @@ final class UsersTableProvider extends BasePaginatedTableProvider
         })->toArray();
     }
 
-    public function showOrder(): bool
-    {
-        return true;
-    }
-
     public function getColumnVisibility(): ColumnVisibility
     {
         return new ColumnVisibility(

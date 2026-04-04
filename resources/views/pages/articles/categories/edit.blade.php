@@ -1,5 +1,5 @@
 <x-pjstarter::layout.app :title="sprintf(
-    '%s - %s',
+    '%s: %s',
     __('pjstarter::pages.articles.categories.edit'),
     $articleCategory->name,
 )">

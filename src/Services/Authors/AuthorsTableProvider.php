@@ -62,11 +62,6 @@ final class AuthorsTableProvider extends BasePaginatedTableProvider
         })->toArray();
     }
 
-    public function showOrder(): bool
-    {
-        return true;
-    }
-
     /**
      * @inheritDoc
      */

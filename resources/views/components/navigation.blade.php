@@ -1,7 +1,10 @@
+@use('Patrikjak\Starter\Dto\Common\NavigationGroup')
+@use('Patrikjak\Starter\Dto\Common\NavigationItem')
+
 @php
     /**
-     * @var array<\Patrikjak\Starter\Dto\Common\NavigationGroup> $groups
-     * @var array<\Patrikjak\Starter\Dto\Common\NavigationItem> $userItems
+     * @var array<NavigationGroup> $groups
+     * @var array<NavigationItem> $userItems
      */
 @endphp
 

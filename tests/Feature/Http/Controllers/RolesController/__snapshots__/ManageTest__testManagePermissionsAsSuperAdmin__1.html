@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.roles.manage_permissions - SUPERADMIN  - App</title>
+    <title> pjstarter::pages.users.roles.manage_permissions: SUPERADMIN  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -24,6 +24,12 @@
     <style id="nav-init-style">
         .navigation, .content, .user-items { transition: none !important; }
     </style>
+
+    <script>
+        if (localStorage.getItem('pjstarter_nav_collapsed') === '1') {
+            document.documentElement.classList.add('nav-collapsed-init');
+        }
+    </script>
 
     <div class="base-layer">
         <div class="navigation">
@@ -49,7 +55,9 @@
                                     <div class="item-wrapper">
     <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
                     </span>
         <span class="text">pjstarter::general.dashboard</span>
 
@@ -62,7 +70,9 @@
                                     <div class="item-wrapper has-sub-items">
     <a href="http://localhost/admin/users" class="item active" data-nav-tooltip="pjstarter::pages.users.title">
         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+</svg>
                     </span>
         <span class="text">pjstarter::pages.users.title</span>
 
@@ -153,7 +163,7 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.roles.manage_permissions - SUPERADMIN</h1>
+                <h1>pjstarter::pages.users.roles.manage_permissions: SUPERADMIN</h1>
 
                             </div>
 

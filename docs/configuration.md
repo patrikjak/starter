@@ -52,10 +52,14 @@ Plain `NavigationItem` instances are appended to the built-in **Management** gro
 
 ```php
 use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Patrikjak\Starter\View\Navigation;
 
 'navigation' => [
     'items' => [
-        new NavigationItem('My Page', '/admin/my-page', icon: '<svg>...</svg>'),
+        // Use a built-in heroicon by name
+        new NavigationItem('My Page', '/admin/my-page', icon: Navigation::icon('heroicon-o-cog')),
+        // Or reuse one of the predefined icon constants
+        new NavigationItem('Dashboard', '/admin', icon: Navigation::ICON_DASHBOARD),
     ],
 ],
 ```

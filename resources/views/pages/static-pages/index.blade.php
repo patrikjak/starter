@@ -6,7 +6,7 @@
     @can(BasePolicy::CREATE, StaticPage::class)
         <x-slot:actions>
             <x-pjutils::button href="{{ route('admin.static-pages.create') }}">
-                @lang('pjstarter::general.create')
+                @lang('pjstarter::pages.static_pages.create_new_page')
             </x-pjutils::button>
         </x-slot:actions>
     @endcan
