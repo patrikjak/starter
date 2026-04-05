@@ -7,9 +7,9 @@ namespace Patrikjak\Starter\Services\Content;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use Patrikjak\Starter\ValueObjects\Content\ContentContextDefinition;
 use Patrikjak\Starter\Exceptions\Content\ContentImageStoreFailedException;
 use Patrikjak\Starter\Exceptions\Content\InvalidImageUrlException;
+use Patrikjak\Starter\ValueObjects\Content\ContentContextDefinition;
 
 readonly class ContentImageService
 {
