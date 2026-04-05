@@ -1,0 +1,71 @@
+{
+    "editor": {
+        "placeholder": "Pridajte obsah tu",
+        "error_title": "Ups",
+        "load_error": "Nepodarilo sa načítať obsah editora. Obnovte stránku.",
+        "toolNames": {
+            "Text": "Text",
+            "Heading": "Nadpis",
+            "Ordered List": "Číslovaný zoznam",
+            "Unordered List": "Nečíslovaný zoznam",
+            "Checklist": "Zoznam úloh",
+            "Image": "Obrázok",
+            "Raw HTML": "Raw HTML",
+            "Underline": "Podčiarknutie",
+            "Bold": "Tučné",
+            "Italic": "Kurzíva",
+            "Link": "Odkaz"
+        },
+        "tools": {
+            "list": {
+                "Unordered": "Nečíslovaný",
+                "Ordered": "Číslovaný",
+                "Checklist": "Zoznam úloh",
+                "Start with": "Začať od",
+                "Counter type": "Typ číslovania",
+                "Numeric": "Číselný",
+                "Lower Roman": "Malé rímske",
+                "Upper Roman": "Veľké rímske",
+                "Lower Alpha": "Malé písmená",
+                "Upper Alpha": "Veľké písmená"
+            },
+            "link": {
+                "Add a link": "Vložiť odkaz"
+            },
+            "stub": {
+                "The block can not be displayed correctly.": "Blok nie je možné správne zobraziť."
+            }
+        },
+        "blockTunes": {
+            "delete": {
+                "Delete": "Vymazať",
+                "Click to delete": "Kliknite pre vymazanie"
+            },
+            "moveUp": {
+                "Move up": "Posunúť hore"
+            },
+            "moveDown": {
+                "Move down": "Posunúť dole"
+            }
+        },
+        "ui": {
+            "blockTunes": {
+                "toggler": {
+                    "Click to tune": "Kliknite pre nastavenia",
+                    "or drag to move": "alebo ťahajte pre presun"
+                }
+            },
+            "toolbar": {
+                "toolbox": {
+                    "Add": "Pridať",
+                    "Convert to": "Konvertovať na"
+                }
+            },
+            "popover": {
+                "Filter": "Filter",
+                "Nothing found": "Nič sa nenašlo",
+                "Convert to": "Konvertovať na"
+            }
+        }
+    }
+}
