@@ -129,6 +129,10 @@ return [
         'email' => 'Email',
         'role' => 'Role',
 
+        'invite_user' => 'Invite user',
+        'invite_sent' => 'Invite was sent',
+        'invite_modal_title' => 'Invite user',
+
         'index' => [
             'title' => 'All users',
         ],

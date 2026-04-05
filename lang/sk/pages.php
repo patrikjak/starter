@@ -80,7 +80,7 @@ return [
             'published' => 'Publikovaný',
             'archived' => 'Archivovaný',
         ],
-        'deleted' => 'Článok bol odstránený',
+        'article_deleted' => 'Článok bol odstránený',
         'edit' => 'Úprava článku',
         'article_info' => 'Informácie o článku',
         'media' => 'Médiá',
@@ -128,6 +128,10 @@ return [
         'name' => 'Meno',
         'email' => 'Email',
         'role' => 'Rola',
+
+        'invite_user' => 'Pozvať používateľa',
+        'invite_sent' => 'Pozvánka bola odoslaná',
+        'invite_modal_title' => 'Pozvať používateľa',
 
         'index' => [
             'title' => 'Všetci používatelia',

@@ -2888,16 +2888,16 @@
         },
         {
             "name": "patrikjak/auth",
-            "version": "v1.4.1",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/auth.git",
-                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a"
+                "reference": "66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/auth/zipball/d26c3e9547ca6806ad764b7a810936e2df9f059a",
-                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a",
+                "url": "https://api.github.com/repos/patrikjak/auth/zipball/66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b",
+                "reference": "66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b",
                 "shasum": ""
             },
             "require": {
@@ -2938,9 +2938,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/auth/issues",
-                "source": "https://github.com/patrikjak/auth/tree/v1.4.1"
+                "source": "https://github.com/patrikjak/auth/tree/v1.5.0"
             },
-            "time": "2026-03-03T20:04:41+00:00"
+            "time": "2026-04-05T18:44:12+00:00"
         },
         {
             "name": "patrikjak/utils",

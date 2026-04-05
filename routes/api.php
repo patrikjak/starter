@@ -87,6 +87,11 @@ Route::middleware($middleware)
                     $tablePartsRoute->can(BasePolicy::VIEW_ANY, User::class);
                 }
 
+                $inviteRoute = Route::post('/invite', [UsersController::class, 'invite'])->name('invite');
+                if ($authEnabled) {
+                    $inviteRoute->can(BasePolicy::CREATE, User::class);
+                }
+
                 Route::prefix('roles')->name('roles.')->group(static function () use ($authEnabled): void {
                     $tablePartsRoute = Route::get('/table-parts', [RolesController::class, 'tableParts'])->name('table-parts');
                     if ($authEnabled) {

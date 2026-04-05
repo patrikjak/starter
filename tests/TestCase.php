@@ -19,7 +19,6 @@ use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
-    use MatchesSnapshots;
     use WithTestUser;
     use ConfigSetter;
     use MatchesSnapshots {
@@ -94,7 +93,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(package_path('vendor/patrikjak/auth/database/migrations'));
+        $this->loadMigrationsFrom(__DIR__ . '/../../auth/database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/static-pages');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');

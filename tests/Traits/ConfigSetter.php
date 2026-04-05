@@ -63,6 +63,11 @@ trait ConfigSetter
         $app['config']->set('pjstarter.features.users', true);
     }
 
+    protected function enableRegisterViaInvitationFeature(Application $app): void
+    {
+        $app['config']->set('pjauth.features.register_via_invitation', true);
+    }
+
     protected function disableUsers(Application $app): void
     {
         $app['config']->set('pjstarter.features.users', false);
