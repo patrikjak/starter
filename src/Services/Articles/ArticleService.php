@@ -8,7 +8,6 @@ use Carbon\CarbonImmutable;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Patrikjak\Starter\Dto\Articles\ArticleInputData;
 use Patrikjak\Starter\Dto\Articles\ArticleProcessedData;
 use Patrikjak\Starter\Enums\Articles\ArticleStatus;
@@ -102,26 +101,6 @@ readonly class ArticleService
             $featuredImagePath,
             $publishedAt,
         );
-    }
-
-    public function saveArticleImage(UploadedFile $file): string
-    {
-        $disk = $this->filesystemManager->getDefaultDriver();
-        $path = $file->store('articles/images', $disk);
-
-        return $this->filesystemManager->disk($disk)->url($path);
-    }
-
-    public function saveArticleImageFromUrl(string $url): string
-    {
-        $imageName = Str::random(40);
-        $extension = pathinfo($url, PATHINFO_EXTENSION);
-        $path = sprintf('articles/images/%s.%s', $imageName, $extension);
-        $disk = $this->filesystemManager->getDefaultDriver();
-
-        $this->filesystemManager->disk($disk)->put($path, file_get_contents($url));
-
-        return $this->filesystemManager->disk($disk)->url($path);
     }
 
     private function saveFeaturedImage(UploadedFile $featuredImage): string

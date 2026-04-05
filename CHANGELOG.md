@@ -19,6 +19,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.9.0] - 2026-04-05
+
+### Added
+
+- **Editor i18n** — the EditorJS editor (toolbar labels, tool names, block tunes, UI strings, placeholder) is now fully translated; English and Slovak are included out of the box; locale is driven by the `<html lang="">` attribute
+- **`ContentContextRegistry`** — new extensibility point for content image upload/fetch; consuming apps register custom content types via the `pjstarter.content_contexts` config key or programmatically via `ContentContextRegistry::register()`; each context defines a storage directory, model class, and an optional disk (defaults to the app's default filesystem disk)
+- **`ContentContextDefinition`** value object — holds the directory, model class, and optional disk for a content context
+- **`ContentContextNotFoundException`** (HTTP 404) and **`ContentAccessDeniedException`** (HTTP 403) — typed exceptions replace `abort()` calls in the content layer, with descriptive messages indicating which context key or model class caused the error
+- **`content_images` feature flag** — image upload/fetch endpoints are now gated behind `pjstarter.features.content_images`; enable it alongside `articles` to activate the built-in content image routes
+
+### Changed
+
+- `ContentImageService::saveImage()` and `saveImageFromUrl()` now accept a `ContentContextDefinition` instead of a plain directory string — disk and directory resolution is handled entirely within the service
+
 ## [0.8.0] - 2026-04-04
 
 ### Added

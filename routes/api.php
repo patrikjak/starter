@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Patrikjak\Starter\Http\Controllers\Articles\Api\ArticleCategoriesController;
 use Patrikjak\Starter\Http\Controllers\Articles\Api\ArticlesController;
 use Patrikjak\Starter\Http\Controllers\Authors\Api\AuthorsController;
+use Patrikjak\Starter\Http\Controllers\Content\ContentController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
@@ -33,6 +34,7 @@ Route::middleware($middleware)
         $staticPagesEnabled = config('pjstarter.features.static_pages');
         $usersEnabled = config('pjstarter.features.users');
         $articlesEnabled = config('pjstarter.features.articles');
+        $contentImagesEnabled = config('pjstarter.features.content_images');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')
@@ -106,15 +108,19 @@ Route::middleware($middleware)
             });
         }
 
+        if ($articlesEnabled || $contentImagesEnabled) {
+            Route::prefix('content')->name('content.')->group(static function (): void {
+                Route::post('/upload-image', [ContentController::class, 'uploadImage'])->name('upload-image');
+                Route::post('/fetch-image', [ContentController::class, 'fetchImage'])->name('fetch-image');
+            });
+        }
+
         if ($articlesEnabled) {
             Route::prefix('articles')->name('articles.')->group(static function () use ($authEnabled): void {
                 $storeRoute = Route::post('/', [ArticlesController::class, 'store'])->name('store');
                 if ($authEnabled) {
                     $storeRoute->can(BasePolicy::CREATE, Article::class);
                 }
-
-                Route::post('/upload-image', [ArticlesController::class, 'uploadImage'])->name('upload-image');
-                Route::post('/fetch-image', [ArticlesController::class, 'fetchImage'])->name('fetch-image');
 
                 $contentRoute = Route::get('/{article}/content', [ArticlesController::class, 'content'])->name('content');
                 if ($authEnabled) {

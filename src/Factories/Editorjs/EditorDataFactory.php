@@ -21,7 +21,7 @@ use Patrikjak\Starter\Dto\Editorjs\EditorData;
 use Patrikjak\Starter\Enums\Editorjs\BlockType;
 use Patrikjak\Starter\Enums\Editorjs\ListStyle;
 
-class EditorDataFactory
+final class EditorDataFactory
 {
     /**
      * @param array<string, mixed> $outputData
@@ -56,6 +56,7 @@ class EditorDataFactory
     private static function getBlock(array $blockData): Block
     {
         $blockType = BlockType::from($blockData['type']);
+        $blockData['id'] = $blockData['id'] ?? '';
 
         return match ($blockType) {
             BlockType::Paragraph => self::mapParagraph($blockData),
