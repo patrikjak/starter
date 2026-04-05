@@ -10,7 +10,7 @@ export default defineConfig({
                 'resources/css/profile.scss',
                 'resources/css/tailwind.css',
                 'resources/js/main.ts',
-                'resources/js/articles/article-editor.ts',
+                'resources/js/content-editor.ts',
             ],
             refresh: false,
         }),

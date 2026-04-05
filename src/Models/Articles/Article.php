@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Patrikjak\Starter\Casts\EditorjsDataCast;
 use Patrikjak\Starter\Database\Factories\Articles\ArticleFactory;
 use Patrikjak\Starter\Dto\Editorjs\EditorData;
 use Patrikjak\Starter\Enums\Articles\ArticleStatus;
 use Patrikjak\Starter\Enums\Articles\Visibility;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Common\Visitable;
+use Patrikjak\Starter\Models\Content\Concerns\HasEditorContent;
 use Patrikjak\Starter\Models\Metadata\Concerns\MetadatableDefaults;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\Metadata\Metadatable;
@@ -56,6 +56,7 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
     use MetadatableDefaults;
     use SlugRelationship;
     use MetadataRelationship;
+    use HasEditorContent;
     use HasFactory;
 
     public function getMetaTitle(): string
@@ -98,14 +99,16 @@ class Article extends Model implements Visitable, Metadatable, Sluggable
      */
     protected function casts(): array
     {
-        return [
-            'content' => EditorjsDataCast::class,
-            'status' => ArticleStatus::class,
-            'visibility' => Visibility::class,
-            'published_at' => 'immutable_datetime',
-            'created_at' => 'immutable_datetime',
-            'updated_at' => 'immutable_datetime',
-        ];
+        return array_merge(
+            $this->getEditorContentCasts(),
+            [
+                'status' => ArticleStatus::class,
+                'visibility' => Visibility::class,
+                'published_at' => 'immutable_datetime',
+                'created_at' => 'immutable_datetime',
+                'updated_at' => 'immutable_datetime',
+            ],
+        );
     }
 
     protected static function newFactory(): ArticleFactory

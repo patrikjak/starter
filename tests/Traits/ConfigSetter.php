@@ -68,6 +68,16 @@ trait ConfigSetter
         $app['config']->set('pjstarter.features.users', false);
     }
 
+    protected function enableContentImages(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.content_images', true);
+    }
+
+    protected function disableContentImages(Application $app): void
+    {
+        $app['config']->set('pjstarter.features.content_images', false);
+    }
+
     protected function enableAllFeatures(Application $app): void
     {
         $app['config']->set('pjstarter.features', [
@@ -77,6 +87,7 @@ trait ConfigSetter
             'static_pages' => true,
             'articles' => true,
             'users' => true,
+            'content_images' => true,
         ]);
     }
 

@@ -45,6 +45,8 @@ use Patrikjak\Starter\Repositories\Eloquent\StaticPages\EloquentStaticPageReposi
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentPermissionRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentRoleRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentUserRepository;
+use Patrikjak\Starter\Support\Content\ContentContextRegistry;
+use Patrikjak\Starter\ValueObjects\Content\ContentContextDefinition;
 
 class StarterServiceProvider extends ServiceProvider
 {
@@ -100,6 +102,36 @@ class StarterServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/pjstarter.php', 'pjstarter');
+
+        $this->app->singleton(ContentContextRegistry::class, function (): ContentContextRegistry {
+            $registry = new ContentContextRegistry();
+
+            if (config('pjstarter.features.articles')) {
+                $registry->register(
+                    'articles',
+                    new ContentContextDefinition(
+                        'articles/images',
+                        Article::class,
+                    ),
+                );
+            }
+
+            /** @var array<string, array{directory: string, model: class-string, disk?: string}> $extra */
+            $extra = config('pjstarter.content_contexts', []);
+
+            foreach ($extra as $key => $definition) {
+                $registry->register(
+                    $key,
+                    new ContentContextDefinition(
+                        $definition['directory'],
+                        $definition['model'],
+                        $definition['disk'] ?? null,
+                    ),
+                );
+            }
+
+            return $registry;
+        });
     }
 
     public function publishAssets(): void

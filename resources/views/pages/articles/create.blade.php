@@ -1,15 +1,5 @@
-@use('Illuminate\Support\Facades\Vite')
-
-@if(file_exists(base_path('vendor/patrikjak/starter/public/hot')))
-    {{ Vite::useHotFile('/var/www/vendor/patrikjak/starter/public/hot') }}
-    @push('scripts')
-        <script src="{{ Vite::asset('resources/js/articles/article-editor.ts') }}" type="module" defer></script>
-    @endpush
-@else
-    @push('scripts')
-        <script src="{{ asset('vendor/pjstarter/assets/article-editor.js') }}" defer type="module"></script>
-    @endpush
-@endif
+@use('Patrikjak\Starter\Enums\Editorjs\EditorTool')
+@use('Illuminate\Support\Collection')
 
 <x-pjstarter::layout.app :title="__('pjstarter::pages.articles.new')">
 
@@ -56,12 +46,16 @@
 
         <div class="article-content">
             <p class="article-section-title">@lang('pjstarter::pages.articles.content')</p>
-            <div
-                class="editorjs"
-                id="editorjs"
-                data-upload-image-url="{{ route('admin.api.articles.upload-image') }}"
-                data-fetch-image-url="{{ route('admin.api.articles.fetch-image') }}"
-            ></div>
+            <x-pjstarter::editor
+                :tools="Collection::make([
+                    EditorTool::Header,
+                    EditorTool::List,
+                    EditorTool::Image,
+                    EditorTool::Raw,
+                    EditorTool::Underline,
+                ])"
+                context="articles"
+            />
         </div>
     </div>
 

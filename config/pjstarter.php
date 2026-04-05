@@ -23,7 +23,26 @@ return [
         'static_pages' => false,
         'articles' => false,
         'users' => false,
+        'content_images' => false,
     ],
+
+    /*
+     * Additional content contexts for the content image upload/fetch endpoints.
+     * The built-in 'articles' context is registered automatically when articles are enabled.
+     * Add custom contexts here to extend the registry with your own model types.
+     *
+     * 'disk' is optional — omit it to use the application's default filesystem disk.
+     *
+     * Example:
+     * 'content_contexts' => [
+     *     'products' => [
+     *         'directory' => 'products/images',
+     *         'model'     => \App\Models\Product::class,
+     *         'disk'      => 's3',
+     *     ],
+     * ],
+     */
+    'content_contexts' => [],
 
     /*
      * Navigation settings, items are displayed in the sidebar
