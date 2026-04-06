@@ -8,6 +8,7 @@ use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Notifications\RegisterInviteNotification;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Tests\TestCase;
 
 final class InviteTest extends TestCase
@@ -18,10 +19,11 @@ final class InviteTest extends TestCase
     {
         Notification::fake();
 
-        $this->createAndActAsSuperAdmin();
+        $user = $this->createAndActAsSuperAdmin();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'newuser@example.com',
+            'role_id' => $user->role->id,
         ]);
 
         $response->assertOk();
@@ -40,24 +42,29 @@ final class InviteTest extends TestCase
         Notification::fake();
 
         $this->createAndActAsSuperAdmin();
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'newuser@example.com',
-            'role_id' => 2,
+            'role_id' => $adminRole->id,
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('register_invites', ['email' => 'newuser@example.com', 'role_id' => 2]);
+        $this->assertDatabaseHas('register_invites', [
+            'email' => 'newuser@example.com',
+            'role_id' => $adminRole->id,
+        ]);
     }
 
     #[DefineEnvironment('enableUsers')]
     #[DefineEnvironment('enableRegisterViaInvitationFeature')]
     public function testInviteWithInvalidEmailReturns422(): void
     {
-        $this->createAndActAsSuperAdmin();
+        $user = $this->createAndActAsSuperAdmin();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'not-an-email',
+            'role_id' => $user->role->id,
         ]);
 
         $response->assertUnprocessable();
@@ -67,10 +74,11 @@ final class InviteTest extends TestCase
     #[DefineEnvironment('enableRegisterViaInvitationFeature')]
     public function testInviteWithExistingEmailReturns422(): void
     {
-        $this->createAndActAsSuperAdmin();
+        $user = $this->createAndActAsSuperAdmin();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'superadmin@example.com',
+            'role_id' => $user->role->id,
         ]);
 
         $response->assertUnprocessable();
@@ -80,10 +88,11 @@ final class InviteTest extends TestCase
     #[DefineEnvironment('enableRegisterViaInvitationFeature')]
     public function testInviteWithoutPermissionReturns403(): void
     {
-        $this->createAndActAsUser();
+        $user = $this->createAndActAsUser();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'newuser@example.com',
+            'role_id' => $user->role->id,
         ]);
 
         $response->assertForbidden();
@@ -95,10 +104,11 @@ final class InviteTest extends TestCase
     {
         Notification::fake();
 
-        $this->createAndActAsAdmin(['create-user']);
+        $user = $this->createAndActAsAdmin(['create-user']);
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'newuser@example.com',
+            'role_id' => $user->role->id,
         ]);
 
         $response->assertOk();

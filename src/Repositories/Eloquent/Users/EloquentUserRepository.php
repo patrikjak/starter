@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Repositories\Eloquent\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
 
@@ -25,7 +24,7 @@ class EloquentUserRepository implements UserRepository
         return User::with('role')
             ->select('users.*', 'r.name AS role_name', 'r.id AS role_id')
             ->join('roles AS r', 'users.role_id', '=', 'r.id')
-            ->where('r.name', '!=', RoleType::SUPERADMIN->name)
+            ->where('r.is_superadmin', false)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Auth\AuthManager;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
 use Patrikjak\Utils\Common\Enums\Type;
@@ -51,11 +50,7 @@ final class UsersTableProvider extends BasePaginatedTableProvider
 
             $role = CellFactory::chip(
                 $user->role_name,
-                /** @phpstan-ignore-next-line */
-                match ($user->role_name) {
-                    RoleType::SUPERADMIN->name, RoleType::ADMIN->name => Type::SUCCESS,
-                    RoleType::USER->name => Type::NEUTRAL,
-                },
+                $user->role->is_superadmin ? Type::SUCCESS : Type::NEUTRAL,
             );
 
             return [

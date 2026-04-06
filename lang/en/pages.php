@@ -140,10 +140,16 @@ return [
         'roles' => [
             'title' => 'Roles',
             'name' => 'Name',
+            'slug' => 'Slug',
             'manage_permissions' => 'Manage permissions',
             'permissions' => 'Permissions',
             'details' => 'Role details',
             'permissions_synced' => 'Permissions were synced',
+            'create' => 'New role',
+            'edit' => 'Edit role: :name',
+            'role_created' => 'Role was created',
+            'role_updated' => 'Role was updated',
+            'role_deleted' => 'Role was deleted',
         ],
 
         'permissions' => [

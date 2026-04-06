@@ -50,9 +50,9 @@ public static function getPermissions(): array
                     'sk' => 'Zobraziť vaše funkcie',
                 ],
                 false,
-                [RoleType::SUPERADMIN, RoleType::ADMIN]
+                ['superadmin', 'admin']
             ),
-            
+
             // Custom permission
             new Permission(
                 YourFeaturePolicy::CUSTOM_ACTION,
@@ -61,7 +61,7 @@ public static function getPermissions(): array
                     'sk' => 'Vykonať vlastnú akciu',
                 ],
                 true,  // Protected permission
-                [RoleType::SUPERADMIN]  // Only superadmin has access by default
+                ['superadmin']  // Only superadmin has access by default
             ),
         ]),
     ];
@@ -154,7 +154,7 @@ new FeaturePermissions(ReportPolicy::FEATURE_NAME, [
             'sk' => 'Zobraziť reporty',
         ],
         false,
-        [RoleType::SUPERADMIN, RoleType::ADMIN]
+        ['superadmin', 'admin']
     ),
     new Permission(
         ReportPolicy::EXPORT,
@@ -163,7 +163,7 @@ new FeaturePermissions(ReportPolicy::FEATURE_NAME, [
             'sk' => 'Exportovať reporty',
         ],
         false,
-        [RoleType::SUPERADMIN, RoleType::ADMIN]
+        ['superadmin', 'admin']
     ),
     new Permission(
         ReportPolicy::SCHEDULE,
@@ -172,7 +172,7 @@ new FeaturePermissions(ReportPolicy::FEATURE_NAME, [
             'sk' => 'Naplánovať reporty',
         ],
         true,  // Protected - only superadmin can schedule reports
-        [RoleType::SUPERADMIN]
+        ['superadmin']
     ),
 ])
 

@@ -148,7 +148,11 @@
                 <h1>pjstarter::pages.users.title</h1>
 
                                     <div class="actions">
-                        <a href="http://localhost/admin/users/roles" class="pj-btn bordered button-like">pjstarter::pages.users.roles.title</a>
+                        <button class="pj-btn" id="invite-user-btn">
+        pjstarter::pages.users.invite_user
+            </button>
+        
+                    <a href="http://localhost/admin/users/roles" class="pj-btn bordered button-like">pjstarter::pages.users.roles.title</a>
                     </div>
                             </div>
 
@@ -221,7 +225,7 @@
 
     </td>
             <td class="chip role">
-    <span class="chip success">ADMIN</span>
+    <span class="chip neutral">Admin</span>
 </td>
     
     </tr>    </tbody>        </table>
@@ -289,6 +293,47 @@
         </div>
     </div>
     </div>
+
+            <template id="invite-user-form">
+            <form method="POST" action="http://localhost/admin/api/users/invite">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+    
+    <div class="pj-classic">
+            <label for="email">pjstarter::pages.users.email</label>
+    
+            <input type="email" id="email" name="email" autofocus="autofocus">
+    
+    </div>
+                <div class="pj-select">
+    <label for="role_id">pjstarter::pages.users.role</label>
+
+    <select id="role_id" name="role_id">
+                                    <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
+</div>
+
+    </form>        </template>
+
+        <script>
+            document.getElementById('invite-user-btn').addEventListener('click', function () {
+                const modal = new window.pjutils.Modal(true);
+                modal.setTitle('pjstarter::pages.users.invite_modal_title');
+                modal.setBody(document.getElementById('invite-user-form').innerHTML);
+                modal.setFooterButton('pjstarter::pages.users.invite_user', function () {
+                    const modalForm = document.querySelector('.modal .body form');
+                    const form = new window.pjutils.Form(modalForm);
+
+                    form.setSuccessCallback(function (f, response) {
+                        window.pjutils.Form.defaultSuccessCallback(f, response);
+                        modal.close();
+                    });
+
+                    form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                    return false;
+                });
+                modal.open();
+            });
+        </script>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ Permissions must exist before roles can be assigned.
 php artisan migrate
 
 # 2. Seed user roles (SUPERADMIN, ADMIN, USER)
-php artisan seed:user-roles
+php artisan pjauth:sync-roles
 
 # 3. Sync permissions from PermissionsDefinition
 php artisan pjstarter:permissions:sync
@@ -31,14 +31,14 @@ php artisan db:seed
 
 ### Seeder Order
 
-1. **RoleSeeder** — create roles (IDs must match `RoleType` enum: 1=SUPERADMIN, 2=ADMIN, 3=USER) and attach permissions
+1. **RoleSeeder** — run `php artisan pjauth:sync-roles` to create the default roles (`superadmin`, `admin`, `user`) and then `php artisan pjstarter:permissions:sync` to attach permissions
 2. **UserSeeder** — create users with role assignments
 3. **Content seeders** — authors, article categories, articles, static pages, etc.
 
 ### Full Reset (demo app)
 
 ```bash
-docker compose exec web bash -c "php artisan migrate:fresh --force && php artisan seed:user-roles && php artisan pjstarter:permissions:sync && php artisan db:seed"
+docker compose exec web bash -c "php artisan migrate:fresh --force && php artisan pjauth:sync-roles && php artisan pjstarter:permissions:sync && php artisan db:seed"
 ```
 
 ## Extending Package Models

@@ -9,6 +9,14 @@ use Illuminate\Foundation\Http\FormRequest;
 class SyncPermissionsRequest extends FormRequest
 {
     /**
+     * @return array<string, mixed>
+     */
+    public function rules(): array
+    {
+        return [];
+    }
+
+    /**
      * @return array<string>
      */
     public function getPermissions(): array
@@ -17,11 +25,11 @@ class SyncPermissionsRequest extends FormRequest
         $allData = $this->all();
 
         foreach ($allData as $key => $value) {
-            if (!str_contains($key, 'permission_')) {
+            if (!str_starts_with($key, 'permission_')) {
                 continue;
             }
 
-            $permissions[] = str_replace('permission_', '', $key);
+            $permissions[] = substr($key, strlen('permission_'));
         }
 
         return $permissions;

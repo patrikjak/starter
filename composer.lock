@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "770707f02e93f60cb4b944c1b39de08c",
+    "content-hash": "ac0a9a3ad688afe5511a436469f554e9",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2888,16 +2888,16 @@
         },
         {
             "name": "patrikjak/auth",
-            "version": "v1.5.0",
+            "version": "dev-custom-roles",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/auth.git",
-                "reference": "66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b"
+                "reference": "d7fdc6d60e9b8f40eb536c396093cf71bf5fdb0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/auth/zipball/66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b",
-                "reference": "66f57a044ec441d5fdcc90ba4ec0dd6d4a01433b",
+                "url": "https://api.github.com/repos/patrikjak/auth/zipball/d7fdc6d60e9b8f40eb536c396093cf71bf5fdb0f",
+                "reference": "d7fdc6d60e9b8f40eb536c396093cf71bf5fdb0f",
                 "shasum": ""
             },
             "require": {
@@ -2938,9 +2938,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/auth/issues",
-                "source": "https://github.com/patrikjak/auth/tree/v1.5.0"
+                "source": "https://github.com/patrikjak/auth/tree/custom-roles"
             },
-            "time": "2026-04-05T18:44:12+00:00"
+            "time": "2026-04-06T13:38:18+00:00"
         },
         {
             "name": "patrikjak/utils",
@@ -10338,7 +10338,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "patrikjak/auth": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

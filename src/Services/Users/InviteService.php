@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Auth\Services\InviteService as AuthInviteService;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
@@ -20,7 +19,7 @@ final readonly class InviteService
     ) {
     }
 
-    public function sendInvite(string $email, ?int $roleId = null): void
+    public function sendInvite(string $email, string $roleId): void
     {
         $this->authInviteService->sendInvite($email, $roleId);
     }
@@ -33,9 +32,7 @@ final readonly class InviteService
         $roles = $this->roleRepository->getAll();
 
         if ($user !== null && !$user->canViewSuperAdmin()) {
-            $roles = $roles->filter(
-                static fn ($role) => $role->name !== RoleType::SUPERADMIN->name,
-            )->values();
+            $roles = $roles->filter(static fn ($role) => !$role->is_superadmin)->values();
         }
 
         return $roles;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Dto\Users\Permission;
@@ -70,18 +69,23 @@ readonly class PermissionSynchronizer
             static fn (PermissionModel $permission) => [$permission->name => $permission->id]
         )->toArray();
 
-        $rolePermissions = [
-            RoleType::SUPERADMIN->name => [],
-            RoleType::ADMIN->name => [],
-            RoleType::USER->name => [],
-        ];
+        $rolePermissions = [];
+
+        foreach ($roles as $role) {
+            assert($role instanceof Role);
+            $rolePermissions[$role->slug] = [];
+        }
 
         foreach ($featurePermissions as $feature => $permissions) {
             foreach ($permissions as $action => $permission) {
                 assert($permission instanceof Permission);
 
-                foreach ($permission->defaultRoles as $role) {
-                    $rolePermissions[$role->name][] = $permissionIds[$this->getPermissionName($feature, $action)];
+                foreach ($permission->defaultRoles as $roleSlug) {
+                    if (!array_key_exists($roleSlug, $rolePermissions)) {
+                        continue;
+                    }
+
+                    $rolePermissions[$roleSlug][] = $permissionIds[$this->getPermissionName($feature, $action)];
                 }
             }
         }
@@ -89,7 +93,7 @@ readonly class PermissionSynchronizer
         foreach ($roles as $role) {
             assert($role instanceof Role);
 
-            $this->roleRepository->attachPermissions($role, $rolePermissions[$role->name]);
+            $this->roleRepository->attachPermissions($role, $rolePermissions[$role->slug]);
         }
     }
 

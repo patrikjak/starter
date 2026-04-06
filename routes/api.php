@@ -98,6 +98,21 @@ Route::middleware($middleware)
                         $tablePartsRoute->can(BasePolicy::VIEW_ANY, Role::class);
                     }
 
+                    $storeRoute = Route::post('/', [RolesController::class, 'store'])->name('store');
+                    if ($authEnabled) {
+                        $storeRoute->can(BasePolicy::CREATE, Role::class);
+                    }
+
+                    $updateRoute = Route::put('/{role}', [RolesController::class, 'update'])->name('update');
+                    if ($authEnabled) {
+                        $updateRoute->can(BasePolicy::EDIT, 'role');
+                    }
+
+                    $destroyRoute = Route::delete('/{role}', [RolesController::class, 'destroy'])->name('destroy');
+                    if ($authEnabled) {
+                        $destroyRoute->can(RolePolicy::DELETE, 'role');
+                    }
+
                     $syncPermissionsRoute = Route::put('/{role}/permissions', [RolesController::class, 'syncPermissions'])->name('permissions');
                     if ($authEnabled) {
                         $syncPermissionsRoute->can(RolePolicy::MANAGE, 'role');

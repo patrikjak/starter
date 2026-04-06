@@ -6,13 +6,49 @@ namespace Patrikjak\Starter\Repositories\Eloquent\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Models\RoleType;
-use Patrikjak\Auth\Repositories\RoleRepository as BaseRoleRepository;
+use Patrikjak\Auth\Models\Role as BaseRole;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
-class EloquentRoleRepository extends BaseRoleRepository implements RoleRepository
+readonly class EloquentRoleRepository implements RoleRepository
 {
+    public function create(string $slug, string $name, bool $isSuperadmin = false): void
+    {
+        $role = new Role();
+        $role->slug = $slug;
+        $role->name = $name;
+        $role->is_superadmin = $isSuperadmin;
+        $role->save();
+    }
+
+    public function firstOrCreate(string $slug, string $name, bool $isSuperadmin = false): BaseRole
+    {
+        $role = Role::firstOrNew(['slug' => $slug]);
+
+        if (!$role->exists) {
+            $role->name = $name;
+            $role->is_superadmin = $isSuperadmin;
+            $role->save();
+        }
+
+        return $role;
+    }
+
+    public function getAll(): Collection
+    {
+        return Role::all();
+    }
+
+    public function findBySlug(string $slug): ?BaseRole
+    {
+        return Role::where('slug', $slug)->first();
+    }
+
+    public function findById(string $id): ?BaseRole
+    {
+        return Role::find($id);
+    }
+
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
         return Role::paginate($pageSize, page: $page)->withPath($refreshUrl);
@@ -20,7 +56,7 @@ class EloquentRoleRepository extends BaseRoleRepository implements RoleRepositor
 
     public function getAllWithoutSuperAdminPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return Role::where('name', '!=', RoleType::SUPERADMIN->name)
+        return Role::where('is_superadmin', false)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }
@@ -44,5 +80,16 @@ class EloquentRoleRepository extends BaseRoleRepository implements RoleRepositor
     public function getRolePermissions(Role $role): Collection
     {
         return $role->permissions;
+    }
+
+    public function update(Role $role, string $name): void
+    {
+        $role->name = $name;
+        $role->save();
+    }
+
+    public function delete(Role $role): void
+    {
+        $role->delete();
     }
 }

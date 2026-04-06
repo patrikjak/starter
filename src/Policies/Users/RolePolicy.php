@@ -6,7 +6,6 @@ namespace Patrikjak\Starter\Policies\Users;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
@@ -32,14 +31,31 @@ class RolePolicy extends BasePolicy
     {
         assert($model instanceof Role);
 
-        return parent::view($user, $model) && $model->id !== RoleType::SUPERADMIN->value;
+        return parent::view($user, $model) && !$model->is_superadmin;
+    }
+
+    public function edit(User $user, ?Model $model = null): bool
+    {
+        assert($model instanceof Role);
+
+        return $this->hasPermission($user, self::EDIT) && !$model->is_superadmin;
     }
 
     public function manage(User $user, ?Model $model = null): bool
     {
         assert($model instanceof Role);
 
-        return $this->hasPermission($user, self::MANAGE) && $model->id !== RoleType::SUPERADMIN->value
+        return $this->hasPermission($user, self::MANAGE)
+            && !$model->is_superadmin
+            && $user->role->id !== $model->id;
+    }
+
+    public function delete(User $user, ?Model $model = null): bool
+    {
+        assert($model instanceof Role);
+
+        return $this->hasPermission($user, self::DELETE)
+            && !$model->is_superadmin
             && $user->role->id !== $model->id;
     }
 

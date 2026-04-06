@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Patrikjak\Starter\Models\Users;
 
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
@@ -32,7 +31,7 @@ trait PermissionsDefinition
                         'en' => 'View static pages',
                         'sk' => 'Zobraziť statické stránky',
                     ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    defaultRoles: ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
@@ -41,7 +40,7 @@ trait PermissionsDefinition
                         'sk' => 'Vytvoriť statické stránky',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -50,7 +49,7 @@ trait PermissionsDefinition
                         'sk' => 'Upraviť statické stránky',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
@@ -59,7 +58,7 @@ trait PermissionsDefinition
                         'sk' => 'Zmazať statické stránky',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(MetadataPolicy::FEATURE_NAME, [
@@ -69,7 +68,7 @@ trait PermissionsDefinition
                         'en' => 'View SEO settings',
                         'sk' => 'Zobraziť SEO nastavenia',
                     ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    defaultRoles: ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -77,7 +76,7 @@ trait PermissionsDefinition
                         'en' => 'View detail of SEO setting',
                         'sk' => 'Zobraziť detail SEO nastavenia',
                     ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    defaultRoles: ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -85,7 +84,7 @@ trait PermissionsDefinition
                         'en' => 'Edit SEO settings',
                         'sk' => 'Upraviť SEO nastavenia',
                     ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    defaultRoles: ['superadmin', 'admin'],
                 ),
             ]),
             new FeaturePermissions(UserPolicy::FEATURE_NAME, [
@@ -96,7 +95,16 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť používateľov',
                     ],
                     true,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    [
+                        'en' => 'Invite users',
+                        'sk' => 'Pozvať používateľov',
+                    ],
+                    false,
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     UserPolicy::VIEW_SUPERADMIN,
@@ -105,7 +113,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť super admin používateľov',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(RolePolicy::FEATURE_NAME, [
@@ -116,7 +124,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť používateľské role',
                     ],
                     true,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -125,7 +133,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť detail používateľskej role',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     RolePolicy::VIEW_SUPERADMIN,
@@ -134,7 +142,34 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť super admin rolu',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    [
+                        'en' => 'Create user roles',
+                        'sk' => 'Vytvoriť používateľské role',
+                    ],
+                    false,
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    [
+                        'en' => 'Edit user roles',
+                        'sk' => 'Upraviť používateľské role',
+                    ],
+                    false,
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::DELETE,
+                    [
+                        'en' => 'Delete user roles',
+                        'sk' => 'Zmazať používateľské role',
+                    ],
+                    false,
+                    ['superadmin'],
                 ),
                 new Permission(
                     RolePolicy::MANAGE,
@@ -143,7 +178,7 @@ trait PermissionsDefinition
                         'sk' => 'Spravovať oprávnenia',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     RolePolicy::MANAGE_PROTECTED,
@@ -152,7 +187,7 @@ trait PermissionsDefinition
                         'sk' => 'Spravovať chránené oprávnenia',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(PermissionPolicy::FEATURE_NAME, [
@@ -163,7 +198,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť používateľské oprávnenia',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     PermissionPolicy::VIEW_PROTECTED,
@@ -172,7 +207,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť chránené oprávnenia',
                     ],
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(AuthorPolicy::FEATURE_NAME, [
@@ -183,7 +218,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť autorov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -192,7 +227,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť detail autora',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
@@ -201,7 +236,7 @@ trait PermissionsDefinition
                         'sk' => 'Vytvoriť autorov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -210,7 +245,7 @@ trait PermissionsDefinition
                         'sk' => 'Editovať autorov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
@@ -219,7 +254,7 @@ trait PermissionsDefinition
                         'sk' => 'Zmazať autorov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
             new FeaturePermissions(ArticlePolicy::FEATURE_NAME, [
@@ -230,7 +265,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť články',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -239,7 +274,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť detail článku',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
@@ -248,7 +283,7 @@ trait PermissionsDefinition
                         'sk' => 'Vytvoriť články',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -257,7 +292,7 @@ trait PermissionsDefinition
                         'sk' => 'Upraviť články',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
@@ -266,7 +301,7 @@ trait PermissionsDefinition
                         'sk' => 'Zmazať články',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
             new FeaturePermissions(ArticleCategoryPolicy::FEATURE_NAME, [
@@ -277,7 +312,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť kategórie článkov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -286,7 +321,7 @@ trait PermissionsDefinition
                         'sk' => 'Zobraziť detail kategórie článku',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
@@ -295,7 +330,7 @@ trait PermissionsDefinition
                         'sk' => 'Vytvoriť kategórie článkov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -304,7 +339,7 @@ trait PermissionsDefinition
                         'sk' => 'Upraviť kategórie článkov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
@@ -313,7 +348,7 @@ trait PermissionsDefinition
                         'sk' => 'Zmazať kategórie článkov',
                     ],
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
         ];

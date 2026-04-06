@@ -7,7 +7,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\RolesController;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
-use Patrikjak\Starter\Tests\Factories\UserFactory;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Tests\TestCase;
 
 class SyncPermissionsTest extends TestCase
@@ -55,13 +55,15 @@ class SyncPermissionsTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testSyncPermissionsAsAdminWithPermission(): void
     {
-        $user = $this->createAndActAsAdmin([
+        $this->createAndActAsAdmin([
             'manage-role',
         ]);
 
-        $basicUser = UserFactory::createDefaultUserWithoutEvents();
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('editor', 'Editor');
 
-        $role = $user->role;
+        $editorRole = Role::where('slug', 'editor')->firstOrFail();
 
         $requestData = [
             'permission_create-article' => 'on',
@@ -71,7 +73,7 @@ class SyncPermissionsTest extends TestCase
 
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
-            ['role' => $basicUser->role->id],
+            ['role' => $editorRole->id],
         ), $requestData);
 
         $response->assertOk();
@@ -79,20 +81,20 @@ class SyncPermissionsTest extends TestCase
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
         ]);
 
-        $role->refresh();
+        $editorRole->refresh();
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::where('name', 'edit-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::where('name', 'delete-article')->first()->id,
         ]);
     }

@@ -30,4 +30,8 @@ interface RoleRepository extends BaseRoleRepository
     public function syncPermissions(Role $role, array $permissions): void;
 
     public function getRolePermissions(Role $role): Collection;
+
+    public function update(Role $role, string $name): void;
+
+    public function delete(Role $role): void;
 }

@@ -7,10 +7,13 @@ namespace Patrikjak\Starter\Services\Users;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Services\Auth\AuthorizationService;
 use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Common\Enums\Icon;
+use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\Cells\Simple;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
@@ -26,6 +29,8 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 
     private bool $userCanViewAnyPermission;
 
+    private bool $userCanViewRole;
+
     public function __construct(
         private readonly RoleRepository $roleRepository,
         private readonly AuthorizationService $authorizationService,
@@ -35,6 +40,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         );
         $this->userCanViewAnyPermission = $this->authorizationService->getUserPermission(
             static fn (User $user) => $user->canViewAnyPermission(),
+        );
+        $this->userCanViewRole = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewRole(),
         );
     }
 
@@ -68,8 +76,8 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             $permissions = $this->getCroppedString($rolePermissions);
 
             return [
-                'id' => CellFactory::simple((string) $role->id),
-                'name' => $this->authorizationService->getUserPermission(static fn (User $user) => $user->canViewRole())
+                'id' => CellFactory::simple($role->id),
+                'name' => $this->userCanViewRole
                     ? CellFactory::link($role->name, route('admin.users.roles.show', ['role' => $role->id]))
                     : CellFactory::simple($role->name),
                 'permissions' => CellFactory::simple($permissions),
@@ -100,12 +108,10 @@ final class RolesTableProvider extends BasePaginatedTableProvider
      */
     public function getActions(): array
     {
-        if (!$this->authorizationService->getUserPermission(static fn (User $user) => $user->canManagePermissions())) {
-            return [];
-        }
+        $actions = [];
 
-        return [
-            new Item(
+        if ($this->authorizationService->getUserPermission(static fn (User $user) => $user->canManagePermissions())) {
+            $actions[] = new Item(
                 __('pjstarter::pages.users.roles.manage_permissions'),
                 'manage_permissions',
                 Icon::CHECK,
@@ -118,7 +124,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                     }
 
                     return $this->authorizationService->getUserPermission(
-                        static fn (User $user) => $user->role->id !== (int) $roleId->value,
+                        static fn (User $user) => $user->role->id !== $roleId->value,
                     );
                 },
                 href: static function (array $row) {
@@ -127,16 +133,74 @@ final class RolesTableProvider extends BasePaginatedTableProvider
 
                     return route('admin.users.roles.permissions', ['role' => $roleId->value]);
                 },
-                inline: true
-            ),
-        ];
+                inline: true,
+            );
+        }
+
+        if (
+            $this->authorizationService->getUserPermission(
+                static fn (User $user) => $user->hasPermission(RolePolicy::FEATURE_NAME, BasePolicy::EDIT),
+            )
+        ) {
+            $actions[] = new Item(
+                __('pjstarter::general.edit'),
+                'edit',
+                Icon::EDIT,
+                visible: function (array $row): bool {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    return $this->authorizationService->getUserPermission(
+                        static fn (User $user) => $user->role->id !== $roleId->value,
+                    );
+                },
+                href: static function (array $row) {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    return route('admin.users.roles.edit', ['role' => $roleId->value]);
+                },
+                inline: true,
+            );
+        }
+
+        if (
+            $this->authorizationService->getUserPermission(
+                static fn (User $user) => $user->hasPermission(RolePolicy::FEATURE_NAME, BasePolicy::DELETE),
+            )
+        ) {
+            $actions[] = new Item(
+                __('pjstarter::general.delete'),
+                'delete',
+                Icon::TRASH,
+                Type::DANGER,
+                visible: function (array $row): bool {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    return $this->authorizationService->getUserPermission(
+                        static fn (User $user) => $user->role->id !== $roleId->value,
+                    );
+                },
+                href: static function (array $row) {
+                    $roleId = $row['id'];
+                    assert($roleId instanceof Simple);
+
+                    return route('admin.api.users.roles.destroy', ['role' => $roleId->value]);
+                },
+                method: 'DELETE',
+                inline: true,
+            );
+        }
+
+        return $actions;
     }
 
     protected function getPaginator(): TablePaginator
     {
         $tablePartsRoute = route('admin.api.users.roles.table-parts');
 
-        $users = $this->userCanViewSuperAdminRole
+        $paginator = $this->userCanViewSuperAdminRole
             ? $this->roleRepository->getAllPaginated(
                 $this->getPageSize(),
                 $this->getCurrentPage(),
@@ -148,6 +212,6 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                 $tablePartsRoute,
             );
 
-        return PaginatorFactory::createFromLengthAwarePaginator($users);
+        return PaginatorFactory::createFromLengthAwarePaginator($paginator);
     }
 }

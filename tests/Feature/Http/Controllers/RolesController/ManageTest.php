@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\RolesController;
 
 use Orchestra\Testbench\Attributes\DefineEnvironment;
-use Patrikjak\Auth\Models\RoleType;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Tests\TestCase;
 
 class ManageTest extends TestCase
@@ -58,9 +58,18 @@ class ManageTest extends TestCase
             'manage-role',
         ]);
 
+        Role::insert([
+            'id' => '00000000-0000-0000-0000-000000000003',
+            'slug' => 'editor',
+            'name' => 'Editor',
+            'is_superadmin' => false,
+        ]);
+
+        $editorRole = Role::where('slug', 'editor')->firstOrFail();
+
         $response = $this->getJson(route(
             'admin.users.roles.permissions',
-            ['role' => RoleType::USER],
+            ['role' => $editorRole->id],
         ));
 
         $response->assertOk();

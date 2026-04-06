@@ -198,9 +198,19 @@ Route::prefix('admin')
                             $indexRoute->can(BasePolicy::VIEW_ANY, Role::class);
                         }
 
+                        $createRoute = Route::get('/create', [RolesController::class, 'create'])->name('create');
+                        if ($authEnabled) {
+                            $createRoute->can(BasePolicy::CREATE, Role::class);
+                        }
+
                         $showRoute = Route::get('/{role}', [RolesController::class, 'show'])->name('show');
                         if ($authEnabled) {
                             $showRoute->can(BasePolicy::VIEW, 'role');
+                        }
+
+                        $editRoute = Route::get('/{role}/edit', [RolesController::class, 'edit'])->name('edit');
+                        if ($authEnabled) {
+                            $editRoute->can(BasePolicy::EDIT, 'role');
                         }
 
                         $permissionsRoute = Route::get('/{role}/permissions', [RolesController::class, 'permissions'])

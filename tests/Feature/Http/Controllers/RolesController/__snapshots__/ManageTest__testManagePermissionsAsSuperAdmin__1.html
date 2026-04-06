@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.roles.manage_permissions: SUPERADMIN  - App</title>
+    <title> pjstarter::pages.users.roles.manage_permissions: Superadmin  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -159,13 +159,13 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.roles.manage_permissions: SUPERADMIN</h1>
+                <h1>pjstarter::pages.users.roles.manage_permissions: Superadmin</h1>
 
                             </div>
 
             <div class="body">
                 <div class="manage-permissions">
-        <form method="POST" action="http://localhost/admin/api/users/roles/1/permissions">
+        <form method="POST" action="http://localhost/admin/api/users/roles/00000000-0000-0000-0000-000000000001/permissions">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
     <div class="pj-widget full mb-4">
@@ -261,6 +261,13 @@
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
+            <input type="checkbox" id="permission_create-user" name="permission_create-user" checked>
+
+            <label for="permission_create-user">Invite users</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
             <input type="checkbox" id="permission_viewSuperadmin-user" name="permission_viewSuperadmin-user" checked>
 
             <label for="permission_viewSuperadmin-user">View super admin</label>
@@ -298,6 +305,27 @@
             <input type="checkbox" id="permission_viewSuperadmin-role" name="permission_viewSuperadmin-role" checked>
 
             <label for="permission_viewSuperadmin-role">View super admin role</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_create-role" name="permission_create-role" checked>
+
+            <label for="permission_create-role">Create user roles</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_edit-role" name="permission_edit-role" checked>
+
+            <label for="permission_edit-role">Edit user roles</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_delete-role" name="permission_delete-role" checked>
+
+            <label for="permission_delete-role">Delete user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">

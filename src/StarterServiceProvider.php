@@ -103,6 +103,8 @@ class StarterServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/pjstarter.php', 'pjstarter');
 
+        config()->set('pjauth.models.role', Role::class);
+
         $this->app->singleton(ContentContextRegistry::class, function (): ContentContextRegistry {
             $registry = new ContentContextRegistry();
 

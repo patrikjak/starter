@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Policies;
 
 use Illuminate\Database\Eloquent\Model;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\User;
 
 class BasePolicy
@@ -24,7 +23,7 @@ class BasePolicy
 
     public function before(User $user): ?bool
     {
-        if ($user->hasRole(RoleType::SUPERADMIN)) {
+        if ($user->role->is_superadmin) {
             return true;
         }
 

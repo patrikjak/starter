@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Patrikjak\Starter\Http\Requests\Users;
 
@@ -16,7 +16,7 @@ class InviteUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'unique:users,email'],
-            'role_id' => ['nullable', 'integer', 'exists:roles,id'],
+            'role_id' => ['required', 'string', 'exists:roles,id'],
         ];
     }
 
@@ -49,10 +49,8 @@ class InviteUserRequest extends FormRequest
         return $this->input('email');
     }
 
-    public function getRoleId(): ?int
+    public function getRoleId(): string
     {
-        $roleId = $this->input('role_id');
-
-        return $roleId !== null ? (int) $roleId : null;
+        return $this->input('role_id');
     }
 }

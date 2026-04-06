@@ -35,6 +35,18 @@ class RolesController
         ]);
     }
 
+    public function create(): View
+    {
+        return view('pjstarter::pages.users.roles.create');
+    }
+
+    public function edit(Role $role): View
+    {
+        return view('pjstarter::pages.users.roles.edit', [
+            'role' => $role,
+        ]);
+    }
+
     public function permissions(
         Role $role,
         RoleRepository $roleRepository,

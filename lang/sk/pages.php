@@ -140,10 +140,16 @@ return [
         'roles' => [
             'title' => 'Používateľské role',
             'name' => 'Názov',
+            'slug' => 'Slug',
             'manage_permissions' => 'Spravovať oprávnenia',
             'permissions' => 'Oprávnenia',
             'details' => 'Detaily role',
             'permissions_synced' => 'Oprávnenia boli synchronizované',
+            'create' => 'Nová rola',
+            'edit' => 'Úprava role: :name',
+            'role_created' => 'Rola bola vytvorená',
+            'role_updated' => 'Rola bola aktualizovaná',
+            'role_deleted' => 'Rola bola vymazaná',
         ],
 
         'permissions' => [
