@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -8,21 +10,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        if (!$this->needsUpgrade()) {
-            return;
+        if ($this->needsUpgrade()) {
+            $this->dropForeignKeyIfExists();
+
+            if (DB::getDriverName() === 'sqlite') {
+                $this->upgradeRoleIdSqlite();
+            } else {
+                DB::statement('ALTER TABLE permission_role MODIFY COLUMN role_id VARCHAR(36) NOT NULL');
+            }
         }
 
-        $this->dropForeignKeyIfExists();
-
-        if (DB::getDriverName() === 'sqlite') {
-            $this->upgradeRoleIdSqlite();
-        } else {
-            DB::statement('ALTER TABLE permission_role MODIFY COLUMN role_id VARCHAR(36) NOT NULL');
-        }
+        $this->addRoleNameBridge();
     }
 
     public function down(): void
     {
+        // Intentionally irreversible — data migration
     }
 
     private function needsUpgrade(): bool
@@ -46,13 +49,51 @@ return new class extends Migration {
 
         foreach ($foreignKeys as $foreignKey) {
             if (in_array('role_id', $foreignKey['columns'], true)) {
-                Schema::table('permission_role', function (Blueprint $table) {
+                Schema::table('permission_role', function (Blueprint $table): void {
                     $table->dropForeign(['role_id']);
                 });
 
                 return;
             }
         }
+    }
+
+    private function addRoleNameBridge(): void
+    {
+        if (!Schema::hasTable('roles') || !Schema::hasTable('permission_role')) {
+            return;
+        }
+
+        if (Schema::hasColumn('permission_role', 'role_name')) {
+            return;
+        }
+
+        if (!$this->rolesHaveIntegerIds()) {
+            return;
+        }
+
+        Schema::table('permission_role', function (Blueprint $table): void {
+            $table->string('role_name', 191)->nullable()->after('role_id');
+        });
+
+        $roles = DB::table('roles')->pluck('name', 'id');
+
+        foreach ($roles as $id => $name) {
+            DB::table('permission_role')
+                ->where('role_id', (string) $id)
+                ->update(['role_name' => $name]);
+        }
+    }
+
+    private function rolesHaveIntegerIds(): bool
+    {
+        foreach (Schema::getColumns('roles') as $column) {
+            if ($column['name'] === 'id' && str_contains(strtolower($column['type']), 'int')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function upgradeRoleIdSqlite(): void
@@ -64,7 +105,9 @@ return new class extends Migration {
             )
         ');
 
-        DB::statement('INSERT INTO permission_role_new SELECT permission_id, CAST(role_id AS TEXT) FROM permission_role');
+        DB::statement(
+            'INSERT INTO permission_role_new SELECT permission_id, CAST(role_id AS TEXT) FROM permission_role',
+        );
 
         DB::statement('DROP TABLE permission_role');
         DB::statement('ALTER TABLE permission_role_new RENAME TO permission_role');

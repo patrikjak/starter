@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -11,7 +14,11 @@ return new class extends Migration {
             return;
         }
 
-        Schema::table('permission_role', function (Blueprint $table) {
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE permission_role MODIFY COLUMN role_id VARCHAR(36) NOT NULL');
+        }
+
+        Schema::table('permission_role', function (Blueprint $table): void {
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')
@@ -21,7 +28,7 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::table('permission_role', function (Blueprint $table) {
+        Schema::table('permission_role', function (Blueprint $table): void {
             $table->dropForeign(['role_id']);
         });
     }
