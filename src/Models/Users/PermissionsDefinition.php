@@ -31,7 +31,7 @@ trait PermissionsDefinition
                         'en' => 'View static pages',
                         'sk' => 'Zobraziť statické stránky',
                     ],
-                    defaultRoles: ['superadmin', 'admin'],
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
@@ -68,7 +68,7 @@ trait PermissionsDefinition
                         'en' => 'View SEO settings',
                         'sk' => 'Zobraziť SEO nastavenia',
                     ],
-                    defaultRoles: ['superadmin', 'admin'],
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
@@ -76,7 +76,7 @@ trait PermissionsDefinition
                         'en' => 'View detail of SEO setting',
                         'sk' => 'Zobraziť detail SEO nastavenia',
                     ],
-                    defaultRoles: ['superadmin', 'admin'],
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
@@ -84,7 +84,7 @@ trait PermissionsDefinition
                         'en' => 'Edit SEO settings',
                         'sk' => 'Upraviť SEO nastavenia',
                     ],
-                    defaultRoles: ['superadmin', 'admin'],
+                    defaultRoles: ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(UserPolicy::FEATURE_NAME, [

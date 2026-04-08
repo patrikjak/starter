@@ -13,7 +13,15 @@ class SyncPermissionsRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        $rules = [];
+
+        foreach (array_keys($this->all()) as $key) {
+            if (str_starts_with($key, 'permission_')) {
+                $rules[$key] = ['in:on'];
+            }
+        }
+
+        return $rules;
     }
 
     /**

@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['viewAny-static_page']);
 
         $response = $this->get(route('admin.static-pages.index'));
         $response->assertOk();
@@ -24,7 +24,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRenderedWithData(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['viewAny-static_page']);
 
         StaticPageFactory::createDefaultWithoutEvents();
 

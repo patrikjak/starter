@@ -82,6 +82,11 @@ readonly class EloquentRoleRepository implements RoleRepository
         return $role->permissions;
     }
 
+    public function countSuperadminRoles(): int
+    {
+        return Role::where('is_superadmin', true)->count();
+    }
+
     public function update(Role $role, string $name): void
     {
         $role->name = $name;

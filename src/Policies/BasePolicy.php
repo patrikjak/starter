@@ -21,7 +21,12 @@ class BasePolicy
 
     public const string DELETE = 'delete';
 
-    public function before(User $user): ?bool
+    /**
+     * Superadmins bypass all policy checks unconditionally, including checks that protect
+     * a user from modifying their own role (e.g. RolePolicy::manage).
+     * Subclasses may override this to restrict the bypass for specific abilities.
+     */
+    public function before(User $user, string $ability): ?bool
     {
         if ($user->role->is_superadmin) {
             return true;

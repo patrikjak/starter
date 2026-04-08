@@ -31,6 +31,8 @@ interface RoleRepository extends BaseRoleRepository
 
     public function getRolePermissions(Role $role): Collection;
 
+    public function countSuperadminRoles(): int;
+
     public function update(Role $role, string $name): void;
 
     public function delete(Role $role): void;

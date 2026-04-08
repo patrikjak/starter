@@ -68,7 +68,9 @@ class RolesController
         $roleRepository->syncPermissions($role, $permissions->pluck('id')->toArray());
 
         return new JsonResponse([
+            'title' => __('pjstarter::general.success'),
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
+            'level' => 'success',
         ]);
     }
 }

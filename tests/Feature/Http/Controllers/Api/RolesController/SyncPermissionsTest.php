@@ -31,7 +31,9 @@ class SyncPermissionsTest extends TestCase
 
         $response->assertOk();
         $response->assertJson([
+            'title' => __('pjstarter::general.success'),
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
+            'level' => 'success',
         ]);
 
         $role->refresh();
@@ -78,7 +80,9 @@ class SyncPermissionsTest extends TestCase
 
         $response->assertOk();
         $response->assertJson([
+            'title' => __('pjstarter::general.success'),
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
+            'level' => 'success',
         ]);
 
         $editorRole->refresh();

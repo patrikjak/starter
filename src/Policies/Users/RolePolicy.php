@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
 class RolePolicy extends BasePolicy
 {
@@ -16,11 +17,26 @@ class RolePolicy extends BasePolicy
 
     public const string FEATURE_NAME = 'role';
 
+    private const string PROTECTED_SLUG = 'superadmin';
+
     public const string VIEW_SUPERADMIN = 'viewSuperadmin';
 
     public const string MANAGE = 'manage';
 
     public const string MANAGE_PROTECTED = 'manageProtected';
+
+    /**
+     * The delete action is not bypassed for superadmins — default roles and the last
+     * superadmin role must remain undeletable regardless of who is acting.
+     */
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($ability === self::DELETE) {
+            return null;
+        }
+
+        return parent::before($user, $ability);
+    }
 
     public function viewSuperAdmin(User $user): bool
     {
@@ -54,8 +70,20 @@ class RolePolicy extends BasePolicy
     {
         assert($model instanceof Role);
 
+        if ($model->slug === self::PROTECTED_SLUG) {
+            return false;
+        }
+
+        if ($model->is_superadmin) {
+            $roleRepository = app(RoleRepository::class);
+            assert($roleRepository instanceof RoleRepository);
+
+            if ($roleRepository->countSuperadminRoles() <= 1) {
+                return false;
+            }
+        }
+
         return $this->hasPermission($user, self::DELETE)
-            && !$model->is_superadmin
             && $user->role->id !== $model->id;
     }
 

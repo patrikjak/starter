@@ -110,7 +110,7 @@ Route::middleware($middleware)
 
                     $destroyRoute = Route::delete('/{role}', [RolesController::class, 'destroy'])->name('destroy');
                     if ($authEnabled) {
-                        $destroyRoute->can(RolePolicy::DELETE, 'role');
+                        $destroyRoute->can(BasePolicy::DELETE, 'role');
                     }
 
                     $syncPermissionsRoute = Route::put('/{role}/permissions', [RolesController::class, 'syncPermissions'])->name('permissions');

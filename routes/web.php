@@ -24,13 +24,6 @@ use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 
-$authEnabled = config('pjstarter.features.auth');
-$dashboardEnabled = config('pjstarter.features.dashboard');
-$profileEnabled = config('pjstarter.features.profile');
-$staticPagesEnabled = config('pjstarter.features.static_pages');
-$articlesEnabled = config('pjstarter.features.articles');
-$usersEnabled = config('pjstarter.features.users');
-
 Route::prefix('admin')
     ->name('admin.')
     ->group(static function (): void {
