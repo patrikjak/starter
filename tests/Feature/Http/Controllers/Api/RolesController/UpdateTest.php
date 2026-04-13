@@ -15,7 +15,7 @@ class UpdateTest extends TestCase
     {
         $this->createAndActAsSuperAdmin();
 
-        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
 
         $response = $this->putJson(route('admin.api.users.roles.update', ['role' => $adminRole->id]), [
             'name' => 'Administrator',
@@ -36,7 +36,7 @@ class UpdateTest extends TestCase
     {
         $this->createAndActAsAdmin(['edit-role']);
 
-        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
 
         $response = $this->putJson(route('admin.api.users.roles.update', ['role' => $adminRole->id]), [
             'name' => 'Administrator',
@@ -51,7 +51,7 @@ class UpdateTest extends TestCase
     {
         $this->createAndActAsAdmin();
 
-        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
 
         $response = $this->putJson(route('admin.api.users.roles.update', ['role' => $adminRole->id]), [
             'name' => 'Administrator',
@@ -65,7 +65,7 @@ class UpdateTest extends TestCase
     {
         $this->createAndActAsSuperAdmin();
 
-        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
 
         $response = $this->putJson(route('admin.api.users.roles.update', ['role' => $adminRole->id]), []);
 

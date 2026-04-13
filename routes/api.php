@@ -92,6 +92,11 @@ Route::middleware($middleware)
                     $inviteRoute->can(BasePolicy::CREATE, User::class);
                 }
 
+                $updateRoute = Route::put('/{user}', [UsersController::class, 'update'])->name('update');
+                if ($authEnabled) {
+                    $updateRoute->can(BasePolicy::EDIT, 'user');
+                }
+
                 Route::prefix('roles')->name('roles.')->group(static function () use ($authEnabled): void {
                     $tablePartsRoute = Route::get('/table-parts', [RolesController::class, 'tableParts'])->name('table-parts');
                     if ($authEnabled) {

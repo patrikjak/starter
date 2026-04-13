@@ -13,6 +13,11 @@ interface RoleRepository extends BaseRoleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
 
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getAllWithoutSuperAdmin(): Collection;
+
     public function getAllWithoutSuperAdminPaginated(
         int $pageSize,
         int $page,

@@ -51,6 +51,11 @@ trait AvailablePermissions
         return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 
+    public function canEditUser(): bool
+    {
+        return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::EDIT);
+    }
+
     public function canViewSuperAdmin(): bool
     {
         return $this->hasPermission(UserPolicy::FEATURE_NAME, UserPolicy::VIEW_SUPERADMIN);

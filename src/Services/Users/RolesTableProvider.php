@@ -15,7 +15,6 @@ use Patrikjak\Starter\Support\StringCropper;
 use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Common\Enums\Type;
 use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
-use Patrikjak\Utils\Table\Dto\Cells\Simple;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
@@ -57,7 +56,6 @@ final class RolesTableProvider extends BasePaginatedTableProvider
     public function getHeader(): array
     {
         return [
-            'id' => __('pjstarter::general.id'),
             'name' => __('pjstarter::pages.users.roles.name'),
             'permissions' => __('pjstarter::pages.users.roles.permissions'),
         ];
@@ -76,7 +74,7 @@ final class RolesTableProvider extends BasePaginatedTableProvider
             $permissions = $this->getCroppedString($rolePermissions);
 
             return [
-                'id' => CellFactory::simple($role->id),
+                'id' => $role->id,
                 'name' => $this->userCanViewRole
                     ? CellFactory::link($role->name, route('admin.users.roles.show', ['role' => $role->id]))
                     : CellFactory::simple($role->name),
@@ -91,10 +89,6 @@ final class RolesTableProvider extends BasePaginatedTableProvider
     public function getColumns(): array
     {
         $columns = ['name'];
-
-        if ($this->userCanViewSuperAdminRole) {
-            array_unshift($columns, 'id');
-        }
 
         if ($this->userCanViewAnyPermission) {
             $columns[] = 'permissions';
@@ -117,21 +111,21 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                 Icon::CHECK,
                 visible: function (array $row): bool {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
                     if ($this->userCanViewSuperAdminRole) {
                         return true;
                     }
 
                     return $this->authorizationService->getUserPermission(
-                        static fn (User $user) => $user->role->id !== $roleId->value,
+                        static fn (User $user) => $user->role->id !== $roleId,
                     );
                 },
                 href: static function (array $row) {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
-                    return route('admin.users.roles.permissions', ['role' => $roleId->value]);
+                    return route('admin.users.roles.permissions', ['role' => $roleId]);
                 },
                 inline: true,
             );
@@ -148,17 +142,17 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                 Icon::EDIT,
                 visible: function (array $row): bool {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
                     return $this->authorizationService->getUserPermission(
-                        static fn (User $user) => $user->role->id !== $roleId->value,
+                        static fn (User $user) => $user->role->id !== $roleId,
                     );
                 },
                 href: static function (array $row) {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
-                    return route('admin.users.roles.edit', ['role' => $roleId->value]);
+                    return route('admin.users.roles.edit', ['role' => $roleId]);
                 },
                 inline: true,
             );
@@ -176,17 +170,17 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                 Type::DANGER,
                 visible: function (array $row): bool {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
                     return $this->authorizationService->getUserPermission(
-                        static fn (User $user) => $user->role->id !== $roleId->value,
+                        static fn (User $user) => $user->role->id !== $roleId,
                     );
                 },
                 href: static function (array $row) {
                     $roleId = $row['id'];
-                    assert($roleId instanceof Simple);
+                    assert(is_string($roleId));
 
-                    return route('admin.api.users.roles.destroy', ['role' => $roleId->value]);
+                    return route('admin.api.users.roles.destroy', ['role' => $roleId]);
                 },
                 method: 'DELETE',
                 inline: true,

@@ -24,12 +24,12 @@ class EloquentAuthorRepository implements AuthorRepository
      */
     public function getAll(): Collection
     {
-        return Author::all();
+        return Author::query()->get();
     }
 
     public function getById(string $id): Author
     {
-        return Author::findOrFail($id);
+        return Author::query()->findOrFail($id);
     }
 
     public function create(string $name, ?string $profilePicture): void
@@ -44,7 +44,7 @@ class EloquentAuthorRepository implements AuthorRepository
 
     public function update(string $id, string $name, ?string $profilePicture): void
     {
-        $model = Author::findOrFail($id);
+        $model = Author::query()->findOrFail($id);
         assert($model instanceof Author);
 
         $model->name = $name;
@@ -55,7 +55,7 @@ class EloquentAuthorRepository implements AuthorRepository
 
     public function delete(string $id): void
     {
-        $model = Author::findOrFail($id);
+        $model = Author::query()->findOrFail($id);
 
         $model->delete();
     }

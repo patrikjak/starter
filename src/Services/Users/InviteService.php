@@ -7,6 +7,7 @@ namespace Patrikjak\Starter\Services\Users;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
 use Patrikjak\Auth\Services\InviteService as AuthInviteService;
+use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
@@ -24,17 +25,18 @@ final readonly class InviteService
         $this->authInviteService->sendInvite($email, $roleId);
     }
 
+    /**
+     * @return Collection<int, Role>
+     */
     public function getAvailableRoles(): Collection
     {
         $user = $this->authManager->user();
         $user = $user instanceof User ? $user : null;
 
-        $roles = $this->roleRepository->getAll();
-
         if ($user !== null && !$user->canViewSuperAdmin()) {
-            $roles = $roles->filter(static fn ($role) => !$role->is_superadmin)->values();
+            return $this->roleRepository->getAllWithoutSuperAdmin();
         }
 
-        return $roles;
+        return $this->roleRepository->getAll();
     }
 }

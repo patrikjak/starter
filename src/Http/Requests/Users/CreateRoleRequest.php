@@ -27,7 +27,7 @@ class CreateRoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => trans_choice('pjutils::validation.required', GrammaticalGender::FEMININE),
+            'name.required' => trans_choice('pjutils::validation.required', GrammaticalGender::MASCULINE),
             'name.max' => __('pjutils::validation.max.string'),
             'slug.unique' => __('pjutils::validation.unique'),
             'slug.regex' => __('pjstarter::validation.slug'),

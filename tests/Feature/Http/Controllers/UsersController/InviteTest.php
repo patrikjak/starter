@@ -42,7 +42,7 @@ final class InviteTest extends TestCase
         Notification::fake();
 
         $this->createAndActAsSuperAdmin();
-        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
 
         $response = $this->postJson(route('admin.api.users.invite'), [
             'email' => 'newuser@example.com',

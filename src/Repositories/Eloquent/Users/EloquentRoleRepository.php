@@ -23,7 +23,7 @@ readonly class EloquentRoleRepository implements RoleRepository
 
     public function firstOrCreate(string $slug, string $name, bool $isSuperadmin = false): BaseRole
     {
-        $role = Role::firstOrNew(['slug' => $slug]);
+        $role = Role::query()->firstOrNew(['slug' => $slug]);
 
         if (!$role->exists) {
             $role->name = $name;
@@ -36,27 +36,32 @@ readonly class EloquentRoleRepository implements RoleRepository
 
     public function getAll(): Collection
     {
-        return Role::all();
+        return Role::query()->get();
     }
 
     public function findBySlug(string $slug): ?BaseRole
     {
-        return Role::where('slug', $slug)->first();
+        return Role::query()->where('slug', $slug)->first();
     }
 
     public function findById(string $id): ?BaseRole
     {
-        return Role::find($id);
+        return Role::query()->find($id);
     }
 
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return Role::paginate($pageSize, page: $page)->withPath($refreshUrl);
+        return Role::query()->paginate($pageSize, page: $page)->withPath($refreshUrl);
+    }
+
+    public function getAllWithoutSuperAdmin(): Collection
+    {
+        return Role::query()->where('is_superadmin', false)->get();
     }
 
     public function getAllWithoutSuperAdminPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return Role::where('is_superadmin', false)
+        return Role::query()->where('is_superadmin', false)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }
@@ -84,7 +89,7 @@ readonly class EloquentRoleRepository implements RoleRepository
 
     public function countSuperadminRoles(): int
     {
-        return Role::where('is_superadmin', true)->count();
+        return Role::query()->where('is_superadmin', true)->count();
     }
 
     public function update(Role $role, string $name): void

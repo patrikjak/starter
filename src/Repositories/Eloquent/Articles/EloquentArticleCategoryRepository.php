@@ -25,12 +25,12 @@ class EloquentArticleCategoryRepository implements ArticleCategoryRepository
      */
     public function getAll(): Collection
     {
-        return ArticleCategory::all();
+        return ArticleCategory::query()->get();
     }
 
     public function getById(string $id): ArticleCategory
     {
-        return ArticleCategory::findOrFail($id);
+        return ArticleCategory::query()->findOrFail($id);
     }
 
     public function create(ArticleCategoryData $articleCategory): void
@@ -45,7 +45,7 @@ class EloquentArticleCategoryRepository implements ArticleCategoryRepository
 
     public function update(string $id, ArticleCategoryData $articleCategoryData): void
     {
-        $model = ArticleCategory::findOrFail($id);
+        $model = ArticleCategory::query()->findOrFail($id);
         assert($model instanceof ArticleCategory);
 
         $model->name = $articleCategoryData->name;
@@ -56,6 +56,6 @@ class EloquentArticleCategoryRepository implements ArticleCategoryRepository
 
     public function delete(string $id): void
     {
-        ArticleCategory::destroy($id);
+        ArticleCategory::query()->where('id', $id)->delete();
     }
 }

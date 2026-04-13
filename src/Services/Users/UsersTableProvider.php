@@ -7,7 +7,10 @@ namespace Patrikjak\Starter\Services\Users;
 use Illuminate\Auth\AuthManager;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
+use Patrikjak\Starter\Services\Auth\AuthorizationService;
+use Patrikjak\Utils\Common\Enums\Icon;
 use Patrikjak\Utils\Common\Enums\Type;
+use Patrikjak\Utils\Table\Dto\Cells\Actions\Item;
 use Patrikjak\Utils\Table\Dto\ColumnVisibility;
 use Patrikjak\Utils\Table\Dto\Pagination\Paginator as TablePaginator;
 use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
@@ -16,10 +19,24 @@ use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
 final class UsersTableProvider extends BasePaginatedTableProvider
 {
+    private bool $userCanEditUser;
+
+    private bool $userCanViewSuperAdmin;
+
+    /** @var array<string> */
+    private array $superadminUserIds = [];
+
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly AuthManager $authManager,
+        private readonly AuthorizationService $authorizationService,
     ) {
+        $this->userCanEditUser = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canEditUser(),
+        );
+        $this->userCanViewSuperAdmin = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->canViewSuperAdmin(),
+        );
     }
 
     public function getTableId(): string
@@ -45,8 +62,12 @@ final class UsersTableProvider extends BasePaginatedTableProvider
      */
     public function getData(): array
     {
-        return $this->getPageData()->map(static function (User $user) {
+        return $this->getPageData()->map(function (User $user) {
             assert(is_string($user->role_name));
+
+            if ($user->role->is_superadmin) {
+                $this->superadminUserIds[] = $user->id;
+            }
 
             $role = CellFactory::chip(
                 $user->role_name,
@@ -69,6 +90,37 @@ final class UsersTableProvider extends BasePaginatedTableProvider
             $this->getHeader(),
             ['created_at'],
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getActions(): array
+    {
+        $actions = [];
+
+        if ($this->userCanEditUser) {
+            $actions[] = new Item(
+                __('pjstarter::pages.users.change_role'),
+                'change-role',
+                Icon::EDIT,
+                visible: function (array $row): bool {
+                    $userId = $row['id'];
+                    assert(is_string($userId));
+
+                    if (in_array($userId, $this->superadminUserIds, true) && !$this->userCanViewSuperAdmin) {
+                        return false;
+                    }
+
+                    return $this->authorizationService->getUserPermission(
+                        static fn (User $user) => $user->id !== $userId,
+                    );
+                },
+                inline: true,
+            );
+        }
+
+        return $actions;
     }
 
     protected function getPaginator(): TablePaginator

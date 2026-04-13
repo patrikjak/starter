@@ -29,6 +29,59 @@
         <x-pjutils.table::table :table="$usersTable" />
     </div>
 
+    @can(BasePolicy::EDIT, User::class)
+        <template id="change-role-form">
+            <x-pjutils::form :action-label="null">
+                <x-pjutils::form.select
+                    name="role_id"
+                    :label="__('pjstarter::pages.users.role')"
+                    :options="$roles->pluck('name', 'id')->toArray()"
+                    :required="false"
+                />
+            </x-pjutils::form>
+        </template>
+
+        <script>
+            document.querySelectorAll('.pj-table-wrapper').forEach(function (tableWrapper) {
+                tableWrapper.addEventListener('click', function (event) {
+                    const actionBtn = event.target.closest('.action-btn.change-role');
+
+                    if (!actionBtn) {
+                        return;
+                    }
+
+                    const row = actionBtn.closest('tr');
+                    const userId = row ? row.id : null;
+
+                    if (!userId) {
+                        return;
+                    }
+
+                    const modal = new window.pjutils.Modal(true);
+                    modal.setTitle('{{ __('pjstarter::pages.users.change_role_modal_title') }}');
+                    modal.setBody(document.getElementById('change-role-form').innerHTML);
+                    modal.setFooterButton('{{ __('pjstarter::pages.users.change_role') }}', function () {
+                        const modalForm = document.querySelector('.modal .body form');
+                        modalForm.setAttribute('action', '{{ route('admin.api.users.update', ['user' => '__USER_ID__']) }}'.replace('__USER_ID__', userId));
+                        modalForm.setAttribute('method', 'PUT');
+
+                        const form = new window.pjutils.Form(modalForm);
+
+                        form.setSuccessCallback(function (submittedForm, response) {
+                            window.pjutils.Form.defaultSuccessCallback(submittedForm, response);
+                            modal.close();
+                        });
+
+                        form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                        return false;
+                    });
+                    modal.open();
+                });
+            });
+        </script>
+    @endcan
+
     @can(BasePolicy::CREATE, User::class)
         <template id="invite-user-form">
             <x-pjutils::form action="{{ route('admin.api.users.invite') }}" method="POST" :action-label="null">
@@ -57,8 +110,8 @@
                     const modalForm = document.querySelector('.modal .body form');
                     const form = new window.pjutils.Form(modalForm);
 
-                    form.setSuccessCallback(function (f, response) {
-                        window.pjutils.Form.defaultSuccessCallback(f, response);
+                    form.setSuccessCallback(function (form, response) {
+                        window.pjutils.Form.defaultSuccessCallback(form, response);
                         modal.close();
                     });
 

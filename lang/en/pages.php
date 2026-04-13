@@ -133,6 +133,10 @@ return [
         'invite_sent' => 'Invite was sent',
         'invite_modal_title' => 'Invite user',
 
+        'change_role' => 'Change role',
+        'change_role_modal_title' => 'Change user role',
+        'role_updated' => 'User role was updated',
+
         'index' => [
             'title' => 'All users',
         ],

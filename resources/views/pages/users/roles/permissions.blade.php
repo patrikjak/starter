@@ -7,7 +7,7 @@
             :action-label="__('pjstarter::general.save')"
         >
             @foreach($availablePermissions as $feature => $permissions)
-                <x-pjutils::widget :title="ucfirst($feature)" class="mb-4">
+                <x-pjutils::widget :title="__('pjstarter::permissions.features.' . $feature)" class="mb-4">
                     <div class="permissions grid grid-cols-4 gap-4">
                         @foreach($permissions as $permission)
                             <x-pjutils::form.checkbox

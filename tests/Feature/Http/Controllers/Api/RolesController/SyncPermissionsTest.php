@@ -40,17 +40,17 @@ class SyncPermissionsTest extends TestCase
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'create-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'edit-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'edit-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'delete-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'delete-article')->first()->id,
         ]);
     }
 
@@ -65,7 +65,7 @@ class SyncPermissionsTest extends TestCase
         assert($roleRepository instanceof RoleRepository);
         $roleRepository->create('editor', 'Editor');
 
-        $editorRole = Role::where('slug', 'editor')->firstOrFail();
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $requestData = [
             'permission_create-article' => 'on',
@@ -89,17 +89,17 @@ class SyncPermissionsTest extends TestCase
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $editorRole->id,
-            'permission_id' => Permission::where('name', 'create-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $editorRole->id,
-            'permission_id' => Permission::where('name', 'edit-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'edit-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
             'role_id' => $editorRole->id,
-            'permission_id' => Permission::where('name', 'delete-article')->first()->id,
+            'permission_id' => Permission::query()->where('name', 'delete-article')->first()->id,
         ]);
     }
 

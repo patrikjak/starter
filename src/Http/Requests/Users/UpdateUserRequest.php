@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
+use Patrikjak\Starter\Rules\Users\NonSuperadminRoleRule;
 
-class InviteUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
-     * @return array<string, array<string>>
+     * @return array<string, array<int, mixed>>
      */
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users,email'],
-            'role_id' => ['required', 'string', 'exists:roles,id'],
+            'role_id' => [
+                'required',
+                'string',
+                'exists:roles,id',
+                new NonSuperadminRoleRule($this->user()),
+            ],
         ];
     }
 
@@ -26,9 +30,6 @@ class InviteUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => trans_choice('pjutils::validation.required', GrammaticalGender::MASCULINE),
-            'email.email' => __('pjstarter::validation.email'),
-            'email.unique' => __('pjutils::validation.unique'),
             'role_id.exists' => __('pjstarter::validation.exists'),
         ];
     }
@@ -39,14 +40,8 @@ class InviteUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'email' => __('pjstarter::pages.users.email'),
             'role_id' => __('pjstarter::pages.users.role'),
         ];
-    }
-
-    public function getEmail(): string
-    {
-        return $this->input('email');
     }
 
     public function getRoleId(): string

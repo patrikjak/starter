@@ -133,6 +133,10 @@ return [
         'invite_sent' => 'Pozvánka bola odoslaná',
         'invite_modal_title' => 'Pozvať používateľa',
 
+        'change_role' => 'Zmeniť rolu',
+        'change_role_modal_title' => 'Zmeniť rolu používateľa',
+        'role_updated' => 'Rola používateľa bola aktualizovaná',
+
         'index' => [
             'title' => 'Všetci používatelia',
         ],

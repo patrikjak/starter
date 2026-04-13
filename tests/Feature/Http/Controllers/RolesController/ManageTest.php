@@ -65,7 +65,7 @@ class ManageTest extends TestCase
             'is_superadmin' => false,
         ]);
 
-        $editorRole = Role::where('slug', 'editor')->firstOrFail();
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $response = $this->getJson(route(
             'admin.users.roles.permissions',

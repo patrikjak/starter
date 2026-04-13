@@ -193,10 +193,11 @@
                 pjstarter::pages.users.role
                             </th>
         
+                    <th class="actions"></th>
             </tr>
 </thead>            <tbody>
     <tr class="empty-row">
-    <td colspan="3">
+    <td colspan="4">
         <div class="empty-state">
                         <p class="empty-state-title">pjutils::table.no_data_available</p>
                     </div>
@@ -268,6 +269,59 @@
     </div>
     </div>
 
+            <template id="change-role-form">
+            <form method="POST">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+    
+    <div class="pj-select">
+    <label for="role_id">pjstarter::pages.users.role</label>
+
+    <select id="role_id" name="role_id">
+                                    <option value="00000000-0000-0000-0000-000000000001">Superadmin</option>                            <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
+</div>
+
+    </form>        </template>
+
+        <script>
+            document.querySelectorAll('.pj-table-wrapper').forEach(function (tableWrapper) {
+                tableWrapper.addEventListener('click', function (event) {
+                    const actionBtn = event.target.closest('.action-btn.change-role');
+
+                    if (!actionBtn) {
+                        return;
+                    }
+
+                    const row = actionBtn.closest('tr');
+                    const userId = row ? row.id : null;
+
+                    if (!userId) {
+                        return;
+                    }
+
+                    const modal = new window.pjutils.Modal(true);
+                    modal.setTitle('pjstarter::pages.users.change_role_modal_title');
+                    modal.setBody(document.getElementById('change-role-form').innerHTML);
+                    modal.setFooterButton('pjstarter::pages.users.change_role', function () {
+                        const modalForm = document.querySelector('.modal .body form');
+                        modalForm.setAttribute('action', 'http://localhost/admin/api/users/__USER_ID__'.replace('__USER_ID__', userId));
+                        modalForm.setAttribute('method', 'PUT');
+
+                        const form = new window.pjutils.Form(modalForm);
+
+                        form.setSuccessCallback(function (submittedForm, response) {
+                            window.pjutils.Form.defaultSuccessCallback(submittedForm, response);
+                            modal.close();
+                        });
+
+                        form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                        return false;
+                    });
+                    modal.open();
+                });
+            });
+        </script>
+    
             <template id="invite-user-form">
             <form method="POST" action="http://localhost/admin/api/users/invite">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">

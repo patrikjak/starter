@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Http\Controllers\Users;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
@@ -19,13 +20,15 @@ class UsersController
         UsersTableProvider $usersTableProvider,
         InviteService $inviteService,
     ): View {
+        $availableRoles = Gate::allows(BasePolicy::CREATE, User::class) || Gate::allows(BasePolicy::EDIT, User::class)
+            ? $inviteService->getAvailableRoles()
+            : new Collection();
+
         return view('pjstarter::pages.users.index', [
             'usersTable' => $usersTableProvider->getTable(
                 $request->getTableParameters($usersTableProvider->getTableId()),
             ),
-            'roles' => Gate::allows(BasePolicy::CREATE, User::class)
-                ? $inviteService->getAvailableRoles()
-                : collect(),
+            'roles' => $availableRoles,
         ]);
     }
 }

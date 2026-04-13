@@ -14,6 +14,6 @@ trait EloquentSupportsPagination
         int $page,
         string $refreshUrl,
     ): LengthAwarePaginator {
-        return $model::paginate($pageSize, page: $page)->withPath($refreshUrl);
+        return $model::query()->paginate($pageSize, page: $page)->withPath($refreshUrl);
     }
 }

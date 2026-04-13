@@ -27,15 +27,15 @@ use Patrikjak\Starter\Policies\StaticPages\StaticPagePolicy;
 use Patrikjak\Starter\Policies\Users\PermissionPolicy;
 use Patrikjak\Starter\Policies\Users\RolePolicy;
 use Patrikjak\Starter\Policies\Users\UserPolicy;
-use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository as ArticleCategoryRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository as ArticleRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository as AuthorRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository as MetadataRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository as SlugRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository as StaticPageRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository as PermissionRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository as RoleRepositoryContract;
-use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository as UserRepositoryContract;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleCategoryRepository;
+use Patrikjak\Starter\Repositories\Contracts\Articles\ArticleRepository;
+use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
+use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
+use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
+use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
+use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleCategoryRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Articles\EloquentArticleRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Authors\EloquentAuthorRepository;
@@ -54,15 +54,15 @@ class StarterServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
-        SlugRepositoryContract::class => EloquentSlugRepository::class,
-        StaticPageRepositoryContract::class => EloquentStaticPageRepository::class,
-        MetadataRepositoryContract::class => EloquentMetadataRepository::class,
-        UserRepositoryContract::class => EloquentUserRepository::class,
-        RoleRepositoryContract::class => EloquentRoleRepository::class,
-        PermissionRepositoryContract::class => EloquentPermissionRepository::class,
-        AuthorRepositoryContract::class => EloquentAuthorRepository::class,
-        ArticleCategoryRepositoryContract::class => EloquentArticleCategoryRepository::class,
-        ArticleRepositoryContract::class => EloquentArticleRepository::class,
+        SlugRepository::class => EloquentSlugRepository::class,
+        StaticPageRepository::class => EloquentStaticPageRepository::class,
+        MetadataRepository::class => EloquentMetadataRepository::class,
+        UserRepository::class => EloquentUserRepository::class,
+        RoleRepository::class => EloquentRoleRepository::class,
+        PermissionRepository::class => EloquentPermissionRepository::class,
+        AuthorRepository::class => EloquentAuthorRepository::class,
+        ArticleCategoryRepository::class => EloquentArticleCategoryRepository::class,
+        ArticleRepository::class => EloquentArticleRepository::class,
     ];
 
     public function boot(): void
@@ -286,7 +286,7 @@ class StarterServiceProvider extends ServiceProvider
     private function loadExplicitRouteKeys(): void
     {
         Route::bind('sluggable', function (string $value): Sluggable {
-            $slugRepository = $this->app->make(SlugRepositoryContract::class);
+            $slugRepository = $this->app->make(SlugRepository::class);
             $sluggable = $slugRepository->getByUri($value);
 
             if ($sluggable === null) {

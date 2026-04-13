@@ -25,7 +25,7 @@ class UpdateRoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => trans_choice('pjutils::validation.required', GrammaticalGender::FEMININE),
+            'name.required' => trans_choice('pjutils::validation.required', GrammaticalGender::MASCULINE),
             'name.max' => __('pjutils::validation.max.string'),
         ];
     }
