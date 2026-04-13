@@ -58,7 +58,7 @@ return [
     ],
 
     'articles' => [
-        'view_any' => 'Zobraziť článkyyyy',
+        'view_any' => 'Zobraziť články',
         'view' => 'Zobraziť detail článku',
         'create' => 'Vytvoriť články',
         'edit' => 'Upraviť články',

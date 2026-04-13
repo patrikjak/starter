@@ -34,13 +34,10 @@ return new class extends Migration {
             return false;
         }
 
-        foreach (Schema::getColumns('permission_role') as $column) {
-            if ($column['name'] === 'role_id' && str_contains(strtolower($column['type']), 'int')) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            Schema::getColumns('permission_role'),
+            static fn ($column) => $column['name'] === 'role_id' && str_contains(strtolower($column['type']), 'int')
+        );
     }
 
     private function dropForeignKeyIfExists(): void
@@ -87,13 +84,10 @@ return new class extends Migration {
 
     private function rolesHaveIntegerIds(): bool
     {
-        foreach (Schema::getColumns('roles') as $column) {
-            if ($column['name'] === 'id' && str_contains(strtolower($column['type']), 'int')) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            Schema::getColumns('roles'),
+            static fn ($column) => $column['name'] === 'id' && str_contains(strtolower($column['type']), 'int')
+        );
     }
 
     private function upgradeRoleIdSqlite(): void
