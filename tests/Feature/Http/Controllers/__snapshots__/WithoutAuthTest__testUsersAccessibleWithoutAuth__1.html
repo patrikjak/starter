@@ -350,8 +350,8 @@
                     const modalForm = document.querySelector('.modal .body form');
                     const form = new window.pjutils.Form(modalForm);
 
-                    form.setSuccessCallback(function (f, response) {
-                        window.pjutils.Form.defaultSuccessCallback(f, response);
+                    form.setSuccessCallback(function (form, response) {
+                        window.pjutils.Form.defaultSuccessCallback(form, response);
                         modal.close();
                     });
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Rules\Users\NonSuperadminRoleRule;
 
 class UpdateUserRequest extends FormRequest
@@ -19,7 +20,7 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'string',
                 'exists:roles,id',
-                new NonSuperadminRoleRule($this->user()),
+                new NonSuperadminRoleRule($this->user() instanceof User ? $this->user() : null),
             ],
         ];
     }

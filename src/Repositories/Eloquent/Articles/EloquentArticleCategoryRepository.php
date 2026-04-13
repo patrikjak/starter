@@ -56,6 +56,6 @@ class EloquentArticleCategoryRepository implements ArticleCategoryRepository
 
     public function delete(string $id): void
     {
-        ArticleCategory::query()->where('id', $id)->delete();
+        ArticleCategory::query()->findOrFail($id)->delete();
     }
 }

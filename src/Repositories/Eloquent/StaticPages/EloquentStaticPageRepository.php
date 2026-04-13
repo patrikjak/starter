@@ -38,6 +38,6 @@ class EloquentStaticPageRepository implements StaticPageRepository
 
     public function delete(string $id): void
     {
-        StaticPage::query()->where('id', $id)->delete();
+        StaticPage::query()->findOrFail($id)->delete();
     }
 }

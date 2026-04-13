@@ -15,9 +15,11 @@ readonly class EloquentRoleRepository implements RoleRepository
     public function create(string $slug, string $name, bool $isSuperadmin = false): void
     {
         $role = new Role();
+
         $role->slug = $slug;
         $role->name = $name;
         $role->is_superadmin = $isSuperadmin;
+
         $role->save();
     }
 
@@ -61,7 +63,8 @@ readonly class EloquentRoleRepository implements RoleRepository
 
     public function getAllWithoutSuperAdminPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return Role::query()->where('is_superadmin', false)
+        return Role::query()
+            ->where('is_superadmin', false)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }

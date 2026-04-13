@@ -44,7 +44,8 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getAllUnprotectedPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return $this->getModel()::query()->where('protected', '=', 0)
+        return $this->getModel()::query()
+            ->where('protected', '=', 0)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }
