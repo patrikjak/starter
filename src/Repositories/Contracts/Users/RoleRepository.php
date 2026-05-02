@@ -6,7 +6,7 @@ namespace Patrikjak\Starter\Repositories\Contracts\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Repositories\Interfaces\RoleRepository as BaseRoleRepository;
+use Patrikjak\Auth\Repositories\Contracts\RoleRepository as BaseRoleRepository;
 use Patrikjak\Starter\Models\Users\Role;
 
 interface RoleRepository extends BaseRoleRepository
