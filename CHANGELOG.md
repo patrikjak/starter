@@ -19,6 +19,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.10.0] - 2026-05-02
+
+### Added
+
+- **Role management** — roles can now be created, edited, and deleted from the admin panel; slug is auto-generated from the name but can be overridden; the `superadmin` role and the last remaining superadmin role are protected from deletion
+- **User invitation** — admins can invite users by email from the users index page; the role is selected at invite time; non-superadmin admins only see non-superadmin roles in the picker
+- **User role update** — a user's role can be changed inline from the users table; users cannot change their own role; non-superadmin admins cannot assign superadmin roles
+- **`permission_role` UUID migration** — four new migrations upgrade the `permission_role` table to use the UUID-based role primary key introduced in `patrikjak/auth` 2.0; run `php artisan migrate` after upgrading
+- **Superadmin bypass in `hasPermission()`** — superadmin users now bypass the permission pivot check in `User::hasPermission()`, so nav item visibility and all direct permission checks respect the `is_superadmin` flag without requiring permissions to be seeded
+- **Permission labels from lang files** — permission descriptions are now resolved from `lang/en/permissions.php` and `lang/sk/permissions.php` at sync time instead of being hardcoded inline
+
+### Changed
+
+- `patrikjak/auth` minimum version bumped to `^2.0`; roles are now database-driven with UUID primary keys and a `slug` field — the `RoleType` enum is gone; run `php artisan pjauth:sync-roles` after upgrading
+- `PermissionsDefinition` default role references updated from `RoleType` enum cases to slug strings (`'superadmin'`, `'admin'`)
+- `RolePolicy::before()` no longer bypasses the superadmin check for the `delete` action — role deletion is always evaluated through the full policy
+- `UserPolicy::before()` no longer bypasses the superadmin check for the `edit` action — a user can never change their own role, even as superadmin
+- `InstallCommand` now calls `pjauth:install` (renamed from `install:pjauth` in auth 2.0)
+- `RoleRepository` contract updated to extend `Patrikjak\Auth\Repositories\Contracts\RoleRepository` (namespace moved from `Interfaces` to `Contracts` in auth 2.0)
+
 ## [0.9.0] - 2026-04-05
 
 ### Added

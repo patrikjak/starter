@@ -16,6 +16,10 @@ class User extends BaseUser
 
     public function hasPermission(string $feature, string $action): bool
     {
+        if ($this->role->is_superadmin) {
+            return true;
+        }
+
         return $this->role->permissions()->where('name', sprintf('%s-%s', $action, $feature))->exists();
     }
 }
