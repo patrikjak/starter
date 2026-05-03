@@ -17,7 +17,7 @@ use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
 use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
-final class UsersTableProvider extends BasePaginatedTableProvider
+class UsersTableProvider extends BasePaginatedTableProvider
 {
     private bool $userCanEditUser;
 

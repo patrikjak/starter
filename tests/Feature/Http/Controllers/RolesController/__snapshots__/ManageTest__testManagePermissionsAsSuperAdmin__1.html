@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.roles.manage_permissions: Superadmin  - App</title>
+    <title> pjstarter::pages.users.roles.manage_permissions: Editor  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -105,20 +105,6 @@
 
             </a>
 
-    </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/permissions" class="item" data-nav-tooltip="pjstarter::pages.users.permissions.title">
-        <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                </svg>
-                    </span>
-        <span class="text">pjstarter::pages.users.permissions.title</span>
-
-            </a>
-
     </div>                    </div>
     </div>                            </div>
             </div>
@@ -159,13 +145,13 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.roles.manage_permissions: Superadmin</h1>
+                <h1>pjstarter::pages.users.roles.manage_permissions: Editor</h1>
 
                             </div>
 
             <div class="body">
                 <div class="manage-permissions">
-        <form method="POST" action="http://localhost/admin/api/users/roles/00000000-0000-0000-0000-000000000001/permissions">
+        <form method="POST" action="http://localhost/admin/api/users/roles/00000000-0000-0000-0000-000000000003/permissions">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
     <div class="pj-widget full mb-4">
@@ -179,28 +165,28 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-static_page" name="permission_viewAny-static_page" checked>
+            <input type="checkbox" id="permission_viewAny-static_page" name="permission_viewAny-static_page">
 
             <label for="permission_viewAny-static_page">View static pages</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-static_page" name="permission_create-static_page" checked>
+            <input type="checkbox" id="permission_create-static_page" name="permission_create-static_page">
 
             <label for="permission_create-static_page">Create static pages</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-static_page" name="permission_edit-static_page" checked>
+            <input type="checkbox" id="permission_edit-static_page" name="permission_edit-static_page">
 
             <label for="permission_edit-static_page">Edit static pages</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_delete-static_page" name="permission_delete-static_page" checked>
+            <input type="checkbox" id="permission_delete-static_page" name="permission_delete-static_page">
 
             <label for="permission_delete-static_page">Delete static pages</label>
         </div>
@@ -220,21 +206,21 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-metadata" name="permission_viewAny-metadata" checked>
+            <input type="checkbox" id="permission_viewAny-metadata" name="permission_viewAny-metadata">
 
             <label for="permission_viewAny-metadata">View SEO settings</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_view-metadata" name="permission_view-metadata" checked>
+            <input type="checkbox" id="permission_view-metadata" name="permission_view-metadata">
 
             <label for="permission_view-metadata">View detail of SEO setting</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-metadata" name="permission_edit-metadata" checked>
+            <input type="checkbox" id="permission_edit-metadata" name="permission_edit-metadata">
 
             <label for="permission_edit-metadata">Edit SEO settings</label>
         </div>
@@ -254,28 +240,28 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-user" name="permission_viewAny-user" checked>
+            <input type="checkbox" id="permission_viewAny-user" name="permission_viewAny-user">
 
             <label for="permission_viewAny-user">View users</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-user" name="permission_create-user" checked>
+            <input type="checkbox" id="permission_create-user" name="permission_create-user">
 
             <label for="permission_create-user">Invite users</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-user" name="permission_edit-user" checked>
+            <input type="checkbox" id="permission_edit-user" name="permission_edit-user">
 
             <label for="permission_edit-user">Edit users</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewSuperadmin-user" name="permission_viewSuperadmin-user" checked>
+            <input type="checkbox" id="permission_viewSuperadmin-user" name="permission_viewSuperadmin-user">
 
             <label for="permission_viewSuperadmin-user">View super admin</label>
         </div>
@@ -295,56 +281,56 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-role" name="permission_viewAny-role" checked>
+            <input type="checkbox" id="permission_viewAny-role" name="permission_viewAny-role">
 
             <label for="permission_viewAny-role">View user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_view-role" name="permission_view-role" checked>
+            <input type="checkbox" id="permission_view-role" name="permission_view-role">
 
             <label for="permission_view-role">View detail of user role</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewSuperadmin-role" name="permission_viewSuperadmin-role" checked>
+            <input type="checkbox" id="permission_viewSuperadmin-role" name="permission_viewSuperadmin-role">
 
             <label for="permission_viewSuperadmin-role">View super admin role</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-role" name="permission_create-role" checked>
+            <input type="checkbox" id="permission_create-role" name="permission_create-role">
 
             <label for="permission_create-role">Create user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-role" name="permission_edit-role" checked>
+            <input type="checkbox" id="permission_edit-role" name="permission_edit-role">
 
             <label for="permission_edit-role">Edit user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_delete-role" name="permission_delete-role" checked>
+            <input type="checkbox" id="permission_delete-role" name="permission_delete-role">
 
             <label for="permission_delete-role">Delete user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_manage-role" name="permission_manage-role" checked>
+            <input type="checkbox" id="permission_manage-role" name="permission_manage-role">
 
             <label for="permission_manage-role">Manage permissions</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_manageProtected-role" name="permission_manageProtected-role" checked>
+            <input type="checkbox" id="permission_manageProtected-role" name="permission_manageProtected-role">
 
             <label for="permission_manageProtected-role">Manage protected permissions</label>
         </div>
@@ -364,14 +350,14 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-permission" name="permission_viewAny-permission" checked>
+            <input type="checkbox" id="permission_viewAny-permission" name="permission_viewAny-permission">
 
             <label for="permission_viewAny-permission">View user permissions</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewProtected-permission" name="permission_viewProtected-permission" checked>
+            <input type="checkbox" id="permission_viewProtected-permission" name="permission_viewProtected-permission">
 
             <label for="permission_viewProtected-permission">View protected permissions</label>
         </div>
@@ -391,35 +377,35 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-author" name="permission_viewAny-author" checked>
+            <input type="checkbox" id="permission_viewAny-author" name="permission_viewAny-author">
 
             <label for="permission_viewAny-author">View authors</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_view-author" name="permission_view-author" checked>
+            <input type="checkbox" id="permission_view-author" name="permission_view-author">
 
             <label for="permission_view-author">View detail of author</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-author" name="permission_create-author" checked>
+            <input type="checkbox" id="permission_create-author" name="permission_create-author">
 
             <label for="permission_create-author">Create authors</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-author" name="permission_edit-author" checked>
+            <input type="checkbox" id="permission_edit-author" name="permission_edit-author">
 
             <label for="permission_edit-author">Edit authors</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_delete-author" name="permission_delete-author" checked>
+            <input type="checkbox" id="permission_delete-author" name="permission_delete-author">
 
             <label for="permission_delete-author">Delete authors</label>
         </div>
@@ -439,35 +425,35 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-article" name="permission_viewAny-article" checked>
+            <input type="checkbox" id="permission_viewAny-article" name="permission_viewAny-article">
 
             <label for="permission_viewAny-article">View articles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_view-article" name="permission_view-article" checked>
+            <input type="checkbox" id="permission_view-article" name="permission_view-article">
 
             <label for="permission_view-article">View article detail</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-article" name="permission_create-article" checked>
+            <input type="checkbox" id="permission_create-article" name="permission_create-article">
 
             <label for="permission_create-article">Create articles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-article" name="permission_edit-article" checked>
+            <input type="checkbox" id="permission_edit-article" name="permission_edit-article">
 
             <label for="permission_edit-article">Edit articles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_delete-article" name="permission_delete-article" checked>
+            <input type="checkbox" id="permission_delete-article" name="permission_delete-article">
 
             <label for="permission_delete-article">Delete articles</label>
         </div>
@@ -487,35 +473,35 @@
         <div class="permissions grid grid-cols-4 gap-4">
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_viewAny-article_category" name="permission_viewAny-article_category" checked>
+            <input type="checkbox" id="permission_viewAny-article_category" name="permission_viewAny-article_category">
 
             <label for="permission_viewAny-article_category">View article categories</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_view-article_category" name="permission_view-article_category" checked>
+            <input type="checkbox" id="permission_view-article_category" name="permission_view-article_category">
 
             <label for="permission_view-article_category">View detail of article category</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_create-article_category" name="permission_create-article_category" checked>
+            <input type="checkbox" id="permission_create-article_category" name="permission_create-article_category">
 
             <label for="permission_create-article_category">Create article categories</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_edit-article_category" name="permission_edit-article_category" checked>
+            <input type="checkbox" id="permission_edit-article_category" name="permission_edit-article_category">
 
             <label for="permission_edit-article_category">Edit article categories</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
         <div class="group">
-            <input type="checkbox" id="permission_delete-article_category" name="permission_delete-article_category" checked>
+            <input type="checkbox" id="permission_delete-article_category" name="permission_delete-article_category">
 
             <label for="permission_delete-article_category">Delete article categories</label>
         </div>

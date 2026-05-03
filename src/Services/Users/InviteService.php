@@ -11,7 +11,7 @@ use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 
-final readonly class InviteService
+readonly class InviteService
 {
     public function __construct(
         private AuthInviteService $authInviteService,

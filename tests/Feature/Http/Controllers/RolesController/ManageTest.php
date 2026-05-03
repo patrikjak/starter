@@ -13,11 +13,20 @@ class ManageTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testManagePermissionsAsSuperAdmin(): void
     {
-        $user = $this->createAndActAsSuperAdmin();
+        $this->createAndActAsSuperAdmin();
+
+        Role::insert([
+            'id' => '00000000-0000-0000-0000-000000000003',
+            'slug' => 'editor',
+            'name' => 'Editor',
+            'is_superadmin' => false,
+        ]);
+
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $response = $this->getJson(route(
             'admin.users.roles.permissions',
-            ['role' => $user->role->id],
+            ['role' => $editorRole->id],
         ));
 
         $response->assertOk();

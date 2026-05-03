@@ -155,14 +155,6 @@ return [
             'role_updated' => 'Rola bola aktualizovaná',
             'role_deleted' => 'Rola bola vymazaná',
         ],
-
-        'permissions' => [
-            'title' => 'Oprávnenia',
-            'name' => 'Názov',
-            'description' => 'Popis oprávnenia',
-            'protected' => 'Chránené',
-            'unprotected' => 'Nechránené',
-        ],
     ],
 
 ];

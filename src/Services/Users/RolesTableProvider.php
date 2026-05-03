@@ -20,7 +20,7 @@ use Patrikjak\Utils\Table\Factories\Cells\CellFactory;
 use Patrikjak\Utils\Table\Factories\Pagination\PaginatorFactory;
 use Patrikjak\Utils\Table\Services\BasePaginatedTableProvider;
 
-final class RolesTableProvider extends BasePaginatedTableProvider
+class RolesTableProvider extends BasePaginatedTableProvider
 {
     use StringCropper;
 
@@ -29,6 +29,11 @@ final class RolesTableProvider extends BasePaginatedTableProvider
     private bool $userCanViewAnyPermission;
 
     private bool $userCanViewRole;
+
+    private bool $userIsSuperAdmin;
+
+    /** @var array<string, bool> */
+    private array $isSuperAdminByRoleId = [];
 
     public function __construct(
         private readonly RoleRepository $roleRepository,
@@ -42,6 +47,9 @@ final class RolesTableProvider extends BasePaginatedTableProvider
         );
         $this->userCanViewRole = $this->authorizationService->getUserPermission(
             static fn (User $user) => $user->canViewRole(),
+        );
+        $this->userIsSuperAdmin = $this->authorizationService->getUserPermission(
+            static fn (User $user) => $user->role->is_superadmin,
         );
     }
 
@@ -72,6 +80,8 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                 ->implode(', ');
 
             $permissions = $this->getCroppedString($rolePermissions);
+
+            $this->isSuperAdminByRoleId[$role->id] = $role->is_superadmin;
 
             return [
                 'id' => $role->id,
@@ -113,7 +123,11 @@ final class RolesTableProvider extends BasePaginatedTableProvider
                     $roleId = $row['id'];
                     assert(is_string($roleId));
 
-                    if ($this->userCanViewSuperAdminRole) {
+                    if ($this->isSuperAdminByRoleId[$roleId] ?? false) {
+                        return false;
+                    }
+
+                    if ($this->userIsSuperAdmin) {
                         return true;
                     }
 

@@ -46,8 +46,8 @@ readonly class PermissionSynchronizer
             $this->savePermission(new FeaturePermissions($feature, $permissions));
         }
 
-        foreach ($redundant as $featurePermissions) {
-            $this->removePermissions($featurePermissions);
+        foreach ($redundant as $feature => $permissions) {
+            $this->removePermissions(new FeaturePermissions($feature, $permissions));
         }
 
         foreach ($changed as $feature => $permissions) {
@@ -99,13 +99,14 @@ readonly class PermissionSynchronizer
 
     /**
      * @param array<string, array<Permission>> $newFeatures
-     * @param array<FeaturePermissions> $currentPermissions
-     * @return array<int, array<string, array<Permission>|FeaturePermissions>>
+     * @param array<string, FeaturePermissions> $currentPermissions
+     * @return array<int, array<string, array<string, Permission>>>
      */
     private function getPermissionsDiff(array $newFeatures, array $currentPermissions): array
     {
         $toAdd = [];
         $toUpdate = [];
+        $seen = [];
 
         foreach ($newFeatures as $feature => $featurePermissions) {
             foreach ($featurePermissions as $action => $permission) {
@@ -121,17 +122,21 @@ readonly class PermissionSynchronizer
                     $toUpdate[$feature][$action] = $permission;
                 }
 
-                unset($currentPermissions[$feature]->permissions[$action]);
+                $seen[$feature][$action] = true;
             }
         }
+
+        $toDelete = [];
 
         foreach ($currentPermissions as $feature => $featurePermission) {
-            if ($featurePermission->permissions === []) {
-                unset($currentPermissions[$feature]);
+            foreach ($featurePermission->permissions as $action => $permission) {
+                if (!isset($seen[$feature][$action])) {
+                    $toDelete[$feature][$action] = $permission;
+                }
             }
         }
 
-        return [$toAdd, $currentPermissions, $toUpdate];
+        return [$toAdd, $toDelete, $toUpdate];
     }
 
     private function permissionIsChanged(Permission $newPermission, Permission $currentPermission): bool

@@ -15,8 +15,13 @@ class SyncPermissionsTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testSyncPermissionsAsSuperAdmin(): void
     {
-        $user = $this->createAndActAsSuperAdmin();
-        $role = $user->role;
+        $this->createAndActAsSuperAdmin();
+
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('editor', 'Editor');
+
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $requestData = [
             'permission_create-article' => 'on',
@@ -26,7 +31,7 @@ class SyncPermissionsTest extends TestCase
 
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
-            ['role' => $role->id]
+            ['role' => $editorRole->id]
         ), $requestData);
 
         $response->assertOk();
@@ -36,20 +41,20 @@ class SyncPermissionsTest extends TestCase
             'level' => 'success',
         ]);
 
-        $role->refresh();
+        $editorRole->refresh();
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::query()->where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::query()->where('name', 'edit-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
+            'role_id' => $editorRole->id,
             'permission_id' => Permission::query()->where('name', 'delete-article')->first()->id,
         ]);
     }
@@ -123,6 +128,50 @@ class SyncPermissionsTest extends TestCase
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
             ['role' => $role->id]
+        ), $requestData);
+
+        $response->assertForbidden();
+    }
+
+    #[DefineEnvironment('enableUsers')]
+    public function testSuperAdminCannotSyncPermissionsForOwnRole(): void
+    {
+        $user = $this->createAndActAsSuperAdmin();
+
+        $role = $user->role;
+
+        assert($role instanceof Role);
+
+        $requestData = [
+            'permission_create-article' => 'on',
+        ];
+
+        $response = $this->putJson(route(
+            'admin.api.users.roles.permissions',
+            ['role' => $role->id]
+        ), $requestData);
+
+        $response->assertForbidden();
+    }
+
+    #[DefineEnvironment('enableUsers')]
+    public function testSuperAdminCannotSyncPermissionsForAnotherSuperAdminRole(): void
+    {
+        $this->createAndActAsSuperAdmin();
+
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('superadmin2', 'Super Admin 2', true);
+
+        $secondSuperadminRole = Role::query()->where('slug', 'superadmin2')->firstOrFail();
+
+        $requestData = [
+            'permission_create-article' => 'on',
+        ];
+
+        $response = $this->putJson(route(
+            'admin.api.users.roles.permissions',
+            ['role' => $secondSuperadminRole->id]
         ), $requestData);
 
         $response->assertForbidden();

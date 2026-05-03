@@ -25,13 +25,17 @@ class RolePolicy extends BasePolicy
 
     public const string MANAGE_PROTECTED = 'manageProtected';
 
+    public function __construct(private readonly RoleRepository $roleRepository)
+    {
+    }
+
     /**
-     * The delete action is not bypassed for superadmins — default roles and the last
-     * superadmin role must remain undeletable regardless of who is acting.
+     * The delete and manage actions are not bypassed for superadmins — the last superadmin
+     * role must remain undeletable, and a user must never manage permissions on their own role.
      */
     public function before(User $user, string $ability): ?bool
     {
-        if ($ability === self::DELETE) {
+        if (in_array($ability, [self::DELETE, self::MANAGE], true)) {
             return null;
         }
 
@@ -74,13 +78,8 @@ class RolePolicy extends BasePolicy
             return false;
         }
 
-        if ($model->is_superadmin) {
-            $roleRepository = app(RoleRepository::class);
-            assert($roleRepository instanceof RoleRepository);
-
-            if ($roleRepository->countSuperadminRoles() <= 1) {
-                return false;
-            }
+        if ($model->is_superadmin && $this->roleRepository->countSuperadminRoles() <= 1) {
+            return false;
         }
 
         return $this->hasPermission($user, self::DELETE)

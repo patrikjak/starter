@@ -10,7 +10,6 @@ use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Profile\ProfileController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
-use Patrikjak\Starter\Http\Controllers\Users\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -18,7 +17,6 @@ use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
-use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
@@ -213,14 +211,7 @@ Route::prefix('admin')
                         }
                     });
 
-                    Route::prefix('permissions')
-                        ->name('permissions.')
-                        ->group(static function () use ($authEnabled): void {
-                        $indexRoute = Route::get('/', [PermissionsController::class, 'index'])->name('index');
-                        if ($authEnabled) {
-                            $indexRoute->can(BasePolicy::VIEW_ANY, Permission::class);
-                        }
-                    });
+
                 });
         }
     });

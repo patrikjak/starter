@@ -5,18 +5,25 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Patrikjak\Starter\Models\Users\User;
+use Patrikjak\Starter\Rules\Users\NonSuperadminRoleRule;
 use Patrikjak\Utils\Common\Helpers\GrammaticalGender;
 
 class InviteUserRequest extends FormRequest
 {
     /**
-     * @return array<string, array<string>>
+     * @return array<string, array<mixed>>
      */
     public function rules(): array
     {
         return [
             'email' => ['required', 'email', 'unique:users,email'],
-            'role_id' => ['required', 'string', 'exists:roles,id'],
+            'role_id' => [
+                'required',
+                'string',
+                'exists:roles,id',
+                new NonSuperadminRoleRule($this->user() instanceof User ? $this->user() : null),
+            ],
         ];
     }
 

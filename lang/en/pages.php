@@ -155,14 +155,6 @@ return [
             'role_updated' => 'Role was updated',
             'role_deleted' => 'Role was deleted',
         ],
-
-        'permissions' => [
-            'title' => 'Permissions',
-            'name' => 'Name',
-            'description' => 'Description of the permission',
-            'protected' => 'Protected',
-            'unprotected' => 'Unprotected',
-        ],
     ],
 
 ];

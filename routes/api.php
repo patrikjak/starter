@@ -10,7 +10,6 @@ use Patrikjak\Starter\Http\Controllers\Content\ContentController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
-use Patrikjak\Starter\Http\Controllers\Users\Api\PermissionsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -18,7 +17,6 @@ use Patrikjak\Starter\Models\Articles\ArticleCategory;
 use Patrikjak\Starter\Models\Authors\Author;
 use Patrikjak\Starter\Models\Metadata\Metadata;
 use Patrikjak\Starter\Models\StaticPages\StaticPage;
-use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
 use Patrikjak\Starter\Policies\BasePolicy;
@@ -124,12 +122,7 @@ Route::middleware($middleware)
                     }
                 });
 
-                Route::prefix('permissions')->name('permissions.')->group(static function () use ($authEnabled): void {
-                    $tablePartsRoute = Route::get('/table-parts', [PermissionsController::class, 'tableParts'])->name('table-parts');
-                    if ($authEnabled) {
-                        $tablePartsRoute->can(BasePolicy::VIEW_ANY, Permission::class);
-                    }
-                });
+
             });
         }
 
