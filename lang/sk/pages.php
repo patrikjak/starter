@@ -155,6 +155,17 @@ return [
             'role_updated' => 'Rola bola aktualizovaná',
             'role_deleted' => 'Rola bola vymazaná',
         ],
+
+        'invitations' => [
+            'title' => 'Pozvánky',
+            'no_invitations' => 'Nie sú žiadne pozvánky',
+            'no_invitations_description' => 'Pozvite používateľov zaslaním pozvánky na ich e-mailovú adresu.',
+            'invited_at' => 'Pozvaný/á',
+            'change_role' => 'Zmeniť rolu',
+            'change_role_modal_title' => 'Zmeniť rolu pozvánky',
+            'role_updated' => 'Rola pozvánky bola aktualizovaná',
+            'deleted' => 'Pozvánka bola vymazaná',
+        ],
     ],
 
 ];

@@ -10,6 +10,7 @@ use Patrikjak\Starter\Http\Controllers\DashboardController;
 use Patrikjak\Starter\Http\Controllers\Metadata\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Profile\ProfileController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\InvitationsController;
 use Patrikjak\Starter\Http\Controllers\Users\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\UsersController;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -32,6 +33,7 @@ Route::prefix('admin')
         $staticPagesEnabled = config('pjstarter.features.static_pages');
         $articlesEnabled = config('pjstarter.features.articles');
         $usersEnabled = config('pjstarter.features.users');
+        $invitationsEnabled = config('pjauth.features.register_via_invitation');
 
         if ($dashboardEnabled) {
             Route::middleware($middleware)->group(static function (): void {
@@ -177,10 +179,19 @@ Route::prefix('admin')
             Route::middleware($middleware)
                 ->prefix('users')
                 ->name('users.')
-                ->group(static function () use ($authEnabled): void {
+                ->group(static function () use ($invitationsEnabled, $authEnabled): void {
                     $indexRoute = Route::get('/', [UsersController::class, 'index'])->name('index');
                     if ($authEnabled) {
                         $indexRoute->can(BasePolicy::VIEW_ANY, User::class);
+                    }
+
+                    if ($invitationsEnabled) {
+                        Route::prefix('invitations')->name('invitations.')->group(static function () use ($authEnabled): void {
+                            $invitationsIndexRoute = Route::get('/', [InvitationsController::class, 'index'])->name('index');
+                            if ($authEnabled) {
+                                $invitationsIndexRoute->can(BasePolicy::CREATE, User::class);
+                            }
+                        });
                     }
 
                     Route::prefix('roles')->name('roles.')->group(static function () use ($authEnabled): void {
@@ -210,8 +221,6 @@ Route::prefix('admin')
                             $permissionsRoute->can(RolePolicy::MANAGE, 'role');
                         }
                     });
-
-
                 });
         }
     });

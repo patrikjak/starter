@@ -155,6 +155,17 @@ return [
             'role_updated' => 'Role was updated',
             'role_deleted' => 'Role was deleted',
         ],
+
+        'invitations' => [
+            'title' => 'Invitations',
+            'no_invitations' => 'There are no invitations',
+            'no_invitations_description' => 'Invite users by sending an invitation to their email address.',
+            'invited_at' => 'Invited at',
+            'change_role' => 'Change role',
+            'change_role_modal_title' => 'Change invitation role',
+            'role_updated' => 'Invitation role was updated',
+            'deleted' => 'Invitation was deleted',
+        ],
     ],
 
 ];

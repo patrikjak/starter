@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.title  - App</title>
+    <title> pjstarter::pages.users.invitations.title  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -78,7 +78,7 @@
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="http://localhost/admin/users" class="item active" data-nav-tooltip="pjstarter::pages.users.index.title">
+    <a href="http://localhost/admin/users" class="item" data-nav-tooltip="pjstarter::pages.users.index.title">
         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="7" height="7" rx="1"></rect>
@@ -106,7 +106,7 @@
             </a>
 
     </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/invitations" class="item" data-nav-tooltip="pjstarter::pages.users.invitations.title">
+    <a href="http://localhost/admin/users/invitations" class="item active" data-nav-tooltip="pjstarter::pages.users.invitations.title">
         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="7" height="7" rx="1"></rect>
@@ -125,15 +125,15 @@
 
             <div class="user">
             <div class="initials">
-                AD
+                SA
             </div>
 
             <div class="info">
                 <div class="name">
-                    Admin
+                    Super Admin
                 </div>
                 <div class="email">
-                    admin@example.com
+                    superadmin@example.com
                 </div>
             </div>
 
@@ -159,51 +159,14 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.title</h1>
+                <h1>pjstarter::pages.users.invitations.title</h1>
 
-                                    <div class="actions">
-                        <button class="pj-btn" id="invite-user-btn">
-        pjstarter::pages.users.invite_user
-            </button>
-                    </div>
                             </div>
 
             <div class="body">
-                <div class="users">
-        <div class="pj-table-wrapper" id="users-table" data-html-parts-url="http://localhost/admin/api/users/table-parts" data-restoring>
-    <div class="table-options">
-    <div class="controllers">
-        
-        
-                    <div class="controller column-visibility-controller" data-table-id="users-table">
-    <div class="clickable">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-</svg>        <span>pjutils::table.columns</span>
-    </div>
-    <div class="options column-options">
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="name" checked>
-        <input type="checkbox" value="name" checked>
-        <span>pjstarter::pages.users.name</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="email" checked>
-        <input type="checkbox" value="email" checked>
-        <span>pjstarter::pages.users.email</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="role" checked>
-        <input type="checkbox" value="role" checked>
-        <span>pjstarter::pages.users.role</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="created_at">
-        <input type="checkbox" value="created_at">
-        <span>pjstarter::general.created_at</span>
-    </label>
-            </div>
-</div>
-            </div>
-
+                <div class="invitations">
+        <div class="pj-table-wrapper" id="invitations-table" data-html-parts-url="http://localhost/admin/api/users/invitations/table-parts" data-restoring>
     
-    </div>
     <div class="table-wrapper">
         <table class="pj-table">
 
@@ -212,41 +175,32 @@
         
         
                                 <th>
-                pjstarter::pages.users.name
-                            </th>
-                                <th>
                 pjstarter::pages.users.email
                             </th>
                                 <th>
                 pjstarter::pages.users.role
                             </th>
+                                <th>
+                pjstarter::pages.users.invitations.invited_at
+                            </th>
         
+                    <th class="actions"></th>
             </tr>
 </thead>            <tbody>
-            <tr id="e847cd49-f1ba-4c88-a607-c46ab5d5e98f">
-    
-    
-            <td class="simple name">
-    
-    Admin
-
+    <tr class="empty-row">
+    <td colspan="4">
+        <div class="empty-state">
+                        <p class="empty-state-title">pjutils::table.no_data_available</p>
+                    </div>
     </td>
-            <td class="simple email">
-    
-    admin@example.com
-
-    </td>
-            <td class="chip role">
-    <span class="chip neutral">Admin</span>
-</td>
-    
-    </tr>    </tbody>        </table>
+</tr>
+</tbody>        </table>
     </div>
 
     
     
             <div class="pagination">
-    <div class="page-size" data-href="http://localhost/admin/api/users/table-parts">
+    <div class="page-size" data-href="http://localhost/admin/api/users/invitations/table-parts">
     <div class="pj-dropdown">
     
     <div class="dropdown-wrapper">
@@ -281,7 +235,7 @@
                             </div>
             </a>
 
-                    <a href="http://localhost/admin/api/users/table-parts?page=1" class="link active">
+                    <a href="http://localhost/admin/api/users/invitations/table-parts?page=1" class="link active">
                     <span class="page-number">1</span>
             </a>
 
@@ -306,45 +260,56 @@
     </div>
     </div>
 
-    
-            <template id="invite-user-form">
-            <form method="POST" action="http://localhost/admin/api/users/invite">
+            <template id="change-role-form">
+            <form method="POST">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
     
-    <div class="pj-classic">
-            <label for="email">pjstarter::pages.users.email</label>
-    
-            <input type="email" id="email" name="email" autofocus="autofocus">
-    
-    </div>
-                <div class="pj-select">
+    <div class="pj-select">
     <label for="role_id">pjstarter::pages.users.role</label>
 
     <select id="role_id" name="role_id">
-                                    <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
+                                    <option value="00000000-0000-0000-0000-000000000001">Superadmin</option>                            <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
 </div>
 
     </form>        </template>
 
         <script>
-            document.getElementById('invite-user-btn').addEventListener('click', function () {
-                const modal = new window.pjutils.Modal(true);
-                modal.setTitle('pjstarter::pages.users.invite_modal_title');
-                modal.setBody(document.getElementById('invite-user-form').innerHTML);
-                modal.setFooterButton('pjstarter::pages.users.invite_user', function () {
-                    const modalForm = document.querySelector('.modal .body form');
-                    const form = new window.pjutils.Form(modalForm);
+            document.querySelectorAll('.pj-table-wrapper').forEach(function (tableWrapper) {
+                tableWrapper.addEventListener('click', function (event) {
+                    const actionBtn = event.target.closest('.action-btn.change-role');
 
-                    form.setSuccessCallback(function (form, response) {
-                        window.pjutils.Form.defaultSuccessCallback(form, response);
-                        modal.close();
+                    if (!actionBtn) {
+                        return;
+                    }
+
+                    const row = actionBtn.closest('tr');
+                    const email = row ? row.id : null;
+
+                    if (!email) {
+                        return;
+                    }
+
+                    const modal = new window.pjutils.Modal(true);
+                    modal.setTitle('pjstarter::pages.users.invitations.change_role_modal_title');
+                    modal.setBody(document.getElementById('change-role-form').innerHTML);
+                    modal.setFooterButton('pjstarter::pages.users.invitations.change_role', function () {
+                        const modalForm = document.querySelector('.modal .body form');
+                        modalForm.setAttribute('action', 'http://localhost/admin/api/users/invitations/__EMAIL__'.replace('__EMAIL__', encodeURIComponent(email)));
+                        modalForm.setAttribute('method', 'PUT');
+
+                        const form = new window.pjutils.Form(modalForm);
+
+                        form.setSuccessCallback(function (submittedForm, response) {
+                            window.pjutils.Form.defaultSuccessCallback(submittedForm, response);
+                            modal.close();
+                        });
+
+                        form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                        return false;
                     });
-
-                    form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
-
-                    return false;
+                    modal.open();
                 });
-                modal.open();
             });
         </script>
             </div>
