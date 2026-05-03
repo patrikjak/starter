@@ -13,7 +13,8 @@ class EloquentSlugRepository implements SlugRepository
 {
     public function existsSameSlug(string $slug, ?string $prefix = null, ?string $ignoredId = null): ?Slug
     {
-        $query = Slug::where('slug', '=', $slug)
+        $query = Slug::query()
+            ->where('slug', '=', $slug)
             ->where('prefix', '=', $prefix);
 
         if ($ignoredId !== null) {
@@ -25,7 +26,8 @@ class EloquentSlugRepository implements SlugRepository
 
     public function getBySlug(string $slug, ?string $prefix = null): ?Slug
     {
-        return Slug::where('slug', '=', $slug)
+        return Slug::query()
+            ->where('slug', '=', $slug)
             ->where('prefix', '=', $prefix)
             ->first();
     }
@@ -59,7 +61,7 @@ class EloquentSlugRepository implements SlugRepository
 
     public function update(string $id, UpdateSlug $updateSlug): void
     {
-        $slug = Slug::findOrFail($id);
+        $slug = Slug::query()->findOrFail($id);
 
         $slug->prefix = $updateSlug->prefix;
         $slug->slug = $updateSlug->slug;
@@ -69,6 +71,6 @@ class EloquentSlugRepository implements SlugRepository
 
     public function delete(string $id): void
     {
-        Slug::destroy($id);
+        Slug::query()->where('id', $id)->delete();
     }
 }

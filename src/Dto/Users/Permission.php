@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Patrikjak\Starter\Dto\Users;
 
-use Patrikjak\Auth\Models\RoleType;
-
-class Permission
+readonly class Permission
 {
     /**
      * @param array<string> $descriptions
-     * @param array<RoleType> $defaultRoles
+     * @param array<string> $defaultRoles role slugs
      */
     public function __construct(
         public string $action,

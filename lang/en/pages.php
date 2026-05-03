@@ -129,6 +129,14 @@ return [
         'email' => 'Email',
         'role' => 'Role',
 
+        'invite_user' => 'Invite user',
+        'invite_sent' => 'Invite was sent',
+        'invite_modal_title' => 'Invite user',
+
+        'change_role' => 'Change role',
+        'change_role_modal_title' => 'Change user role',
+        'role_updated' => 'User role was updated',
+
         'index' => [
             'title' => 'All users',
         ],
@@ -136,18 +144,16 @@ return [
         'roles' => [
             'title' => 'Roles',
             'name' => 'Name',
+            'slug' => 'Slug',
             'manage_permissions' => 'Manage permissions',
             'permissions' => 'Permissions',
             'details' => 'Role details',
             'permissions_synced' => 'Permissions were synced',
-        ],
-
-        'permissions' => [
-            'title' => 'Permissions',
-            'name' => 'Name',
-            'description' => 'Description of the permission',
-            'protected' => 'Protected',
-            'unprotected' => 'Unprotected',
+            'create' => 'New role',
+            'edit' => 'Edit role: :name',
+            'role_created' => 'Role was created',
+            'role_updated' => 'Role was updated',
+            'role_deleted' => 'Role was deleted',
         ],
     ],
 

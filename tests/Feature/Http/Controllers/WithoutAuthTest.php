@@ -123,14 +123,4 @@ class WithoutAuthTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($response->getContent());
     }
-
-    #[DefineEnvironment('disableAuth')]
-    #[DefineEnvironment('enableUsers')]
-    public function testPermissionsAccessibleWithoutAuth(): void
-    {
-        $response = $this->get(route('admin.users.permissions.index'));
-        $response->assertOk();
-
-        $this->assertMatchesHtmlSnapshot($response->getContent());
-    }
 }

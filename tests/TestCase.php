@@ -19,7 +19,6 @@ use function Orchestra\Testbench\package_path;
 
 abstract class TestCase extends BaseTestCase
 {
-    use MatchesSnapshots;
     use WithTestUser;
     use ConfigSetter;
     use MatchesSnapshots {
@@ -67,7 +66,7 @@ abstract class TestCase extends BaseTestCase
 
         Carbon::setTestNow(Carbon::create(2025, 5, 18));
 
-        $this->artisan('seed:user-roles');
+        $this->seedRoles();
         $this->artisan('pjstarter:permissions:sync');
     }
 
@@ -76,6 +75,24 @@ abstract class TestCase extends BaseTestCase
         Carbon::setTestNow(Carbon::now());
 
         parent::tearDown();
+    }
+
+    private function seedRoles(): void
+    {
+        Role::insert([
+            [
+                'id' => '00000000-0000-0000-0000-000000000001',
+                'slug' => 'superadmin',
+                'name' => 'Superadmin',
+                'is_superadmin' => true,
+            ],
+            [
+                'id' => '00000000-0000-0000-0000-000000000002',
+                'slug' => 'admin',
+                'name' => 'Admin',
+                'is_superadmin' => false,
+            ],
+        ]);
     }
 
     /**
@@ -94,7 +111,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(package_path('vendor/patrikjak/auth/database/migrations'));
+        $this->loadMigrationsFrom(__DIR__ . '/../vendor/patrikjak/auth/database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/static-pages');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/slugs');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/features/metadata');

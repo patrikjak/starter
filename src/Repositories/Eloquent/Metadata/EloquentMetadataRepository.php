@@ -31,7 +31,8 @@ readonly class EloquentMetadataRepository implements MetadataRepository
     ): LengthAwarePaginator {
         $columnsMask = Metadata::COLUMNS_MASK;
 
-        $query = Metadata::with('metadatable')
+        $query = Metadata::query()
+            ->with('metadatable')
             ->leftJoin('static_pages as sp', static function ($join): void {
                 $join->on('metadata.metadatable_id', '=', 'sp.id')
                     ->where('metadata.metadatable_type', '=', StaticPage::class);
@@ -71,7 +72,7 @@ readonly class EloquentMetadataRepository implements MetadataRepository
 
     public function update(string $id, UpdateMetadata $updateMetadata): void
     {
-        $metadata = Metadata::findOrFail($id);
+        $metadata = Metadata::query()->findOrFail($id);
 
         $metadata->title = $updateMetadata->title;
         $metadata->description = $updateMetadata->description;
@@ -84,6 +85,6 @@ readonly class EloquentMetadataRepository implements MetadataRepository
 
     public function delete(string $id): void
     {
-        Metadata::destroy($id);
+        Metadata::query()->where('id', $id)->delete();
     }
 }

@@ -80,7 +80,7 @@ return [
             'published' => 'Publikovaný',
             'archived' => 'Archivovaný',
         ],
-        'deleted' => 'Článok bol odstránený',
+        'article_deleted' => 'Článok bol odstránený',
         'edit' => 'Úprava článku',
         'article_info' => 'Informácie o článku',
         'media' => 'Médiá',
@@ -129,6 +129,14 @@ return [
         'email' => 'Email',
         'role' => 'Rola',
 
+        'invite_user' => 'Pozvať používateľa',
+        'invite_sent' => 'Pozvánka bola odoslaná',
+        'invite_modal_title' => 'Pozvať používateľa',
+
+        'change_role' => 'Zmeniť rolu',
+        'change_role_modal_title' => 'Zmeniť rolu používateľa',
+        'role_updated' => 'Rola používateľa bola aktualizovaná',
+
         'index' => [
             'title' => 'Všetci používatelia',
         ],
@@ -136,18 +144,16 @@ return [
         'roles' => [
             'title' => 'Používateľské role',
             'name' => 'Názov',
+            'slug' => 'Slug',
             'manage_permissions' => 'Spravovať oprávnenia',
             'permissions' => 'Oprávnenia',
             'details' => 'Detaily role',
             'permissions_synced' => 'Oprávnenia boli synchronizované',
-        ],
-
-        'permissions' => [
-            'title' => 'Oprávnenia',
-            'name' => 'Názov',
-            'description' => 'Popis oprávnenia',
-            'protected' => 'Chránené',
-            'unprotected' => 'Nechránené',
+            'create' => 'Nová rola',
+            'edit' => 'Úprava role: :name',
+            'role_created' => 'Rola bola vytvorená',
+            'role_updated' => 'Rola bola aktualizovaná',
+            'role_deleted' => 'Rola bola vymazaná',
         ],
     ],
 

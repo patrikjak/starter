@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "770707f02e93f60cb4b944c1b39de08c",
+    "content-hash": "634b3696dbb33ad593a3b0e5d49acf59",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2888,16 +2888,16 @@
         },
         {
             "name": "patrikjak/auth",
-            "version": "v1.4.1",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/auth.git",
-                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a"
+                "reference": "fabd1a3dddf0970cd00b77923eee0d5c3de96bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/auth/zipball/d26c3e9547ca6806ad764b7a810936e2df9f059a",
-                "reference": "d26c3e9547ca6806ad764b7a810936e2df9f059a",
+                "url": "https://api.github.com/repos/patrikjak/auth/zipball/fabd1a3dddf0970cd00b77923eee0d5c3de96bd5",
+                "reference": "fabd1a3dddf0970cd00b77923eee0d5c3de96bd5",
                 "shasum": ""
             },
             "require": {
@@ -2938,22 +2938,22 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/auth/issues",
-                "source": "https://github.com/patrikjak/auth/tree/v1.4.1"
+                "source": "https://github.com/patrikjak/auth/tree/v2.0.1"
             },
-            "time": "2026-03-03T20:04:41+00:00"
+            "time": "2026-05-02T19:02:07+00:00"
         },
         {
             "name": "patrikjak/utils",
-            "version": "v2.14.1",
+            "version": "v2.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/patrikjak/utils.git",
-                "reference": "91e0ecf6c6e730655c3a4162d3a6fa158d4f68ea"
+                "reference": "4f00a6ff25678a20c88b7cb16f325bafb3863338"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/patrikjak/utils/zipball/91e0ecf6c6e730655c3a4162d3a6fa158d4f68ea",
-                "reference": "91e0ecf6c6e730655c3a4162d3a6fa158d4f68ea",
+                "url": "https://api.github.com/repos/patrikjak/utils/zipball/4f00a6ff25678a20c88b7cb16f325bafb3863338",
+                "reference": "4f00a6ff25678a20c88b7cb16f325bafb3863338",
                 "shasum": ""
             },
             "require": {
@@ -2994,9 +2994,9 @@
             ],
             "support": {
                 "issues": "https://github.com/patrikjak/utils/issues",
-                "source": "https://github.com/patrikjak/utils/tree/v2.14.1"
+                "source": "https://github.com/patrikjak/utils/tree/v2.14.2"
             },
-            "time": "2026-04-02T16:36:53+00:00"
+            "time": "2026-05-03T09:36:04+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -3075,16 +3075,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.50",
+            "version": "3.0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
+                "reference": "2adaefc83df2ec548558307690f376dd7d4f4fce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
-                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/2adaefc83df2ec548558307690f376dd7d4f4fce",
+                "reference": "2adaefc83df2ec548558307690f376dd7d4f4fce",
                 "shasum": ""
             },
             "require": {
@@ -3165,7 +3165,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.50"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.52"
             },
             "funding": [
                 {
@@ -3181,7 +3181,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-19T02:57:58+00:00"
+            "time": "2026-04-27T07:02:15+00:00"
         },
         {
             "name": "psr/clock",

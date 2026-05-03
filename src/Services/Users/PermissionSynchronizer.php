@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Services\Users;
 
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\NewPermission;
 use Patrikjak\Starter\Dto\Users\Permission;
@@ -47,8 +46,8 @@ readonly class PermissionSynchronizer
             $this->savePermission(new FeaturePermissions($feature, $permissions));
         }
 
-        foreach ($redundant as $featurePermissions) {
-            $this->removePermissions($featurePermissions);
+        foreach ($redundant as $feature => $permissions) {
+            $this->removePermissions(new FeaturePermissions($feature, $permissions));
         }
 
         foreach ($changed as $feature => $permissions) {
@@ -70,18 +69,23 @@ readonly class PermissionSynchronizer
             static fn (PermissionModel $permission) => [$permission->name => $permission->id]
         )->toArray();
 
-        $rolePermissions = [
-            RoleType::SUPERADMIN->name => [],
-            RoleType::ADMIN->name => [],
-            RoleType::USER->name => [],
-        ];
+        $rolePermissions = [];
+
+        foreach ($roles as $role) {
+            assert($role instanceof Role);
+            $rolePermissions[$role->slug] = [];
+        }
 
         foreach ($featurePermissions as $feature => $permissions) {
             foreach ($permissions as $action => $permission) {
                 assert($permission instanceof Permission);
 
-                foreach ($permission->defaultRoles as $role) {
-                    $rolePermissions[$role->name][] = $permissionIds[$this->getPermissionName($feature, $action)];
+                foreach ($permission->defaultRoles as $roleSlug) {
+                    if (!array_key_exists($roleSlug, $rolePermissions)) {
+                        continue;
+                    }
+
+                    $rolePermissions[$roleSlug][] = $permissionIds[$this->getPermissionName($feature, $action)];
                 }
             }
         }
@@ -89,19 +93,20 @@ readonly class PermissionSynchronizer
         foreach ($roles as $role) {
             assert($role instanceof Role);
 
-            $this->roleRepository->attachPermissions($role, $rolePermissions[$role->name]);
+            $this->roleRepository->attachPermissions($role, $rolePermissions[$role->slug]);
         }
     }
 
     /**
      * @param array<string, array<Permission>> $newFeatures
-     * @param array<FeaturePermissions> $currentPermissions
-     * @return array<int, array<string, array<Permission>|FeaturePermissions>>
+     * @param array<string, FeaturePermissions> $currentPermissions
+     * @return array<int, array<string, array<string, Permission>>>
      */
     private function getPermissionsDiff(array $newFeatures, array $currentPermissions): array
     {
         $toAdd = [];
         $toUpdate = [];
+        $seen = [];
 
         foreach ($newFeatures as $feature => $featurePermissions) {
             foreach ($featurePermissions as $action => $permission) {
@@ -117,17 +122,21 @@ readonly class PermissionSynchronizer
                     $toUpdate[$feature][$action] = $permission;
                 }
 
-                unset($currentPermissions[$feature]->permissions[$action]);
+                $seen[$feature][$action] = true;
             }
         }
+
+        $toDelete = [];
 
         foreach ($currentPermissions as $feature => $featurePermission) {
-            if ($featurePermission->permissions === []) {
-                unset($currentPermissions[$feature]);
+            foreach ($featurePermission->permissions as $action => $permission) {
+                if (!isset($seen[$feature][$action])) {
+                    $toDelete[$feature][$action] = $permission;
+                }
             }
         }
 
-        return [$toAdd, $currentPermissions, $toUpdate];
+        return [$toAdd, $toDelete, $toUpdate];
     }
 
     private function permissionIsChanged(Permission $newPermission, Permission $currentPermission): bool

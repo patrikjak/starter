@@ -84,7 +84,7 @@ new window.pjutils.Form()
     // @ts-ignore
     .setAdditionalData(async function (): Promise<FormData> {
         const additionalData = new FormData();
-        const contentData = await editor.save().then(OutputData => OutputData);
+        const contentData = await editor.save().then(outputData => outputData);
 
         additionalData.append('content', JSON.stringify(contentData));
 

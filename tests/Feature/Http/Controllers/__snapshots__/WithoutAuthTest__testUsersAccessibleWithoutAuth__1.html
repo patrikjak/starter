@@ -105,20 +105,6 @@
 
             </a>
 
-    </div>                            <div class="item-wrapper">
-    <a href="http://localhost/admin/users/permissions" class="item" data-nav-tooltip="pjstarter::pages.users.permissions.title">
-        <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                </svg>
-                    </span>
-        <span class="text">pjstarter::pages.users.permissions.title</span>
-
-            </a>
-
     </div>                    </div>
     </div>                            </div>
             </div>
@@ -130,9 +116,11 @@
                 <h1>pjstarter::pages.users.title</h1>
 
                                     <div class="actions">
-                        <a href="http://localhost/admin/users/roles" class="pj-btn bordered button-like">pjstarter::pages.users.roles.title</a>
+                        <button class="pj-btn" id="invite-user-btn">
+        pjstarter::pages.users.invite_user
+            </button>
         
-                    <a href="http://localhost/admin/users/permissions" class="pj-btn bordered button-like">pjstarter::pages.users.permissions.title</a>
+                    <a href="http://localhost/admin/users/roles" class="pj-btn bordered button-like">pjstarter::pages.users.roles.title</a>
                     </div>
                             </div>
 
@@ -189,10 +177,11 @@
                 pjstarter::pages.users.role
                             </th>
         
+                    <th class="actions"></th>
             </tr>
 </thead>            <tbody>
     <tr class="empty-row">
-    <td colspan="3">
+    <td colspan="4">
         <div class="empty-state">
                         <p class="empty-state-title">pjutils::table.no_data_available</p>
                     </div>
@@ -263,6 +252,100 @@
         </div>
     </div>
     </div>
+
+            <template id="change-role-form">
+            <form method="POST">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+    
+    <div class="pj-select">
+    <label for="role_id">pjstarter::pages.users.role</label>
+
+    <select id="role_id" name="role_id">
+                                    <option value="00000000-0000-0000-0000-000000000001">Superadmin</option>                            <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
+</div>
+
+    </form>        </template>
+
+        <script>
+            document.querySelectorAll('.pj-table-wrapper').forEach(function (tableWrapper) {
+                tableWrapper.addEventListener('click', function (event) {
+                    const actionBtn = event.target.closest('.action-btn.change-role');
+
+                    if (!actionBtn) {
+                        return;
+                    }
+
+                    const row = actionBtn.closest('tr');
+                    const userId = row ? row.id : null;
+
+                    if (!userId) {
+                        return;
+                    }
+
+                    const modal = new window.pjutils.Modal(true);
+                    modal.setTitle('pjstarter::pages.users.change_role_modal_title');
+                    modal.setBody(document.getElementById('change-role-form').innerHTML);
+                    modal.setFooterButton('pjstarter::pages.users.change_role', function () {
+                        const modalForm = document.querySelector('.modal .body form');
+                        modalForm.setAttribute('action', 'http://localhost/admin/api/users/__USER_ID__'.replace('__USER_ID__', userId));
+                        modalForm.setAttribute('method', 'PUT');
+
+                        const form = new window.pjutils.Form(modalForm);
+
+                        form.setSuccessCallback(function (submittedForm, response) {
+                            window.pjutils.Form.defaultSuccessCallback(submittedForm, response);
+                            modal.close();
+                        });
+
+                        form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                        return false;
+                    });
+                    modal.open();
+                });
+            });
+        </script>
+    
+            <template id="invite-user-form">
+            <form method="POST" action="http://localhost/admin/api/users/invite">
+    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
+    
+    <div class="pj-classic">
+            <label for="email">pjstarter::pages.users.email</label>
+    
+            <input type="email" id="email" name="email" autofocus="autofocus">
+    
+    </div>
+                <div class="pj-select">
+    <label for="role_id">pjstarter::pages.users.role</label>
+
+    <select id="role_id" name="role_id">
+                                    <option value="00000000-0000-0000-0000-000000000001">Superadmin</option>                            <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
+</div>
+
+    </form>        </template>
+
+        <script>
+            document.getElementById('invite-user-btn').addEventListener('click', function () {
+                const modal = new window.pjutils.Modal(true);
+                modal.setTitle('pjstarter::pages.users.invite_modal_title');
+                modal.setBody(document.getElementById('invite-user-form').innerHTML);
+                modal.setFooterButton('pjstarter::pages.users.invite_user', function () {
+                    const modalForm = document.querySelector('.modal .body form');
+                    const form = new window.pjutils.Form(modalForm);
+
+                    form.setSuccessCallback(function (form, response) {
+                        window.pjutils.Form.defaultSuccessCallback(form, response);
+                        modal.close();
+                    });
+
+                    form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
+
+                    return false;
+                });
+                modal.open();
+            });
+        </script>
             </div>
         </div>
     </div>

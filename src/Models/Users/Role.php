@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 use Patrikjak\Auth\Models\Role as BaseRole;
 
 /**
+ * @property string $slug
+ * @property bool $is_superadmin
  * @property-read Collection<Permission> $permissions
  */
 class Role extends BaseRole

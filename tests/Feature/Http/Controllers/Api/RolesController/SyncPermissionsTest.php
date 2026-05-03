@@ -7,7 +7,7 @@ namespace Patrikjak\Starter\Tests\Feature\Http\Controllers\Api\RolesController;
 use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
-use Patrikjak\Starter\Tests\Factories\UserFactory;
+use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Tests\TestCase;
 
 class SyncPermissionsTest extends TestCase
@@ -15,8 +15,13 @@ class SyncPermissionsTest extends TestCase
     #[DefineEnvironment('enableUsers')]
     public function testSyncPermissionsAsSuperAdmin(): void
     {
-        $user = $this->createAndActAsSuperAdmin();
-        $role = $user->role;
+        $this->createAndActAsSuperAdmin();
+
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('editor', 'Editor');
+
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $requestData = [
             'permission_create-article' => 'on',
@@ -26,42 +31,46 @@ class SyncPermissionsTest extends TestCase
 
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
-            ['role' => $role->id]
+            ['role' => $editorRole->id]
         ), $requestData);
 
         $response->assertOk();
         $response->assertJson([
+            'title' => __('pjstarter::general.success'),
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
+            'level' => 'success',
         ]);
 
-        $role->refresh();
+        $editorRole->refresh();
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'create-article')->first()->id,
-        ]);
-
-        $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'edit-article')->first()->id,
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'delete-article')->first()->id,
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'edit-article')->first()->id,
+        ]);
+
+        $this->assertDatabaseHas('permission_role', [
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'delete-article')->first()->id,
         ]);
     }
 
     #[DefineEnvironment('enableUsers')]
     public function testSyncPermissionsAsAdminWithPermission(): void
     {
-        $user = $this->createAndActAsAdmin([
+        $this->createAndActAsAdmin([
             'manage-role',
         ]);
 
-        $basicUser = UserFactory::createDefaultUserWithoutEvents();
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('editor', 'Editor');
 
-        $role = $user->role;
+        $editorRole = Role::query()->where('slug', 'editor')->firstOrFail();
 
         $requestData = [
             'permission_create-article' => 'on',
@@ -71,29 +80,31 @@ class SyncPermissionsTest extends TestCase
 
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
-            ['role' => $basicUser->role->id],
+            ['role' => $editorRole->id],
         ), $requestData);
 
         $response->assertOk();
         $response->assertJson([
+            'title' => __('pjstarter::general.success'),
             'message' => __('pjstarter::pages.users.roles.permissions_synced'),
+            'level' => 'success',
         ]);
 
-        $role->refresh();
+        $editorRole->refresh();
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'create-article')->first()->id,
-        ]);
-
-        $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'edit-article')->first()->id,
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'create-article')->first()->id,
         ]);
 
         $this->assertDatabaseHas('permission_role', [
-            'role_id' => $role->id,
-            'permission_id' => Permission::where('name', 'delete-article')->first()->id,
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'edit-article')->first()->id,
+        ]);
+
+        $this->assertDatabaseHas('permission_role', [
+            'role_id' => $editorRole->id,
+            'permission_id' => Permission::query()->where('name', 'delete-article')->first()->id,
         ]);
     }
 
@@ -117,6 +128,50 @@ class SyncPermissionsTest extends TestCase
         $response = $this->putJson(route(
             'admin.api.users.roles.permissions',
             ['role' => $role->id]
+        ), $requestData);
+
+        $response->assertForbidden();
+    }
+
+    #[DefineEnvironment('enableUsers')]
+    public function testSuperAdminCannotSyncPermissionsForOwnRole(): void
+    {
+        $user = $this->createAndActAsSuperAdmin();
+
+        $role = $user->role;
+
+        assert($role instanceof Role);
+
+        $requestData = [
+            'permission_create-article' => 'on',
+        ];
+
+        $response = $this->putJson(route(
+            'admin.api.users.roles.permissions',
+            ['role' => $role->id]
+        ), $requestData);
+
+        $response->assertForbidden();
+    }
+
+    #[DefineEnvironment('enableUsers')]
+    public function testSuperAdminCannotSyncPermissionsForAnotherSuperAdminRole(): void
+    {
+        $this->createAndActAsSuperAdmin();
+
+        $roleRepository = app(RoleRepository::class);
+        assert($roleRepository instanceof RoleRepository);
+        $roleRepository->create('superadmin2', 'Super Admin 2', true);
+
+        $secondSuperadminRole = Role::query()->where('slug', 'superadmin2')->firstOrFail();
+
+        $requestData = [
+            'permission_create-article' => 'on',
+        ];
+
+        $response = $this->putJson(route(
+            'admin.api.users.roles.permissions',
+            ['role' => $secondSuperadminRole->id]
         ), $requestData);
 
         $response->assertForbidden();

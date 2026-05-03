@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Patrikjak\Starter\Dto\Users;
 
-class FeaturePermissions
+readonly class FeaturePermissions
 {
     /**
      * @param array<Permission> $permissions

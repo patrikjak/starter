@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Patrikjak\Starter\Models\Users;
 
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Dto\Users\FeaturePermissions;
 use Patrikjak\Starter\Dto\Users\Permission;
 use Patrikjak\Starter\Policies\Articles\ArticleCategoryPolicy;
@@ -28,294 +27,242 @@ trait PermissionsDefinition
             new FeaturePermissions(StaticPagePolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View static pages',
-                        'sk' => 'Zobraziť statické stránky',
-                    ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    self::permissionDescriptions('static_pages.view_any'),
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
-                    [
-                        'en' => 'Create static pages',
-                        'sk' => 'Vytvoriť statické stránky',
-                    ],
+                    self::permissionDescriptions('static_pages.create'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
-                    [
-                        'en' => 'Edit static pages',
-                        'sk' => 'Upraviť statické stránky',
-                    ],
+                    self::permissionDescriptions('static_pages.edit'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
-                    [
-                        'en' => 'Delete static pages',
-                        'sk' => 'Zmazať statické stránky',
-                    ],
+                    self::permissionDescriptions('static_pages.delete'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(MetadataPolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View SEO settings',
-                        'sk' => 'Zobraziť SEO nastavenia',
-                    ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    self::permissionDescriptions('metadata.view_any'),
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
-                    [
-                        'en' => 'View detail of SEO setting',
-                        'sk' => 'Zobraziť detail SEO nastavenia',
-                    ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    self::permissionDescriptions('metadata.view'),
+                    defaultRoles: ['superadmin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
-                    [
-                        'en' => 'Edit SEO settings',
-                        'sk' => 'Upraviť SEO nastavenia',
-                    ],
-                    defaultRoles: [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    self::permissionDescriptions('metadata.edit'),
+                    defaultRoles: ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(UserPolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View users',
-                        'sk' => 'Zobraziť používateľov',
-                    ],
+                    self::permissionDescriptions('users.view_any'),
                     true,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    self::permissionDescriptions('users.create'),
+                    false,
+                    ['superadmin', 'admin'],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    self::permissionDescriptions('users.edit'),
+                    false,
+                    ['superadmin'],
                 ),
                 new Permission(
                     UserPolicy::VIEW_SUPERADMIN,
-                    [
-                        'en' => 'View super admin',
-                        'sk' => 'Zobraziť super admin používateľov',
-                    ],
+                    self::permissionDescriptions('users.view_superadmin'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(RolePolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View user roles',
-                        'sk' => 'Zobraziť používateľské role',
-                    ],
+                    self::permissionDescriptions('roles.view_any'),
                     true,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
-                    [
-                        'en' => 'View detail of user role',
-                        'sk' => 'Zobraziť detail používateľskej role',
-                    ],
+                    self::permissionDescriptions('roles.view'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     RolePolicy::VIEW_SUPERADMIN,
-                    [
-                        'en' => 'View super admin role',
-                        'sk' => 'Zobraziť super admin rolu',
-                    ],
+                    self::permissionDescriptions('roles.view_superadmin'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::CREATE,
+                    self::permissionDescriptions('roles.create'),
+                    false,
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::EDIT,
+                    self::permissionDescriptions('roles.edit'),
+                    false,
+                    ['superadmin'],
+                ),
+                new Permission(
+                    BasePolicy::DELETE,
+                    self::permissionDescriptions('roles.delete'),
+                    false,
+                    ['superadmin'],
                 ),
                 new Permission(
                     RolePolicy::MANAGE,
-                    [
-                        'en' => 'Manage permissions',
-                        'sk' => 'Spravovať oprávnenia',
-                    ],
+                    self::permissionDescriptions('roles.manage'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     RolePolicy::MANAGE_PROTECTED,
-                    [
-                        'en' => 'Manage protected permissions',
-                        'sk' => 'Spravovať chránené oprávnenia',
-                    ],
+                    self::permissionDescriptions('roles.manage_protected'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(PermissionPolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View user permissions',
-                        'sk' => 'Zobraziť používateľské oprávnenia',
-                    ],
+                    self::permissionDescriptions('permissions.view_any'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
                 new Permission(
                     PermissionPolicy::VIEW_PROTECTED,
-                    [
-                        'en' => 'View protected permissions',
-                        'sk' => 'Zobraziť chránené oprávnenia',
-                    ],
+                    self::permissionDescriptions('permissions.view_protected'),
                     true,
-                    [RoleType::SUPERADMIN],
+                    ['superadmin'],
                 ),
             ]),
             new FeaturePermissions(AuthorPolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View authors',
-                        'sk' => 'Zobraziť autorov',
-                    ],
+                    self::permissionDescriptions('authors.view_any'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
-                    [
-                        'en' => 'View detail of author',
-                        'sk' => 'Zobraziť detail autora',
-                    ],
+                    self::permissionDescriptions('authors.view'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
-                    [
-                        'en' => 'Create authors',
-                        'sk' => 'Vytvoriť autorov',
-                    ],
+                    self::permissionDescriptions('authors.create'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
-                    [
-                        'en' => 'Edit authors',
-                        'sk' => 'Editovať autorov',
-                    ],
+                    self::permissionDescriptions('authors.edit'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
-                    [
-                        'en' => 'Delete authors',
-                        'sk' => 'Zmazať autorov',
-                    ],
+                    self::permissionDescriptions('authors.delete'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
             new FeaturePermissions(ArticlePolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View articles',
-                        'sk' => 'Zobraziť články',
-                    ],
+                    self::permissionDescriptions('articles.view_any'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
-                    [
-                        'en' => 'View article detail',
-                        'sk' => 'Zobraziť detail článku',
-                    ],
+                    self::permissionDescriptions('articles.view'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
-                    [
-                        'en' => 'Create articles',
-                        'sk' => 'Vytvoriť články',
-                    ],
+                    self::permissionDescriptions('articles.create'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
-                    [
-                        'en' => 'Edit articles',
-                        'sk' => 'Upraviť články',
-                    ],
+                    self::permissionDescriptions('articles.edit'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
-                    [
-                        'en' => 'Delete articles',
-                        'sk' => 'Zmazať články',
-                    ],
+                    self::permissionDescriptions('articles.delete'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
             new FeaturePermissions(ArticleCategoryPolicy::FEATURE_NAME, [
                 new Permission(
                     BasePolicy::VIEW_ANY,
-                    [
-                        'en' => 'View article categories',
-                        'sk' => 'Zobraziť kategórie článkov',
-                    ],
+                    self::permissionDescriptions('article_categories.view_any'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::VIEW,
-                    [
-                        'en' => 'View detail of article category',
-                        'sk' => 'Zobraziť detail kategórie článku',
-                    ],
+                    self::permissionDescriptions('article_categories.view'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::CREATE,
-                    [
-                        'en' => 'Create article categories',
-                        'sk' => 'Vytvoriť kategórie článkov',
-                    ],
+                    self::permissionDescriptions('article_categories.create'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::EDIT,
-                    [
-                        'en' => 'Edit article categories',
-                        'sk' => 'Upraviť kategórie článkov',
-                    ],
+                    self::permissionDescriptions('article_categories.edit'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
                 new Permission(
                     BasePolicy::DELETE,
-                    [
-                        'en' => 'Delete article categories',
-                        'sk' => 'Zmazať kategórie článkov',
-                    ],
+                    self::permissionDescriptions('article_categories.delete'),
                     false,
-                    [RoleType::SUPERADMIN, RoleType::ADMIN],
+                    ['superadmin', 'admin'],
                 ),
             ]),
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private static function permissionDescriptions(string $key): array
+    {
+        return [
+            'en' => trans('pjstarter::permissions.' . $key, [], 'en'),
+            'sk' => trans('pjstarter::permissions.' . $key, [], 'sk'),
         ];
     }
 }

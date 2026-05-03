@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Tests\Factories;
 
 use Patrikjak\Auth\Database\Factories\UserFactory as UserFactoryBase;
-use Patrikjak\Auth\Models\RoleType;
 use Patrikjak\Starter\Models\Users\Permission;
 use Patrikjak\Starter\Models\Users\Role;
 use Patrikjak\Starter\Models\Users\User;
@@ -23,7 +22,7 @@ class UserFactory
             $authorFactory = User::factory();
             assert($authorFactory instanceof UserFactoryBase);
 
-            $authorFactory = $authorFactory->withRole(RoleType::SUPERADMIN);
+            $authorFactory = $authorFactory->withRole('superadmin');
             assert($authorFactory instanceof UserFactoryBase);
 
             $user = $authorFactory->create([
@@ -48,7 +47,7 @@ class UserFactory
             $authorFactory = User::factory();
             assert($authorFactory instanceof UserFactoryBase);
 
-            $authorFactory = $authorFactory->withRole(RoleType::ADMIN);
+            $authorFactory = $authorFactory->withRole('admin');
             assert($authorFactory instanceof UserFactoryBase);
 
             $user = $authorFactory->create([
@@ -73,12 +72,18 @@ class UserFactory
             $authorFactory = User::factory();
             assert($authorFactory instanceof UserFactoryBase);
 
+            $authorFactory = $authorFactory->withRole('admin');
+            assert($authorFactory instanceof UserFactoryBase);
+
             $user = $authorFactory->create([
                 'id' => '25381043-0c05-480b-b4c7-5da10059a107',
                 'name' => 'User',
                 'email' => 'user@example.com',
             ]);
             assert($user instanceof User);
+
+            $user->role->permissions()->detach();
+            $user->role->refresh();
 
             self::attachAdditionalPermissions($user->role, $additionalPermissions);
 

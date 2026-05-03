@@ -13,7 +13,7 @@ class ShowTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['view-metadata']);
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 

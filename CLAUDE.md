@@ -39,7 +39,7 @@ docker compose run --rm node npm run dev
 
 # Artisan
 docker compose run --rm cli php artisan install:pjstarter
-docker compose run --rm cli php artisan seed:user-roles
+docker compose run --rm cli php artisan pjauth:sync-roles
 docker compose run --rm cli php artisan pjstarter:permissions:sync
 ```
 

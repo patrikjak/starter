@@ -6,12 +6,17 @@ namespace Patrikjak\Starter\Repositories\Contracts\Users;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Patrikjak\Auth\Repositories\Interfaces\RoleRepository as BaseRoleRepository;
+use Patrikjak\Auth\Repositories\Contracts\RoleRepository as BaseRoleRepository;
 use Patrikjak\Starter\Models\Users\Role;
 
 interface RoleRepository extends BaseRoleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator;
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getAllWithoutSuperAdmin(): Collection;
 
     public function getAllWithoutSuperAdminPaginated(
         int $pageSize,
@@ -30,4 +35,10 @@ interface RoleRepository extends BaseRoleRepository
     public function syncPermissions(Role $role, array $permissions): void;
 
     public function getRolePermissions(Role $role): Collection;
+
+    public function countSuperadminRoles(): int;
+
+    public function update(Role $role, string $name): void;
+
+    public function delete(Role $role): void;
 }

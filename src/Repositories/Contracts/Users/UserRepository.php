@@ -15,4 +15,6 @@ interface UserRepository
         int $page,
         string $refreshUrl,
     ): LengthAwarePaginator;
+
+    public function updateRole(string $userId, string $roleId): void;
 }

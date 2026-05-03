@@ -15,7 +15,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['viewAny-metadata']);
 
         $response = $this->get(route('admin.metadata.index'));
         $response->assertOk();
@@ -27,7 +27,7 @@ class IndexTest extends TestCase
     #[DefineEnvironment('enableArticles')]
     public function testPageCanBeRenderedWithData(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['viewAny-metadata']);
 
         StaticPageFactory::createDefaultWithoutEvents();
         ArticleFactory::createDefaultWithoutEvents();

@@ -13,7 +13,7 @@ class EditTest extends TestCase
     #[DefineEnvironment('enableStaticPages')]
     public function testPageCanBeRendered(): void
     {
-        $this->createAndActAsAdmin();
+        $this->createAndActAsAdmin(['edit-metadata']);
 
         $staticPage = StaticPageFactory::createDefaultWithoutEvents();
 

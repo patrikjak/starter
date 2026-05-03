@@ -15,7 +15,7 @@ class EloquentArticleRepository implements ArticleRepository
 {
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return Article::with('author', 'articleCategory')
+        return Article::query()->with('author', 'articleCategory')
             ->orderBy('created_at', 'desc')
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
@@ -23,7 +23,7 @@ class EloquentArticleRepository implements ArticleRepository
 
     public function getAllContents(): Collection
     {
-        return Article::get(['content']);
+        return Article::query()->get(['content']);
     }
 
     public function create(ArticleInputData $articleInputData, ArticleProcessedData $articleProcessedData): void
@@ -36,14 +36,14 @@ class EloquentArticleRepository implements ArticleRepository
         ArticleInputData $articleInputData,
         ArticleProcessedData $articleProcessedData,
     ): void {
-        $article = Article::findOrFail($id);
+        $article = Article::query()->findOrFail($id);
 
         $this->saveArticle($article, $articleInputData, $articleProcessedData);
     }
 
     public function destroy(string $id): void
     {
-        $article = Article::findOrFail($id);
+        $article = Article::query()->findOrFail($id);
 
         $article->delete();
     }

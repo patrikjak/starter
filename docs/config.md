@@ -105,7 +105,7 @@ The `features` array allows you to enable or disable various package features:
            return new NavigationItem('Dynamic', 'dynamic-url');
        },
        'user_specific' => static function (User $user) {
-           if ($user->hasRole(RoleType::ADMIN)) {
+           if ($user->hasRole('admin')) {
                return new NavigationItem('Admin Only', 'admin-url');
            }
            return null;

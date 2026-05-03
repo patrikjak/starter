@@ -156,29 +156,31 @@ class Navigation extends Component
         if ($this->config->get('pjstarter.features.users')) {
             $usersSubItems = [];
 
-            if ($currentUser === null || $currentUser->canViewAnyRoles()) {
+            $canViewUsers = $currentUser === null || $currentUser->canViewAnyUsers();
+            $canViewRoles = $currentUser === null || $currentUser->canViewAnyRoles();
+
+            if ($canViewRoles) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.roles.title'),
                     route('admin.users.roles.index'),
                 );
             }
 
-            if ($currentUser === null || $currentUser->canViewAnyPermission()) {
-                $usersSubItems[] = new NavigationItem(
-                    __('pjstarter::pages.users.permissions.title'),
-                    route('admin.users.permissions.index'),
-                );
-            }
-
-            if ($currentUser === null || $currentUser->canViewAnyUsers()) {
+            if ($canViewUsers) {
                 array_unshift($usersSubItems, new NavigationItem(
                     __('pjstarter::pages.users.index.title'),
                     route('admin.users.index'),
                 ));
+            }
+
+            if ($canViewUsers || $canViewRoles) {
+                $defaultUrl = $canViewUsers
+                    ? route('admin.users.index')
+                    : route('admin.users.roles.index');
 
                 $managementItems[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),
-                    route('admin.users.index'),
+                    $defaultUrl,
                     subItems: $usersSubItems,
                     icon: self::icon(self::ICON_USERS),
                 );

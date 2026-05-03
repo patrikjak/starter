@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.roles.manage_permissions: USER  - App</title>
+    <title> pjstarter::pages.users.roles.manage_permissions: Editor  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -145,19 +145,19 @@
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.roles.manage_permissions: USER</h1>
+                <h1>pjstarter::pages.users.roles.manage_permissions: Editor</h1>
 
                             </div>
 
             <div class="body">
                 <div class="manage-permissions">
-        <form method="POST" action="http://localhost/admin/api/users/roles/3/permissions">
+        <form method="POST" action="http://localhost/admin/api/users/roles/00000000-0000-0000-0000-000000000003/permissions">
     <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
             <input type="hidden" name="_method" value="PUT">    
     <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Static_page</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.static_page</p>
                             </div>
                     </div>
     
@@ -177,7 +177,7 @@
                             <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Metadata</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.metadata</p>
                             </div>
                     </div>
     
@@ -211,7 +211,34 @@
                             <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Role</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.user</p>
+                            </div>
+                    </div>
+    
+    <div class="pj-widget-body">
+        <div class="permissions grid grid-cols-4 gap-4">
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_create-user" name="permission_create-user">
+
+            <label for="permission_create-user">Invite users</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_edit-user" name="permission_edit-user">
+
+            <label for="permission_edit-user">Edit users</label>
+        </div>
+    </div>
+                                            </div>
+    </div>
+
+    </div>
+                            <div class="pj-widget full mb-4">
+            <div class="pj-widget-header">
+            <div class="pj-widget-header-main">
+                <p class="pj-widget-title">pjstarter::permissions.features.role</p>
                             </div>
                     </div>
     
@@ -222,6 +249,27 @@
             <input type="checkbox" id="permission_view-role" name="permission_view-role">
 
             <label for="permission_view-role">View detail of user role</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_create-role" name="permission_create-role">
+
+            <label for="permission_create-role">Create user roles</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_edit-role" name="permission_edit-role">
+
+            <label for="permission_edit-role">Edit user roles</label>
+        </div>
+    </div>
+                                                    <div class="pj-checkbox">
+        <div class="group">
+            <input type="checkbox" id="permission_delete-role" name="permission_delete-role">
+
+            <label for="permission_delete-role">Delete user roles</label>
         </div>
     </div>
                                                     <div class="pj-checkbox">
@@ -238,7 +286,7 @@
                             <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Author</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.author</p>
                             </div>
                     </div>
     
@@ -286,7 +334,7 @@
                             <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Article</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.article</p>
                             </div>
                     </div>
     
@@ -334,7 +382,7 @@
                             <div class="pj-widget full mb-4">
             <div class="pj-widget-header">
             <div class="pj-widget-header-main">
-                <p class="pj-widget-title">Article_category</p>
+                <p class="pj-widget-title">pjstarter::permissions.features.article_category</p>
                             </div>
                     </div>
     

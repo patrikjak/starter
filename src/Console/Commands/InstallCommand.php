@@ -22,7 +22,7 @@ class InstallCommand extends Command
 
     public function handle(): void
     {
-        $this->call('install:pjauth');
+        $this->call('pjauth:install');
         $this->call('vendor:publish', ['--tag' => 'pjstarter-assets', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'pjstarter-views', '--force' => true]);
         $this->call('vendor:publish', ['--tag' => 'pjstarter-config', '--force' => true]);

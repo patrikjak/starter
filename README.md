@@ -105,7 +105,7 @@ The setup order matters - permissions must exist before they can be assigned to 
 
 ```bash
 # Create roles (SUPERADMIN, ADMIN, USER) from the auth package
-php artisan seed:user-roles
+php artisan pjauth:sync-roles
 
 # Sync permissions to database (creates all permissions defined in PermissionsDefinition)
 php artisan pjstarter:permissions:sync
@@ -115,14 +115,14 @@ php artisan pjstarter:permissions:sync
 
 Create your own seeders for roles with permissions, users, and content. The recommended seeder order:
 
-1. **RoleSeeder** - Assign permissions to roles (roles are created by `seed:user-roles`, permissions by `pjstarter:permissions:sync`)
+1. **RoleSeeder** - Assign permissions to roles (roles are created by `pjauth:sync-roles`, permissions by `pjstarter:permissions:sync`)
 2. **UserSeeder** - Create users with role assignments
 3. **Content seeders** - Authors, article categories, articles, static pages, etc.
 
 ### Quick Reset
 
 ```bash
-php artisan migrate:fresh --force && php artisan seed:user-roles && php artisan pjstarter:permissions:sync && php artisan db:seed
+php artisan migrate:fresh --force && php artisan pjauth:sync-roles && php artisan pjstarter:permissions:sync && php artisan db:seed
 ```
 
 ## Feature Toggles

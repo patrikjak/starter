@@ -19,7 +19,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getAll(): Collection
     {
-        return $this->getModel()::all();
+        return $this->getModel()::query()->get();
     }
 
     /**
@@ -28,7 +28,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getAllUnprotected(): Collection
     {
-        return $this->getModel()::where('protected', '!=', 1)->get();
+        return $this->getModel()::query()->where('protected', '!=', 1)->get();
     }
 
     /**
@@ -36,7 +36,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getAllPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return $this->getModel()::paginate($pageSize, page: $page)->withPath($refreshUrl);
+        return $this->getModel()::query()->paginate($pageSize, page: $page)->withPath($refreshUrl);
     }
 
     /**
@@ -44,7 +44,8 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getAllUnprotectedPaginated(int $pageSize, int $page, string $refreshUrl): LengthAwarePaginator
     {
-        return $this->getModel()::where('protected', '=', 0)
+        return $this->getModel()::query()
+            ->where('protected', '=', 0)
             ->paginate($pageSize, page: $page)
             ->withPath($refreshUrl);
     }
@@ -54,7 +55,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function getByNames(array $names): Collection
     {
-        return $this->getModel()::whereIn('name', $names)->get();
+        return $this->getModel()::query()->whereIn('name', $names)->get();
     }
 
     /**
@@ -76,7 +77,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function updateByName(NewPermission $newPermission): void
     {
-        $permission = $this->getModel()::where('name', $newPermission->name)->first();
+        $permission = $this->getModel()::query()->where('name', $newPermission->name)->first();
 
         if (!$permission) {
             return;
@@ -93,7 +94,7 @@ class EloquentPermissionRepository implements PermissionRepository
      */
     public function deleteByName(string $name): void
     {
-        $permission = $this->getModel()::where('name', $name)->first();
+        $permission = $this->getModel()::query()->where('name', $name)->first();
 
         $permission?->delete();
     }

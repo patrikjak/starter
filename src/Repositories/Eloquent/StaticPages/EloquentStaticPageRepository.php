@@ -29,7 +29,7 @@ class EloquentStaticPageRepository implements StaticPageRepository
 
     public function update(string $id, string $name): void
     {
-        $staticPage = StaticPage::findOrFail($id);
+        $staticPage = StaticPage::query()->findOrFail($id);
 
         $staticPage->name = $name;
 
@@ -38,6 +38,6 @@ class EloquentStaticPageRepository implements StaticPageRepository
 
     public function delete(string $id): void
     {
-        StaticPage::destroy($id);
+        StaticPage::query()->findOrFail($id)->delete();
     }
 }
