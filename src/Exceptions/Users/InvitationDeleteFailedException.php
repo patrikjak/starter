@@ -10,6 +10,6 @@ final class InvitationDeleteFailedException extends NotFoundHttpException
 {
     public function __construct(string $email)
     {
-        parent::__construct(sprintf('Failed to delete invitation for %s.', $email));
+        parent::__construct(sprintf('Failed to delete invitation for %s', $email));
     }
 }

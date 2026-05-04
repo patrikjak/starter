@@ -10,6 +10,6 @@ final class InvitationUpdateFailedException extends NotFoundHttpException
 {
     public function __construct(string $email)
     {
-        parent::__construct(sprintf('Failed to update invitation for %s.', $email));
+        parent::__construct(sprintf('Failed to update invitation for %s', $email));
     }
 }
