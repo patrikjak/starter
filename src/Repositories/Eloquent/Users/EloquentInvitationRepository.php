@@ -53,12 +53,16 @@ readonly class EloquentInvitationRepository implements InvitationRepository
 
     public function updateRole(string $email, string $roleId): void
     {
-        $updated = $this->databaseManager->table('register_invites')
+        $exists = $this->databaseManager->table('register_invites')
             ->where('email', $email)
-            ->update(['role_id' => $roleId]);
+            ->exists();
 
-        if ($updated === 0) {
+        if (!$exists) {
             throw new InvitationUpdateFailedException($email);
         }
+
+        $this->databaseManager->table('register_invites')
+            ->where('email', $email)
+            ->update(['role_id' => $roleId]);
     }
 }

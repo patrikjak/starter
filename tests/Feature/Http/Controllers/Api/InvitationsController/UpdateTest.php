@@ -39,6 +39,29 @@ final class UpdateTest extends TestCase
 
     #[DefineEnvironment('enableUsers')]
     #[DefineEnvironment('enableRegisterViaInvitationFeature')]
+    public function testUpdateWithSameRoleSucceeds(): void
+    {
+        $this->createAndActAsSuperAdmin();
+
+        $adminRole = Role::query()->where('slug', 'admin')->firstOrFail();
+
+        $this->app->make('db')->table('register_invites')->insert([
+            'email' => 'pending@example.com',
+            'token' => 'test-token',
+            'role_id' => $adminRole->id,
+            'created_at' => '2025-05-18 10:00:00',
+        ]);
+
+        $response = $this->putJson(
+            route('admin.api.users.invitations.update', ['email' => 'pending@example.com']),
+            ['role_id' => $adminRole->id],
+        );
+
+        $response->assertOk();
+    }
+
+    #[DefineEnvironment('enableUsers')]
+    #[DefineEnvironment('enableRegisterViaInvitationFeature')]
     public function testUpdateNonExistentReturnsNotFound(): void
     {
         $this->createAndActAsSuperAdmin();
