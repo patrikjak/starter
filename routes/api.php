@@ -10,6 +10,7 @@ use Patrikjak\Starter\Http\Controllers\Content\ContentController;
 use Patrikjak\Starter\Http\Controllers\Metadata\Api\MetadataController;
 use Patrikjak\Starter\Http\Controllers\Slugs\Api\SlugsController;
 use Patrikjak\Starter\Http\Controllers\StaticPages\Api\StaticPagesController;
+use Patrikjak\Starter\Http\Controllers\Users\Api\InvitationsController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\RolesController;
 use Patrikjak\Starter\Http\Controllers\Users\Api\UsersController;
 use Patrikjak\Starter\Models\Articles\Article;
@@ -33,6 +34,7 @@ Route::middleware($middleware)
         $usersEnabled = config('pjstarter.features.users');
         $articlesEnabled = config('pjstarter.features.articles');
         $contentImagesEnabled = config('pjstarter.features.content_images');
+        $invitationsEnabled = config('pjauth.features.register_via_invitation');
 
         if ($staticPagesEnabled) {
             Route::prefix('static-pages')
@@ -79,7 +81,7 @@ Route::middleware($middleware)
         }
 
         if ($usersEnabled) {
-            Route::prefix('users')->name('users.')->group(static function () use ($authEnabled): void {
+            Route::prefix('users')->name('users.')->group(static function () use ($invitationsEnabled, $authEnabled): void {
                 $tablePartsRoute = Route::get('/table-parts', [UsersController::class, 'tableParts'])->name('table-parts');
                 if ($authEnabled) {
                     $tablePartsRoute->can(BasePolicy::VIEW_ANY, User::class);
@@ -93,6 +95,25 @@ Route::middleware($middleware)
                 $updateRoute = Route::put('/{user}', [UsersController::class, 'update'])->name('update');
                 if ($authEnabled) {
                     $updateRoute->can(BasePolicy::EDIT, 'user');
+                }
+
+                if ($invitationsEnabled) {
+                    Route::prefix('invitations')->name('invitations.')->group(static function () use ($authEnabled): void {
+                        $tablePartsRoute = Route::get('/table-parts', [InvitationsController::class, 'tableParts'])->name('table-parts');
+                        if ($authEnabled) {
+                            $tablePartsRoute->can(BasePolicy::CREATE, User::class);
+                        }
+
+                        $updateRoute = Route::put('/{email}', [InvitationsController::class, 'update'])->name('update');
+                        if ($authEnabled) {
+                            $updateRoute->can(BasePolicy::CREATE, User::class);
+                        }
+
+                        $destroyRoute = Route::delete('/{email}', [InvitationsController::class, 'destroy'])->name('destroy');
+                        if ($authEnabled) {
+                            $destroyRoute->can(BasePolicy::CREATE, User::class);
+                        }
+                    });
                 }
 
                 Route::prefix('roles')->name('roles.')->group(static function () use ($authEnabled): void {

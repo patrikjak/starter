@@ -33,6 +33,7 @@ use Patrikjak\Starter\Repositories\Contracts\Authors\AuthorRepository;
 use Patrikjak\Starter\Repositories\Contracts\Metadata\MetadataRepository;
 use Patrikjak\Starter\Repositories\Contracts\Slugs\SlugRepository;
 use Patrikjak\Starter\Repositories\Contracts\StaticPages\StaticPageRepository;
+use Patrikjak\Starter\Repositories\Contracts\Users\InvitationRepository;
 use Patrikjak\Starter\Repositories\Contracts\Users\PermissionRepository;
 use Patrikjak\Starter\Repositories\Contracts\Users\RoleRepository;
 use Patrikjak\Starter\Repositories\Contracts\Users\UserRepository;
@@ -42,6 +43,7 @@ use Patrikjak\Starter\Repositories\Eloquent\Authors\EloquentAuthorRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Metadata\EloquentMetadataRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Slugs\EloquentSlugRepository;
 use Patrikjak\Starter\Repositories\Eloquent\StaticPages\EloquentStaticPageRepository;
+use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentInvitationRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentPermissionRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentRoleRepository;
 use Patrikjak\Starter\Repositories\Eloquent\Users\EloquentUserRepository;
@@ -54,6 +56,7 @@ class StarterServiceProvider extends ServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
+        InvitationRepository::class => EloquentInvitationRepository::class,
         SlugRepository::class => EloquentSlugRepository::class,
         StaticPageRepository::class => EloquentStaticPageRepository::class,
         MetadataRepository::class => EloquentMetadataRepository::class,

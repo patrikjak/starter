@@ -51,6 +51,11 @@ trait AvailablePermissions
         return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::VIEW_ANY);
     }
 
+    public function canViewAnyInvitations(): bool
+    {
+        return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::CREATE);
+    }
+
     public function canEditUser(): bool
     {
         return $this->hasPermission(UserPolicy::FEATURE_NAME, BasePolicy::EDIT);

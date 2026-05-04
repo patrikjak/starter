@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{CSRF-TOKEN}">
-    <title> pjstarter::pages.users.title  - App</title>
+    <title> pjstarter::pages.users.invitations.title  - App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
@@ -78,7 +78,7 @@
 
             <div class="sub-items">
                             <div class="item-wrapper">
-    <a href="http://localhost/admin/users" class="item active" data-nav-tooltip="pjstarter::pages.users.index.title">
+    <a href="http://localhost/admin/users" class="item" data-nav-tooltip="pjstarter::pages.users.index.title">
         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="7" height="7" rx="1"></rect>
@@ -105,59 +105,68 @@
 
             </a>
 
+    </div>                            <div class="item-wrapper">
+    <a href="http://localhost/admin/users/invitations" class="item active" data-nav-tooltip="pjstarter::pages.users.invitations.title">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
+        <span class="text">pjstarter::pages.users.invitations.title</span>
+
+            </a>
+
     </div>                    </div>
     </div>                            </div>
             </div>
 
+            <div class="user">
+            <div class="initials">
+                SA
+            </div>
+
+            <div class="info">
+                <div class="name">
+                    Super Admin
+                </div>
+                <div class="email">
+                    superadmin@example.com
+                </div>
+            </div>
+
+            <div class="button">
+                <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>            </div>
+        </div>
+
+        <div class="user-items">
+                            <div class="group">
+                                            <a href="http://localhost/admin/profile" class="item">
+                            <span class="text">pjstarter::pages.profile.title</span>
+                        </a>
+                                    </div>
+                        <div class="group">
+                <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                    <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+                </form>
+            </div>
+        </div>
     </div>
 
         <div class="content">
             <div class="header">
-                <h1>pjstarter::pages.users.title</h1>
+                <h1>pjstarter::pages.users.invitations.title</h1>
 
-                                    <div class="actions">
-                        <button class="pj-btn" id="invite-user-btn">
-        pjstarter::pages.users.invite_user
-            </button>
-                    </div>
                             </div>
 
             <div class="body">
-                <div class="users">
-        <div class="pj-table-wrapper" id="users-table" data-html-parts-url="http://localhost/admin/api/users/table-parts" data-restoring>
-    <div class="table-options">
-    <div class="controllers">
-        
-        
-                    <div class="controller column-visibility-controller" data-table-id="users-table">
-    <div class="clickable">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-</svg>        <span>pjutils::table.columns</span>
-    </div>
-    <div class="options column-options">
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="name" checked>
-        <input type="checkbox" value="name" checked>
-        <span>pjstarter::pages.users.name</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="email" checked>
-        <input type="checkbox" value="email" checked>
-        <span>pjstarter::pages.users.email</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="role" checked>
-        <input type="checkbox" value="role" checked>
-        <span>pjstarter::pages.users.role</span>
-    </label>
-                    <label class="pj-checkbox-inline option column-option column-checkbox" value="created_at">
-        <input type="checkbox" value="created_at">
-        <span>pjstarter::general.created_at</span>
-    </label>
-            </div>
-</div>
-            </div>
-
+                <div class="invitations">
+        <div class="pj-table-wrapper" id="invitations-table" data-html-parts-url="http://localhost/admin/api/users/invitations/table-parts" data-restoring>
     
-    </div>
     <div class="table-wrapper">
         <table class="pj-table">
 
@@ -166,32 +175,65 @@
         
         
                                 <th>
-                pjstarter::pages.users.name
-                            </th>
-                                <th>
                 pjstarter::pages.users.email
                             </th>
                                 <th>
                 pjstarter::pages.users.role
                             </th>
+                                <th>
+                pjstarter::pages.users.invitations.invited_at
+                            </th>
         
                     <th class="actions"></th>
             </tr>
 </thead>            <tbody>
-    <tr class="empty-row">
-    <td colspan="4">
-        <div class="empty-state">
-                        <p class="empty-state-title">pjutils::table.no_data_available</p>
-                    </div>
+            <tr id="pending@example.com">
+    
+    
+            <td class="simple email">
+    
+    pending@example.com
+
     </td>
-</tr>
-</tbody>        </table>
+            <td class="simple role">
+    
+    Admin
+
+    </td>
+            <td class="simple invited_at">
+    
+    2025-05-18 10:00:00
+
+    </td>
+    
+                        <td class="actions" data-delete-href="http://localhost/admin/api/users/invitations/pending@example.com" data-delete-method="DELETE">
+    <div class="actions-inner">
+                                                <button type="button" class="action-btn change-role neutral">
+                                            <div class="icon edit-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+</svg>
+                                                    </div>
+                                        <span class="label">pjstarter::pages.users.invitations.change_role</span>
+                </button>
+                                                            <button type="button" class="action-btn delete danger">
+                                            <div class="icon trash-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+</svg>
+                                                    </div>
+                                        <span class="label">pjstarter::general.delete</span>
+                </button>
+                    
+            </div>
+</td>
+            </tr>    </tbody>        </table>
     </div>
 
     
     
             <div class="pagination">
-    <div class="page-size" data-href="http://localhost/admin/api/users/table-parts">
+    <div class="page-size" data-href="http://localhost/admin/api/users/invitations/table-parts">
     <div class="pj-dropdown">
     
     <div class="dropdown-wrapper">
@@ -226,7 +268,7 @@
                             </div>
             </a>
 
-                    <a href="http://localhost/admin/api/users/table-parts?page=1" class="link active">
+                    <a href="http://localhost/admin/api/users/invitations/table-parts?page=1" class="link active">
                     <span class="page-number">1</span>
             </a>
 
@@ -274,18 +316,18 @@
                     }
 
                     const row = actionBtn.closest('tr');
-                    const userId = row ? row.id : null;
+                    const email = row ? row.id : null;
 
-                    if (!userId) {
+                    if (!email) {
                         return;
                     }
 
                     const modal = new window.pjutils.Modal(true);
-                    modal.setTitle('pjstarter::pages.users.change_role_modal_title');
+                    modal.setTitle('pjstarter::pages.users.invitations.change_role_modal_title');
                     modal.setBody(document.getElementById('change-role-form').innerHTML);
-                    modal.setFooterButton('pjstarter::pages.users.change_role', function () {
+                    modal.setFooterButton('pjstarter::pages.users.invitations.change_role', function () {
                         const modalForm = document.querySelector('.modal .body form');
-                        modalForm.setAttribute('action', 'http://localhost/admin/api/users/__USER_ID__'.replace('__USER_ID__', userId));
+                        modalForm.setAttribute('action', 'http://localhost/admin/api/users/invitations/__EMAIL__'.replace('__EMAIL__', encodeURIComponent(email)));
                         modalForm.setAttribute('method', 'PUT');
 
                         const form = new window.pjutils.Form(modalForm);
@@ -301,47 +343,6 @@
                     });
                     modal.open();
                 });
-            });
-        </script>
-    
-            <template id="invite-user-form">
-            <form method="POST" action="http://localhost/admin/api/users/invite">
-    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">
-    
-    <div class="pj-classic">
-            <label for="email">pjstarter::pages.users.email</label>
-    
-            <input type="email" id="email" name="email" autofocus="autofocus">
-    
-    </div>
-                <div class="pj-select">
-    <label for="role_id">pjstarter::pages.users.role</label>
-
-    <select id="role_id" name="role_id">
-                                    <option value="00000000-0000-0000-0000-000000000001">Superadmin</option>                            <option value="00000000-0000-0000-0000-000000000002">Admin</option>                        </select>
-</div>
-
-    </form>        </template>
-
-        <script>
-            document.getElementById('invite-user-btn').addEventListener('click', function () {
-                const modal = new window.pjutils.Modal(true);
-                modal.setTitle('pjstarter::pages.users.invite_modal_title');
-                modal.setBody(document.getElementById('invite-user-form').innerHTML);
-                modal.setFooterButton('pjstarter::pages.users.invite_user', function () {
-                    const modalForm = document.querySelector('.modal .body form');
-                    const form = new window.pjutils.Form(modalForm);
-
-                    form.setSuccessCallback(function (form, response) {
-                        window.pjutils.Form.defaultSuccessCallback(form, response);
-                        modal.close();
-                    });
-
-                    form.submitWithButton(document.querySelector('.modal .footer .pj-btn'));
-
-                    return false;
-                });
-                modal.open();
             });
         </script>
             </div>

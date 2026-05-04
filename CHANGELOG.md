@@ -19,6 +19,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.11.0] - 2026-05-04
+
+### Added
+
+- **Invited users screen** — new `admin/users/invitations` page lists all pending invitations with email, assigned role, and invited-at timestamp; requires `create-user` permission
+- **Delete invitation** — pending invitations can be deleted directly from the invitations table
+- **Update invitation role** — the role assigned to a pending invitation can be changed via an inline modal, consistent with the user role-change pattern
+- **`InvitationRepository`** — new repository contract (`Contracts/Users/InvitationRepository`) and Eloquent implementation (`EloquentInvitationRepository`) encapsulate all `register_invites` DB access; joins `roles` to resolve role names
+
+### Changed
+
+- **Navigation** — "Invitations" added as a third sub-item under the "Users" nav group, gated on `create-user` permission; the parent group fallback URL now cascades through users → roles → invitations
+- **Users index** — the "Roles" shortcut button has been removed from the action slot; roles are accessible via the navigation sub-items
+
 ## [0.10.0] - 2026-05-03
 
 ### Added

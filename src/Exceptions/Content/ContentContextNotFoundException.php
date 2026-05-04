@@ -12,7 +12,7 @@ final class ContentContextNotFoundException extends RuntimeException implements 
 {
     public function __construct(string $key)
     {
-        parent::__construct(sprintf("Content context '%s' not found in registry.", $key));
+        parent::__construct(sprintf("Content context '%s' not found in registry", $key));
     }
 
     public function getStatusCode(): int

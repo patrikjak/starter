@@ -10,6 +10,6 @@ final class InvalidImageUrlException extends RuntimeException
 {
     public function __construct(string $url)
     {
-        parent::__construct(sprintf("Image URL '%s' is not valid. Only HTTPS URLs are accepted.", $url));
+        parent::__construct(sprintf("Image URL '%s' is not valid. Only HTTPS URLs are accepted", $url));
     }
 }

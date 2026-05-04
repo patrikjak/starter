@@ -46,7 +46,7 @@ class ContentContextRegistryTest extends TestCase
         $registry = new ContentContextRegistry();
 
         $this->expectException(ContentContextNotFoundException::class);
-        $this->expectExceptionMessage("Content context 'unknown' not found in registry.");
+        $this->expectExceptionMessage("Content context 'unknown' not found in registry");
 
         $registry->get('unknown');
     }

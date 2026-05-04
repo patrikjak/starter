@@ -158,11 +158,21 @@ class Navigation extends Component
 
             $canViewUsers = $currentUser === null || $currentUser->canViewAnyUsers();
             $canViewRoles = $currentUser === null || $currentUser->canViewAnyRoles();
+            $invitationsEnabled = $this->config->get('pjauth.features.register_via_invitation');
+            $canViewInvitations = $invitationsEnabled
+                && ($currentUser === null || $currentUser->canViewAnyInvitations());
 
             if ($canViewRoles) {
                 $usersSubItems[] = new NavigationItem(
                     __('pjstarter::pages.users.roles.title'),
                     route('admin.users.roles.index'),
+                );
+            }
+
+            if ($canViewInvitations) {
+                $usersSubItems[] = new NavigationItem(
+                    __('pjstarter::pages.users.invitations.title'),
+                    route('admin.users.invitations.index'),
                 );
             }
 
@@ -173,10 +183,10 @@ class Navigation extends Component
                 ));
             }
 
-            if ($canViewUsers || $canViewRoles) {
+            if ($canViewUsers || $canViewRoles || $canViewInvitations) {
                 $defaultUrl = $canViewUsers
                     ? route('admin.users.index')
-                    : route('admin.users.roles.index');
+                    : ($canViewRoles ? route('admin.users.roles.index') : route('admin.users.invitations.index'));
 
                 $managementItems[] = new NavigationItem(
                     __('pjstarter::pages.users.title'),

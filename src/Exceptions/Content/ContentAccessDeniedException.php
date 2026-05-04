@@ -13,7 +13,7 @@ final class ContentAccessDeniedException extends RuntimeException implements Htt
     public function __construct(string $modelClass)
     {
         parent::__construct(sprintf(
-            "User does not have create or edit permission for '%s'.",
+            "User does not have create or edit permission for '%s'",
             $modelClass,
         ));
     }
