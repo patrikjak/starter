@@ -222,7 +222,11 @@ class NavigationTest extends TestCase
         $app['config']->set('pjstarter.navigation', [
             'home' => '/dashboard',
             'items' => [
-                new NavigationItem('Custom Management Item', 'custom-mgmt-url', group: BuiltinNavigationGroup::Management),
+                new NavigationItem(
+                    'Custom Management Item',
+                    'custom-mgmt-url',
+                    group: BuiltinNavigationGroup::Management,
+                ),
             ],
             'user_items' => [],
         ]);
