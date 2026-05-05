@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.12.0] - 2026-05-05
+
+### Added
+
+- **`BuiltinNavigationGroup` enum** — new `Patrikjak\Starter\Enums\BuiltinNavigationGroup` enum with cases `Main`, `Content`, and `Management`, identifying the three built-in sidebar groups
+- **Group targeting for nav items** — `NavigationItem` gains an optional `group` parameter (`?BuiltinNavigationGroup`, default `null`); items with a group value are injected into the matching built-in sidebar group; items with no group create a new standalone group labelled with the application name (`pjstarter.app_name`)
+
 ## [0.11.0] - 2026-05-04
 
 ### Added

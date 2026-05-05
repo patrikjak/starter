@@ -1,0 +1,83 @@
+<html><body>
+<div class="navigation">
+    <button id="nav-collapse-btn" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
+    <div class="app-name">
+        <div class="initials">
+            AP
+        </div>
+
+        <a href="/dashboard">App</a>
+    </div>
+
+
+    <div class="items">
+                    <div class="nav-group">
+                <p class="nav-group-label">pjstarter::general.nav_main</p>
+
+                                    <div class="item-wrapper">
+    <a href="http://localhost/admin/dashboard" class="item" data-nav-tooltip="pjstarter::general.dashboard">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
+                    </span>
+        <span class="text">pjstarter::general.dashboard</span>
+
+            </a>
+
+    </div>                                    <div class="item-wrapper">
+    <a href="custom-main-url" class="item" data-nav-tooltip="Custom Main Item">
+        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                    </span>
+        <span class="text">Custom Main Item</span>
+
+            </a>
+
+    </div>                            </div>
+            </div>
+
+            <div class="user">
+            <div class="initials">
+                US
+            </div>
+
+            <div class="info">
+                <div class="name">
+                    User
+                </div>
+                <div class="email">
+                    user@example.com
+                </div>
+            </div>
+
+            <div class="button">
+                <div class="arrow-wrapper">
+    <i class="arrow right"></i>
+</div>            </div>
+        </div>
+
+        <div class="user-items">
+                            <div class="group">
+                                            <a href="http://localhost/admin/profile" class="item">
+                            <span class="text">pjstarter::pages.profile.title</span>
+                        </a>
+                                    </div>
+                        <div class="group">
+                <form method="POST" action="http://localhost/api/logout" class="item logout-form">
+                    <input type="hidden" name="_token" value="{TOKEN}" autocomplete="off">                    <a href="http://localhost/api/logout" class="text">pjstarter::general.logout</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body></html>
