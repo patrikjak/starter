@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Patrikjak\Starter\Dto\Common;
 
 use Closure;
+use Patrikjak\Starter\Enums\BuiltinNavigationGroup;
 
 class NavigationItem
 {
@@ -19,6 +20,7 @@ class NavigationItem
         public ?string $classes = null,
         public array $subItems = [],
         public ?string $icon = null,
+        public ?BuiltinNavigationGroup $group = null,
     ) {
         foreach ($this->subItems as $subItem) {
             $subItem->setParent($this);

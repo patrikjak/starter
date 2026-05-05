@@ -12,6 +12,7 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\View\Component;
 use Patrikjak\Starter\Dto\Common\NavigationGroup;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Patrikjak\Starter\Enums\BuiltinNavigationGroup;
 use Patrikjak\Starter\Models\Users\User;
 
 class Navigation extends Component
@@ -201,7 +202,18 @@ class Navigation extends Component
         $configItems = $parsed['items'];
         $configGroups = $parsed['groups'];
 
-        $allItems = array_merge($mainItems, $contentItems, $managementItems, $configItems);
+        $appItems = [];
+
+        foreach ($configItems as $configItem) {
+            match ($configItem->group) {
+                BuiltinNavigationGroup::Main => $mainItems[] = $configItem,
+                BuiltinNavigationGroup::Content => $contentItems[] = $configItem,
+                BuiltinNavigationGroup::Management => $managementItems[] = $configItem,
+                default => $appItems[] = $configItem,
+            };
+        }
+
+        $allItems = array_merge($mainItems, $contentItems, $managementItems, $appItems);
 
         foreach ($configGroups as $group) {
             $allItems = array_merge($allItems, $group->items);
@@ -219,11 +231,12 @@ class Navigation extends Component
             $groups[] = new NavigationGroup(__('pjstarter::general.nav_content'), $contentItems);
         }
 
-        if ($managementItems !== [] || $configItems !== []) {
-            $groups[] = new NavigationGroup(
-                __('pjstarter::general.nav_management'),
-                array_merge($managementItems, $configItems),
-            );
+        if ($managementItems !== []) {
+            $groups[] = new NavigationGroup(__('pjstarter::general.nav_management'), $managementItems);
+        }
+
+        if ($appItems !== []) {
+            $groups[] = new NavigationGroup($this->config->get('pjstarter.app_name'), $appItems);
         }
 
         foreach ($configGroups as $group) {

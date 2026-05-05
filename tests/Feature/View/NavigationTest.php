@@ -10,6 +10,7 @@ use Orchestra\Testbench\Attributes\DefineEnvironment;
 use Patrikjak\Auth\Models\User;
 use Patrikjak\Starter\Dto\Common\NavigationGroup;
 use Patrikjak\Starter\Dto\Common\NavigationItem;
+use Patrikjak\Starter\Enums\BuiltinNavigationGroup;
 use Patrikjak\Starter\Tests\TestCase;
 use Patrikjak\Starter\Tests\Traits\ConfigSetter;
 
@@ -55,6 +56,54 @@ class NavigationTest extends TestCase
 
     #[DefineEnvironment('usesNavigationGroups')]
     public function testNavigationWithCustomGroups(): void
+    {
+        $this->createAndActAsUser();
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    #[DefineEnvironment('injectsItemWithoutGroup')]
+    public function testNavigationWithItemWithoutGroup(): void
+    {
+        $this->createAndActAsUser();
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    #[DefineEnvironment('injectsItemIntoMainGroup')]
+    public function testNavigationWithItemInjectedIntoMainGroup(): void
+    {
+        $this->createAndActAsUser();
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    #[DefineEnvironment('injectsItemIntoContentGroup')]
+    public function testNavigationWithItemInjectedIntoContentGroup(): void
+    {
+        $this->createAndActAsUser();
+
+        $this->assertMatchesHtmlSnapshot(Blade::render(
+            <<<'HTML'
+                <x-pjstarter::navigation />
+            HTML
+        ));
+    }
+
+    #[DefineEnvironment('injectsItemIntoManagementGroup')]
+    public function testNavigationWithItemInjectedIntoManagementGroup(): void
     {
         $this->createAndActAsUser();
 
@@ -132,6 +181,54 @@ class NavigationTest extends TestCase
                     'custom-class',
                 ),
             ],
+        ]);
+    }
+
+    protected function injectsItemWithoutGroup(Application $app): void
+    {
+        $app['config']->set('pjstarter.navigation', [
+            'home' => '/dashboard',
+            'items' => [
+                new NavigationItem('App Item', 'app-item-url'),
+            ],
+            'user_items' => [],
+        ]);
+    }
+
+    protected function injectsItemIntoMainGroup(Application $app): void
+    {
+        $app['config']->set('pjstarter.navigation', [
+            'home' => '/dashboard',
+            'items' => [
+                new NavigationItem('Custom Main Item', 'custom-main-url', group: BuiltinNavigationGroup::Main),
+            ],
+            'user_items' => [],
+        ]);
+    }
+
+    protected function injectsItemIntoContentGroup(Application $app): void
+    {
+        $app['config']->set('pjstarter.navigation', [
+            'home' => '/dashboard',
+            'items' => [
+                new NavigationItem('Projekty', 'projekty-url', group: BuiltinNavigationGroup::Content),
+            ],
+            'user_items' => [],
+        ]);
+    }
+
+    protected function injectsItemIntoManagementGroup(Application $app): void
+    {
+        $app['config']->set('pjstarter.navigation', [
+            'home' => '/dashboard',
+            'items' => [
+                new NavigationItem(
+                    'Custom Management Item',
+                    'custom-mgmt-url',
+                    group: BuiltinNavigationGroup::Management,
+                ),
+            ],
+            'user_items' => [],
         ]);
     }
 }
